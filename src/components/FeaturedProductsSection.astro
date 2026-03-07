@@ -1,0 +1,43 @@
+---
+const features = [
+  { title: "Smart Temperature Control", description: "Innovation", image: "/images/flott-03.jpeg" },
+  { title: "Ultra-Light Carbon Frame", description: "Performance", image: "/images/flott-07.jpeg" },
+  { title: "Weather-Resistant Design", description: "Durability", image: "/images/flott-09.jpeg" },
+  { title: "Integrated GPS Tracking", description: "Navigation", image: "/images/flott-12.jpeg" },
+  { title: "Built-In LED Flashlight", description: "Visibility", image: "/images/flott-16.jpeg" },
+  { title: "Self-Heating Technology", description: "Comfort", image: "/images/flott-18.jpeg" },
+];
+---
+
+<section id="technology" class="bg-background">
+  <div class="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
+    <h2 class="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+      Engineered for Excellence.
+      <br />
+      Designed for Adventure.
+    </h2>
+    <p class="mx-auto mt-6 max-w-md text-sm text-muted-foreground">Technology</p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 px-6 pb-20 md:grid-cols-3 md:px-12 lg:px-20">
+    {features.map((feature) => (
+      <div class="group">
+        <div class="relative aspect-[4/3] overflow-hidden rounded-2xl">
+          <img
+            src={feature.image}
+            alt={feature.title}
+            class="fade-image absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          />
+        </div>
+        <div class="py-6">
+          <p class="mb-2 text-xs uppercase tracking-widest text-muted-foreground">{feature.description}</p>
+          <h3 class="text-foreground text-xl font-semibold">{feature.title}</h3>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="flex justify-center px-6 pb-28 md:px-12 lg:px-20"></div>
+</section>

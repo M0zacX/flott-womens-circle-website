@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import { HeroSection } from "../components/HeroSection";
+import { PhilosophySection } from "../components/PhilosophySection";
+import FeaturedProductsSection from "../components/FeaturedProductsSection.astro";
+import { TechnologySection } from "../components/TechnologySection";
+import { GallerySection } from "../components/GallerySection";
+import CollectionSection from "../components/CollectionSection.astro";
+import EditorialSection from "../components/EditorialSection.astro";
+import TestimonialsSection from "../components/TestimonialsSection.astro";
+import FooterSection from "../components/FooterSection.astro";
+---
+
+<Layout title="Flott Women's Circle">
+  <main class="min-h-screen bg-background">
+    <Header client:load />
+    <HeroSection client:load />
+    <PhilosophySection client:load />
+    <FeaturedProductsSection />
+    <TechnologySection client:load />
+    <GallerySection client:load />
+    <CollectionSection />
+    <EditorialSection />
+    <TestimonialsSection />
+    <FooterSection />
+  </main>
+</Layout>
