@@ -135,7 +135,7 @@ export function PhilosophySection() {
 
           <div className="relative w-full">
             <div className={`absolute inset-0 flex items-center justify-center pointer-events-none z-0 word-blur-group ${titleWordsVisible ? "visible" : ""}`} style={{ opacity: titleOpacity }}>
-              <h2 className="text-[12vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[10vw] lg:text-[8vw] text-center px-6">
+              <h2 className="text-[12vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[10vw] lg:text-[7vw] xl:text-[6vw] text-center px-6">
                 <span className="word-blur" style={{ transitionDelay: "0s" }}>Wellness.</span>{" "}
                 <span className="word-blur" style={{ transitionDelay: "0.15s" }}>Skills.</span>{" "}
                 <span className="word-blur" style={{ transitionDelay: "0.35s", fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500 }}>Empowerment.</span>
