@@ -33,7 +33,7 @@ export function ScrollRevealText({ text, className = "", accentWords = [] }: { t
           <span key={index} style={{
             color: wordReveal > 0.01 ? "var(--color-foreground)" : "var(--color-border)",
             filter: `blur(${blur}px)`,
-            transition: "color 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.6s cubic-bezier(0.22, 1, 0.36, 1)",
+            transition: "color 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 1.0s cubic-bezier(0.22, 1, 0.36, 1)",
             ...(accentWords.some(aw => word.replace(/[.,!?]$/, '') === aw) ? { fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500 } : {}),
           }}>
             {word}{index < words.length - 1 ? " " : ""}

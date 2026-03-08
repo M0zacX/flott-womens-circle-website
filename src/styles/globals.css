@@ -85,9 +85,9 @@
   filter: blur(18px);
   will-change: opacity, transform, filter;
   transition:
-    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible {
   opacity: 1;
@@ -101,9 +101,9 @@
   filter: blur(18px);
   will-change: opacity, transform, filter;
   transition:
-    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-right {
   opacity: 0;
@@ -111,9 +111,9 @@
   filter: blur(18px);
   will-change: opacity, transform, filter;
   transition:
-    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-left.visible,
 .reveal-right.visible {
@@ -125,7 +125,7 @@
 .reveal-clip {
   clip-path: inset(100% 0 0 0);
   will-change: clip-path;
-  transition: clip-path 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: clip-path 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-clip.visible {
   clip-path: inset(0 0 0 0);
@@ -140,7 +140,7 @@
   display: inline-block;
   transform: translateY(120%);
   will-change: transform;
-  transition: transform 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-words.visible .word-inner {
   transform: translateY(0);
@@ -152,9 +152,9 @@
   filter: blur(14px);
   will-change: opacity, transform, filter;
   transition:
-    opacity 3.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 3.5s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 4s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 1.0s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.0s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-counter.visible {
   opacity: 1;
@@ -169,9 +169,9 @@
   filter: blur(10px);
   will-change: opacity, transform, filter;
   transition:
-    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-flip.visible {
   opacity: 1;
@@ -186,8 +186,8 @@
   filter: blur(8px);
   will-change: color, filter;
   transition:
-    color 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+    color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.0s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .word-blur-group.visible .word-blur {
   color: inherit;
