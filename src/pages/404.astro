@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+---
+
+<Layout title="Page Not Found - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-hidden relative flex flex-col">
+    <Header client:load innerPage={true} />
+
+    <!-- Decorative floral SVG -->
+    <svg
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[650px] md:h-[650px] text-[#e8b4b8] opacity-[0.3] pointer-events-none"
+      viewBox="0 0 500 500"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="0.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="250" cy="250" r="240" />
+      <circle cx="250" cy="250" r="200" />
+      <circle cx="250" cy="250" r="160" />
+      <path d="M250 90 C270 130 290 180 290 250" opacity="0.5" />
+      <path d="M250 90 C230 130 210 180 210 250" opacity="0.5" />
+      <path d="M250 410 C230 370 210 320 210 250" opacity="0.5" />
+      <path d="M250 410 C270 370 290 320 290 250" opacity="0.5" />
+      <path d="M90 250 C130 230 180 210 250 210" opacity="0.5" />
+      <path d="M90 250 C130 270 180 290 250 290" opacity="0.5" />
+      <path d="M410 250 C370 230 320 210 250 210" opacity="0.5" />
+      <path d="M410 250 C370 270 320 290 250 290" opacity="0.5" />
+      <circle cx="250" cy="90" r="3" />
+      <circle cx="250" cy="410" r="3" />
+      <circle cx="90" cy="250" r="3" />
+      <circle cx="410" cy="250" r="3" />
+      <path d="M250 250 m-20 0 a20 20 0 1 1 40 0 a20 20 0 1 1 -40 0" />
+    </svg>
+
+    <!-- Content — all centered -->
+    <div class="flex-1 flex flex-col items-center justify-center text-center px-6 relative z-10">
+      <!-- 404 massive -->
+      <div class="overflow-hidden">
+        <p
+          class="about-hero-word text-[10rem] sm:text-[14rem] md:text-[18rem] lg:text-[22rem] font-semibold tracking-[-0.04em] leading-none"
+          style="
+            -webkit-text-stroke: 2px var(--color-foreground);
+            -webkit-text-fill-color: transparent;
+            animation-delay: 0.1s;
+          "
+        >
+          404
+        </p>
+      </div>
+
+      <!-- Message -->
+      <p
+        class="about-hero-fade mt-4 md:mt-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-md"
+        style="animation-delay: 0.35s"
+      >
+        This page doesn't exist, but your
+        <span
+          style="
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--color-foreground);
+          "
+        >circle</span>
+        is waiting.
+      </p>
+
+      <!-- Back link -->
+      <div class="about-hero-fade mt-8 md:mt-10" style="animation-delay: 0.55s">
+        <a
+          href="/"
+          class="inline-flex items-center gap-3 border border-foreground/30 text-foreground text-xs tracking-[0.15em] uppercase px-7 py-3.5 rounded-full hover:bg-foreground hover:text-background transition-all duration-500"
+          style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1)"
+        >
+          <svg class="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

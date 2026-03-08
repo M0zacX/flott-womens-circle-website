@@ -130,58 +130,77 @@ export function AboutStructureSection() {
           </h2>
         </div>
 
-        {/* Overlapping circles */}
-        <div className="mx-auto flex flex-wrap justify-center items-center w-fit">
-          {circles.map((circle, index) => {
-            const delay = 0.05 + index * 0.1;
-            const circleProgress = Math.max(
-              0,
-              Math.min(1, (progress - delay) * 2.5)
-            );
-            const circleOpacity = circleProgress;
-            const circleBlur = (1 - circleProgress) * 8;
-            const circleScale = 0.7 + circleProgress * 0.3;
-            const spreadX = (1 - circleProgress) * (index - 2) * 30;
-
-            const overlapClass =
-              index === 0
-                ? ""
-                : "-ml-5 sm:-ml-6 md:-ml-8 lg:-ml-10";
-
-            return (
-              <div
-                key={index}
-                className={`flex flex-col items-center ${overlapClass}`}
-                style={{
-                  opacity: circleOpacity,
-                  filter: `blur(${circleBlur}px)`,
-                  transform: `scale(${circleScale}) translateX(${spreadX}px)`,
-                  transition: "opacity 0.8s, filter 0.8s, transform 0.8s",
-                }}
-              >
+        {/* Overlapping circles — 3 top + 2 bottom (Olympic/Venn layout) */}
+        <div className="mx-auto w-fit">
+          {/* Top row: 3 circles */}
+          <div className="flex justify-center">
+            {circles.slice(0, 3).map((circle, index) => {
+              const delay = 0.05 + index * 0.1;
+              const cp = Math.max(0, Math.min(1, (progress - delay) * 2.5));
+              return (
                 <div
-                  className="relative flex flex-col items-center justify-center w-[5rem] h-[5rem] sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 rounded-full border border-white/15 overflow-hidden"
+                  key={index}
+                  className={`flex flex-col items-center ${index > 0 ? "-ml-5 sm:-ml-6 md:-ml-10 lg:-ml-12" : ""}`}
                   style={{
-                    background: `rgba(15, 9, 6, ${0.9 - index * 0.1})`,
+                    opacity: cp,
+                    filter: `blur(${(1 - cp) * 8}px)`,
+                    transform: `scale(${0.7 + cp * 0.3})`,
+                    transition: "opacity 0.8s, filter 0.8s, transform 0.8s",
                   }}
                 >
-                  <span
-                    className="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl"
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontStyle: "italic",
-                      fontWeight: 500,
-                    }}
+                  <div
+                    className="relative flex flex-col items-center justify-center w-[8.5rem] h-[8.5rem] sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 rounded-full border border-white/15"
+                    style={{ background: `rgba(15, 9, 6, ${0.95 - index * 0.08})` }}
                   >
-                    {circle.city}
-                  </span>
-                  <p className="mt-0.5 sm:mt-1 text-[7px] sm:text-[9px] md:text-[10px] lg:text-xs uppercase tracking-[0.08em] sm:tracking-[0.15em] text-white/35 text-center leading-tight">
-                    {circle.lead}
-                  </p>
+                    <span
+                      className="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl whitespace-nowrap"
+                      style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500 }}
+                    >
+                      {circle.city}
+                    </span>
+                    <p className="mt-0.5 sm:mt-1 text-[7px] sm:text-[9px] md:text-[10px] lg:text-xs uppercase tracking-[0.08em] sm:tracking-[0.15em] text-white/35">
+                      {circle.lead}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* Bottom row: 2 circles, nestled between top row */}
+          <div className="flex justify-center -mt-8 sm:-mt-7 md:-mt-10 lg:-mt-12">
+            {circles.slice(3).map((circle, index) => {
+              const delay = 0.05 + (index + 3) * 0.1;
+              const cp = Math.max(0, Math.min(1, (progress - delay) * 2.5));
+              return (
+                <div
+                  key={index + 3}
+                  className={`flex flex-col items-center ${index > 0 ? "-ml-5 sm:-ml-6 md:-ml-10 lg:-ml-12" : ""}`}
+                  style={{
+                    opacity: cp,
+                    filter: `blur(${(1 - cp) * 8}px)`,
+                    transform: `scale(${0.7 + cp * 0.3})`,
+                    transition: "opacity 0.8s, filter 0.8s, transform 0.8s",
+                  }}
+                >
+                  <div
+                    className="relative flex flex-col items-center justify-center w-[8.5rem] h-[8.5rem] sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 rounded-full border border-white/15"
+                    style={{ background: `rgba(15, 9, 6, ${0.95 - (index + 3) * 0.08})` }}
+                  >
+                    <span
+                      className="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl whitespace-nowrap"
+                      style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500 }}
+                    >
+                      {circle.city}
+                    </span>
+                    <p className="mt-0.5 sm:mt-1 text-[7px] sm:text-[9px] md:text-[10px] lg:text-xs uppercase tracking-[0.08em] sm:tracking-[0.15em] text-white/35">
+                      {circle.lead}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Below circles: two-column text */}
