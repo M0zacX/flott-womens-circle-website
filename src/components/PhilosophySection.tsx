@@ -10,11 +10,12 @@ export function PhilosophySection() {
   const textRef = useRef<HTMLDivElement>(null);
   const [textVisible, setTextVisible] = useState(false);
   const [titleWordsVisible, setTitleWordsVisible] = useState(false);
+  const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
 
   const updateTransforms = useCallback(() => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    const windowHeight = stableHeight.current;
     const sectionHeight = sectionRef.current.offsetHeight;
     const scrollableRange = sectionHeight - windowHeight;
     const scrolled = -rect.top;

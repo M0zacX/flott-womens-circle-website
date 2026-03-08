@@ -11,6 +11,7 @@ const sideImages = [
 export function TechnologySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
 
   const descriptionText = "Five cities. One shared philosophy. Each Circle moves to the rhythm of its community — honouring local culture while staying rooted in wellness, skills, and empowerment. From Abuja to Ilorin, every gathering brings women closer to balanced, intentional living.";
 
@@ -18,7 +19,7 @@ export function TechnologySection() {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 2;
+      const scrollableHeight = stableHeight.current * 2;
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
       setScrollProgress(progress);

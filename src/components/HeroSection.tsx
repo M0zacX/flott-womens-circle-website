@@ -21,12 +21,13 @@ export function HeroSection() {
   const [videoCurrentTime, setVideoCurrentTime] = useState("0:00");
   const [videoDuration, setVideoDuration] = useState("0:00");
   const [videoMuted, setVideoMuted] = useState(false);
+  const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 2;
+      const scrollableHeight = stableHeight.current * 2;
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
       setScrollProgress(progress);

@@ -128,21 +128,30 @@ export function GallerySection() {
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
   const dragStartScroll = useRef(0);
+  const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
+  const lastWidth = useRef(typeof window !== "undefined" ? window.innerWidth : 1200);
 
   useEffect(() => {
     const calculateHeight = () => {
       if (!containerRef.current) return;
       const containerWidth = containerRef.current.scrollWidth;
       const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      const totalHeight = viewportHeight + (containerWidth - viewportWidth);
+      const totalHeight = stableHeight.current + (containerWidth - viewportWidth);
       setSectionHeight(`${totalHeight}px`);
     };
     const timer = setTimeout(calculateHeight, 100);
-    window.addEventListener("resize", calculateHeight);
+    const handleResize = () => {
+      // Only recalculate on actual width changes, not mobile address bar toggle
+      if (window.innerWidth !== lastWidth.current) {
+        lastWidth.current = window.innerWidth;
+        stableHeight.current = window.innerHeight;
+        calculateHeight();
+      }
+    };
+    window.addEventListener("resize", handleResize);
     return () => {
       clearTimeout(timer);
-      window.removeEventListener("resize", calculateHeight);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
