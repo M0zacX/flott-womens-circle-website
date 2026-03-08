@@ -1,4 +1,6 @@
 ---
+import "../styles/globals.css";
+
 interface Props {
   title: string;
 }
@@ -9,13 +11,57 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
   <body class="bg-background text-foreground antialiased">
     <slot />
+    <script>
+      // Split text for word-reveal elements
+      document.querySelectorAll(".reveal-words").forEach((el) => {
+        const text = el.textContent || "";
+        el.innerHTML = text
+          .split(" ")
+          .map(
+            (word, i) =>
+              `<span class="word"><span class="word-inner" style="transition-delay:${i * 0.12}s">${word}</span></span>`
+          )
+          .join(" ");
+      });
+
+      // Auto-split text for blur-words elements
+      document.querySelectorAll(".blur-words").forEach((el) => {
+        const text = el.textContent || "";
+        el.innerHTML = text
+          .split(" ")
+          .map(
+            (word, i) =>
+              `<span class="word-blur" style="transition-delay:${i * 0.06}s">${word}</span>`
+          )
+          .join(" ");
+        el.classList.add("word-blur-group");
+      });
+
+      // Unified observer for all reveal types
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -150px 0px" }
+      );
+
+      document
+        .querySelectorAll(
+          ".reveal, .reveal-left, .reveal-right, .reveal-clip, .reveal-words, .reveal-counter, .reveal-flip, .word-blur-group"
+        )
+        .forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>
-
-<style is:global>
-  @import "../styles/globals.css";
-</style>

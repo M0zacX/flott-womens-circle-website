@@ -1,0 +1,173 @@
+---
+/**
+ * Decorative floral SVG elements inspired by folk-art mandala and henna patterns.
+ * Use these as absolutely positioned, low-opacity background decorations.
+ *
+ * Props per element:
+ *   class - additional classes (position, size, opacity, color)
+ */
+---
+
+<!-- 1. Mandala Flower — concentric petals with geometric center -->
+<Fragment slot="mandala-flower">
+<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Center circle -->
+  <circle cx="200" cy="200" r="12" />
+  <circle cx="200" cy="200" r="6" />
+  <!-- Inner ring of dots -->
+  <circle cx="200" cy="172" r="3" /><circle cx="228" cy="186" r="3" /><circle cx="217" cy="214" r="3" />
+  <circle cx="183" cy="214" r="3" /><circle cx="172" cy="186" r="3" />
+  <!-- Inner petals (5) -->
+  <path d="M200 168 Q212 148 200 128 Q188 148 200 168Z" />
+  <path d="M230 184 Q250 178 258 158 Q238 168 230 184Z" />
+  <path d="M220 212 Q238 226 256 222 Q240 208 220 212Z" />
+  <path d="M180 212 Q162 226 144 222 Q160 208 180 212Z" />
+  <path d="M170 184 Q150 178 142 158 Q162 168 170 184Z" />
+  <!-- Middle ring -->
+  <circle cx="200" cy="200" r="50" />
+  <!-- Outer petals (8) -->
+  <path d="M200 150 Q218 120 200 88 Q182 120 200 150Z" />
+  <path d="M235 157 Q262 138 266 104 Q244 128 235 157Z" />
+  <path d="M250 200 Q280 200 300 178 Q274 188 250 200Z" />
+  <path d="M235 243 Q262 262 266 296 Q244 272 235 243Z" />
+  <path d="M200 250 Q218 280 200 312 Q182 280 200 250Z" />
+  <path d="M165 243 Q138 262 134 296 Q156 272 165 243Z" />
+  <path d="M150 200 Q120 200 100 178 Q126 188 150 200Z" />
+  <path d="M165 157 Q138 138 134 104 Q156 128 165 157Z" />
+  <!-- Outer ring -->
+  <circle cx="200" cy="200" r="90" />
+  <!-- Outermost decorative scallops -->
+  <path d="M200 108 Q214 94 200 76 Q186 94 200 108" />
+  <path d="M265 135 Q282 126 284 108 Q268 120 265 135" />
+  <path d="M292 200 Q306 194 314 178 Q298 186 292 200" />
+  <path d="M265 265 Q282 274 284 292 Q268 280 265 265" />
+  <path d="M200 292 Q214 306 200 324 Q186 306 200 292" />
+  <path d="M135 265 Q118 274 116 292 Q132 280 135 265" />
+  <path d="M108 200 Q94 194 86 178 Q102 186 108 200" />
+  <path d="M135 135 Q118 126 116 108 Q132 120 135 135" />
+</svg>
+</Fragment>
+
+<!-- 2. Spiral Vine — curling paisley with leaves -->
+<Fragment slot="spiral-vine">
+<svg viewBox="0 0 350 500" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Main spiral stem -->
+  <path d="M175 480 C175 420 140 380 160 320 C180 260 120 240 140 180 C160 120 200 140 190 80 C182 40 150 20 175 10" />
+  <!-- Large paisley curl top -->
+  <path d="M175 10 C220 10 260 50 250 100 C240 150 190 140 190 80" />
+  <!-- Inner paisley detail -->
+  <path d="M200 50 C220 50 236 70 230 90 C224 110 204 105 204 80" />
+  <!-- Leaf pair 1 (from stem ~320) -->
+  <path d="M160 320 C130 300 110 310 100 290" />
+  <path d="M100 290 C110 300 108 316 120 312" />
+  <path d="M160 320 C190 300 210 310 220 290" />
+  <path d="M220 290 C210 300 212 316 200 312" />
+  <!-- Leaf veins -->
+  <path d="M160 320 C140 308 118 302 100 290" opacity="0.5" />
+  <path d="M160 320 C180 308 202 302 220 290" opacity="0.5" />
+  <!-- Small curl 1 -->
+  <path d="M140 180 C110 170 90 190 100 210 C110 230 135 220 130 200" />
+  <!-- Leaf pair 2 (from stem ~240) -->
+  <path d="M130 240 C100 228 82 238 72 222" />
+  <path d="M130 240 C160 228 178 238 188 222" />
+  <!-- Small spiral offshoot -->
+  <path d="M170 400 C200 390 220 400 218 420 C216 440 196 435 198 418" />
+  <!-- Small leaves off spiral -->
+  <path d="M218 420 C232 410 244 416 240 428" />
+  <!-- Dot accents -->
+  <circle cx="100" cy="286" r="2.5" /><circle cx="220" cy="286" r="2.5" />
+  <circle cx="72" cy="218" r="2.5" /><circle cx="188" cy="218" r="2.5" />
+  <circle cx="240" cy="432" r="2.5" />
+  <circle cx="250" cy="100" r="2" /><circle cx="230" cy="92" r="1.5" />
+</svg>
+</Fragment>
+
+<!-- 3. Geometric Bloom — star-shaped folk flower with radiating petals -->
+<Fragment slot="geometric-bloom">
+<svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Center -->
+  <circle cx="150" cy="150" r="10" />
+  <circle cx="150" cy="150" r="4" />
+  <!-- Inner star petals (6-pointed) -->
+  <path d="M150 140 L155 118 L150 96 L145 118Z" />
+  <path d="M160 145 L178 134 L196 130 L178 140Z" />
+  <path d="M160 155 L178 160 L196 170 L178 156Z" />
+  <path d="M150 160 L155 182 L150 204 L145 182Z" />
+  <path d="M140 155 L122 160 L104 170 L122 156Z" />
+  <path d="M140 145 L122 134 L104 130 L122 140Z" />
+  <!-- Radiating lines between petals -->
+  <line x1="150" y1="90" x2="150" y2="60" />
+  <line x1="202" y1="120" x2="226" y2="106" />
+  <line x1="202" y1="180" x2="226" y2="194" />
+  <line x1="150" y1="210" x2="150" y2="240" />
+  <line x1="98" y1="180" x2="74" y2="194" />
+  <line x1="98" y1="120" x2="74" y2="106" />
+  <!-- Outer dots at line ends -->
+  <circle cx="150" cy="56" r="3" /><circle cx="228" cy="104" r="3" />
+  <circle cx="228" cy="196" r="3" /><circle cx="150" cy="244" r="3" />
+  <circle cx="72" cy="196" r="3" /><circle cx="72" cy="104" r="3" />
+  <!-- Decorative arc segments between dots -->
+  <path d="M156 58 Q192 68 224 106" fill="none" />
+  <path d="M230 110 Q244 148 230 192" fill="none" />
+  <path d="M224 198 Q192 232 156 242" fill="none" />
+  <path d="M144 242 Q108 232 76 198" fill="none" />
+  <path d="M70 192 Q56 148 70 110" fill="none" />
+  <path d="M76 106 Q108 68 144 58" fill="none" />
+  <!-- Tiny accent marks on arcs -->
+  <line x1="190" y1="72" x2="194" y2="68" /><line x1="240" y1="150" x2="246" y2="150" />
+  <line x1="190" y1="228" x2="194" y2="232" /><line x1="110" y1="228" x2="106" y2="232" />
+  <line x1="60" y1="150" x2="54" y2="150" /><line x1="110" y1="72" x2="106" y2="68" />
+</svg>
+</Fragment>
+
+<!-- 4. Leaf Cluster — flowing leaves with vein details -->
+<Fragment slot="leaf-cluster">
+<svg viewBox="0 0 250 300" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Stem -->
+  <path d="M125 290 C125 250 110 220 120 180 C130 140 115 110 125 60" />
+  <!-- Leaf 1 — large right -->
+  <path d="M125 180 C160 160 190 170 195 150 C200 130 170 120 125 150" />
+  <path d="M125 168 C155 155 178 152 195 150" opacity="0.5" />
+  <path d="M148 160 C152 150 154 140 152 132" opacity="0.4" />
+  <path d="M168 156 C174 148 176 138 172 128" opacity="0.4" />
+  <!-- Leaf 2 — large left -->
+  <path d="M120 130 C85 110 55 120 50 100 C45 80 75 70 120 100" />
+  <path d="M120 118 C90 105 67 102 50 100" opacity="0.5" />
+  <path d="M97 110 C93 100 91 90 93 82" opacity="0.4" />
+  <path d="M74 106 C68 98 66 88 70 78" opacity="0.4" />
+  <!-- Leaf 3 — small right -->
+  <path d="M125 100 C148 88 165 94 168 82 C171 70 155 64 125 82" />
+  <path d="M125 92 C145 84 158 82 168 82" opacity="0.5" />
+  <!-- Leaf 4 — small left -->
+  <path d="M122 220 C98 210 80 218 76 208 C72 198 88 190 122 206" />
+  <path d="M122 214 C102 208 86 206 76 208" opacity="0.5" />
+  <!-- Tiny bud at top -->
+  <path d="M125 60 C132 48 128 34 125 28 C122 34 118 48 125 60" />
+  <!-- Dot accents -->
+  <circle cx="125" cy="26" r="2" />
+  <circle cx="195" cy="148" r="2" />
+  <circle cx="50" cy="98" r="2" />
+</svg>
+</Fragment>
+
+<!-- 5. Small Rosette — simple circular flower with spiral center -->
+<Fragment slot="small-rosette">
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Spiral center -->
+  <path d="M100 100 C100 94 106 90 112 92 C118 94 118 102 112 106 C106 110 96 108 94 100 C92 92 98 84 108 84 C118 84 124 94 122 104 C120 114 108 120 98 118" />
+  <!-- Petals (8) -->
+  <path d="M100 82 Q108 60 100 42 Q92 60 100 82Z" />
+  <path d="M113 86 Q130 72 138 54 Q122 68 113 86Z" />
+  <path d="M118 100 Q140 100 156 92 Q138 98 118 100Z" />
+  <path d="M113 114 Q130 128 138 146 Q122 132 113 114Z" />
+  <path d="M100 118 Q108 140 100 158 Q92 140 100 118Z" />
+  <path d="M87 114 Q70 128 62 146 Q78 132 87 114Z" />
+  <path d="M82 100 Q60 100 44 92 Q62 98 82 100Z" />
+  <path d="M87 86 Q70 72 62 54 Q78 68 87 86Z" />
+  <!-- Outer dot ring -->
+  <circle cx="100" cy="36" r="2" /><circle cx="142" cy="50" r="2" />
+  <circle cx="162" cy="92" r="2" /><circle cx="142" cy="150" r="2" />
+  <circle cx="100" cy="164" r="2" /><circle cx="58" cy="150" r="2" />
+  <circle cx="38" cy="92" r="2" /><circle cx="58" cy="50" r="2" />
+</svg>
+</Fragment>

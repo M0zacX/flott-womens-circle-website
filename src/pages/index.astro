@@ -8,12 +8,14 @@ import { TechnologySection } from "../components/TechnologySection";
 import { GallerySection } from "../components/GallerySection";
 import CollectionSection from "../components/CollectionSection.astro";
 import EditorialSection from "../components/EditorialSection.astro";
+import { StatsSection } from "../components/StatsSection";
+import TeamSection from "../components/TeamSection.astro";
 import TestimonialsSection from "../components/TestimonialsSection.astro";
 import FooterSection from "../components/FooterSection.astro";
 ---
 
-<Layout title="Flott Women's Circle">
-  <main class="min-h-screen bg-background">
+<Layout title="Flott Women's Circle - Wellness, Skills & Empowerment">
+  <main class="min-h-screen bg-background overflow-x-clip">
     <Header client:load />
     <HeroSection client:load />
     <PhilosophySection client:load />
@@ -22,6 +24,8 @@ import FooterSection from "../components/FooterSection.astro";
     <GallerySection client:load />
     <CollectionSection />
     <EditorialSection />
+    <StatsSection client:visible />
+    <TeamSection />
     <TestimonialsSection />
     <FooterSection />
   </main>

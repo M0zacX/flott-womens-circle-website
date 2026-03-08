@@ -1,16 +1,174 @@
 ---
+import { ScrollRevealText } from "./ScrollRevealText";
 ---
 
-<section id="about" class="bg-background">
+<section id="philosophy" class="bg-background relative overflow-hidden">
+  <!-- Intricate Medallion Mandala — large right decoration -->
+  <svg class="absolute -top-16 -right-20 w-[320px] h-[320px] lg:w-[420px] lg:h-[420px] text-[#e8b4b8] opacity-[0.35] pointer-events-none hidden md:block" viewBox="0 0 500 500" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- Center tiny flower -->
+    <circle cx="250" cy="250" r="5" /><circle cx="250" cy="250" r="10" />
+    <path d="M250 237 Q254 230 250 224 Q246 230 250 237Z" />
+    <path d="M263 244 Q268 240 272 244 Q268 248 263 244Z" />
+    <path d="M263 256 Q268 260 272 256 Q268 252 263 256Z" />
+    <path d="M250 263 Q254 270 250 276 Q246 270 250 263Z" />
+    <path d="M237 256 Q232 260 228 256 Q232 252 237 256Z" />
+    <path d="M237 244 Q232 240 228 244 Q232 248 237 244Z" />
+    <!-- Ring 1: dot cluster -->
+    <circle cx="250" cy="218" r="2.5" /><circle cx="278" cy="234" r="2.5" /><circle cx="278" cy="266" r="2.5" />
+    <circle cx="250" cy="282" r="2.5" /><circle cx="222" cy="266" r="2.5" /><circle cx="222" cy="234" r="2.5" />
+    <circle cx="268" cy="224" r="2" /><circle cx="272" cy="250" r="2" /><circle cx="268" cy="276" r="2" />
+    <circle cx="232" cy="276" r="2" /><circle cx="228" cy="250" r="2" /><circle cx="232" cy="224" r="2" />
+    <!-- Ring 2: teardrop petals — 10 -->
+    <circle cx="250" cy="250" r="40" />
+    <path d="M250 208 Q258 190 250 172 Q242 190 250 208Z" />
+    <path d="M275 215 Q292 204 298 186 Q284 200 275 215Z" />
+    <path d="M290 244 Q310 240 322 228 Q306 238 290 244Z" />
+    <path d="M282 270 Q298 282 310 280 Q296 276 282 270Z" />
+    <path d="M262 288 Q270 308 266 322 Q258 306 262 288Z" />
+    <path d="M238 288 Q230 308 234 322 Q242 306 238 288Z" />
+    <path d="M218 270 Q202 282 190 280 Q204 276 218 270Z" />
+    <path d="M210 244 Q190 240 178 228 Q194 238 210 244Z" />
+    <path d="M225 215 Q208 204 202 186 Q216 200 225 215Z" />
+    <!-- Ring 3: zigzag band -->
+    <circle cx="250" cy="250" r="62" />
+    <path d="M250 186 L254 180 L258 186 L262 180 L266 186 L270 180 L274 186" opacity="0.5" />
+    <path d="M310 238 L316 234 L310 230 L316 226 L310 222" opacity="0.5" />
+    <path d="M274 314 L270 320 L266 314 L262 320 L258 314 L254 320 L250 314" opacity="0.5" />
+    <path d="M190 262 L184 266 L190 270 L184 274 L190 278" opacity="0.5" />
+    <!-- Ring 4: large petals with vein details — 12 -->
+    <path d="M250 184 Q264 150 250 118 Q236 150 250 184Z" />
+    <path d="M250 160 L250 130" opacity="0.35" />
+    <path d="M280 192 Q308 170 310 136 Q292 164 280 192Z" />
+    <path d="M296 162 L306 142" opacity="0.35" />
+    <path d="M306 228 Q340 224 360 200 Q334 218 306 228Z" />
+    <path d="M338 216 L354 206" opacity="0.35" />
+    <path d="M306 272 Q340 276 360 300 Q334 282 306 272Z" />
+    <path d="M338 284 L354 294" opacity="0.35" />
+    <path d="M280 308 Q308 330 310 364 Q292 336 280 308Z" />
+    <path d="M296 338 L306 358" opacity="0.35" />
+    <path d="M250 316 Q264 350 250 382 Q236 350 250 316Z" />
+    <path d="M250 340 L250 370" opacity="0.35" />
+    <path d="M220 308 Q192 330 190 364 Q208 336 220 308Z" />
+    <path d="M204 338 L194 358" opacity="0.35" />
+    <path d="M194 272 Q160 276 140 300 Q166 282 194 272Z" />
+    <path d="M162 284 L146 294" opacity="0.35" />
+    <path d="M194 228 Q160 224 140 200 Q166 218 194 228Z" />
+    <path d="M162 216 L146 206" opacity="0.35" />
+    <path d="M220 192 Q192 170 190 136 Q208 164 220 192Z" />
+    <path d="M204 162 L194 142" opacity="0.35" />
+    <path d="M270 196 Q294 178 302 154 Q286 174 270 196Z" />
+    <path d="M230 304 Q206 322 198 346 Q214 326 230 304Z" />
+    <!-- Ring 5: outer ring -->
+    <circle cx="250" cy="250" r="105" />
+    <!-- Scalloped arcs — 8 segments -->
+    <path d="M250 142 Q290 130 330 148" fill="none" />
+    <path d="M330 148 Q362 178 362 220" fill="none" />
+    <path d="M362 280 Q362 322 330 352" fill="none" />
+    <path d="M330 352 Q290 370 250 358" fill="none" />
+    <path d="M250 358 Q210 370 170 352" fill="none" />
+    <path d="M170 352 Q138 322 138 280" fill="none" />
+    <path d="M138 220 Q138 178 170 148" fill="none" />
+    <path d="M170 148 Q210 130 250 142" fill="none" />
+    <!-- Leaf accents at cardinal points -->
+    <path d="M250 144 C260 126 256 108 250 98 C244 108 240 126 250 144" />
+    <path d="M356 250 C374 260 392 256 402 250 C392 244 374 240 356 250" />
+    <path d="M250 356 C260 374 256 392 250 402 C244 392 240 374 250 356" />
+    <path d="M144 250 C126 260 108 256 98 250 C108 244 126 240 144 250" />
+    <!-- Tip dots -->
+    <circle cx="250" cy="94" r="3" /><circle cx="406" cy="250" r="3" />
+    <circle cx="250" cy="406" r="3" /><circle cx="94" cy="250" r="3" />
+    <circle cx="338" cy="146" r="2" /><circle cx="338" cy="354" r="2" />
+    <circle cx="162" cy="354" r="2" /><circle cx="162" cy="146" r="2" />
+  </svg>
+
+  <!-- Flowing Henna Paisley — bottom left, mobile visible -->
+  <svg class="absolute bottom-16 -left-4 w-[130px] h-[185px] md:w-[180px] md:h-[260px] text-[#e8b4b8] opacity-[0.3] pointer-events-none" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate(15deg)">
+    <!-- Main paisley body -->
+    <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+    <!-- Inner paisley -->
+    <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+    <!-- Spiral center -->
+    <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206 C146 198 152 192 162 192 C172 192 178 202 176 212 C174 222 162 228 154 226" />
+    <!-- 6 petals -->
+    <path d="M150 188 Q156 172 150 158 Q144 172 150 188Z" />
+    <path d="M166 200 Q180 194 188 182 Q176 192 166 200Z" />
+    <path d="M166 218 Q180 224 188 236 Q176 226 166 218Z" />
+    <path d="M150 230 Q156 246 150 260 Q144 246 150 230Z" />
+    <path d="M134 218 Q120 224 112 236 Q124 226 134 218Z" />
+    <path d="M134 200 Q120 194 112 182 Q124 192 134 200Z" />
+    <!-- Dots -->
+    <circle cx="150" cy="152" r="2.5" /><circle cx="192" cy="178" r="2.5" /><circle cx="192" cy="240" r="2.5" />
+    <circle cx="150" cy="264" r="2.5" /><circle cx="108" cy="240" r="2.5" /><circle cx="108" cy="178" r="2.5" />
+    <!-- Top curl -->
+    <path d="M150 20 C172 12 182 22 178 38 C174 52 158 48 162 34" />
+    <circle cx="150" cy="12" r="2.5" />
+  </svg>
+
   <div class="px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40">
-    <p class="mx-auto max-w-5xl text-2xl leading-relaxed text-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
-      Alpine & Forest accessories combine aerospace-grade materials with cutting-edge technology —
-      designed for explorers who refuse to compromise on quality or performance in the wild.
-    </p>
+    <ScrollRevealText
+      client:visible
+      text="We believe empowered women begin with awareness. We believe skills grow best in safe, supportive environments. We believe wellness and empowerment are inseparable."
+      className="mx-auto max-w-5xl text-2xl leading-relaxed md:text-3xl lg:text-[2.5rem] lg:leading-snug"
+      accentWords={["awareness", "inseparable"]}
+    />
   </div>
 
-  <div class="relative aspect-[16/9] w-full">
-    <img src="/images/flott-04.jpeg" alt="Flott Women's Circle community" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+  <div class="relative aspect-[32/9] w-full reveal-clip">
+    <img src="/images/flott-footer-img.png" alt="Flott Women's Circle community" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-black/30"></div>
+    <div class="absolute inset-0 flex items-end px-8 pb-8 md:px-14 md:pb-12 lg:px-20 lg:pb-16">
+      <div class="cta-words" style="text-indent: -0.04em;">
+        <h2 class="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-[1.05] tracking-tight">
+          <span class="cta-w" style="transition-delay: 0s;">Empowering</span>{" "}
+          <span class="cta-w" style="transition-delay: 0.15s;">Women</span><br/>
+          <span class="cta-w" style="transition-delay: 0.35s;">To</span>{" "}
+          <span class="cta-w" style="transition-delay: 0.5s;">Rise</span>{" "}
+          <span class="cta-w" style="transition-delay: 0.7s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Together.</span>
+        </h2>
+        <p class="cta-sub mt-3 md:mt-5 text-xs md:text-sm font-normal tracking-[0.2em] uppercase">Flott Women's Circle</p>
+      </div>
+    </div>
   </div>
+
+  <script>
+    const ctaObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            ctaObs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    document.querySelectorAll(".cta-words").forEach((el) => ctaObs.observe(el));
+  </script>
 </section>
+
+<style>
+  .cta-w {
+    color: transparent;
+    filter: blur(8px);
+    will-change: color, filter;
+    transition:
+      color 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cta-words.visible .cta-w {
+    color: #0F0906;
+    filter: blur(0);
+  }
+  .cta-sub {
+    color: transparent;
+    filter: blur(6px);
+    will-change: color, filter;
+    transition:
+      color 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.9s,
+      filter 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.9s;
+  }
+  .cta-words.visible .cta-sub {
+    color: rgb(15 9 6 / 0.6);
+    filter: blur(0);
+  }
+</style>

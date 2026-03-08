@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #09090b;
-  --color-secondary: #f4f4f5;
-  --color-border: #e4e4e7;
-  --color-muted-foreground: #71717a;
+  --color-background: #EBE7E2;
+  --color-foreground: #0F0906;
+  --color-secondary: #F5E6D5;
+  --color-border: #E8D5C4;
+  --color-muted-foreground: #5C3D2E;
+  --color-primary: #F68313;
+  --color-primary-foreground: #FFFFFF;
 }
 
 @keyframes slideUp {
@@ -29,8 +31,157 @@
 
 .fade-image {
   opacity: 0;
-  transition: opacity 0.7s;
+  transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .fade-image.loaded {
   opacity: 1;
+}
+
+/* ── Scroll reveal system (4.125s base) ── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  filter: blur(18px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  filter: blur(18px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  filter: blur(18px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+
+.reveal-clip {
+  clip-path: inset(100% 0 0 0);
+  will-change: clip-path;
+  transition: clip-path 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-clip.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+.reveal-words .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.reveal-words .word-inner {
+  display: inline-block;
+  transform: translateY(120%);
+  will-change: transform;
+  transition: transform 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-words.visible .word-inner {
+  transform: translateY(0);
+}
+
+.reveal-counter {
+  opacity: 0;
+  transform: scale(0.88);
+  filter: blur(14px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 3.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 3.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-counter.visible {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.reveal-flip {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(-70deg) translateY(40px);
+  transform-origin: center bottom;
+  filter: blur(10px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 4.125s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 4.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-flip.visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) translateY(0);
+  filter: blur(0);
+}
+
+/* ── Word-by-word blur reveal ── */
+
+.word-blur {
+  color: transparent;
+  filter: blur(8px);
+  will-change: color, filter;
+  transition:
+    color 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.word-blur-group.visible .word-blur {
+  color: inherit;
+  filter: blur(0);
+}
+
+/* ── Hover effects ── */
+
+.hover-zoom {
+  transition: transform 2s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .hover-zoom {
+  transition: transform 1s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 2s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1.08);
+}
+
+/* ── Reduced motion — keep animations, just simpler ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-counter {
+    transform: none;
+    filter: none;
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal-flip {
+    transform: none;
+    filter: none;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal-clip {
+    clip-path: none;
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal-words .word-inner {
+    transform: none;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
 }
