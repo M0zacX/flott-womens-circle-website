@@ -248,7 +248,7 @@ export function AboutStorySection() {
               }}
             >
               <img
-                src="/images/gallery/event-05.jpeg"
+                src="/images/gallery/event-05.webp"
                 alt="Flott Women's Circle gathering"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -267,7 +267,7 @@ export function AboutStorySection() {
               }}
             >
               <img
-                src="/images/gallery/event-15.jpeg"
+                src="/images/gallery/event-15.webp"
                 alt="Community empowerment session"
                 className="absolute inset-0 w-full h-full object-cover"
               />

@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react";
 const word = "FLOTT";
 
 const sideImages = [
-  { src: "/images/flott-26.jpeg", alt: "Women's circle gathering", position: "left", span: 1 },
-  { src: "/images/flott-29.jpeg", alt: "Community wellness session", position: "left", span: 1 },
-  { src: "/images/flott-32.jpeg", alt: "Empowerment workshop", position: "right", span: 1 },
-  { src: "/images/flott-34.jpeg", alt: "Women connecting", position: "right", span: 1 },
+  { src: "/images/flott-26.webp", alt: "Women's circle gathering", position: "left", span: 1 },
+  { src: "/images/flott-29.webp", alt: "Community wellness session", position: "left", span: 1 },
+  { src: "/images/flott-32.webp", alt: "Empowerment workshop", position: "right", span: 1 },
+  { src: "/images/flott-34.webp", alt: "Women connecting", position: "right", span: 1 },
 ];
 
 export function HeroSection() {
@@ -105,7 +105,7 @@ export function HeroSection() {
             >
               {/* Clipped image + text content */}
               <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: `${borderRadius}px` }}>
-                <img src="/images/hero-section-main-image.jpeg" alt="Flott Women's Circle gathering" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+                <img src="/images/hero-section-main-image.webp" alt="Flott Women's Circle gathering" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 25%, transparent 50%)" }} />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 35%, transparent 60%)" }} />
                 <div className="absolute inset-0 flex items-end overflow-hidden" style={{ opacity: flottTextOpacity }}>
@@ -187,7 +187,7 @@ export function HeroSection() {
                     className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl xl:h-20 xl:w-20 cursor-pointer group"
                   >
                     <img
-                      src="/images/flott-26.jpeg"
+                      src="/images/flott-26.webp"
                       alt="Play tour video"
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -360,7 +360,7 @@ export function HeroSection() {
           >
             <video
               ref={videoRef}
-              src="/videos/tour.mov"
+              src="/videos/tour.mp4"
               className="h-full w-full object-cover cursor-pointer"
               autoPlay
               playsInline

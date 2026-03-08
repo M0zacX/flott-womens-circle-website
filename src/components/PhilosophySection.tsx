@@ -147,7 +147,7 @@ export function PhilosophySection() {
                 className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl max-h-[38vh] xl:max-h-none"
                 style={{ transform: `translate3d(${alpineTranslateX}%, 0, 0)`, backfaceVisibility: 'hidden' }}
               >
-                <img src="/images/flott-05.jpeg" alt="Women's wellness session" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="/images/flott-05.webp" alt="Women's wellness session" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute bottom-6 left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
                     Wellness Education
@@ -159,7 +159,7 @@ export function PhilosophySection() {
                 className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl max-h-[38vh] xl:max-h-none"
                 style={{ transform: `translate3d(${forestTranslateX}%, 0, 0)`, backfaceVisibility: 'hidden' }}
               >
-                <img src="/images/flott-10.jpeg" alt="Community empowerment gathering" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="/images/flott-10.webp" alt="Community empowerment gathering" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute bottom-6 left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
                     Community & Connection

@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { ScrollRevealText } from "./ScrollRevealText";
 
 const sideImages = [
-  { src: "/images/flott-36.jpeg", alt: "Abuja Circle gathering", position: "left", span: 1 },
-  { src: "/images/flott-38.jpeg", alt: "Kaduna Circle session", position: "left", span: 1 },
-  { src: "/images/flott-40.jpeg", alt: "Port Harcourt Circle", position: "right", span: 1 },
-  { src: "/images/flott-42.jpeg", alt: "Enugu Circle meeting", position: "right", span: 1 },
+  { src: "/images/flott-36.webp", alt: "Abuja Circle gathering", position: "left", span: 1 },
+  { src: "/images/flott-38.webp", alt: "Kaduna Circle session", position: "left", span: 1 },
+  { src: "/images/flott-40.webp", alt: "Port Harcourt Circle", position: "right", span: 1 },
+  { src: "/images/flott-42.webp", alt: "Enugu Circle meeting", position: "right", span: 1 },
 ];
 
 export function TechnologySection() {
@@ -63,7 +63,7 @@ export function TechnologySection() {
             </div>
 
             <div className="relative overflow-hidden will-change-transform" style={{ width: `${centerWidth}%`, height: `${centerHeight}%`, flex: "0 0 auto", borderRadius: `${borderRadius}px`, alignSelf: 'center' }}>
-              <img src="/images/flott-15.jpeg" alt="Women's empowerment event" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="/images/flott-15.webp" alt="Women's empowerment event" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 bg-foreground/40" />
               <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
                 <h2 className="max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl">

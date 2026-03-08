@@ -9,111 +9,111 @@ const columns: ColDef[] = [
   {
     width: "max(220px, 18vw)",
     images: [
-      { src: "/images/gallery/event-01.jpeg", alt: "Circle gathering", flex: 1 },
+      { src: "/images/gallery/event-01.webp", alt: "Circle gathering", flex: 1 },
     ],
   },
   {
     width: "max(190px, 15vw)",
     images: [
-      { src: "/images/gallery/event-05.jpeg", alt: "Community workshop", flex: 3 },
-      { src: "/images/gallery/event-12.jpeg", alt: "Women connecting", flex: 2 },
+      { src: "/images/gallery/event-05.webp", alt: "Community workshop", flex: 3 },
+      { src: "/images/gallery/event-12.webp", alt: "Women connecting", flex: 2 },
     ],
   },
   {
     width: "max(170px, 13vw)",
     images: [
-      { src: "/images/gallery/event-18.jpeg", alt: "Empowerment session", flex: 1 },
-      { src: "/images/gallery/event-22.jpeg", alt: "Creative workshop", flex: 1 },
-      { src: "/images/gallery/event-28.jpeg", alt: "Wellness gathering", flex: 1 },
+      { src: "/images/gallery/event-18.webp", alt: "Empowerment session", flex: 1 },
+      { src: "/images/gallery/event-22.webp", alt: "Creative workshop", flex: 1 },
+      { src: "/images/gallery/event-28.webp", alt: "Wellness gathering", flex: 1 },
     ],
   },
   {
     width: "max(240px, 20vw)",
     images: [
-      { src: "/images/flott-08.jpeg", alt: "Circle celebration", flex: 1 },
+      { src: "/images/flott-08.webp", alt: "Circle celebration", flex: 1 },
     ],
   },
   {
     width: "max(200px, 16vw)",
     images: [
-      { src: "/images/gallery/event-32.jpeg", alt: "Skills workshop", flex: 2 },
-      { src: "/images/gallery/event-35.jpeg", alt: "Group mentoring", flex: 3 },
+      { src: "/images/gallery/event-32.webp", alt: "Skills workshop", flex: 2 },
+      { src: "/images/gallery/event-35.webp", alt: "Group mentoring", flex: 3 },
     ],
   },
   {
     width: "max(190px, 15vw)",
     images: [
-      { src: "/images/gallery/event-38.jpeg", alt: "Sisterhood moment", flex: 1 },
-      { src: "/images/gallery/event-42.jpeg", alt: "Wellness ritual", flex: 1 },
+      { src: "/images/gallery/event-38.webp", alt: "Sisterhood moment", flex: 1 },
+      { src: "/images/gallery/event-42.webp", alt: "Wellness ritual", flex: 1 },
     ],
   },
   {
     width: "max(170px, 13vw)",
     images: [
-      { src: "/images/gallery/event-45.jpeg", alt: "Creative expression", flex: 2 },
-      { src: "/images/gallery/event-48.jpeg", alt: "Learning together", flex: 1 },
-      { src: "/images/gallery/event-50.jpeg", alt: "Community bond", flex: 2 },
+      { src: "/images/gallery/event-45.webp", alt: "Creative expression", flex: 2 },
+      { src: "/images/gallery/event-48.webp", alt: "Learning together", flex: 1 },
+      { src: "/images/gallery/event-50.webp", alt: "Community bond", flex: 2 },
     ],
   },
   {
     width: "max(220px, 18vw)",
     images: [
-      { src: "/images/flott-14.jpeg", alt: "Event highlight", flex: 1 },
+      { src: "/images/flott-14.webp", alt: "Event highlight", flex: 1 },
     ],
   },
   {
     width: "max(200px, 16vw)",
     images: [
-      { src: "/images/gallery/event-55.jpeg", alt: "Cultural exchange", flex: 3 },
-      { src: "/images/gallery/event-58.jpeg", alt: "Joy and connection", flex: 2 },
+      { src: "/images/gallery/event-55.webp", alt: "Cultural exchange", flex: 3 },
+      { src: "/images/gallery/event-58.webp", alt: "Joy and connection", flex: 2 },
     ],
   },
   {
     width: "max(240px, 20vw)",
     images: [
-      { src: "/images/gallery/event-60.jpeg", alt: "Circle experience", flex: 1 },
+      { src: "/images/gallery/event-60.webp", alt: "Circle experience", flex: 1 },
     ],
   },
   {
     width: "max(190px, 15vw)",
     images: [
-      { src: "/images/gallery/event-03.jpeg", alt: "Wellness journey", flex: 2 },
-      { src: "/images/gallery/event-09.jpeg", alt: "Shared laughter", flex: 3 },
+      { src: "/images/gallery/event-03.webp", alt: "Wellness journey", flex: 2 },
+      { src: "/images/gallery/event-09.webp", alt: "Shared laughter", flex: 3 },
     ],
   },
   {
     width: "max(170px, 13vw)",
     images: [
-      { src: "/images/gallery/event-14.jpeg", alt: "Circle session", flex: 1 },
-      { src: "/images/gallery/event-20.jpeg", alt: "Growth together", flex: 1 },
-      { src: "/images/gallery/event-25.jpeg", alt: "Safe space", flex: 1 },
+      { src: "/images/gallery/event-14.webp", alt: "Circle session", flex: 1 },
+      { src: "/images/gallery/event-20.webp", alt: "Growth together", flex: 1 },
+      { src: "/images/gallery/event-25.webp", alt: "Safe space", flex: 1 },
     ],
   },
   {
     width: "max(220px, 18vw)",
     images: [
-      { src: "/images/gallery/event-30.jpeg", alt: "Empowerment moment", flex: 1 },
+      { src: "/images/gallery/event-30.webp", alt: "Empowerment moment", flex: 1 },
     ],
   },
   {
     width: "max(200px, 16vw)",
     images: [
-      { src: "/images/gallery/event-40.jpeg", alt: "Hands together", flex: 3 },
-      { src: "/images/gallery/event-52.jpeg", alt: "Learning circle", flex: 2 },
+      { src: "/images/gallery/event-40.webp", alt: "Hands together", flex: 3 },
+      { src: "/images/gallery/event-52.webp", alt: "Learning circle", flex: 2 },
     ],
   },
   {
     width: "max(170px, 13vw)",
     images: [
-      { src: "/images/gallery/event-56.jpeg", alt: "Healing space", flex: 2 },
-      { src: "/images/gallery/event-62.jpeg", alt: "Celebration", flex: 1 },
-      { src: "/images/gallery/event-64.jpeg", alt: "Unity", flex: 2 },
+      { src: "/images/gallery/event-56.webp", alt: "Healing space", flex: 2 },
+      { src: "/images/gallery/event-62.webp", alt: "Celebration", flex: 1 },
+      { src: "/images/gallery/event-64.webp", alt: "Unity", flex: 2 },
     ],
   },
   {
     width: "max(240px, 20vw)",
     images: [
-      { src: "/images/gallery/event-07.jpeg", alt: "Connection", flex: 1 },
+      { src: "/images/gallery/event-07.webp", alt: "Connection", flex: 1 },
     ],
   },
 ];
