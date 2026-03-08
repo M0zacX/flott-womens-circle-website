@@ -141,9 +141,9 @@ export function PhilosophySection() {
               </h2>
             </div>
 
-            <div className="relative z-10 grid grid-cols-1 gap-4 px-6 md:grid-cols-2 md:px-12 lg:px-20">
+            <div className="relative z-10 grid grid-cols-1 gap-4 px-6 md:px-12 xl:grid-cols-2 xl:px-20 place-items-center">
               <div
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl"
+                className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl max-h-[38vh] xl:max-h-none"
                 style={{ transform: `translate3d(${alpineTranslateX}%, 0, 0)`, backfaceVisibility: 'hidden' }}
               >
                 <img src="/images/flott-05.jpeg" alt="Women's wellness session" className="absolute inset-0 w-full h-full object-cover" />
@@ -155,7 +155,7 @@ export function PhilosophySection() {
               </div>
 
               <div
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl"
+                className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl max-h-[38vh] xl:max-h-none"
                 style={{ transform: `translate3d(${forestTranslateX}%, 0, 0)`, backfaceVisibility: 'hidden' }}
               >
                 <img src="/images/flott-10.jpeg" alt="Community empowerment gathering" className="absolute inset-0 w-full h-full object-cover" />
@@ -170,7 +170,7 @@ export function PhilosophySection() {
         </div>
       </div>
 
-      <div className="relative px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
+      <div className="relative px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-36 lg:pb-14">
         {/* Decorative mandala flower */}
         <svg className="absolute -bottom-20 -right-16 w-[360px] h-[360px] text-[#e8b4b8] opacity-50 pointer-events-none hidden lg:block" viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="200" cy="200" r="12" /><circle cx="200" cy="200" r="6" />
@@ -193,14 +193,15 @@ export function PhilosophySection() {
 
         <div ref={textRef} className="text-center relative z-10">
           <p className={`word-blur-group ${textVisible ? "visible" : ""} text-xs uppercase tracking-widest text-muted-foreground`}>
-            <span className="word-blur" style={{ transitionDelay: "0s" }}>Our</span>{" "}
-            <span className="word-blur" style={{ transitionDelay: "0.1s" }}>Belief</span>
+            <span className="word-blur" style={{ transitionDelay: "0s" }}>What</span>{" "}
+            <span className="word-blur" style={{ transitionDelay: "0.06s" }}>We</span>{" "}
+            <span className="word-blur" style={{ transitionDelay: "0.12s" }}>Believe</span>
           </p>
           <div className="mt-8">
             <ScrollRevealText
-              text="Flott Women's Circle provides safe, intentional spaces where women gather to nurture their bodies, expand self-awareness, acquire essential life skills, and grow within a supportive community rooted in culture, care, and shared experiences."
+              text="A space where women gather to reconnect with themselves. To learn skills that actually matter. To grow alongside other women who understand the journey — rooted in culture, care, and shared experience."
               className="leading-relaxed text-muted-foreground text-3xl text-center"
-              accentWords={["intentional", "community"]}
+              accentWords={["reconnect", "journey"]}
             />
           </div>
         </div>

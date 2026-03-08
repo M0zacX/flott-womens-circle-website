@@ -21,6 +21,44 @@
   }
 }
 
+.about-hero-fade {
+  opacity: 0;
+  animation: slideUp 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.about-hero-word {
+  opacity: 0;
+  transform: translateY(105%);
+  animation: heroWordReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heroWordReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scrollArrow {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

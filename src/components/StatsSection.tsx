@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: "5", label: "Circles Nationwide" },
-  { value: "4", label: "Empowerment Dimensions" },
-  { value: "6", label: "Circle Leads" },
-  { value: "1", label: "Shared Philosophy" },
+  { value: "5", label: "Circles Across Nigeria" },
+  { value: "4", label: "Dimensions of Growth" },
+  { value: "6", label: "Women Leading Change" },
+  { value: "1", label: "Shared Mission" },
 ];
 
 export function StatsSection() {
@@ -27,8 +27,8 @@ export function StatsSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headingWords = ["Empowering", "Women", "to", "Thrive"];
-  const accentWord = "Together";
+  const headingWords = ["Building", "Something", "That"];
+  const accentWord = "Matters";
 
   const getWordReveal = (wordIndex: number, totalWords: number) => {
     const wordDelay = wordIndex * 0.06;
@@ -39,7 +39,7 @@ export function StatsSection() {
   const subtitleProgress = Math.max(0, Math.min(1, progress * 2.2));
 
   return (
-    <section ref={sectionRef} className="bg-foreground py-28 md:py-36 lg:py-44 relative overflow-hidden">
+    <section ref={sectionRef} className="bg-foreground py-10 md:py-14 lg:py-24 relative overflow-hidden">
       {/* Decorative mirrored spiral vine — white on dark */}
       <svg className="absolute -bottom-10 -left-12 w-[320px] h-[460px] text-[#e8b4b8] opacity-50 pointer-events-none hidden lg:block" viewBox="0 0 350 500" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ transform: "scaleX(-1)" }}>
         <path d="M175 480 C175 420 140 380 160 320 C180 260 120 240 140 180 C160 120 200 140 190 80 C182 40 150 20 175 10" />
@@ -66,9 +66,9 @@ export function StatsSection() {
       </svg>
 
       <div className="px-6 md:px-12 lg:px-20">
-        <div className="text-center mb-20">
+        <div className="text-center mb-6 md:mb-8 lg:mb-20">
           <p
-            className="text-xs uppercase tracking-[0.3em] text-white/40 mb-6"
+            className="text-xs uppercase tracking-[0.3em] text-white/40 mb-3 md:mb-6"
             style={{
               fontStyle: "italic",
               opacity: subtitleProgress,
@@ -76,7 +76,7 @@ export function StatsSection() {
               transition: "opacity 0.3s, filter 0.3s",
             }}
           >
-            Our Impact
+            By The Numbers
           </p>
           <h2 className="text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl">
             {headingWords.map((word, i) => {
@@ -93,7 +93,7 @@ export function StatsSection() {
           </h2>
         </div>
 
-        <div className="mx-auto flex justify-center items-center">
+        <div className="mx-auto grid grid-cols-2 place-items-center w-fit sm:flex sm:flex-nowrap sm:justify-center sm:items-center">
           {stats.map((stat, index) => {
             const delay = 0.05 + index * 0.1;
             const circleProgress = Math.max(0, Math.min(1, (progress - delay) * 2.5));
@@ -102,12 +102,19 @@ export function StatsSection() {
             const circleScale = 0.7 + circleProgress * 0.3;
             const spreadX = (1 - circleProgress) * (index - 1.5) * 40;
 
+            // Mobile 2x2 Venn overlap + sm+ row overlap
+            const overlapClasses = [
+              '',                                                          // top-left: no offset
+              '-ml-7 sm:-ml-8 md:-ml-10 lg:-ml-12',                       // top-right: shift left
+              '-mt-7 sm:mt-0 sm:-ml-8 md:-ml-10 lg:-ml-12',               // bottom-left: shift up
+              '-ml-7 -mt-7 sm:mt-0 sm:-ml-8 md:-ml-10 lg:-ml-12',         // bottom-right: shift left + up
+            ][index];
+
             return (
               <div
                 key={index}
-                className="flex flex-col items-center"
+                className={`flex flex-col items-center ${overlapClasses}`}
                 style={{
-                  marginLeft: index > 0 ? "-3rem" : "0",
                   opacity: circleOpacity,
                   filter: `blur(${circleBlur}px)`,
                   transform: `scale(${circleScale}) translateX(${spreadX}px)`,
@@ -115,16 +122,16 @@ export function StatsSection() {
                 }}
               >
                 <div
-                  className="relative flex flex-col items-center justify-center w-44 h-44 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full border border-white/15"
+                  className="relative flex flex-col items-center justify-center w-[7rem] h-[7rem] sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full border border-white/15 overflow-hidden"
                   style={{ background: `rgba(15, 9, 6, ${0.85 - index * 0.15})` }}
                 >
                   <span
-                    className="text-white text-4xl md:text-5xl lg:text-6xl"
+                    className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl"
                     style={{ fontFamily: "'Georgia', 'Times New Roman', serif", fontStyle: "italic" }}
                   >
                     {stat.value}
                   </span>
-                  <p className="mt-2 text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/40">
+                  <p className="mt-0.5 sm:mt-2 text-[8px] sm:text-[10px] md:text-xs uppercase tracking-[0.08em] sm:tracking-[0.15em] text-white/40 text-center leading-tight w-full px-2">
                     {stat.label}
                   </p>
                 </div>

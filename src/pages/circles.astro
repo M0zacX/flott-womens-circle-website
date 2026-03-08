@@ -1,0 +1,165 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const circles = [
+  {
+    city: "Abuja",
+    focus: "Wellness education, modern routines, and mindful living",
+    address: "No. 6 Ubiaja Crescent, Garki 2",
+    instagram: "@flott_beauty",
+    instagramUrl: "https://instagram.com/flott_beauty",
+    lead: "Zulaihat Adamu Barde",
+    leadImage: "/images/team/zulaihat-barde.png",
+    image: "/images/gallery/event-07.jpeg",
+  },
+  {
+    city: "Kaduna",
+    focus: "Cultural wellness education and soft skills for self-expression",
+    address: "6 Link Close, GRA",
+    instagram: "@flott_beautykd",
+    instagramUrl: "https://instagram.com/flott_beautykd",
+    lead: "Maimuna Adejoh Yakubu",
+    leadImage: "/images/team/maimuna-yakubu.png",
+    image: "/images/gallery/event-18.jpeg",
+  },
+  {
+    city: "Port Harcourt",
+    focus: "Body care education, confidence building, and self-value",
+    address: "No. 6 Onne Street, GRA",
+    instagram: "@flott_beautyph",
+    instagramUrl: "https://instagram.com/flott_beautyph",
+    lead: "Rita Ogbeagu",
+    leadImage: "/images/team/rita-ogbeagu.png",
+    image: "/images/gallery/event-25.jpeg",
+  },
+  {
+    city: "Enugu",
+    focus: "Emotional intelligence, balance, and personal renewal",
+    address: "45 Isi Uzo Street",
+    instagram: "@flott_beautyen",
+    instagramUrl: "https://instagram.com/flott_beautyen",
+    lead: "Jane Oge Onyeansui",
+    leadImage: "/images/team/jane-onyeansui.png",
+    image: "/images/gallery/event-35.jpeg",
+  },
+  {
+    city: "Ilorin",
+    focus: "Family-centred wellbeing, emotional grounding, cultural balance, and financial awareness",
+    address: "",
+    instagram: "",
+    instagramUrl: "",
+    lead: "Fatima Bintu Abubakar",
+    leadImage: "/images/team/fatima-abubakar.png",
+    image: "/images/gallery/event-42.jpeg",
+  },
+];
+---
+
+<Layout title="Our Circles - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/circles" />
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+      <!-- Mandala accent -->
+      <svg class="absolute -top-10 -right-16 w-[220px] h-[220px] md:w-[320px] md:h-[320px] text-[#e8b4b8] opacity-[0.3] pointer-events-none hidden md:block" viewBox="0 0 500 500" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="250" cy="250" r="5" /><circle cx="250" cy="250" r="10" />
+        <path d="M250 237 Q254 230 250 224 Q246 230 250 237Z" />
+        <path d="M263 244 Q268 240 272 244 Q268 248 263 244Z" />
+        <path d="M263 256 Q268 260 272 256 Q268 252 263 256Z" />
+        <path d="M250 263 Q254 270 250 276 Q246 270 250 263Z" />
+        <path d="M237 256 Q232 260 228 256 Q232 252 237 256Z" />
+        <path d="M237 244 Q232 240 228 244 Q232 248 237 244Z" />
+        <circle cx="250" cy="250" r="40" />
+        <path d="M250 208 Q258 190 250 172 Q242 190 250 208Z" />
+        <path d="M290 244 Q310 240 322 228 Q306 238 290 244Z" />
+        <path d="M210 244 Q190 240 178 228 Q194 238 210 244Z" />
+        <path d="M262 288 Q270 308 266 322 Q258 306 262 288Z" />
+        <path d="M238 288 Q230 308 234 322 Q242 306 238 288Z" />
+        <circle cx="250" cy="250" r="62" />
+        <circle cx="250" cy="250" r="105" />
+      </svg>
+
+      <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4" style="font-style: italic">Our Circles</p>
+      <h1 class="word-blur-group text-4xl font-medium tracking-tight text-foreground md:text-5xl lg:text-6xl max-w-3xl">
+        <span class="word-blur" style="transition-delay: 0.05s">Five</span>
+        <span class="word-blur" style="transition-delay: 0.12s">Cities.</span>
+        <span class="word-blur" style="transition-delay: 0.22s">One</span>
+        <span class="word-blur" style="transition-delay: 0.35s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Circle.</span>
+      </h1>
+      <p class="blur-words mt-6 text-base text-muted-foreground max-w-xl leading-relaxed">
+        Same philosophy. Different rhythm. Each Circle moves with its community.
+      </p>
+    </section>
+
+    <!-- Circles -->
+    <section class="px-6 pb-20 md:px-12 md:pb-28 lg:px-20 lg:pb-36">
+      <div class="space-y-16 md:space-y-24">
+        {circles.map((circle, i) => (
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center ${i % 2 === 1 ? 'lg:direction-rtl' : ''}`}>
+            <div class={`reveal-clip relative aspect-[4/3] overflow-hidden rounded-2xl ${i % 2 === 1 ? 'lg:order-2' : ''}`} style={`transition-delay: ${0.1}s`}>
+              <img
+                src={circle.image}
+                alt={`${circle.city} Circle gathering`}
+                class="fade-image absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                onload="this.classList.add('loaded')"
+              />
+            </div>
+            <div class={`${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+              <div class="reveal" style="transition-delay: 0s">
+                <p class="text-xs uppercase tracking-[0.3em] text-primary mb-3" style="font-style: italic">{`Circle 0${i + 1}`}</p>
+                <h3 class="text-2xl md:text-3xl font-medium tracking-tight text-foreground">{circle.city}</h3>
+                <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{circle.focus}</p>
+              </div>
+
+              {circle.address && (
+                <div class="reveal mt-6 flex items-start gap-3" style="transition-delay: 0.1s">
+                  <div class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border">
+                    <svg class="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  </div>
+                  <p class="text-sm text-muted-foreground">{circle.address}</p>
+                </div>
+              )}
+
+              {circle.instagram && (
+                <div class="reveal mt-3 flex items-start gap-3" style="transition-delay: 0.15s">
+                  <div class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border">
+                    <svg class="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                  </div>
+                  <a href={circle.instagramUrl} target="_blank" rel="noopener noreferrer" class="text-sm text-muted-foreground transition-colors hover:text-foreground">{circle.instagram}</a>
+                </div>
+              )}
+
+              <!-- Circle Lead -->
+              <div class="reveal mt-8 flex items-center gap-4 border-t border-border pt-6" style="transition-delay: 0.2s">
+                <div class="relative h-12 w-12 overflow-hidden rounded-full">
+                  <img src={circle.leadImage} alt={circle.lead} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-foreground">{circle.lead}</p>
+                  <p class="text-xs text-muted-foreground">Circle Lead, {circle.city}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 pb-20 md:px-12 md:pb-28 lg:px-20 lg:pb-36 text-center">
+      <div class="reveal">
+        <p class="text-sm text-muted-foreground mb-6">Your Circle is waiting. Come find it.</p>
+        <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm font-medium transition-opacity hover:opacity-80">
+          Get in Touch
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>

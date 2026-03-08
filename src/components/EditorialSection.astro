@@ -1,25 +1,25 @@
 ---
-const specs = [
-  { label: "Cities", value: "5" },
-  { label: "Circle Leads", value: "6" },
-  { label: "Focus Areas", value: "4" },
-  { label: "Est.", value: "2024" },
-];
 ---
 
-<section class="bg-background">
-  <div class="flex items-center justify-center gap-6 pb-20"></div>
-
-  <div class="grid grid-cols-2 border-t border-border md:grid-cols-4">
-    {specs.map((spec, index) => (
-      <div class="reveal-counter border-b border-r border-border p-8 text-center last:border-r-0 md:border-b-0" style={`transition-delay: ${index * 0.2}s`}>
-        <p class="mb-2 text-xs uppercase tracking-widest text-muted-foreground">{spec.label}</p>
-        <p class="font-medium text-foreground text-4xl">{spec.value}</p>
-      </div>
-    ))}
-  </div>
-
+<section class="bg-[#0f0906]">
   <div class="relative aspect-[16/9] w-full md:aspect-[21/9] reveal-clip">
     <img src="/images/flott-23.jpeg" alt="Flott Women's Circle community moment" class="absolute inset-0 w-full h-full object-cover" />
+    <!-- Dark gradient for text legibility -->
+    <div class="absolute inset-0" style="background: linear-gradient(to top, #0f0906 0%, #0f0906 5%, rgba(15,9,6,0.7) 35%, rgba(15,9,6,0.3) 55%, transparent 80%);"></div>
+    <!-- Overlay text -->
+    <div class="editorial-overlay absolute bottom-0 left-0 right-0 px-6 pb-6 sm:pb-8 md:px-12 md:pb-12 lg:px-20 lg:pb-14">
+      <div class="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-end md:justify-between">
+        <div class="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3 md:gap-5">
+          <span class="text-xl sm:text-[clamp(1.2rem,3.5vw,3.2rem)] font-light uppercase text-white/90 tracking-[0.15em] sm:tracking-[0.25em]">Wellness</span>
+          <span class="text-white/40 text-[clamp(1rem,2.5vw,2rem)] hidden sm:block">&bull;</span>
+          <span class="text-xl sm:text-[clamp(1.2rem,3.5vw,3.2rem)] uppercase text-white/90 tracking-[0.08em] sm:tracking-[0.12em]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;">Sisterhood</span>
+          <span class="text-white/40 text-[clamp(1rem,2.5vw,2rem)] hidden sm:block">&bull;</span>
+          <span class="text-xl sm:text-[clamp(1.2rem,3.5vw,3.2rem)] font-light uppercase text-white/90 tracking-[0.15em] sm:tracking-[0.25em]">Growth</span>
+        </div>
+        <p class="text-[10px] md:text-xs tracking-[0.15em] uppercase text-white/40 md:text-right max-w-[280px]">
+          Where Nigerian women gather, grow, and rise — together
+        </p>
+      </div>
+    </div>
   </div>
 </section>

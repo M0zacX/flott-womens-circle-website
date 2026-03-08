@@ -1,150 +1,235 @@
 ---
 const programs = [
-  { id: 1, name: "Wellness Education Sessions", description: "Body care and self-care workshops focused on holistic wellbeing", image: "/images/flott-44.jpeg" },
-  { id: 2, name: "Soft Skills Circles", description: "Communication, confidence, emotional intelligence, and self-presentation", image: "/images/flott-46.jpeg" },
-  { id: 3, name: "Empowerment Gatherings", description: "Mental, social, economic, and financial empowerment sessions", image: "/images/flott-48.jpeg" },
-  { id: 4, name: "Cultural Wellness", description: "Traditional and modern self-care practices integrated into daily life", image: "/images/flott-50.jpeg" },
-  { id: 5, name: "Growth Conversations", description: "Guided discussions on self-awareness, identity, and womanhood", image: "/images/flott-52.jpeg" },
-  { id: 6, name: "Community Events", description: "Seasonal gatherings that uplift, inspire, and strengthen bonds", image: "/images/flott-54.jpeg" },
+  { name: "Wellness Education", description: "Hands-on workshops to help you care for your body and mind", image: "/images/flott-44.jpeg",
+    icon: `<path d="M12 21c0-4-3-7-3-10s3-6 3-6 3 3 3 6-3 6-3 10z" /><path d="M12 21c-2-3-6-5-8-5 2-1 5 0 8 5z" /><path d="M12 21c2-3 6-5 8-5-2-1-5 0-8 5z" /><circle cx="12" cy="8" r="1.5" fill="currentColor" opacity="0.3" />` },
+  { name: "Soft Skills Circles", description: "Build confidence, communication, and emotional intelligence in a supportive setting", image: "/images/flott-46.jpeg",
+    icon: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 10h8" opacity="0.4" /><path d="M8 13h5" opacity="0.4" />` },
+  { name: "Empowerment Gatherings", description: "Sessions designed to strengthen you mentally, socially, and financially", image: "/images/flott-48.jpeg",
+    icon: `<path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />` },
+  { name: "Cultural Wellness", description: "Self-care rooted in tradition, adapted for the woman you're becoming", image: "/images/flott-50.jpeg",
+    icon: `<circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /><path d="M12 2c2.5 3 4 6.5 4 10s-1.5 7-4 10" opacity="0.4" />` },
+  { name: "Growth Conversations", description: "Honest conversations about identity, growth, and what it means to be a woman today", image: "/images/flott-42.jpeg",
+    icon: `<path d="M12 20V4" /><path d="M12 4c-2-3-5-4-7-3" /><path d="M12 4c2-3 5-4 7-3" /><path d="M12 10c-1.5-2-4-3-6-2" /><path d="M12 10c1.5-2 4-3 6-2" /><path d="M12 15c-1-1.5-3-2-5-1.5" /><path d="M12 15c1-1.5 3-2 5-1.5" />` },
+  { name: "Community Events", description: "Seasonal gatherings to celebrate, connect, and remind you that you're not alone", image: "/images/flott-54.jpeg",
+    icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />` },
 ];
 ---
 
-<section id="programs" class="bg-background relative overflow-hidden">
-  <!-- Scandinavian Folk Dahlia — intricate multi-layered flower -->
-  <svg class="absolute -top-12 -right-16 w-[340px] h-[460px] text-[#e8b4b8] opacity-[0.4] pointer-events-none hidden lg:block" viewBox="0 0 340 460" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <!-- Stem -->
-    <path d="M170 460 C170 420 165 380 170 340 C175 300 168 270 170 240" />
-    <!-- Stem leaves — alternating -->
-    <path d="M170 380 C148 365 132 372 130 358 C128 344 145 338 170 360" />
-    <path d="M170 360 C145 350 130 355 130 358" opacity="0.5" />
-    <path d="M170 330 C192 315 208 322 210 308 C212 294 195 288 170 310" />
-    <path d="M170 310 C195 300 210 305 210 308" opacity="0.5" />
-    <!-- Small stem buds -->
-    <path d="M170 410 C180 400 188 404 186 414" />
-    <circle cx="188" cy="416" r="2" />
-    <!-- Center — concentric circles with spiral -->
-    <circle cx="170" cy="170" r="6" />
-    <path d="M170 170 C170 164 176 160 182 163 C188 166 186 176 180 178 C174 180 166 176 165 170 C164 164 170 158 178 158 C186 158 192 166 190 174 C188 182 178 186 172 184" />
-    <circle cx="170" cy="170" r="22" />
-    <!-- Inner dot ring -->
-    <circle cx="170" cy="146" r="2.5" /><circle cx="194" cy="158" r="2.5" /><circle cx="194" cy="182" r="2.5" />
-    <circle cx="170" cy="194" r="2.5" /><circle cx="146" cy="182" r="2.5" /><circle cx="146" cy="158" r="2.5" />
-    <!-- Inner pointed star petals — 6 -->
-    <path d="M170 142 L175 122 L170 100 L165 122Z" />
-    <path d="M192 156 L210 148 L228 146 L210 154Z" />
-    <path d="M192 184 L210 192 L228 194 L210 186Z" />
-    <path d="M170 198 L175 218 L170 240 L165 218Z" />
-    <path d="M148 184 L130 192 L112 194 L130 186Z" />
-    <path d="M148 156 L130 148 L112 146 L130 154Z" />
-    <!-- Middle ring -->
-    <circle cx="170" cy="170" r="52" />
-    <!-- Zigzag decoration on middle ring -->
-    <path d="M170 118 L175 112 L180 118 L185 112 L190 118" opacity="0.6" />
-    <path d="M222 155 L228 150 L222 145 L228 140" opacity="0.6" transform="rotate(60 170 170)" />
-    <path d="M222 155 L228 150 L222 145 L228 140" opacity="0.6" transform="rotate(120 170 170)" />
-    <path d="M222 155 L228 150 L222 145 L228 140" opacity="0.6" transform="rotate(180 170 170)" />
-    <path d="M222 155 L228 150 L222 145 L228 140" opacity="0.6" transform="rotate(240 170 170)" />
-    <path d="M222 155 L228 150 L222 145 L228 140" opacity="0.6" transform="rotate(300 170 170)" />
-    <!-- Outer rounded petals — 12 -->
-    <path d="M170 116 Q180 88 170 62 Q160 88 170 116Z" />
-    <path d="M193 122 Q214 102 218 74 Q200 96 193 122Z" />
-    <path d="M216 148 Q244 142 262 122 Q238 140 216 148Z" />
-    <path d="M222 170 Q250 170 272 156 Q248 166 222 170Z" />
-    <path d="M216 192 Q244 198 262 218 Q238 200 216 192Z" />
-    <path d="M193 218 Q214 238 218 266 Q200 244 193 218Z" />
-    <path d="M170 224 Q180 252 170 278 Q160 252 170 224Z" />
-    <path d="M147 218 Q126 238 122 266 Q140 244 147 218Z" />
-    <path d="M124 192 Q96 198 78 218 Q102 200 124 192Z" />
-    <path d="M118 170 Q90 170 68 156 Q92 166 118 170Z" />
-    <path d="M124 148 Q96 142 78 122 Q102 140 124 148Z" />
-    <path d="M147 122 Q126 102 122 74 Q140 96 147 122Z" />
-    <!-- Outer ring -->
-    <circle cx="170" cy="170" r="88" />
-    <!-- Outermost spade-shaped petals — 8 -->
-    <path d="M170 80 Q184 52 170 24 Q156 52 170 80" />
-    <path d="M232 102 Q254 82 256 52 Q238 78 232 102" />
-    <path d="M258 170 Q288 170 302 148 Q282 164 258 170" />
-    <path d="M232 238 Q254 258 256 288 Q238 262 232 238" />
-    <path d="M170 260 Q184 288 170 316 Q156 288 170 260" />
-    <path d="M108 238 Q86 258 84 288 Q102 262 108 238" />
-    <path d="M82 170 Q52 170 38 148 Q58 164 82 170" />
-    <path d="M108 102 Q86 82 84 52 Q102 78 108 102" />
-    <!-- Tiny dots at petal tips -->
-    <circle cx="170" cy="20" r="2.5" /><circle cx="258" cy="48" r="2.5" /><circle cx="306" cy="146" r="2.5" />
-    <circle cx="258" cy="292" r="2.5" /><circle cx="170" cy="320" r="2.5" /><circle cx="82" cy="292" r="2.5" />
-    <circle cx="34" cy="146" r="2.5" /><circle cx="82" cy="48" r="2.5" />
-    <!-- Connecting arcs between outermost petal tips -->
-    <path d="M174 22 Q216 26 254 50" fill="none" opacity="0.5" />
-    <path d="M260 52 Q292 88 304 144" fill="none" opacity="0.5" />
-    <path d="M304 150 Q298 218 260 286" fill="none" opacity="0.5" />
-    <path d="M254 290 Q216 314 174 318" fill="none" opacity="0.5" />
-    <path d="M166 318 Q124 314 86 290" fill="none" opacity="0.5" />
-    <path d="M80 286 Q42 218 36 150" fill="none" opacity="0.5" />
-    <path d="M36 144 Q48 88 80 52" fill="none" opacity="0.5" />
-    <path d="M86 50 Q124 26 166 22" fill="none" opacity="0.5" />
-  </svg>
+<section id="programs" class="programs-section bg-[#0f0906] relative overflow-hidden">
+  <!-- Background images — one per program, revealed on hover -->
+  {programs.map((program, i) => (
+    <div
+      class="program-bg absolute inset-0 will-change-[opacity]"
+      data-bg-index={i}
+      style="opacity: 0; transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1);"
+    >
+      <img
+        src={program.image}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+        style="transform: scale(1.08); transition: transform 10s cubic-bezier(0.22, 1, 0.36, 1);"
+      />
+      <div class="absolute inset-0 bg-[#0f0906]/60"></div>
+    </div>
+  ))}
 
-  <!-- Small scattered folk rosette — bottom left -->
-  <svg class="absolute bottom-12 left-6 w-[120px] h-[120px] md:w-[160px] md:h-[160px] text-[#e8b4b8] opacity-[0.3] pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <circle cx="100" cy="100" r="8" /><circle cx="100" cy="100" r="3" />
-    <path d="M100 88 Q106 72 100 58 Q94 72 100 88Z" />
-    <path d="M112 94 Q126 86 134 72 Q122 82 112 94Z" />
-    <path d="M112 106 Q126 114 134 128 Q122 118 112 106Z" />
-    <path d="M100 112 Q106 128 100 142 Q94 128 100 112Z" />
-    <path d="M88 106 Q74 114 66 128 Q78 118 88 106Z" />
-    <path d="M88 94 Q74 86 66 72 Q78 82 88 94Z" />
-    <circle cx="100" cy="54" r="2" /><circle cx="136" cy="68" r="2" /><circle cx="136" cy="132" r="2" />
-    <circle cx="100" cy="146" r="2" /><circle cx="64" cy="132" r="2" /><circle cx="64" cy="68" r="2" />
-  </svg>
+  <div class="relative z-10 px-6 md:px-12 lg:px-20 py-14 md:py-20 lg:py-32">
+    <!-- Header -->
+    <div class="mb-10 md:mb-14 lg:mb-20">
+      <p class="program-reveal text-xs uppercase tracking-[0.3em] text-white/25 mb-5" style="font-style: italic; transition-delay: 0s;">What We Offer</p>
+      <h2 class="program-reveal text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl" style="transition-delay: 0.1s;">
+        Our
+        <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Programs</span>
+      </h2>
+    </div>
 
-  <div class="px-6 py-20 md:px-12 lg:px-20 md:py-10">
-    <h2 class="word-blur-group text-3xl font-medium tracking-tight text-foreground md:text-4xl">
-      <span class="word-blur" style="transition-delay: 0s">Our</span>
-      <span class="word-blur" style="transition-delay: 0.15s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Programs</span>
-    </h2>
-  </div>
+    <!-- Program list -->
+    <div class="programs-list border-t border-white/[0.08]">
+      {programs.map((program, index) => (
+        <a
+          href="/programs"
+          class="program-row program-reveal group flex items-start md:items-center gap-5 md:gap-10 border-b border-white/[0.08] py-6 md:py-8 no-underline"
+          data-row-index={index}
+          style={`transition-delay: ${0.15 + index * 0.08}s;`}
+        >
+          <span
+            class="program-number shrink-0 w-[36px] sm:w-[48px] md:w-[80px] lg:w-[100px] text-right text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light text-white/[0.1]"
+            style="font-family: 'Playfair Display', serif; font-style: italic; transition: color 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
 
-  <div class="pb-24">
-    <!-- Mobile: horizontal scroll -->
-    <div class="flex gap-6 overflow-x-auto px-6 pb-4 md:hidden snap-x snap-mandatory scrollbar-hide">
-      {programs.map((program) => (
-        <div class="group flex-shrink-0 w-[75vw] snap-center">
-          <div class="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
-            <img
-              src={program.image}
-              alt={program.name}
-              class="fade-image absolute inset-0 w-full h-full object-cover hover-zoom"
-              loading="lazy"
-              onload="this.classList.add('loaded')"
-            />
+          <div
+            class="program-icon shrink-0 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/10"
+            style="opacity: 0; transform: scale(0.8); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            <svg class="h-5 w-5 md:h-6 md:w-6 text-[#c49298]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <Fragment set:html={program.icon} />
+            </svg>
           </div>
-          <div class="py-6">
-            <h3 class="text-lg font-medium leading-snug text-foreground">{program.name}</h3>
-            <p class="mt-2 text-sm text-muted-foreground">{program.description}</p>
+
+          <div class="flex-1 min-w-0">
+            <div
+              class="program-content"
+              style="transform: translateY(8px); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              <h3
+                class="program-title text-lg md:text-2xl lg:text-[2rem] text-white/40 font-medium tracking-tight leading-tight"
+                style="transition: color 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+              >
+                {program.name}
+              </h3>
+              <p
+                class="program-desc text-sm text-white/30 mt-2 max-w-lg"
+                style="opacity: 0; transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+              >{program.description}</p>
+            </div>
           </div>
-        </div>
+
+          <div
+            class="program-arrow shrink-0 mt-1 md:mt-0 hidden md:block"
+            style="opacity: 0; transform: translateX(-10px); transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+          </div>
+        </a>
       ))}
     </div>
 
-    <!-- Desktop: 3-column grid -->
-    <div class="hidden md:grid md:grid-cols-3 gap-8 md:px-12 lg:px-20">
-      {programs.map((program, index) => (
-        <div class="reveal group" style={`transition-delay: ${index * 0.18}s`}>
-          <div class="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary reveal-clip" style={`transition-delay: ${0.15 + index * 0.18}s`}>
-            <img
-              src={program.image}
-              alt={program.name}
-              class="fade-image absolute inset-0 w-full h-full object-cover hover-zoom"
-              loading="lazy"
-              onload="this.classList.add('loaded')"
-            />
-          </div>
-          <div class="py-6">
-            <h3 class="text-lg font-medium leading-snug text-foreground">{program.name}</h3>
-            <p class="mt-2 text-sm text-muted-foreground">{program.description}</p>
-          </div>
-        </div>
-      ))}
+    <!-- CTA -->
+    <div class="mt-8 md:mt-12 lg:mt-16 flex justify-center program-reveal" style="transition-delay: 0.7s;">
+      <a
+        href="/programs"
+        class="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-white/60 no-underline"
+        style="transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);"
+        onmouseenter="this.style.backgroundColor='white'; this.style.color='#0f0906'; this.style.borderColor='white';"
+        onmouseleave="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.6)'; this.style.borderColor='rgba(255,255,255,0.15)';"
+      >
+        Explore All Programs
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
     </div>
   </div>
 </section>
+
+<style>
+  .program-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+    will-change: opacity, transform, filter;
+    transition:
+      opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .program-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+</style>
+
+<script>
+  // Scroll reveal
+  const programObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          programObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+  document.querySelectorAll(".program-reveal").forEach((el) => programObs.observe(el));
+
+  // Program row interactions
+  const section = document.querySelector(".programs-section");
+  if (section) {
+    const rows = section.querySelectorAll(".program-row");
+    const bgs = section.querySelectorAll(".program-bg");
+    let activeIndex = -1;
+
+    const activateRow = (index) => {
+      if (index === activeIndex) return;
+      activeIndex = index;
+
+      // Crossfade backgrounds
+      bgs.forEach((bg, i) => {
+        const img = bg.querySelector("img");
+        if (i === index) {
+          bg.style.opacity = "1";
+          bg.style.zIndex = "1";
+          if (img) img.style.transform = "scale(1)";
+        } else {
+          bg.style.opacity = "0";
+          bg.style.zIndex = "0";
+          if (img) img.style.transform = "scale(1.08)";
+        }
+      });
+
+      // Highlight active row, dim others
+      rows.forEach((r) => {
+        const isActive = r.getAttribute("data-row-index") === String(index);
+        const num = r.querySelector(".program-number");
+        const icon = r.querySelector(".program-icon");
+        const title = r.querySelector(".program-title");
+        const content = r.querySelector(".program-content");
+        const desc = r.querySelector(".program-desc");
+        const arrow = r.querySelector(".program-arrow");
+
+        if (num) num.style.color = isActive ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.05)";
+        if (icon) { icon.style.opacity = isActive ? "1" : "0"; icon.style.transform = isActive ? "scale(1)" : "scale(0.8)"; }
+        if (title) title.style.color = isActive ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.15)";
+        if (content) content.style.transform = isActive ? "translateY(0)" : "translateY(8px)";
+        if (desc) desc.style.opacity = isActive ? "1" : "0";
+        if (arrow) {
+          arrow.style.opacity = isActive ? "1" : "0";
+          arrow.style.transform = isActive ? "translateX(0)" : "translateX(-10px)";
+        }
+      });
+    };
+
+    // Initialize first row as active
+    activateRow(0);
+
+    // Scroll-activated rows — works on all devices
+    // On mobile/tablet: primary interaction (no hover available)
+    // On desktop: keeps section in sync when user scrolls without hovering
+    const rowScrollObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute("data-row-index") || "0");
+            activateRow(index);
+          }
+        });
+      },
+      { rootMargin: "-25% 0px -50% 0px", threshold: 0 }
+    );
+    rows.forEach((row) => rowScrollObs.observe(row));
+
+    // Hover interactions — only fires when a mouse is present
+    // On touch-only devices, mouseenter never fires so this is a no-op
+    let hoverTimer = null;
+    rows.forEach((row) => {
+      row.addEventListener("mouseenter", () => {
+        clearTimeout(hoverTimer);
+        const index = parseInt(row.getAttribute("data-row-index") || "0");
+        hoverTimer = setTimeout(() => activateRow(index), 150);
+      });
+    });
+
+    const list = section.querySelector(".programs-list");
+    if (list) {
+      list.addEventListener("mouseleave", () => {
+        clearTimeout(hoverTimer);
+      });
+    }
+  }
+</script>

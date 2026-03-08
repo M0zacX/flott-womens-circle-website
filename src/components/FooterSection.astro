@@ -12,13 +12,76 @@ const navLinks = [
 ---
 
 <footer class="bg-background relative overflow-hidden">
+  <!-- Decorative mandala SVG -->
+  <svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[650px] md:h-[650px] lg:w-[800px] lg:h-[800px] text-[#e8b4b8] opacity-[0.12] pointer-events-none" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- Outer circles -->
+    <circle cx="200" cy="200" r="195" />
+    <circle cx="200" cy="200" r="180" />
+    <circle cx="200" cy="200" r="155" />
+    <!-- Scalloped ring -->
+    <path d="M200 25 Q215 45 200 50 Q185 45 200 25" />
+    <path d="M200 375 Q215 355 200 350 Q185 355 200 375" />
+    <path d="M25 200 Q45 185 50 200 Q45 215 25 200" />
+    <path d="M375 200 Q355 185 350 200 Q355 215 375 200" />
+    <!-- Diagonal scallops -->
+    <path d="M76 76 Q98 82 88 98 Q82 98 76 76" />
+    <path d="M324 76 Q302 82 312 98 Q318 98 324 76" />
+    <path d="M76 324 Q82 302 98 312 Q98 318 76 324" />
+    <path d="M324 324 Q318 302 302 312 Q302 318 324 324" />
+    <!-- Inner petal ring — 12 petals -->
+    <path d="M200 60 Q212 100 200 130 Q188 100 200 60Z" />
+    <path d="M200 340 Q212 300 200 270 Q188 300 200 340Z" />
+    <path d="M60 200 Q100 188 130 200 Q100 212 60 200Z" />
+    <path d="M340 200 Q300 188 270 200 Q300 212 340 200Z" />
+    <path d="M100 100 Q125 115 140 140 Q115 125 100 100Z" />
+    <path d="M300 100 Q275 115 260 140 Q285 125 300 100Z" />
+    <path d="M100 300 Q115 275 140 260 Q125 285 100 300Z" />
+    <path d="M300 300 Q285 275 260 260 Q275 285 300 300Z" />
+    <path d="M148 68 Q168 102 165 135 Q152 98 148 68Z" />
+    <path d="M252 68 Q232 102 235 135 Q248 98 252 68Z" />
+    <path d="M148 332 Q152 302 165 265 Q168 298 148 332Z" />
+    <path d="M252 332 Q248 302 235 265 Q232 298 252 332Z" />
+    <!-- Second ring of smaller petals -->
+    <path d="M200 110 Q208 140 200 160 Q192 140 200 110Z" />
+    <path d="M200 290 Q208 260 200 240 Q192 260 200 290Z" />
+    <path d="M110 200 Q140 192 160 200 Q140 208 110 200Z" />
+    <path d="M290 200 Q260 192 240 200 Q260 208 290 200Z" />
+    <path d="M135 135 Q152 148 162 162 Q148 152 135 135Z" />
+    <path d="M265 135 Q248 148 238 162 Q252 152 265 135Z" />
+    <path d="M135 265 Q148 252 162 238 Q152 248 135 265Z" />
+    <path d="M265 265 Q252 248 238 238 Q248 252 265 265Z" />
+    <!-- Center mandala -->
+    <circle cx="200" cy="200" r="55" />
+    <circle cx="200" cy="200" r="38" />
+    <circle cx="200" cy="200" r="18" />
+    <circle cx="200" cy="200" r="6" fill="currentColor" opacity="0.3" />
+    <!-- Center rays -->
+    <line x1="200" y1="162" x2="200" y2="145" />
+    <line x1="200" y1="238" x2="200" y2="255" />
+    <line x1="162" y1="200" x2="145" y2="200" />
+    <line x1="238" y1="200" x2="255" y2="200" />
+    <line x1="173" y1="173" x2="162" y2="162" />
+    <line x1="227" y1="173" x2="238" y2="162" />
+    <line x1="173" y1="227" x2="162" y2="238" />
+    <line x1="227" y1="227" x2="238" y2="238" />
+    <!-- Dot ring between inner circles -->
+    <circle cx="200" cy="130" r="3" /><circle cx="200" cy="270" r="3" />
+    <circle cx="130" cy="200" r="3" /><circle cx="270" cy="200" r="3" />
+    <circle cx="150" cy="150" r="2.5" /><circle cx="250" cy="150" r="2.5" />
+    <circle cx="150" cy="250" r="2.5" /><circle cx="250" cy="250" r="2.5" />
+    <circle cx="170" cy="118" r="2" /><circle cx="230" cy="118" r="2" />
+    <circle cx="170" cy="282" r="2" /><circle cx="230" cy="282" r="2" />
+    <circle cx="118" cy="170" r="2" /><circle cx="118" cy="230" r="2" />
+    <circle cx="282" cy="170" r="2" /><circle cx="282" cy="230" r="2" />
+  </svg>
+
   <!-- Row 1: Logo + Nav -->
   <div class="border-t border-border px-6 pt-14 pb-10 md:px-12 lg:px-20">
     <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
       <a href="/" class="footer-reveal" style="transition-delay: 0s">
         <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" class="h-10 w-auto" />
       </a>
-      <nav class="flex flex-wrap gap-x-8 gap-y-3">
+      <nav class="flex flex-wrap gap-x-4 sm:gap-x-6 md:gap-x-8 gap-y-3">
         {navLinks.map((link, i) => (
           <a href={link.href} class="footer-reveal text-xs uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground" style={`transition-delay: ${0.05 + i * 0.06}s`}>{link.label}</a>
         ))}

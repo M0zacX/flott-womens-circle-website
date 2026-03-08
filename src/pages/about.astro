@@ -1,0 +1,627 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import { ScrollRevealText } from "../components/ScrollRevealText";
+import { AboutHeroSection } from "../components/AboutHeroSection";
+import { AboutStructureSection } from "../components/AboutStructureSection";
+import FooterSection from "../components/FooterSection.astro";
+
+const differentiators = [
+  { name: "Wellness First", description: "We lead with care, rest, and balance — not hustle culture. Everything starts with wellbeing.", image: "/images/gallery/event-08.jpeg",
+    icon: `<path d="M12 21c0-4-3-7-3-10s3-6 3-6 3 3 3 6-3 6-3 10z" /><path d="M12 21c-2-3-6-5-8-5 2-1 5 0 8 5z" /><path d="M12 21c2-3 6-5 8-5-2-1-5 0-8 5z" /><circle cx="12" cy="8" r="1.5" fill="currentColor" opacity="0.3" />` },
+  { name: "Lived Experience", description: "What we teach comes from lived experience. Real stories. Real growth. No textbook theory.", image: "/images/gallery/event-20.jpeg",
+    icon: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 10h8" opacity="0.4" /><path d="M8 13h5" opacity="0.4" />` },
+  { name: "Calm Settings", description: "We learn in calm, relatable settings. No performance. No spotlight. Just presence and safety.", image: "/images/gallery/event-25.jpeg",
+    icon: `<circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />` },
+  { name: "No Pressure", description: "Your growth is yours. No timelines. No competition. Just support and community.", image: "/images/gallery/event-30.jpeg",
+    icon: `<path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />` },
+  { name: "Culture & Tradition", description: "We honour heritage and embrace today — tradition woven into modern wellness and living.", image: "/images/gallery/event-40.jpeg",
+    icon: `<circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /><path d="M12 2c2.5 3 4 6.5 4 10s-1.5 7-4 10" opacity="0.4" />` },
+];
+---
+
+<Layout title="About - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/about" />
+
+    <!-- 1. HERO — Image + Pillars + Story -->
+    <AboutHeroSection client:load />
+
+    <!-- 3. PURPOSE / VISION / MISSION — Stacked Scroll Reveals -->
+    <section class="px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-32 relative overflow-hidden">
+      <!-- Botanical floral arrangement — branching wildflowers, right side -->
+      <svg class="absolute top-1/2 -right-[20%] md:-right-[8%] lg:right-[2%] -translate-y-1/2 w-[600px] h-[600px] md:w-[750px] md:h-[750px] lg:w-[900px] lg:h-[900px] text-[#e8b4b8] opacity-[0.6] pointer-events-none" viewBox="0 0 700 900" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- Main central stem -->
+        <path d="M350 860 C345 780 340 700 338 620 C336 540 342 460 350 380 C358 300 368 230 380 160 C388 110 392 70 390 30" />
+        <!-- Secondary stems branching off -->
+        <path d="M350 620 C310 580 260 550 200 540" />
+        <path d="M350 520 C390 480 440 460 510 460" />
+        <path d="M350 440 C310 400 250 380 190 390" />
+        <path d="M360 340 C400 310 450 290 520 300" />
+        <path d="M370 250 C340 220 290 200 230 210" />
+        <path d="M380 180 C410 150 450 130 500 140" />
+        <path d="M385 120 C360 100 320 90 270 100" />
+
+        <!-- Leaves along main stem — alternating sides, with veins -->
+        <!-- Leaf 1 - right -->
+        <path d="M342 740 C370 726 398 718 420 728 C396 732 368 738 342 740Z" />
+        <path d="M352 734 L400 726" opacity="0.3" />
+        <!-- Leaf 2 - left -->
+        <path d="M338 680 C310 666 282 658 260 668 C284 672 312 678 338 680Z" />
+        <path d="M328 674 L280 666" opacity="0.3" />
+        <!-- Leaf 3 - right -->
+        <path d="M342 590 C368 574 394 568 414 580 C392 582 366 586 342 590Z" />
+        <path d="M352 584 L396 576" opacity="0.3" />
+        <!-- Leaf 4 - left -->
+        <path d="M340 500 C314 486 288 478 266 488 C290 492 316 496 340 500Z" />
+        <path d="M330 494 L286 486" opacity="0.3" />
+        <!-- Leaf 5 - right -->
+        <path d="M354 420 C378 404 404 398 422 410 C402 412 378 416 354 420Z" />
+        <path d="M362 414 L406 406" opacity="0.3" />
+        <!-- Leaf 6 - left -->
+        <path d="M360 360 C336 346 312 340 290 350 C314 352 340 356 360 360Z" />
+        <path d="M350 354 L310 348" opacity="0.3" />
+        <!-- Leaf 7 - right -->
+        <path d="M372 290 C394 276 418 270 436 282 C416 284 394 288 372 290Z" />
+        <path d="M380 284 L420 278" opacity="0.3" />
+        <!-- Leaf 8 - left -->
+        <path d="M374 230 C350 218 328 212 308 222 C330 224 354 228 374 230Z" />
+        <path d="M364 224 L328 220" opacity="0.3" />
+
+        <!-- Flower 1 — large bloom at top of main stem -->
+        <circle cx="390" cy="28" r="6" />
+        <path d="M390 20 Q394 6 390 -6 Q386 6 390 20Z" />
+        <path d="M398 24 Q410 18 418 10 Q408 20 398 24Z" />
+        <path d="M398 34 Q410 40 418 48 Q408 38 398 34Z" />
+        <path d="M382 34 Q370 40 362 48 Q372 38 382 34Z" />
+        <path d="M382 24 Q370 18 362 10 Q372 20 382 24Z" />
+        <circle cx="390" cy="28" r="14" opacity="0.3" />
+
+        <!-- Flower 2 — on left branch -->
+        <circle cx="200" cy="536" r="5" />
+        <path d="M200 528 Q203 516 200 506 Q197 516 200 528Z" />
+        <path d="M208 532 Q218 528 224 520 Q216 528 208 532Z" />
+        <path d="M208 542 Q218 546 224 554 Q216 546 208 542Z" />
+        <path d="M192 542 Q182 546 176 554 Q184 546 192 542Z" />
+        <path d="M192 532 Q182 528 176 520 Q184 528 192 532Z" />
+        <circle cx="200" cy="536" r="12" opacity="0.3" />
+
+        <!-- Flower 3 — on right branch -->
+        <circle cx="510" cy="456" r="5" />
+        <path d="M510 448 Q513 436 510 426 Q507 436 510 448Z" />
+        <path d="M518 452 Q528 448 534 440 Q526 448 518 452Z" />
+        <path d="M518 462 Q528 466 534 474 Q526 466 518 462Z" />
+        <path d="M502 462 Q492 466 486 474 Q494 466 502 462Z" />
+        <path d="M502 452 Q492 448 486 440 Q494 448 502 452Z" />
+        <circle cx="510" cy="456" r="12" opacity="0.3" />
+
+        <!-- Flower 4 — on left branch -->
+        <circle cx="190" cy="386" r="4.5" />
+        <path d="M190 378 Q193 368 190 358 Q187 368 190 378Z" />
+        <path d="M197 382 Q206 378 210 372 Q204 378 197 382Z" />
+        <path d="M197 392 Q206 396 210 402 Q204 396 197 392Z" />
+        <path d="M183 392 Q174 396 170 402 Q176 396 183 392Z" />
+        <path d="M183 382 Q174 378 170 372 Q176 378 183 382Z" />
+
+        <!-- Flower 5 — on right branch -->
+        <circle cx="520" cy="296" r="4.5" />
+        <path d="M520 288 Q523 278 520 268 Q517 278 520 288Z" />
+        <path d="M527 292 Q536 288 540 282 Q534 288 527 292Z" />
+        <path d="M527 302 Q536 306 540 312 Q534 306 527 302Z" />
+        <path d="M513 302 Q504 306 500 312 Q506 306 513 302Z" />
+        <path d="M513 292 Q504 288 500 282 Q506 288 513 292Z" />
+
+        <!-- Flower 6 — on left upper branch -->
+        <circle cx="230" cy="206" r="4" />
+        <path d="M230 198 Q233 190 230 182 Q227 190 230 198Z" />
+        <path d="M236 203 Q244 200 248 194 Q242 200 236 203Z" />
+        <path d="M236 211 Q244 214 248 220 Q242 214 236 211Z" />
+        <path d="M224 211 Q216 214 212 220 Q218 214 224 211Z" />
+        <path d="M224 203 Q216 200 212 194 Q218 200 224 203Z" />
+
+        <!-- Flower 7 — on right upper branch -->
+        <circle cx="500" cy="136" r="4" />
+        <path d="M500 128 Q503 120 500 112 Q497 120 500 128Z" />
+        <path d="M506 133 Q514 130 518 124 Q512 130 506 133Z" />
+        <path d="M506 141 Q514 144 518 150 Q512 144 506 141Z" />
+        <path d="M494 141 Q486 144 482 150 Q488 144 494 141Z" />
+        <path d="M494 133 Q486 130 482 124 Q488 130 494 133Z" />
+
+        <!-- Buds — closed flower forms -->
+        <path d="M270 96 C274 84 272 72 268 66 C264 72 266 84 270 96Z" />
+        <path d="M270 96 C276 88 282 80 286 74 C280 80 274 88 270 96Z" />
+        <circle cx="270" cy="98" r="2.5" />
+        <path d="M438 128 C442 116 440 104 436 98 C432 104 434 116 438 128Z" />
+        <path d="M438 128 C444 120 450 112 454 106 C448 112 442 120 438 128Z" />
+        <circle cx="438" cy="130" r="2.5" />
+
+        <!-- Scattered dots — pollen/seeds -->
+        <circle cx="220" cy="520" r="2" />
+        <circle cx="490" cy="440" r="2" />
+        <circle cx="210" cy="370" r="2" />
+        <circle cx="540" cy="316" r="2" />
+        <circle cx="250" cy="230" r="2" />
+        <circle cx="480" cy="160" r="2" />
+        <circle cx="300" cy="110" r="2" />
+        <circle cx="410" cy="50" r="2" />
+        <circle cx="370" cy="80" r="2" />
+        <circle cx="360" cy="820" r="2" />
+        <circle cx="340" cy="780" r="2" />
+        <circle cx="332" cy="650" r="2" />
+        <circle cx="356" cy="560" r="2" />
+
+        <!-- Small decorative leaf pairs on sub-branches -->
+        <path d="M240 548 Q232 540 226 544 Q232 548 240 548Z" />
+        <path d="M240 544 Q236 536 230 532 Q236 540 240 544Z" />
+        <path d="M470 468 Q478 460 484 464 Q478 468 470 468Z" />
+        <path d="M470 464 Q474 456 480 452 Q474 460 470 464Z" />
+        <path d="M230 396 Q222 388 216 392 Q222 396 230 396Z" />
+        <path d="M230 392 Q226 384 220 380 Q226 388 230 392Z" />
+        <path d="M480 308 Q488 300 494 304 Q488 308 480 308Z" />
+        <path d="M480 304 Q484 296 490 292 Q484 300 480 304Z" />
+        <path d="M270 216 Q262 208 256 212 Q262 216 270 216Z" />
+        <path d="M270 212 Q266 204 260 200 Q266 208 270 212Z" />
+        <path d="M460 148 Q468 140 474 144 Q468 148 460 148Z" />
+        <path d="M460 144 Q464 136 470 132 Q464 140 460 144Z" />
+
+        <!-- Curling tendrils -->
+        <path d="M350 780 C340 770 326 768 320 774 C326 778 336 776 350 780" opacity="0.4" />
+        <path d="M354 700 C364 690 378 688 384 694 C378 698 368 696 354 700" opacity="0.4" />
+      </svg>
+
+      <div class="max-w-5xl mx-auto space-y-16 md:space-y-20 lg:space-y-28">
+        <!-- Purpose -->
+        <div class="md:grid md:grid-cols-[120px_1fr] md:gap-12 border-t border-border pt-10 md:pt-14">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 md:mb-0 md:pt-2" style="font-style: italic">Purpose</p>
+          <div>
+            <ScrollRevealText
+              client:visible
+              text="To help women build wellbeing, self-awareness, and personal capacity — through wellness education, practical skills, and holistic empowerment."
+              className="text-xl leading-relaxed md:text-2xl lg:text-3xl text-foreground"
+              accentWords={["wellbeing", "empowerment"]}
+            />
+          </div>
+        </div>
+
+        <!-- Vision -->
+        <div class="md:grid md:grid-cols-[120px_1fr] md:gap-12 border-t border-border pt-10 md:pt-14">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 md:mb-0 md:pt-2" style="font-style: italic">Vision</p>
+          <div>
+            <ScrollRevealText
+              client:visible
+              text="To build Nigeria's most trusted women's wellness community — empowering women mentally, socially, economically, and financially to live with balance and meaning."
+              className="text-xl leading-relaxed md:text-2xl lg:text-3xl text-foreground"
+              accentWords={["trusted", "balance"]}
+            />
+          </div>
+        </div>
+
+        <!-- Mission -->
+        <div class="md:grid md:grid-cols-[120px_1fr] md:gap-12 border-t border-border pt-10 md:pt-14">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 md:mb-0 md:pt-2" style="font-style: italic">Mission</p>
+          <div>
+            <ScrollRevealText
+              client:visible
+              text="To create spaces and experiences that empower women through wellness education, real-world skills, honest conversations, and a community that lifts you up."
+              className="text-xl leading-relaxed md:text-2xl lg:text-3xl text-foreground"
+              accentWords={["spaces", "community"]}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. WHAT MAKES US DIFFERENT — Interactive Hover Rows + Background Crossfade -->
+    <section class="about-diff-section bg-[#0f0906] relative overflow-hidden">
+      <!-- Background images — one per differentiator, revealed on hover -->
+      {differentiators.map((item, i) => (
+        <div
+          class="diff-bg absolute inset-0 will-change-[opacity]"
+          data-bg-index={i}
+          style="opacity: 0; transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1);"
+        >
+          <img
+            src={item.image}
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+            style="transform: scale(1.08); transition: transform 10s cubic-bezier(0.22, 1, 0.36, 1);"
+          />
+          <div class="absolute inset-0 bg-[#0f0906]/60"></div>
+        </div>
+      ))}
+
+      <!-- Mandala accent — top right -->
+      <svg class="absolute -top-20 -right-20 w-[300px] h-[300px] lg:w-[420px] lg:h-[420px] text-[#e8b4b8] opacity-[0.12] pointer-events-none z-[2] hidden md:block" viewBox="0 0 500 500" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="250" cy="250" r="5" /><circle cx="250" cy="250" r="10" />
+        <path d="M250 237 Q254 230 250 224 Q246 230 250 237Z" />
+        <path d="M263 244 Q268 240 272 244 Q268 248 263 244Z" />
+        <path d="M263 256 Q268 260 272 256 Q268 252 263 256Z" />
+        <path d="M250 263 Q254 270 250 276 Q246 270 250 263Z" />
+        <path d="M237 256 Q232 260 228 256 Q232 252 237 256Z" />
+        <path d="M237 244 Q232 240 228 244 Q232 248 237 244Z" />
+        <circle cx="250" cy="218" r="2.5" /><circle cx="278" cy="234" r="2.5" /><circle cx="278" cy="266" r="2.5" />
+        <circle cx="250" cy="282" r="2.5" /><circle cx="222" cy="266" r="2.5" /><circle cx="222" cy="234" r="2.5" />
+        <circle cx="250" cy="250" r="40" />
+        <path d="M250 208 Q258 190 250 172 Q242 190 250 208Z" />
+        <path d="M275 215 Q292 204 298 186 Q284 200 275 215Z" />
+        <path d="M290 244 Q310 240 322 228 Q306 238 290 244Z" />
+        <path d="M282 270 Q298 282 310 280 Q296 276 282 270Z" />
+        <path d="M262 288 Q270 308 266 322 Q258 306 262 288Z" />
+        <path d="M238 288 Q230 308 234 322 Q242 306 238 288Z" />
+        <path d="M218 270 Q202 282 190 280 Q204 276 218 270Z" />
+        <path d="M210 244 Q190 240 178 228 Q194 238 210 244Z" />
+        <path d="M225 215 Q208 204 202 186 Q216 200 225 215Z" />
+        <circle cx="250" cy="250" r="62" />
+        <path d="M250 184 Q264 150 250 118 Q236 150 250 184Z" />
+        <path d="M306 228 Q340 224 360 200 Q334 218 306 228Z" />
+        <path d="M306 272 Q340 276 360 300 Q334 282 306 272Z" />
+        <path d="M250 316 Q264 350 250 382 Q236 350 250 316Z" />
+        <path d="M194 272 Q160 276 140 300 Q166 282 194 272Z" />
+        <path d="M194 228 Q160 224 140 200 Q166 218 194 228Z" />
+        <circle cx="250" cy="250" r="105" />
+        <circle cx="250" cy="94" r="3" /><circle cx="406" cy="250" r="3" />
+        <circle cx="250" cy="406" r="3" /><circle cx="94" cy="250" r="3" />
+      </svg>
+
+      <!-- Paisley accent — bottom left -->
+      <svg class="absolute -bottom-8 -left-6 w-[120px] h-[170px] md:w-[160px] md:h-[230px] text-[#e8b4b8] opacity-[0.15] pointer-events-none z-[2]" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate(20deg)">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206" />
+        <circle cx="150" cy="152" r="2.5" /><circle cx="192" cy="178" r="2.5" />
+        <circle cx="150" cy="264" r="2.5" /><circle cx="108" cy="178" r="2.5" />
+      </svg>
+
+      <div class="relative z-10 px-6 md:px-12 lg:px-20 py-14 md:py-20 lg:py-32">
+        <!-- Header -->
+        <div class="mb-10 md:mb-14 lg:mb-20">
+          <p class="diff-reveal text-xs uppercase tracking-[0.3em] text-white/25 mb-5" style="font-style: italic; transition-delay: 0s;">Our Difference</p>
+          <h2 class="diff-reveal text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl" style="transition-delay: 0.1s;">
+            What Makes Us
+            <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Different</span>
+          </h2>
+        </div>
+
+        <!-- Differentiator list -->
+        <div class="diff-list border-t border-white/[0.08]">
+          {differentiators.map((item, index) => (
+            <div
+              class="diff-row diff-reveal group flex items-start md:items-center gap-5 md:gap-10 border-b border-white/[0.08] py-6 md:py-8 cursor-default"
+              data-row-index={index}
+              style={`transition-delay: ${0.15 + index * 0.08}s;`}
+            >
+              <span
+                class="diff-number shrink-0 w-[36px] sm:w-[48px] md:w-[80px] lg:w-[100px] text-right text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light text-white/[0.1]"
+                style="font-family: 'Playfair Display', serif; font-style: italic; transition: color 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              <div
+                class="diff-icon shrink-0 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/10"
+                style="opacity: 0; transform: scale(0.8); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+              >
+                <svg class="h-5 w-5 md:h-6 md:w-6 text-[#c49298]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <Fragment set:html={item.icon} />
+                </svg>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <div
+                  class="diff-content"
+                  style="transform: translateY(8px); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+                >
+                  <h3
+                    class="diff-title text-lg md:text-2xl lg:text-[2rem] text-white/40 font-medium tracking-tight leading-tight"
+                    style="transition: color 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+                  >
+                    {item.name}
+                  </h3>
+                  <p
+                    class="diff-desc text-sm text-white/30 mt-2 max-w-lg"
+                    style="opacity: 0; transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);"
+                  >{item.description}</p>
+                </div>
+              </div>
+
+              <div
+                class="diff-arrow shrink-0 mt-1 md:mt-0 hidden md:block"
+                style="opacity: 0; transform: translateX(-10px); transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);"
+              >
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Quote -->
+        <div class="diff-reveal mt-12 md:mt-16 lg:mt-20 max-w-2xl" style="transition-delay: 0.7s;">
+          <p class="text-lg md:text-xl lg:text-2xl text-white/70 leading-relaxed" style="font-family: 'Playfair Display', serif; font-style: italic;">
+            "We are not preparing women to compete. We are preparing women to thrive."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video section -->
+    <section class="px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-28 relative overflow-hidden">
+      <!-- Paisley accent -->
+      <svg class="absolute -top-8 -right-12 w-[140px] h-[200px] md:w-[180px] md:h-[260px] text-[#e8b4b8] opacity-[0.2] pointer-events-none" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate(-15deg)">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206" />
+      </svg>
+
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 md:gap-16 lg:gap-24 items-center">
+          <!-- Text side -->
+          <div class="order-2 md:order-1">
+            <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4" style="font-style: italic">Inside a Circle</p>
+            <h2 class="word-blur-group text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-4xl">
+              <span class="word-blur" style="transition-delay: 0.05s">See</span>
+              <span class="word-blur" style="transition-delay: 0.12s">What</span>
+              <span class="word-blur" style="transition-delay: 0.2s">It</span>
+              <span class="word-blur" style="transition-delay: 0.28s">Feels</span>
+              <span class="word-blur" style="transition-delay: 0.38s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Like</span>
+            </h2>
+            <p class="reveal mt-6 text-sm leading-relaxed text-muted-foreground max-w-md" style="transition-delay: 0.1s">
+              Warm rooms. Real conversations. Women laughing, learning, and letting their guard down. This is what a Circle looks like from the inside.
+            </p>
+            <p class="reveal mt-4 text-sm leading-relaxed text-muted-foreground max-w-md" style="transition-delay: 0.2s">
+              No stage. No spotlight. Just a safe space where women show up as they are — and leave a little stronger.
+            </p>
+            <a href="/contact" class="reveal inline-flex items-center gap-2 mt-8 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-colors hover:text-primary" style="transition-delay: 0.3s">
+              Find your Circle
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+          <!-- Video side -->
+          <div class="order-1 md:order-2 reveal flex justify-center md:justify-end" style="transition-delay: 0.1s">
+            <div class="relative w-[220px] md:w-[240px] lg:w-[260px] overflow-hidden rounded-2xl shadow-lg">
+              <video
+                class="w-full aspect-[9/16] object-cover"
+                controls
+                preload="metadata"
+                poster="/images/gallery/event-01.jpeg"
+              >
+                <source src="/videos/tour.mov" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. STRUCTURE — Overlapping Circles Venn Diagram -->
+    <AboutStructureSection client:visible />
+
+    <!-- 7. PHILOSOPHY QUOTE + CTA IMAGE — Emotional Close -->
+    <section class="about-cta-section bg-background relative overflow-hidden">
+      <!-- Intricate Medallion Mandala -->
+      <svg class="absolute -top-16 -right-20 w-[320px] h-[320px] lg:w-[420px] lg:h-[420px] text-[#e8b4b8] opacity-[0.35] pointer-events-none hidden md:block" viewBox="0 0 500 500" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="250" cy="250" r="5" /><circle cx="250" cy="250" r="10" />
+        <path d="M250 237 Q254 230 250 224 Q246 230 250 237Z" />
+        <path d="M263 244 Q268 240 272 244 Q268 248 263 244Z" />
+        <path d="M263 256 Q268 260 272 256 Q268 252 263 256Z" />
+        <path d="M250 263 Q254 270 250 276 Q246 270 250 263Z" />
+        <path d="M237 256 Q232 260 228 256 Q232 252 237 256Z" />
+        <path d="M237 244 Q232 240 228 244 Q232 248 237 244Z" />
+        <circle cx="250" cy="218" r="2.5" /><circle cx="278" cy="234" r="2.5" /><circle cx="278" cy="266" r="2.5" />
+        <circle cx="250" cy="282" r="2.5" /><circle cx="222" cy="266" r="2.5" /><circle cx="222" cy="234" r="2.5" />
+        <circle cx="250" cy="250" r="40" />
+        <path d="M250 208 Q258 190 250 172 Q242 190 250 208Z" />
+        <path d="M290 244 Q310 240 322 228 Q306 238 290 244Z" />
+        <path d="M262 288 Q270 308 266 322 Q258 306 262 288Z" />
+        <path d="M238 288 Q230 308 234 322 Q242 306 238 288Z" />
+        <path d="M210 244 Q190 240 178 228 Q194 238 210 244Z" />
+        <circle cx="250" cy="250" r="62" />
+      </svg>
+
+      <!-- Paisley bottom left -->
+      <svg class="absolute bottom-16 -left-4 w-[130px] h-[185px] md:w-[180px] md:h-[260px] text-[#e8b4b8] opacity-[0.3] pointer-events-none" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate(15deg)">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206 C146 198 152 192 162 192 C172 192 178 202 176 212 C174 222 162 228 154 226" />
+        <path d="M150 188 Q156 172 150 158 Q144 172 150 188Z" />
+        <path d="M166 200 Q180 194 188 182 Q176 192 166 200Z" />
+        <path d="M166 218 Q180 224 188 236 Q176 226 166 218Z" />
+        <path d="M150 230 Q156 246 150 260 Q144 246 150 230Z" />
+        <path d="M134 218 Q120 224 112 236 Q124 226 134 218Z" />
+        <path d="M134 200 Q120 194 112 182 Q124 192 134 200Z" />
+        <circle cx="150" cy="152" r="2.5" /><circle cx="192" cy="178" r="2.5" /><circle cx="192" cy="240" r="2.5" />
+        <circle cx="150" cy="264" r="2.5" /><circle cx="108" cy="240" r="2.5" /><circle cx="108" cy="178" r="2.5" />
+        <path d="M150 20 C172 12 182 22 178 38 C174 52 158 48 162 34" />
+        <circle cx="150" cy="12" r="2.5" />
+      </svg>
+
+      <div class="px-6 py-14 md:px-12 md:py-20 lg:px-20 lg:py-40">
+        <ScrollRevealText
+          client:visible
+          text="Empowerment starts with awareness. Growth happens fastest in safe spaces. And wellness isn't separate from empowerment — it is empowerment."
+          className="mx-auto max-w-5xl text-2xl leading-relaxed md:text-3xl lg:text-[2.5rem] lg:leading-snug"
+          accentWords={["awareness", "empowerment"]}
+        />
+      </div>
+
+      <!-- CTA Image with word reveal -->
+      <div class="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[32/9] w-full reveal-clip">
+        <img src="/images/gallery/event-50.jpeg" alt="Flott Women's Circle community" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-black/30"></div>
+        <div class="absolute inset-0 flex items-end px-6 pb-6 sm:px-8 sm:pb-8 md:px-14 md:pb-12 lg:px-20 lg:pb-16">
+          <div class="about-cta-words" style="text-indent: -0.04em;">
+            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-[1.05] tracking-tight">
+              <span class="about-cta-w" style="transition-delay: 0s;">When</span>{" "}
+              <span class="about-cta-w" style="transition-delay: 0.15s;">Women</span>{" "}
+              <span class="about-cta-w" style="transition-delay: 0.3s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Gather,</span><br/>
+              <span class="about-cta-w" style="transition-delay: 0.45s;">Everything</span>{" "}
+              <span class="about-cta-w" style="transition-delay: 0.65s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Grows.</span>
+            </h2>
+            <p class="about-cta-sub mt-3 md:mt-5 text-xs md:text-sm font-normal tracking-[0.2em] uppercase">Flott Women's Circle</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<style>
+  /* Differentiator section reveal animation */
+  .diff-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+    will-change: opacity, transform, filter;
+    transition:
+      opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .diff-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* CTA word reveal */
+  .about-cta-w {
+    color: transparent;
+    filter: blur(8px);
+    will-change: color, filter;
+    transition:
+      color 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .about-cta-words.visible .about-cta-w {
+    color: #0F0906;
+    filter: blur(0);
+  }
+  .about-cta-sub {
+    color: transparent;
+    filter: blur(6px);
+    will-change: color, filter;
+    transition:
+      color 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.9s,
+      filter 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.9s;
+  }
+  .about-cta-words.visible .about-cta-sub {
+    color: rgb(15 9 6 / 0.6);
+    filter: blur(0);
+  }
+</style>
+
+<script>
+  // Differentiator section — scroll reveal
+  const diffObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          diffObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+  document.querySelectorAll(".diff-reveal").forEach((el) => diffObs.observe(el));
+
+  // Differentiator row interactions (background crossfade)
+  const diffSection = document.querySelector(".about-diff-section");
+  if (diffSection) {
+    const rows = diffSection.querySelectorAll(".diff-row");
+    const bgs = diffSection.querySelectorAll(".diff-bg");
+    let activeIndex = -1;
+
+    const activateRow = (index) => {
+      if (index === activeIndex) return;
+      activeIndex = index;
+
+      // Crossfade backgrounds
+      bgs.forEach((bg, i) => {
+        const img = bg.querySelector("img");
+        if (i === index) {
+          bg.style.opacity = "1";
+          bg.style.zIndex = "1";
+          if (img) img.style.transform = "scale(1)";
+        } else {
+          bg.style.opacity = "0";
+          bg.style.zIndex = "0";
+          if (img) img.style.transform = "scale(1.08)";
+        }
+      });
+
+      // Highlight active row, dim others
+      rows.forEach((r) => {
+        const isActive = r.getAttribute("data-row-index") === String(index);
+        const num = r.querySelector(".diff-number");
+        const icon = r.querySelector(".diff-icon");
+        const title = r.querySelector(".diff-title");
+        const content = r.querySelector(".diff-content");
+        const desc = r.querySelector(".diff-desc");
+        const arrow = r.querySelector(".diff-arrow");
+
+        if (num) num.style.color = isActive ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.05)";
+        if (icon) { icon.style.opacity = isActive ? "1" : "0"; icon.style.transform = isActive ? "scale(1)" : "scale(0.8)"; }
+        if (title) title.style.color = isActive ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.15)";
+        if (content) content.style.transform = isActive ? "translateY(0)" : "translateY(8px)";
+        if (desc) desc.style.opacity = isActive ? "1" : "0";
+        if (arrow) {
+          arrow.style.opacity = isActive ? "1" : "0";
+          arrow.style.transform = isActive ? "translateX(0)" : "translateX(-10px)";
+        }
+      });
+    };
+
+    // Initialize first row as active
+    activateRow(0);
+
+    // Scroll-activated rows
+    const rowScrollObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute("data-row-index") || "0");
+            activateRow(index);
+          }
+        });
+      },
+      { rootMargin: "-25% 0px -50% 0px", threshold: 0 }
+    );
+    rows.forEach((row) => rowScrollObs.observe(row));
+
+    // Hover interactions
+    let hoverTimer = null;
+    rows.forEach((row) => {
+      row.addEventListener("mouseenter", () => {
+        clearTimeout(hoverTimer);
+        const index = parseInt(row.getAttribute("data-row-index") || "0");
+        hoverTimer = setTimeout(() => activateRow(index), 150);
+      });
+    });
+
+    const list = diffSection.querySelector(".diff-list");
+    if (list) {
+      list.addEventListener("mouseleave", () => {
+        clearTimeout(hoverTimer);
+      });
+    }
+  }
+
+  // CTA words reveal
+  const aboutCtaObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          aboutCtaObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+  document.querySelectorAll(".about-cta-words").forEach((el) => aboutCtaObs.observe(el));
+</script>

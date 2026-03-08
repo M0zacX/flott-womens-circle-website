@@ -1,0 +1,159 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import { ScrollRevealText } from "../components/ScrollRevealText";
+import FooterSection from "../components/FooterSection.astro";
+
+const programs = [
+  {
+    title: "Wellness Education Sessions",
+    description: "Body care, emotional balance, rest, and preventive self-care — taught in ways that honour your culture.",
+    image: "/images/gallery/event-04.jpeg",
+  },
+  {
+    title: "Body Care & Self-Care Workshops",
+    description: "Get hands-on with traditional and modern self-care practices you can bring into your daily life.",
+    image: "/images/gallery/event-10.jpeg",
+  },
+  {
+    title: "Soft Skills Learning Circles",
+    description: "Build communication, confidence, and emotional intelligence in a small, supportive group setting.",
+    image: "/images/gallery/event-20.jpeg",
+  },
+  {
+    title: "Empowerment Sessions",
+    description: "Targeted sessions to build mental, social, economic, and financial strength.",
+    image: "/images/gallery/event-28.jpeg",
+  },
+  {
+    title: "Guided Conversations",
+    description: "Open, facilitated conversations about self-awareness, identity, growth, and womanhood.",
+    image: "/images/gallery/event-38.jpeg",
+  },
+  {
+    title: "Community Gatherings",
+    description: "Seasonal events that bring women together to celebrate, connect, and feel held.",
+    image: "/images/gallery/event-45.jpeg",
+  },
+  {
+    title: "Cultural Wellness Experiences",
+    description: "Where heritage meets modern wellness — honouring tradition while caring for the woman you are today.",
+    image: "/images/gallery/event-52.jpeg",
+  },
+];
+
+const steps = [
+  { number: "01", title: "Find Your Circle", description: "Pick the Circle nearest to you — Abuja, Kaduna, Port Harcourt, Enugu, or Ilorin." },
+  { number: "02", title: "Attend a Gathering", description: "Join a wellness session, workshop, or community gathering. Come as you are." },
+  { number: "03", title: "Grow Together", description: "Build real skills, deepen self-awareness, and connect with women who genuinely uplift you." },
+];
+---
+
+<Layout title="Programs - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/programs" />
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+      <svg class="absolute bottom-0 -left-8 w-[120px] h-[170px] md:w-[180px] md:h-[250px] text-[#e8b4b8] opacity-[0.25] pointer-events-none" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate(15deg)">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206 C146 198 152 192 162 192" />
+        <path d="M150 188 Q156 172 150 158 Q144 172 150 188Z" />
+        <path d="M166 200 Q180 194 188 182 Q176 192 166 200Z" />
+        <path d="M150 230 Q156 246 150 260 Q144 246 150 230Z" />
+        <path d="M134 200 Q120 194 112 182 Q124 192 134 200Z" />
+      </svg>
+
+      <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4" style="font-style: italic">What We Create</p>
+      <h1 class="word-blur-group text-4xl font-medium tracking-tight text-foreground md:text-5xl lg:text-6xl max-w-3xl">
+        <span class="word-blur" style="transition-delay: 0.05s">Programs</span>
+        <span class="word-blur" style="transition-delay: 0.12s">&</span>
+        <span class="word-blur" style="transition-delay: 0.25s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Gatherings</span>
+      </h1>
+      <p class="blur-words mt-6 text-base text-muted-foreground max-w-xl leading-relaxed">
+        Every session is designed with purpose. Every gathering is held with heart.
+      </p>
+    </section>
+
+    <!-- Programs Grid -->
+    <section class="px-6 pb-16 md:px-12 md:pb-24 lg:px-20 lg:pb-28">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {programs.map((program, i) => (
+          <div class="reveal group" style={`transition-delay: ${i * 0.08}s`}>
+            <div class="relative aspect-[3/4] overflow-hidden rounded-2xl reveal-clip" style={`transition-delay: ${0.05 + i * 0.08}s`}>
+              <img
+                src={program.image}
+                alt={program.title}
+                class="fade-image absolute inset-0 w-full h-full object-cover hover-zoom"
+                loading="lazy"
+                onload="this.classList.add('loaded')"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <h3 class="text-base font-medium text-white">{program.title}</h3>
+                <p class="mt-2 text-xs text-white/60 leading-relaxed">{program.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="bg-foreground text-background px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-28">
+      <div class="max-w-4xl mx-auto">
+        <p class="blur-words text-xs uppercase tracking-[0.3em] text-background/50 mb-4 text-center" style="font-style: italic">Getting Started</p>
+        <h2 class="word-blur-group text-2xl font-medium tracking-tight md:text-3xl lg:text-4xl text-center mb-16">
+          <span class="word-blur" style="transition-delay: 0.05s; color: var(--color-background)">How</span>
+          <span class="word-blur" style="transition-delay: 0.12s; color: var(--color-background)">It</span>
+          <span class="word-blur" style="transition-delay: 0.22s; color: var(--color-background); font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Works</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+          {steps.map((step, i) => (
+            <div class="reveal text-center md:text-left" style={`transition-delay: ${i * 0.15}s`}>
+              <span class="text-4xl font-light text-background/20">{step.number}</span>
+              <h3 class="mt-3 text-lg font-semibold text-background">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-background/60">{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote + CTA -->
+    <section class="px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-28">
+      <ScrollRevealText
+        client:visible
+        text="We believe wellness is education, confidence is built, and community is healing."
+        className="mx-auto max-w-4xl text-2xl leading-relaxed md:text-3xl lg:text-[2.5rem] lg:leading-snug text-center"
+        accentWords={["education", "healing"]}
+      />
+
+      <div class="reveal mt-14 md:mt-20 flex justify-center" style="transition-delay: 0.3s">
+        <a
+          href="/contact"
+          class="group relative flex items-center justify-center w-[160px] h-[160px] md:w-[190px] md:h-[190px] rounded-full bg-primary text-primary-foreground transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105"
+        >
+          {/* Rotating ring */}
+          <svg
+            class="absolute inset-0 w-full h-full animate-[hero-spin_25s_linear_infinite]"
+            viewBox="0 0 200 200"
+            aria-hidden="true"
+          >
+            <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="4 6" opacity="0.35" />
+          </svg>
+
+          {/* Inner content */}
+          <span class="flex flex-col items-center gap-2 text-center px-6">
+            <span class="text-xs md:text-sm font-medium leading-tight tracking-wide">Join Your<br />Nearest Circle</span>
+            <svg class="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>

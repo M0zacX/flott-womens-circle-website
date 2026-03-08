@@ -12,7 +12,7 @@ export function TechnologySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const descriptionText = "Flott Women's Circle operates across five vibrant cities in Nigeria. Each Circle adapts programming to its local rhythm and culture, while staying rooted in our shared philosophy of wellness, skills, and holistic empowerment. From Abuja to Ilorin, every gathering is a step toward balanced, fulfilled living.";
+  const descriptionText = "Five cities. One shared philosophy. Each Circle moves to the rhythm of its community — honouring local culture while staying rooted in wellness, skills, and empowerment. From Abuja to Ilorin, every gathering brings women closer to balanced, intentional living.";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,24 +28,32 @@ export function TechnologySection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+  const isMobile = screenWidth < 768;
+  const isTablet = screenWidth >= 768 && screenWidth < 1280;
+  const isDesktop = screenWidth >= 1280;
   const titleOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
-  const centerWidth = 100 - (imageProgress * 58);
+  const centerWidth = Math.max(
+    isMobile ? 52 : isTablet ? 48 : 42,
+    100 - (imageProgress * (isTablet ? 50 : 58))
+  );
   const centerHeight = 100 - (imageProgress * 30);
-  const sideWidth = imageProgress * 22;
+  const sideWidth = imageProgress * (isMobile ? 23 : isTablet ? 24 : 22);
   const sideOpacity = imageProgress;
   const sideTranslateLeft = -100 + (imageProgress * 100);
   const sideTranslateRight = 100 - (imageProgress * 100);
   const borderRadius = imageProgress * 24;
-  const gap = imageProgress * 16;
+  const gap = imageProgress * (isMobile ? 3 : isTablet ? 4 : 16);
+  const containerPadding = imageProgress * (isMobile ? 0 : isTablet ? 0 : 16);
 
   return (
     <section ref={sectionRef} className="relative bg-foreground">
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
-          <div className="relative flex h-full w-full items-stretch justify-center" style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px` }}>
+          <div className="relative flex h-full w-full items-stretch justify-center" style={{ gap: `${gap}px`, padding: `${containerPadding}px` }}>
 
-            <div className="flex flex-col will-change-transform" style={{ width: `${sideWidth}%`, gap: `${gap}px`, transform: `translateX(${sideTranslateLeft}%)`, opacity: sideOpacity }}>
+            <div className="flex flex-col will-change-transform" style={{ width: `${sideWidth}%`, gap: `${gap}px`, transform: `translateX(${sideTranslateLeft}%)`, opacity: sideOpacity, ...(!isDesktop ? { height: '50%', alignSelf: 'center' } : {}) }}>
               {sideImages.filter(img => img.position === "left").map((img, idx) => (
                 <div key={idx} className="relative overflow-hidden will-change-transform" style={{ flex: img.span, borderRadius: `${borderRadius}px` }}>
                   <img src={img.src} alt={img.alt} className="absolute inset-0 w-full h-full object-cover" />
@@ -53,7 +61,7 @@ export function TechnologySection() {
               ))}
             </div>
 
-            <div className="relative overflow-hidden will-change-transform" style={{ width: `${centerWidth}%`, height: "100%", flex: "0 0 auto", borderRadius: `${borderRadius}px` }}>
+            <div className="relative overflow-hidden will-change-transform" style={{ width: `${centerWidth}%`, height: `${centerHeight}%`, flex: "0 0 auto", borderRadius: `${borderRadius}px`, alignSelf: 'center' }}>
               <img src="/images/flott-15.jpeg" alt="Women's empowerment event" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 bg-foreground/40" />
               <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
@@ -75,7 +83,7 @@ export function TechnologySection() {
               </div>
             </div>
 
-            <div className="flex flex-col will-change-transform" style={{ width: `${sideWidth}%`, gap: `${gap}px`, transform: `translateX(${sideTranslateRight}%)`, opacity: sideOpacity }}>
+            <div className="flex flex-col will-change-transform" style={{ width: `${sideWidth}%`, gap: `${gap}px`, transform: `translateX(${sideTranslateRight}%)`, opacity: sideOpacity, ...(!isDesktop ? { height: '50%', alignSelf: 'center' } : {}) }}>
               {sideImages.filter(img => img.position === "right").map((img, idx) => (
                 <div key={idx} className="relative overflow-hidden will-change-transform" style={{ flex: img.span, borderRadius: `${borderRadius}px` }}>
                   <img src={img.src} alt={img.alt} className="absolute inset-0 w-full h-full object-cover" />
@@ -85,75 +93,104 @@ export function TechnologySection() {
 
           </div>
         </div>
+
       </div>
 
       <div className="h-[200vh]" />
 
-      <div className="relative overflow-hidden bg-background px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40">
-        {/* Spiral Fern Garden — left side */}
-        <svg className="absolute -left-10 top-1/2 -translate-y-1/2 w-[280px] h-[400px] lg:w-[360px] lg:h-[500px] text-[#e8b4b8] opacity-[0.3] pointer-events-none hidden md:block" viewBox="0 0 380 520" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          {/* Main spiral fern — large fiddlehead */}
-          <path d="M190 500 C190 440 170 380 175 320 C180 260 160 220 170 160 C180 100 200 80 220 60 C240 40 260 40 270 60 C280 80 270 110 250 120 C230 130 210 115 220 95" />
-          {/* Inner spiral detail */}
-          <path d="M240 75 C252 68 260 76 256 88 C252 100 240 96 244 84" />
-          {/* Branch 1 — right frond */}
-          <path d="M175 320 C210 300 240 310 250 290 C260 270 240 258 210 280" />
-          <path d="M210 280 C220 272 228 276 225 286" />
-          <path d="M220 296 C232 288 238 292 234 302" opacity="0.6" />
-          <path d="M236 282 C246 276 252 280 248 290" opacity="0.6" />
-          {/* Branch 2 — left frond */}
-          <path d="M170 260 C135 245 108 255 102 238 C96 220 118 212 148 236" />
-          <path d="M148 236 C138 228 134 234 138 242" />
-          <path d="M128 248 C118 242 114 248 118 256" opacity="0.6" />
-          <path d="M112 236 C102 230 98 236 102 244" opacity="0.6" />
-          {/* Branch 3 — right spiral with folk flower */}
-          <path d="M178 200 C208 188 226 198 224 218 C222 238 202 234 206 216" />
-          <path d="M224 218 C236 212 242 218 238 228" />
-          <circle cx="240" cy="230" r="2" />
-          <circle cx="224" cy="218" r="4" />
-          <path d="M224 210 Q228 204 224 198 Q220 204 224 210Z" />
-          <path d="M232 214 Q238 212 240 206 Q234 210 232 214Z" />
-          <path d="M232 222 Q238 224 240 230 Q234 226 232 222Z" />
-          <path d="M224 226 Q228 232 224 238 Q220 232 224 226Z" />
-          <path d="M216 222 Q210 224 208 230 Q214 226 216 222Z" />
-          <path d="M216 214 Q210 212 208 206 Q214 210 216 214Z" />
-          {/* Branch 4 — left tendril */}
-          <path d="M165 380 C132 368 115 378 118 396 C121 414 140 408 136 392" />
-          <path d="M118 396 C108 388 100 394 104 404" />
-          <circle cx="105" cy="406" r="2" />
-          <path d="M136 392 C124 384 118 390 122 400" />
-          <path d="M136 392 C148 384 154 390 150 400" />
-          {/* Scattered leaves along stem */}
-          <path d="M185 440 C198 432 204 438 200 448" />
-          <path d="M185 440 C172 432 166 438 170 448" />
-          <path d="M172 140 C184 132 190 138 186 148" />
-          <path d="M172 140 C160 132 154 138 158 148" />
+      <div className="relative overflow-hidden bg-background px-6 py-14 md:px-12 md:py-20 lg:px-20 lg:py-40">
+        {/* Large mandala — left side, partially cropped */}
+        <svg className="absolute -left-[140px] top-1/2 -translate-y-1/2 w-[420px] h-[420px] md:-left-[100px] md:w-[520px] md:h-[520px] lg:-left-[60px] lg:w-[600px] lg:h-[600px] text-[#e8b4b8] opacity-[0.18] pointer-events-none" viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          {/* Outer circles */}
+          <circle cx="200" cy="200" r="195" />
+          <circle cx="200" cy="200" r="180" />
+          <circle cx="200" cy="200" r="155" />
+          {/* Cardinal scallops */}
+          <path d="M200 25 Q218 48 200 55 Q182 48 200 25" />
+          <path d="M200 375 Q218 352 200 345 Q182 352 200 375" />
+          <path d="M25 200 Q48 182 55 200 Q48 218 25 200" />
+          <path d="M375 200 Q352 182 345 200 Q352 218 375 200" />
+          {/* Diagonal scallops */}
+          <path d="M73 73 Q96 80 88 96 Q80 96 73 73" />
+          <path d="M327 73 Q304 80 312 96 Q320 96 327 73" />
+          <path d="M73 327 Q80 304 96 312 Q96 320 73 327" />
+          <path d="M327 327 Q320 304 304 312 Q304 320 327 327" />
+          {/* 12 large petals */}
+          <path d="M200 55 Q214 105 200 140 Q186 105 200 55Z" />
+          <path d="M200 345 Q214 295 200 260 Q186 295 200 345Z" />
+          <path d="M55 200 Q105 186 140 200 Q105 214 55 200Z" />
+          <path d="M345 200 Q295 186 260 200 Q295 214 345 200Z" />
+          <path d="M96 96 Q122 114 138 138 Q114 122 96 96Z" />
+          <path d="M304 96 Q278 114 262 138 Q286 122 304 96Z" />
+          <path d="M96 304 Q114 278 138 262 Q122 286 96 304Z" />
+          <path d="M304 304 Q286 278 262 262 Q278 286 304 304Z" />
+          <path d="M145 62 Q166 108 162 145 Q150 102 145 62Z" />
+          <path d="M255 62 Q234 108 238 145 Q250 102 255 62Z" />
+          <path d="M145 338 Q150 298 162 255 Q166 292 145 338Z" />
+          <path d="M255 338 Q250 298 238 255 Q234 292 255 338Z" />
+          {/* 8 inner petals */}
+          <path d="M200 115 Q210 148 200 168 Q190 148 200 115Z" />
+          <path d="M200 285 Q210 252 200 232 Q190 252 200 285Z" />
+          <path d="M115 200 Q148 190 168 200 Q148 210 115 200Z" />
+          <path d="M285 200 Q252 190 232 200 Q252 210 285 200Z" />
+          <path d="M138 138 Q155 152 165 165 Q152 155 138 138Z" />
+          <path d="M262 138 Q245 152 235 165 Q258 155 262 138Z" />
+          <path d="M138 262 Q152 245 165 235 Q155 258 138 262Z" />
+          <path d="M262 262 Q258 245 235 235 Q245 258 262 262Z" />
+          {/* Center mandala */}
+          <circle cx="200" cy="200" r="60" />
+          <circle cx="200" cy="200" r="42" />
+          <circle cx="200" cy="200" r="22" />
+          <circle cx="200" cy="200" r="8" fill="currentColor" opacity="0.2" />
+          {/* Center rays */}
+          <line x1="200" y1="158" x2="200" y2="140" />
+          <line x1="200" y1="242" x2="200" y2="260" />
+          <line x1="158" y1="200" x2="140" y2="200" />
+          <line x1="242" y1="200" x2="260" y2="200" />
+          <line x1="170" y1="170" x2="158" y2="158" />
+          <line x1="230" y1="170" x2="242" y2="158" />
+          <line x1="170" y1="230" x2="158" y2="242" />
+          <line x1="230" y1="230" x2="242" y2="242" />
           {/* Dot accents */}
-          <circle cx="250" cy="288" r="2.5" /><circle cx="102" cy="234" r="2.5" />
-          <circle cx="175" cy="320" r="2" /><circle cx="170" cy="260" r="2" />
-          <circle cx="178" cy="200" r="2" /><circle cx="165" cy="380" r="2" />
-          <circle cx="270" cy="62" r="2.5" /><circle cx="250" cy="122" r="2.5" />
-          {/* Hydrangea cluster near bottom */}
-          <circle cx="210" cy="460" r="4" /><circle cx="220" cy="455" r="4" /><circle cx="215" cy="465" r="4" />
-          <circle cx="205" cy="468" r="3" /><circle cx="225" cy="462" r="3" />
-          {/* Concentric rings at fern center */}
-          <circle cx="220" cy="95" r="3" />
-          <circle cx="220" cy="95" r="8" opacity="0.5" />
+          <circle cx="200" cy="125" r="3" /><circle cx="200" cy="275" r="3" />
+          <circle cx="125" cy="200" r="3" /><circle cx="275" cy="200" r="3" />
+          <circle cx="148" cy="148" r="2.5" /><circle cx="252" cy="148" r="2.5" />
+          <circle cx="148" cy="252" r="2.5" /><circle cx="252" cy="252" r="2.5" />
+          <circle cx="168" cy="112" r="2" /><circle cx="232" cy="112" r="2" />
+          <circle cx="168" cy="288" r="2" /><circle cx="232" cy="288" r="2" />
+          <circle cx="112" cy="168" r="2" /><circle cx="112" cy="232" r="2" />
+          <circle cx="288" cy="168" r="2" /><circle cx="288" cy="232" r="2" />
         </svg>
 
-        {/* Small leaf cluster — right side accent */}
-        <svg className="absolute -right-4 bottom-12 w-[100px] h-[140px] md:w-[130px] md:h-[180px] text-[#e8b4b8] opacity-[0.25] pointer-events-none" viewBox="0 0 200 280" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ transform: "scaleX(-1)" }}>
-          <path d="M100 270 C100 230 85 200 92 160 C99 120 88 95 100 55" />
-          <path d="M100 160 C125 148 140 155 142 142 C144 130 130 124 100 144" />
-          <path d="M100 144 C120 136 134 134 142 142" opacity="0.5" />
-          <path d="M100 100 C75 88 58 95 56 82 C54 70 68 64 100 84" />
-          <path d="M100 84 C78 76 60 74 56 82" opacity="0.5" />
-          <path d="M100 55 C108 42 104 28 100 20 C96 28 92 42 100 55" />
-          <circle cx="100" cy="16" r="2" /><circle cx="142" cy="140" r="2" /><circle cx="56" cy="80" r="2" />
-        </svg>
+        {/* Two-column editorial layout */}
+        <div className="relative z-10 flex flex-col gap-12 md:flex-row md:gap-16 lg:gap-24">
+          {/* Left column — heading + CTA */}
+          <div className="md:w-[42%] lg:w-[38%] flex flex-col justify-center">
+            <h3 className="text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
+              Five Cities.
+              <br />
+              One{" "}
+              <span style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500 }}>
+                Circle.
+              </span>
+            </h3>
+            <p className="mt-6 text-sm tracking-[0.12em] uppercase text-muted-foreground/60">
+              Abuja &bull; Kaduna &bull; Port Harcourt &bull; Enugu &bull; Ilorin
+            </p>
+            <a
+              href="/circles"
+              className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 hover:bg-foreground/85"
+              style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
+            >
+              Explore Our Circles
+              <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
 
-        <div className="relative z-10 mx-auto max-w-4xl">
-          <ScrollRevealText text={descriptionText} accentWords={["Circle", "empowerment"]} />
+          {/* Right column — body text */}
+          <div className="md:w-[58%] lg:w-[62%] flex items-center">
+            <ScrollRevealText text={descriptionText} accentWords={["Circle", "empowerment"]} className="!text-2xl md:!text-3xl lg:!text-[2.5rem] lg:!leading-snug" />
+          </div>
         </div>
       </div>
     </section>

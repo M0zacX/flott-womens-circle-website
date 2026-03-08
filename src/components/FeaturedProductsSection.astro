@@ -1,11 +1,35 @@
 ---
 const features = [
-  { title: "Wellness Education", description: "Body & Mind", image: "/images/flott-03.jpeg" },
-  { title: "Soft Skills Acquisition", description: "Growth", image: "/images/flott-07.jpeg" },
-  { title: "Women Empowerment", description: "Strength", image: "/images/flott-09.jpeg" },
-  { title: "Community & Connection", description: "Together", image: "/images/flott-12.jpeg" },
-  { title: "Cultural Wellness", description: "Heritage", image: "/images/flott-16.jpeg" },
-  { title: "Guided Conversations", description: "Clarity", image: "/images/flott-18.jpeg" },
+  {
+    title: "Wellness Education",
+    description: "Learn to care for your body, rest without guilt, and build wellness habits that actually stick.",
+    icon: "wellness",
+  },
+  {
+    title: "Soft Skills Acquisition",
+    description: "Build the confidence to speak up, set boundaries, and show up as your full self — everywhere.",
+    icon: "skills",
+  },
+  {
+    title: "Women Empowerment",
+    description: "Grow mentally, socially, economically, and financially. Not in theory — in practice.",
+    icon: "empowerment",
+  },
+  {
+    title: "Community & Connection",
+    description: "A room where you're seen, heard, and held — without judgement or comparison.",
+    icon: "community",
+  },
+  {
+    title: "Cultural Wellness",
+    description: "Honouring heritage. Embracing today. Self-care rooted in who you really are.",
+    icon: "cultural",
+  },
+  {
+    title: "Guided Conversations",
+    description: "Real talk on growth, identity, and womanhood. No scripts. Just truth.",
+    icon: "conversations",
+  },
 ];
 ---
 
@@ -17,48 +41,209 @@ const features = [
     <path d="M200 50 C220 50 236 70 230 90 C224 110 204 105 204 80" />
     <path d="M160 320 C130 300 110 310 100 290" /><path d="M100 290 C110 300 108 316 120 312" />
     <path d="M160 320 C190 300 210 310 220 290" /><path d="M220 290 C210 300 212 316 200 312" />
-    <path d="M160 320 C140 308 118 302 100 290" opacity="0.5" />
-    <path d="M160 320 C180 308 202 302 220 290" opacity="0.5" />
     <path d="M140 180 C110 170 90 190 100 210 C110 230 135 220 130 200" />
-    <path d="M130 240 C100 228 82 238 72 222" /><path d="M130 240 C160 228 178 238 188 222" />
     <path d="M170 400 C200 390 220 400 218 420 C216 440 196 435 198 418" />
-    <path d="M218 420 C232 410 244 416 240 428" />
     <circle cx="100" cy="286" r="2.5" /><circle cx="220" cy="286" r="2.5" />
     <circle cx="72" cy="218" r="2.5" /><circle cx="188" cy="218" r="2.5" />
-    <circle cx="240" cy="432" r="2.5" />
   </svg>
 
-  <div class="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
-    <h2 class="word-blur-group text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
-      <span class="word-blur" style="transition-delay: 0s">Rooted</span>
-      <span class="word-blur" style="transition-delay: 0.1s">in</span>
-      <span class="word-blur" style="transition-delay: 0.2s">Wellness.</span>
-      <span class="word-blur" style="transition-delay: 0.35s">Designed</span>
-      <span class="word-blur" style="transition-delay: 0.45s">for</span>
-      <span class="word-blur" style="transition-delay: 0.6s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Growth.</span>
-    </h2>
-    <p class="blur-words mx-auto mt-6 max-w-md text-sm text-muted-foreground">What We Do</p>
-  </div>
-
-  <div class="grid grid-cols-1 gap-4 px-6 pb-20 md:grid-cols-3 md:px-12 lg:px-20">
-    {features.map((feature, index) => (
-      <div class="reveal group" style={`transition-delay: ${index * 0.15}s`}>
-        <div class="relative aspect-[4/3] overflow-hidden rounded-2xl reveal-clip" style={`transition-delay: ${0.1 + index * 0.15}s`}>
-          <img
-            src={feature.image}
-            alt={feature.title}
-            class="fade-image absolute inset-0 w-full h-full object-cover hover-zoom"
-            loading="lazy"
-            onload="this.classList.add('loaded')"
-          />
-        </div>
-        <div class="py-6">
-          <p class="reveal mb-2 text-xs uppercase tracking-widest text-muted-foreground" style={`transition-delay: ${0.15 + index * 0.15}s`}>{feature.description}</p>
-          <h3 class="reveal-flip text-foreground text-xl font-semibold" style={`transition-delay: ${0.2 + index * 0.15}s`}>{feature.title}</h3>
-        </div>
+  <!-- Top section: subtitle + heading + floating images -->
+  <div class="relative px-6 pt-14 pb-10 md:px-12 md:pt-20 md:pb-14 lg:px-20 lg:pt-32 lg:pb-24">
+    <!-- Floating image left -->
+    <div class="absolute left-[12%] xl:left-[14%] top-[58%] -translate-y-1/2 hidden lg:block reveal-left" style="transition-delay: 0.3s">
+      <div class="relative w-[120px] xl:w-[150px] aspect-[3/4] overflow-hidden rounded-xl shadow-lg" style="transform: rotate(-6deg);">
+        <img src="/images/gallery/event-09.jpeg" alt="Women's circle moment" class="fade-image absolute inset-0 w-full h-full object-cover" loading="lazy" onload="this.classList.add('loaded')" />
       </div>
-    ))}
+    </div>
+
+    <!-- Floating image right -->
+    <div class="absolute right-[12%] xl:right-[14%] top-[58%] -translate-y-1/2 hidden lg:block reveal-right" style="transition-delay: 0.4s">
+      <div class="relative w-[120px] xl:w-[150px] aspect-[3/4] overflow-hidden rounded-xl shadow-lg" style="transform: rotate(5deg);">
+        <img src="/images/gallery/event-16.jpeg" alt="Community gathering" class="fade-image absolute inset-0 w-full h-full object-cover" loading="lazy" onload="this.classList.add('loaded')" />
+      </div>
+    </div>
+
+    <div class="text-center max-w-3xl mx-auto">
+      <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8" style="font-style: italic">What We Do</p>
+      <h2 class="word-blur-group text-2xl font-medium tracking-tight text-foreground md:text-3xl lg:text-[2.5rem] lg:leading-[1.2]">
+        <span class="word-blur" style="transition-delay: 0s">Where</span>
+        <span class="word-blur" style="transition-delay: 0.06s">Women</span>
+        <span class="word-blur" style="transition-delay: 0.12s">Learn,</span>
+        <span class="word-blur" style="transition-delay: 0.18s">Heal,</span>
+        <span class="word-blur" style="transition-delay: 0.24s">And</span>
+        <span class="word-blur" style="transition-delay: 0.30s">Build</span>
+        <span class="word-blur" style="transition-delay: 0.36s">The</span>
+        <span class="word-blur" style="transition-delay: 0.42s">Confidence</span>
+        <span class="word-blur" style="transition-delay: 0.48s">To</span>
+        <span class="word-blur" style="transition-delay: 0.54s">Live</span>
+        <span class="word-blur" style="transition-delay: 0.60s">On</span>
+        <span class="word-blur" style="transition-delay: 0.66s">Their</span>
+        <span class="word-blur" style="transition-delay: 0.72s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Own</span>
+        <span class="word-blur" style="transition-delay: 0.78s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Terms.</span>
+      </h2>
+    </div>
   </div>
 
-  <div class="flex justify-center px-6 pb-28 md:px-12 lg:px-20"></div>
+  <!-- Icons grid -->
+  <div class="px-6 pb-14 md:px-12 md:pb-20 lg:px-20 lg:pb-36">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-0 gap-y-8 sm:gap-y-12 lg:gap-y-16 feature-grid">
+        {features.map((feature, index) => (
+          <div class="reveal feature-item text-center px-6 md:px-8 lg:px-10" style={`transition-delay: ${index * 0.1}s`}>
+            <!-- Icon -->
+            <div class="flex justify-center mb-5">
+              {feature.icon === "wellness" && (
+                <svg class="w-14 h-14 text-foreground" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Lotus flower -->
+                  <path d="M32 48 C32 38 24 28 18 24 C14 22 10 24 10 30 C10 38 18 46 32 48Z" />
+                  <path d="M32 48 C32 38 40 28 46 24 C50 22 54 24 54 30 C54 38 46 46 32 48Z" />
+                  <path d="M32 48 C32 36 28 24 26 18 C24 12 28 8 32 10 C36 8 40 12 38 18 C36 24 32 36 32 48Z" />
+                  <!-- Dots -->
+                  <circle cx="32" cy="14" r="1.2" />
+                  <circle cx="14" cy="28" r="1.2" />
+                  <circle cx="50" cy="28" r="1.2" />
+                  <!-- Base stem -->
+                  <line x1="32" y1="48" x2="32" y2="56" />
+                  <path d="M28 54 C30 52 34 52 36 54" />
+                </svg>
+              )}
+              {feature.icon === "skills" && (
+                <svg class="w-14 h-14 text-foreground" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Hands holding a spark/diamond -->
+                  <path d="M16 40 C12 36 10 30 14 26 C18 22 22 24 24 28 L28 34" />
+                  <path d="M48 40 C52 36 54 30 50 26 C46 22 42 24 40 28 L36 34" />
+                  <!-- Central diamond/spark -->
+                  <path d="M32 20 L38 30 L32 40 L26 30 Z" />
+                  <line x1="32" y1="14" x2="32" y2="20" />
+                  <line x1="24" y1="18" x2="27" y2="22" />
+                  <line x1="40" y1="18" x2="37" y2="22" />
+                  <!-- Sparkle dots -->
+                  <circle cx="32" cy="12" r="1.2" />
+                  <circle cx="22" cy="16" r="1" />
+                  <circle cx="42" cy="16" r="1" />
+                  <!-- Base -->
+                  <path d="M24 44 C28 48 36 48 40 44" />
+                </svg>
+              )}
+              {feature.icon === "empowerment" && (
+                <svg class="w-14 h-14 text-foreground" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Rising sun with rays -->
+                  <circle cx="32" cy="32" r="10" />
+                  <circle cx="32" cy="32" r="5" />
+                  <!-- Rays -->
+                  <line x1="32" y1="16" x2="32" y2="10" />
+                  <line x1="32" y1="48" x2="32" y2="54" />
+                  <line x1="16" y1="32" x2="10" y2="32" />
+                  <line x1="48" y1="32" x2="54" y2="32" />
+                  <line x1="20.7" y1="20.7" x2="16.4" y2="16.4" />
+                  <line x1="43.3" y1="20.7" x2="47.6" y2="16.4" />
+                  <line x1="20.7" y1="43.3" x2="16.4" y2="47.6" />
+                  <line x1="43.3" y1="43.3" x2="47.6" y2="47.6" />
+                  <!-- Corner dots -->
+                  <circle cx="32" cy="8" r="1.2" />
+                  <circle cx="56" cy="32" r="1.2" />
+                  <circle cx="32" cy="56" r="1.2" />
+                  <circle cx="8" cy="32" r="1.2" />
+                </svg>
+              )}
+              {feature.icon === "community" && (
+                <svg class="w-14 h-14 text-foreground" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Interconnected circles / molecule -->
+                  <circle cx="32" cy="18" r="6" />
+                  <circle cx="18" cy="42" r="6" />
+                  <circle cx="46" cy="42" r="6" />
+                  <!-- Connecting lines -->
+                  <line x1="28" y1="23" x2="21" y2="37" />
+                  <line x1="36" y1="23" x2="43" y2="37" />
+                  <line x1="24" y1="42" x2="40" y2="42" />
+                  <!-- Center dots -->
+                  <circle cx="32" cy="18" r="2" />
+                  <circle cx="18" cy="42" r="2" />
+                  <circle cx="46" cy="42" r="2" />
+                  <!-- Outer small dots -->
+                  <circle cx="32" cy="10" r="1.2" />
+                  <circle cx="11" cy="46" r="1.2" />
+                  <circle cx="53" cy="46" r="1.2" />
+                </svg>
+              )}
+              {feature.icon === "cultural" && (
+                <svg class="w-14 h-14 text-foreground" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Plant/botanical with leaves and berries -->
+                  <line x1="32" y1="56" x2="32" y2="18" />
+                  <!-- Leaves -->
+                  <path d="M32 38 C22 34 16 26 20 18 C24 26 28 32 32 38Z" />
+                  <path d="M32 38 C42 34 48 26 44 18 C40 26 36 32 32 38Z" />
+                  <path d="M32 28 C26 24 22 18 26 12 C28 18 30 24 32 28Z" />
+                  <path d="M32 28 C38 24 42 18 38 12 C36 18 34 24 32 28Z" />
+                  <!-- Leaf veins -->
+                  <path d="M24 22 L30 34" opacity="0.4" />
+                  <path d="M40 22 L34 34" opacity="0.4" />
+                  <!-- Berry cluster at top -->
+                  <circle cx="32" cy="14" r="3" />
+                  <circle cx="27" cy="11" r="2" />
+                  <circle cx="37" cy="11" r="2" />
+                  <circle cx="32" cy="8" r="1.5" />
+                  <!-- Base roots -->
+                  <path d="M28 56 C30 52 34 52 36 56" />
+                </svg>
+              )}
+              {feature.icon === "conversations" && (
+                <svg class="w-14 h-14 text-foreground" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Overlapping speech/thought circles -->
+                  <circle cx="26" cy="26" r="14" />
+                  <circle cx="38" cy="26" r="14" />
+                  <!-- Heart shape in the overlap -->
+                  <path d="M32 22 C30 18 26 18 26 22 C26 26 32 30 32 30 C32 30 38 26 38 22 C38 18 34 18 32 22Z" />
+                  <!-- Speech tails -->
+                  <path d="M16 36 L12 44 L22 38" />
+                  <path d="M48 36 L52 44 L42 38" />
+                  <!-- Dots -->
+                  <circle cx="12" cy="46" r="1.2" />
+                  <circle cx="52" cy="46" r="1.2" />
+                </svg>
+              )}
+            </div>
+            <h3 class="text-base font-semibold tracking-tight text-foreground">{feature.title}</h3>
+            <p class="mt-2 text-xs leading-relaxed text-muted-foreground max-w-[240px] mx-auto">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 </section>
+
+<style>
+  /* Vertical dividers between columns on lg */
+  @media (min-width: 1024px) {
+    .feature-grid {
+      position: relative;
+    }
+    .feature-item {
+      position: relative;
+    }
+    /* Right border on 1st and 2nd items in each row */
+    .feature-item:nth-child(3n+1)::after,
+    .feature-item:nth-child(3n+2)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: var(--color-border);
+    }
+  }
+
+  /* Vertical dividers on 2-col (mobile + sm) */
+  @media (max-width: 1023px) {
+    .feature-item:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: var(--color-border);
+    }
+  }
+</style>
