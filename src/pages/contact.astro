@@ -62,10 +62,7 @@ const circles = [
             <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5" style="font-style: italic">Email Us</p>
             <a
               href="mailto:info@flottwomen.com"
-              class="text-xl md:text-2xl font-medium text-foreground tracking-tight no-underline"
-              style="transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);"
-              onmouseenter="this.style.color='#F68313'"
-              onmouseleave="this.style.color=''"
+              class="text-xl md:text-2xl font-medium text-foreground tracking-tight no-underline transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-primary"
             >
               info@flottwomen.com
             </a>
@@ -85,10 +82,7 @@ const circles = [
               href="https://instagram.com/flott_beauty"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-xl md:text-2xl font-medium text-foreground tracking-tight no-underline"
-              style="transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);"
-              onmouseenter="this.style.color='#F68313'"
-              onmouseleave="this.style.color=''"
+              class="inline-flex items-center gap-2 text-xl md:text-2xl font-medium text-foreground tracking-tight no-underline transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-primary"
             >
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               @flott_beauty
@@ -99,10 +93,7 @@ const circles = [
                   href={c.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-[11px] text-muted-foreground border border-border rounded-full px-3 py-1.5 no-underline"
-                  style="transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);"
-                  onmouseenter="this.style.color='var(--color-foreground)'; this.style.borderColor='var(--color-foreground)';"
-                  onmouseleave="this.style.color=''; this.style.borderColor='';"
+                  class="text-[11px] text-muted-foreground border border-border rounded-full px-3 py-1.5 no-underline transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground hover:border-foreground"
                 >
                   {c.city}
                 </a>

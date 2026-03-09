@@ -99,14 +99,11 @@ const circles = [
       <div class="space-y-16 md:space-y-24">
         {circles.map((circle, i) => (
           <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center ${i % 2 === 1 ? 'lg:direction-rtl' : ''}`}>
-            <div class={`reveal-clip relative aspect-[4/3] overflow-hidden rounded-2xl ${i % 2 === 1 ? 'lg:order-2' : ''}`} style={`transition-delay: ${0.1}s`}>
+            <div class={`reveal relative aspect-[4/3] overflow-hidden rounded-2xl ${i % 2 === 1 ? 'lg:order-2' : ''}`} style={`transition-delay: ${0.1}s`}>
               <img
                 src={circle.image}
                 alt={`${circle.city} Circle gathering`}
-                class="fade-image absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-
-
+                class="absolute inset-0 w-full h-full object-cover"
               />
             </div>
             <div class={`${i % 2 === 1 ? 'lg:order-1' : ''}`}>

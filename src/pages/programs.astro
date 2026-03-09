@@ -81,14 +81,11 @@ const steps = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {programs.map((program, i) => (
           <div class="reveal group" style={`transition-delay: ${i * 0.08}s`}>
-            <div class="relative aspect-[3/4] overflow-hidden rounded-2xl reveal-clip" style={`transition-delay: ${0.05 + i * 0.08}s`}>
+            <div class="relative aspect-[3/4] overflow-hidden rounded-2xl">
               <img
                 src={program.image}
                 alt={program.title}
-                class="fade-image absolute inset-0 w-full h-full object-cover hover-zoom"
-                loading="lazy"
-
-
+                class="absolute inset-0 w-full h-full object-cover hover-zoom"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
               <div class="absolute inset-x-0 bottom-0 p-5 md:p-6">
