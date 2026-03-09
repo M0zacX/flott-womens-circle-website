@@ -1,0 +1,100 @@
+---
+---
+
+<section class="bg-background relative overflow-hidden">
+  <!-- Decorative floral — behind text column -->
+  <svg class="absolute top-1/2 -translate-y-1/2 left-0 w-[200px] h-[280px] md:w-[260px] md:h-[360px] text-[#e8b4b8] opacity-[0.1] pointer-events-none hidden md:block" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+    <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+    <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206 C146 198 152 192 162 192" />
+    <path d="M150 188 Q156 172 150 158 Q144 172 150 188Z" />
+    <path d="M166 200 Q180 194 188 182 Q176 192 166 200Z" />
+    <path d="M150 230 Q156 246 150 260 Q144 246 150 230Z" />
+    <path d="M134 200 Q120 194 112 182 Q124 192 134 200Z" />
+    <circle cx="150" cy="152" r="2.5" /><circle cx="192" cy="178" r="2.5" />
+    <circle cx="108" cy="178" r="2.5" /><circle cx="150" cy="264" r="2.5" />
+  </svg>
+
+  <!-- Desktop layout -->
+  <div class="hidden lg:flex items-stretch min-h-[600px] xl:min-h-[680px]">
+    <!-- Left: Text content -->
+    <div class="w-[42%] flex flex-col justify-center px-20 xl:px-28 py-20 relative z-10">
+      <p class="reveal text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6" style="font-style: italic; transition-delay: 0s;">Our Story</p>
+      <h2 class="reveal text-4xl xl:text-5xl font-medium tracking-tight text-foreground leading-tight" style="transition-delay: 0.08s;">
+        Behind Every Circle, A
+        <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Purpose.</span>
+      </h2>
+      <p class="reveal mt-7 text-sm text-muted-foreground leading-relaxed max-w-sm" style="transition-delay: 0.16s;">
+        Flott Women's Circle was born from a simple belief — that when women gather with intention, everything shifts. We create spaces where wellness, skills, and empowerment aren't separate goals. They're one journey.
+      </p>
+      <div class="reveal mt-8 flex items-center gap-4" style="transition-delay: 0.22s;">
+        <div class="w-12 h-[1px] bg-[#c49298]/30"></div>
+        <p class="text-[11px] text-muted-foreground/50 tracking-[0.15em] uppercase">5 Cities &bull; One Mission</p>
+      </div>
+      <div class="reveal mt-10" style="transition-delay: 0.28s;">
+        <a
+          href="/about"
+          class="inline-flex items-center gap-2.5 rounded-full bg-foreground px-7 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-foreground/85 hover:gap-4"
+        >
+          Learn Our Story
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Image bleeding to edge -->
+    <div class="w-[58%] relative reveal-right" style="transition-delay: 0.15s;">
+      <!-- Image -->
+      <div class="relative h-full overflow-hidden rounded-l-2xl">
+        <img
+          src="/images/flott-38.webp"
+          alt="Safiya Umar — Founder, Flott Women's Circle"
+          class="absolute inset-0 w-full h-full object-cover object-top"
+        />
+        <!-- Left-edge fade into background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-background via-background/60 via-[18%] to-transparent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile/Tablet layout -->
+  <div class="lg:hidden px-6 py-14 md:px-12 md:py-20">
+    <!-- Text -->
+    <div class="mb-10">
+      <p class="reveal text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5" style="font-style: italic; transition-delay: 0s;">Our Story</p>
+      <h2 class="reveal text-3xl md:text-4xl font-medium tracking-tight text-foreground leading-tight" style="transition-delay: 0.08s;">
+        Behind Every Circle, A
+        <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Purpose.</span>
+      </h2>
+      <p class="reveal mt-5 text-sm text-muted-foreground leading-relaxed max-w-md" style="transition-delay: 0.14s;">
+        Flott Women's Circle was born from a simple belief — that when women gather with intention, everything shifts. We create spaces where wellness, skills, and empowerment aren't separate goals. They're one journey.
+      </p>
+      <div class="reveal mt-6 flex items-center gap-3" style="transition-delay: 0.18s;">
+        <div class="w-8 h-[1px] bg-[#c49298]/30"></div>
+        <p class="text-[11px] text-muted-foreground/50 tracking-[0.15em] uppercase">5 Cities &bull; One Mission</p>
+      </div>
+    </div>
+
+    <!-- Image -->
+    <div class="reveal relative" style="transition-delay: 0.12s;">
+      <div class="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
+        <img
+          src="/images/flott-38.webp"
+          alt="Safiya Umar — Founder, Flott Women's Circle"
+          class="absolute inset-0 w-full h-full object-cover object-top"
+        />
+      </div>
+    </div>
+
+    <!-- CTA below image -->
+    <div class="reveal mt-8" style="transition-delay: 0.2s;">
+      <a
+        href="/about"
+        class="inline-flex items-center gap-2.5 rounded-full bg-foreground px-7 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-foreground/85"
+      >
+        Learn Our Story
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>

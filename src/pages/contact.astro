@@ -104,6 +104,130 @@ const circles = [
       </div>
     </section>
 
+    <!-- Contact Form — Editorial Split -->
+    <section class="bg-background relative overflow-hidden">
+      <!-- Thin top border -->
+      <div class="mx-6 md:mx-12 lg:mx-20 border-t border-border"></div>
+
+      <!-- Decorative floral — behind left column -->
+      <svg class="absolute top-24 left-6 w-[160px] h-[220px] md:w-[200px] md:h-[280px] text-[#e8b4b8] opacity-[0.12] pointer-events-none hidden md:block" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206 C146 198 152 192 162 192 C172 192 178 202 176 212 C174 222 162 228 154 226" />
+        <path d="M150 188 Q156 172 150 158 Q144 172 150 188Z" />
+        <path d="M166 200 Q180 194 188 182 Q176 192 166 200Z" />
+        <path d="M166 218 Q180 224 188 236 Q176 226 166 218Z" />
+        <path d="M150 230 Q156 246 150 260 Q144 246 150 230Z" />
+        <path d="M134 218 Q120 224 112 236 Q124 226 134 218Z" />
+        <path d="M134 200 Q120 194 112 182 Q124 192 134 200Z" />
+        <circle cx="150" cy="152" r="2.5" /><circle cx="192" cy="178" r="2.5" /><circle cx="192" cy="240" r="2.5" />
+        <circle cx="150" cy="264" r="2.5" /><circle cx="108" cy="240" r="2.5" /><circle cx="108" cy="178" r="2.5" />
+      </svg>
+
+      <div class="px-6 py-10 md:px-12 md:py-14 lg:px-20 lg:py-20">
+        <div class="max-w-5xl mx-auto">
+          <div class="flex flex-col gap-10 md:flex-row md:gap-16 lg:gap-24">
+
+            <!-- Left column — heading + copy -->
+            <div class="md:w-[38%] lg:w-[35%] relative z-10">
+              <p class="contact-reveal text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5" style="font-style: italic; transition-delay: 0s;">Get In Touch</p>
+              <h2 class="contact-reveal text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl" style="transition-delay: 0.08s;">
+                Start a
+                <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Conversation</span>
+              </h2>
+              <p class="contact-reveal mt-6 text-sm text-muted-foreground leading-relaxed" style="transition-delay: 0.16s;">
+                Whether you want to join a Circle, partner with us, or simply learn more — we'd love to hear from you. Fill out the form and we'll get back to you soon.
+              </p>
+              <div class="contact-reveal mt-8 flex items-center gap-3" style="transition-delay: 0.24s;">
+                <div class="w-8 h-[1px] bg-[#c49298]/40"></div>
+                <p class="text-xs text-muted-foreground/60 tracking-wide" style="font-style: italic;">We respond within 48 hours</p>
+              </div>
+            </div>
+
+            <!-- Right column — form -->
+            <div class="md:w-[62%] lg:w-[65%]">
+              <form class="space-y-8">
+                <!-- Name + Email row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div class="contact-reveal" style="transition-delay: 0.1s;">
+                    <label for="contact-name" class="block text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-3">Your Name</label>
+                    <input
+                      type="text"
+                      id="contact-name"
+                      name="name"
+                      required
+                      placeholder="Full name"
+                      class="contact-input w-full bg-transparent border-0 border-b border-foreground/[0.12] px-0 py-3 text-sm text-foreground placeholder:text-foreground/20 outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus:border-[#c49298]"
+                    />
+                  </div>
+                  <div class="contact-reveal" style="transition-delay: 0.16s;">
+                    <label for="contact-email" class="block text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-3">Email Address</label>
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      required
+                      placeholder="you@example.com"
+                      class="contact-input w-full bg-transparent border-0 border-b border-foreground/[0.12] px-0 py-3 text-sm text-foreground placeholder:text-foreground/20 outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus:border-[#c49298]"
+                    />
+                  </div>
+                </div>
+
+                <!-- Circle dropdown (custom) -->
+                <div class="contact-reveal relative" style="transition-delay: 0.22s;">
+                  <label class="block text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-3">Nearest Circle</label>
+                  <input type="hidden" name="circle" id="contact-circle-value" />
+                  <button
+                    type="button"
+                    id="circle-dropdown-btn"
+                    class="w-full flex items-center justify-between bg-transparent border-0 border-b border-foreground/[0.12] px-0 py-3 text-sm text-left outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus:border-[#c49298] cursor-pointer"
+                  >
+                    <span id="circle-dropdown-label" class="text-foreground/20">Select a city</span>
+                    <svg class="w-3.5 h-3.5 text-foreground/30 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" id="circle-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+                  <div id="circle-dropdown-menu" class="custom-dropdown-menu absolute left-0 right-0 top-full mt-1 bg-background border border-foreground/[0.08] rounded-lg overflow-hidden z-50 opacity-0 pointer-events-none translate-y-[-8px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                    <div class="py-1">
+                      <button type="button" data-value="abuja" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Abuja</button>
+                      <button type="button" data-value="kaduna" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Kaduna</button>
+                      <button type="button" data-value="port-harcourt" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Port Harcourt</button>
+                      <button type="button" data-value="enugu" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Enugu</button>
+                      <button type="button" data-value="ilorin" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Ilorin</button>
+                      <button type="button" data-value="other" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Other / Not Sure</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Message -->
+                <div class="contact-reveal" style="transition-delay: 0.28s;">
+                  <label for="contact-message" class="block text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-3">Your Message</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows="4"
+                    required
+                    placeholder="Tell us what's on your mind..."
+                    class="contact-input w-full bg-transparent border-0 border-b border-foreground/[0.12] px-0 py-3 text-sm text-foreground placeholder:text-foreground/20 outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus:border-[#c49298] resize-none"
+                  ></textarea>
+                </div>
+
+                <!-- Submit -->
+                <div class="contact-reveal" style="transition-delay: 0.34s;">
+                  <button
+                    type="submit"
+                    class="inline-flex items-center gap-2.5 rounded-full bg-foreground px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-foreground/85 hover:gap-4"
+                  >
+                    Send Message
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 5 Circle Locations — SVG Circle Network -->
     <section class="bg-background relative overflow-hidden py-12 md:py-16 lg:py-20">
 
@@ -183,7 +307,7 @@ const circles = [
                   {circle.address ? (
                     <>
                       <p class="text-[11px] text-muted-foreground leading-relaxed">{circle.address}</p>
-                      <p class="mt-1.5 text-[11px] text-[#c49298] tracking-wide">{circle.instagram}</p>
+                      <a href={circle.instagramUrl} target="_blank" rel="noopener noreferrer" class="mt-1.5 block text-[11px] text-[#c49298] tracking-wide no-underline transition-colors duration-400 hover:text-primary">{circle.instagram}</a>
                     </>
                   ) : (
                     <p class="text-[11px] text-muted-foreground italic">Coming soon</p>
@@ -363,4 +487,43 @@ const circles = [
     { threshold: 0.05 }
   );
   document.querySelectorAll(".contact-cta-words").forEach((el) => ctaContactObs.observe(el));
+
+  // Custom dropdown
+  const btn = document.getElementById("circle-dropdown-btn");
+  const menu = document.getElementById("circle-dropdown-menu");
+  const label = document.getElementById("circle-dropdown-label");
+  const chevron = document.getElementById("circle-dropdown-chevron");
+  const hidden = document.getElementById("contact-circle-value");
+  let open = false;
+
+  function toggle() {
+    open = !open;
+    if (open) {
+      menu.style.opacity = "1";
+      menu.style.pointerEvents = "auto";
+      menu.style.transform = "translateY(0)";
+      chevron.style.transform = "rotate(180deg)";
+    } else {
+      menu.style.opacity = "0";
+      menu.style.pointerEvents = "none";
+      menu.style.transform = "translateY(-8px)";
+      chevron.style.transform = "rotate(0)";
+    }
+  }
+
+  btn.addEventListener("click", toggle);
+
+  document.querySelectorAll(".custom-dropdown-option").forEach((opt) => {
+    opt.addEventListener("click", () => {
+      label.textContent = opt.textContent;
+      label.classList.remove("text-foreground/20");
+      label.classList.add("text-foreground");
+      hidden.value = opt.dataset.value;
+      toggle();
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (open && !btn.contains(e.target) && !menu.contains(e.target)) toggle();
+  });
 </script>
