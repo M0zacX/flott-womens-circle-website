@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const circles = [
-  { city: "Abuja", lead: "Zulaihat" },
   { city: "Kaduna", lead: "Maimuna" },
-  { city: "Port Harcourt", lead: "Rita" },
-  { city: "Enugu", lead: "Jane" },
+  { city: "Port Harcourt", lead: "Rita & Emek" },
+  { city: "Enugu", lead: "Dr. Jane" },
   { city: "Ilorin", lead: "Fatima" },
 ];
 
@@ -45,7 +44,7 @@ export function AboutStructureSection() {
     return () => obs.disconnect();
   }, []);
 
-  const headingWords = ["One", "Umbrella,", "Five"];
+  const headingWords = ["One", "Umbrella,", "Four"];
   const accentWord = "Circles";
 
   const getWordReveal = (wordIndex: number) => {
@@ -130,11 +129,11 @@ export function AboutStructureSection() {
           </h2>
         </div>
 
-        {/* Overlapping circles — 3 top + 2 bottom (Olympic/Venn layout) */}
+        {/* Overlapping circles — 2 top + 2 bottom layout */}
         <div className="mx-auto w-fit">
-          {/* Top row: 3 circles */}
+          {/* Top row: 2 circles */}
           <div className="flex justify-center">
-            {circles.slice(0, 3).map((circle, index) => {
+            {circles.slice(0, 2).map((circle, index) => {
               const delay = 0.05 + index * 0.1;
               const cp = Math.max(0, Math.min(1, (progress - delay) * 2.5));
               return (
@@ -167,14 +166,14 @@ export function AboutStructureSection() {
             })}
           </div>
 
-          {/* Bottom row: 2 circles, nestled between top row */}
+          {/* Bottom row: 2 circles */}
           <div className="flex justify-center -mt-8 sm:-mt-7 md:-mt-10 lg:-mt-12">
-            {circles.slice(3).map((circle, index) => {
-              const delay = 0.05 + (index + 3) * 0.1;
+            {circles.slice(2).map((circle, index) => {
+              const delay = 0.05 + (index + 2) * 0.1;
               const cp = Math.max(0, Math.min(1, (progress - delay) * 2.5));
               return (
                 <div
-                  key={index + 3}
+                  key={index + 2}
                   className={`flex flex-col items-center ${index > 0 ? "-ml-5 sm:-ml-6 md:-ml-10 lg:-ml-12" : ""}`}
                   style={{
                     opacity: cp,
@@ -185,7 +184,7 @@ export function AboutStructureSection() {
                 >
                   <div
                     className="relative flex flex-col items-center justify-center w-[8.5rem] h-[8.5rem] sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 rounded-full border border-white/15"
-                    style={{ background: `rgba(15, 9, 6, ${0.95 - (index + 3) * 0.08})` }}
+                    style={{ background: `rgba(15, 9, 6, ${0.95 - (index + 2) * 0.08})` }}
                   >
                     <span
                       className="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl whitespace-nowrap"
@@ -216,7 +215,7 @@ export function AboutStructureSection() {
               Headquarters &mdash; The Umbrella
             </h3>
             <p className="text-sm leading-relaxed text-white/50">
-              One philosophy. One standard. Five Circles — each moving to the
+              One philosophy. One standard. Four Circles — each moving to the
               rhythm of its own community. Headquarters sets the vision,
               training standards, and wellness frameworks that unite every
               Circle.

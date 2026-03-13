@@ -5,23 +5,13 @@ import FooterSection from "../components/FooterSection.astro";
 
 const circles = [
   {
-    city: "Abuja",
-    focus: "Wellness education, modern routines, and mindful living",
-    address: "No. 6 Ubiaja Crescent, Garki 2",
-    instagram: "@flott_beauty",
-    instagramUrl: "https://instagram.com/flott_beauty",
-    lead: "Zulaihat Adamu Barde",
-    leadImage: "/images/team/zulaihat-barde.webp",
-    image: "/images/gallery/event-07.webp",
-  },
-  {
     city: "Kaduna",
     focus: "Cultural wellness education and soft skills for self-expression",
     address: "6 Link Close, GRA",
     instagram: "@flott_beautykd",
     instagramUrl: "https://instagram.com/flott_beautykd",
-    lead: "Maimuna Adejoh Yakubu",
-    leadImage: "/images/team/maimuna-yakubu.webp",
+    lead: "Maimuna Yakubu Adejoh",
+    leadImage: "/images/team/maimuna-yakubu-adejoh-ceo-flott-beauty-kaduna.webp",
     image: "/images/gallery/event-18.webp",
   },
   {
@@ -30,8 +20,10 @@ const circles = [
     address: "No. 6 Onne Street, GRA",
     instagram: "@flott_beautyph",
     instagramUrl: "https://instagram.com/flott_beautyph",
-    lead: "Rita Ogbeagu",
-    leadImage: "/images/team/rita-ogbeagu.webp",
+    lead: "Rita Ogbuagu",
+    leadImage: "/images/team/rita-ogbuagu-ceo-flott-beauty-portharcourt.webp",
+    coLead: "Emek Akpan",
+    coLeadImage: "/images/team/emek-akpan-co-ceo-flott-beauty-portharcourt.webp",
     image: "/images/gallery/event-25.webp",
   },
   {
@@ -40,8 +32,8 @@ const circles = [
     address: "45 Isi Uzo Street",
     instagram: "@flott_beautyen",
     instagramUrl: "https://instagram.com/flott_beautyen",
-    lead: "Jane Oge Onyeansui",
-    leadImage: "/images/team/jane-onyeansui.webp",
+    lead: "Dr. Jane Onyeanusi",
+    leadImage: "/images/team/dr.jane-onyeanusi-ceo-flott-beauty-enugu.webp",
     image: "/images/gallery/event-35.webp",
   },
   {
@@ -50,8 +42,8 @@ const circles = [
     address: "",
     instagram: "",
     instagramUrl: "",
-    lead: "Fatima Bintu Abubakar",
-    leadImage: "/images/team/fatima-abubakar.webp",
+    lead: "Fatima Abubbakar",
+    leadImage: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp",
     image: "/images/gallery/event-42.webp",
   },
 ];
@@ -84,7 +76,7 @@ const circles = [
 
       <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4" style="font-style: italic">Our Circles</p>
       <h1 class="word-blur-group text-4xl font-medium tracking-tight text-foreground md:text-5xl lg:text-6xl max-w-3xl">
-        <span class="word-blur" style="transition-delay: 0.05s">Five</span>
+        <span class="word-blur" style="transition-delay: 0.05s">Four</span>
         <span class="word-blur" style="transition-delay: 0.12s">Cities.</span>
         <span class="word-blur" style="transition-delay: 0.22s">One</span>
         <span class="word-blur" style="transition-delay: 0.35s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Circle.</span>
@@ -132,14 +124,27 @@ const circles = [
               )}
 
               <!-- Circle Lead -->
-              <div class="reveal mt-8 flex items-center gap-4 border-t border-border pt-6" style="transition-delay: 0.2s">
-                <div class="relative h-12 w-12 overflow-hidden rounded-full">
-                  <img src={circle.leadImage} alt={circle.lead} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <div class="reveal mt-8 border-t border-border pt-6" style="transition-delay: 0.2s">
+                <div class="flex items-center gap-4">
+                  <div class="relative h-12 w-12 overflow-hidden rounded-full shrink-0">
+                    <img src={circle.leadImage} alt={circle.lead} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-foreground">{circle.lead}</p>
+                    <p class="text-xs text-muted-foreground">CEO, Flott Beauty {circle.city}</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-sm font-medium text-foreground">{circle.lead}</p>
-                  <p class="text-xs text-muted-foreground">Circle Lead, {circle.city}</p>
-                </div>
+                {circle.coLead && (
+                  <div class="flex items-center gap-4 mt-4">
+                    <div class="relative h-12 w-12 overflow-hidden rounded-full shrink-0">
+                      <img src={circle.coLeadImage} alt={circle.coLead} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-foreground">{circle.coLead}</p>
+                      <p class="text-xs text-muted-foreground">Co-CEO, Flott Beauty {circle.city}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

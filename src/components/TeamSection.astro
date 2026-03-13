@@ -1,11 +1,12 @@
 ---
 const team = [
-  { name: "Safiya Umar", role: "Founder & Group CEO", image: "/images/team/safiya-umar.webp" },
-  { name: "Zulaihat Adamu Barde", role: "Circle Lead, Abuja", image: "/images/team/zulaihat-barde.webp" },
-  { name: "Maimuna Adejoh Yakubu", role: "Circle Lead, Kaduna", image: "/images/team/maimuna-yakubu.webp" },
-  { name: "Rita Ogbeagu", role: "Circle Lead, Port Harcourt", image: "/images/team/rita-ogbeagu.webp" },
-  { name: "Jane Oge Onyeansui", role: "Circle Lead, Enugu", image: "/images/team/jane-onyeansui.webp" },
-  { name: "Fatima Bintu Abubakar", role: "Circle Lead, Ilorin", image: "/images/team/fatima-abubakar.webp" },
+  { name: "Safiya Umar", role: "Founder & Group CEO", image: "/images/team/safiya-umar-founder-&-group-ceo.webp", featured: true },
+  { name: "Rita Ogbuagu", role: "CEO, Flott Beauty Port Harcourt", image: "/images/team/rita-ogbuagu-ceo-flott-beauty-portharcourt.webp" },
+  { name: "Maimuna Yakubu Adejoh", role: "CEO, Flott Beauty Kaduna", image: "/images/team/maimuna-yakubu-adejoh-ceo-flott-beauty-kaduna.webp" },
+  { name: "Emek Akpan", role: "Co-CEO, Flott Beauty Port Harcourt", image: "/images/team/emek-akpan-co-ceo-flott-beauty-portharcourt.webp" },
+  { name: "Fatima Abubbakar", role: "CEO, Flott Beauty Ilorin", image: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp" },
+  { name: "Dr. Jane Onyeanusi", role: "CEO, Flott Beauty Enugu", image: "/images/team/dr.jane-onyeanusi-ceo-flott-beauty-enugu.webp" },
+  { name: "Silvia Aboh", role: "Chief Head of Operations", image: "/images/team/silvia-aboh-chief-head-of-operations.webp" },
 ];
 ---
 
@@ -138,7 +139,7 @@ const team = [
           </div>
           <h3 class="text-sm font-semibold text-foreground">Local Roots, Shared Vision</h3>
           <p class="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Five cities, one mission — helping women know themselves, care for themselves, and grow.
+            Four cities, one mission — helping women know themselves, care for themselves, and grow.
           </p>
         </div>
       </div>
@@ -147,21 +148,71 @@ const team = [
     <!-- Right scrolling column -->
     <div class="grid grid-cols-2 gap-4 px-6 pb-14 md:pb-20 md:px-12 lg:px-4 lg:pr-20 lg:py-20">
       {team.map((member, index) => (
-        <div class="reveal group" style={`transition-delay: ${index * 0.15}s`}>
-          <div class="relative aspect-[3/4] overflow-hidden rounded-2xl">
-            <img
-              src={member.image}
-              alt={member.name}
-              class="absolute inset-0 w-full h-full object-cover hover-zoom"
-            />
-            <div class="absolute inset-x-0 bottom-0 p-4">
-              <div class="backdrop-blur-md rounded-xl px-4 py-3" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1)">
-                <p class="text-white text-sm font-medium">{member.name}</p>
-                <p class="text-white/60 text-xs mt-0.5">{member.role}</p>
+        member.featured ? (
+          <div class="col-span-2 reveal group" style={`transition-delay: ${index * 0.15}s`}>
+            <div class="relative overflow-hidden rounded-2xl flex" style="min-height: 340px;">
+              <div class="relative shrink-0 overflow-hidden" style="width: 42%; min-height: 340px;">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  class="absolute inset-0 w-full h-full object-cover hover-zoom"
+                  style="object-position: center 20%;"
+                />
+              </div>
+              <div class="relative flex flex-col justify-between flex-1 p-6 md:p-8 overflow-hidden" style="background: #0F0906;">
+                <!-- Decorative botanical SVG watermark -->
+                <svg class="absolute -bottom-6 -right-6 w-[180px] h-[260px] pointer-events-none" style="color: #e8b4b8; opacity: 0.12;" viewBox="0 0 300 450" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M150 440 C150 400 120 370 130 320 C140 270 100 250 115 200 C130 150 160 160 150 110 C142 70 120 50 140 20" />
+                  <circle cx="140" cy="20" r="5" /><circle cx="140" cy="20" r="12" />
+                  <path d="M140 5 Q146 -8 140 -18 Q134 -8 140 5Z" />
+                  <path d="M155 14 Q168 8 174 -2 Q162 6 155 14Z" />
+                  <path d="M157 30 Q170 36 178 30 Q166 30 157 30Z" />
+                  <path d="M150 38 Q156 50 150 60 Q144 50 150 38Z" />
+                  <path d="M128 34 Q116 42 108 38 Q118 34 128 34Z" />
+                  <path d="M125 18 Q112 12 106 0 Q118 8 125 18Z" />
+                  <circle cx="115" cy="200" r="4" /><circle cx="115" cy="200" r="10" />
+                  <path d="M115 186 Q120 174 115 164 Q110 174 115 186Z" />
+                  <path d="M128 194 Q140 188 146 178 Q134 186 128 194Z" />
+                  <path d="M128 206 Q140 212 146 222 Q134 214 128 206Z" />
+                  <path d="M115 214 Q120 226 115 236 Q110 226 115 214Z" />
+                  <path d="M102 206 Q90 212 84 222 Q96 214 102 206Z" />
+                  <path d="M102 194 Q90 188 84 178 Q96 186 102 194Z" />
+                  <path d="M130 320 C105 305 90 312 86 298 C82 284 100 278 130 300" />
+                  <path d="M130 320 C155 305 170 312 174 298 C178 284 160 278 130 300" />
+                  <path d="M140 360 C168 350 182 360 180 380 C178 400 160 394 162 378" />
+                </svg>
+
+                <p class="text-xs uppercase tracking-[0.3em] text-white/40 relative z-10" style="font-style: italic">Founder</p>
+
+                <p class="relative z-10 text-white/20 text-sm leading-relaxed max-w-[180px]" style="font-family: 'Playfair Display', serif; font-style: italic;">
+                  "Rooted in wellness.<br/>Growing in community."
+                </p>
+
+                <div class="relative z-10">
+                  <p class="text-xl md:text-2xl font-medium text-white tracking-tight leading-tight">{member.name}</p>
+                  <p class="text-sm text-white/50 mt-2">{member.role}</p>
+                  <div class="mt-4 w-8 h-px" style="background: rgba(255,255,255,0.15);"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div class="reveal group" style={`transition-delay: ${index * 0.15}s`}>
+            <div class="relative aspect-[3/4] overflow-hidden rounded-2xl">
+              <img
+                src={member.image}
+                alt={member.name}
+                class="absolute inset-0 w-full h-full object-cover object-center hover-zoom"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-4">
+                <div class="backdrop-blur-md rounded-xl px-4 py-3" style="background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.1)">
+                  <p class="text-white text-sm font-medium">{member.name}</p>
+                  <p class="text-white/60 text-xs mt-0.5">{member.role}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
       ))}
     </div>
   </div>
