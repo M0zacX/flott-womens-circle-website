@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Header } from "../components/Header";
-import { HeroSection } from "../components/HeroSection";
+import CirclesHeroSection from "../components/CirclesHeroSection.astro";
 import { PhilosophySection } from "../components/PhilosophySection";
 import FeaturedProductsSection from "../components/FeaturedProductsSection.astro";
 import { TechnologySection } from "../components/TechnologySection";
@@ -18,7 +18,7 @@ import FooterSection from "../components/FooterSection.astro";
 <Layout title="Flott Women's Circle - Wellness, Skills & Empowerment">
   <main class="min-h-screen bg-background overflow-x-clip">
     <Header client:load />
-    <HeroSection client:load />
+    <CirclesHeroSection />
     <PhilosophySection client:load />
     <FeaturedProductsSection />
     <TechnologySection client:load />

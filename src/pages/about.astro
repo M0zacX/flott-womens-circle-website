@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Header } from "../components/Header";
 import { ScrollRevealText } from "../components/ScrollRevealText";
+import { HeroSection } from "../components/HeroSection";
 import { AboutHeroSection } from "../components/AboutHeroSection";
 import { AboutStructureSection } from "../components/AboutStructureSection";
 import FooterSection from "../components/FooterSection.astro";
@@ -23,6 +24,8 @@ const differentiators = [
 <Layout title="About - Flott Women's Circle">
   <main class="min-h-screen bg-background overflow-x-clip">
     <Header client:load innerPage={true} currentPath="/about" />
+
+    <HeroSection client:load />
 
     <!-- 1. HERO — Image + Pillars + Story -->
     <AboutHeroSection client:load />
