@@ -146,7 +146,11 @@ const circles = [
 
             <!-- Right column — form -->
             <div class="md:w-[62%] lg:w-[65%]">
-              <form class="space-y-8">
+              <form class="space-y-8" action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+                <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+                <input type="hidden" name="subject" value="New Contact from Flott Women's Circle" />
+                <input type="hidden" name="from_name" value="Flott Website Contact" />
+                <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
                 <!-- Name + Email row -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   <div class="contact-reveal" style="transition-delay: 0.1s;">
@@ -525,5 +529,42 @@ const circles = [
 
   document.addEventListener("click", (e) => {
     if (open && !btn.contains(e.target) && !menu.contains(e.target)) toggle();
+  });
+
+  // Form submission via fetch (no page redirect)
+  const contactForm = document.getElementById("contact-form") as HTMLFormElement;
+  const submitBtn = contactForm?.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const submitText = submitBtn?.querySelector('svg')?.previousSibling;
+
+  contactForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    if (submitText) submitText.textContent = "Sending... ";
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: new FormData(contactForm),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        contactForm.reset();
+        if (submitText) submitText.textContent = "Message Sent! ";
+        label.textContent = "Select a city";
+        label.classList.remove("text-foreground");
+        label.classList.add("text-foreground/20");
+        hidden.value = "";
+        setTimeout(() => {
+          if (submitText) submitText.textContent = "Send Message ";
+          submitBtn.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error();
+      }
+    } catch {
+      if (submitText) submitText.textContent = "Failed — Try Again ";
+      submitBtn.disabled = false;
+    }
   });
 </script>
