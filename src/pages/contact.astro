@@ -189,7 +189,7 @@ const circles = [
                     <span id="circle-dropdown-label" class="text-foreground/20">Select a city</span>
                     <svg class="w-3.5 h-3.5 text-foreground/30 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" id="circle-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </button>
-                  <div id="circle-dropdown-menu" class="custom-dropdown-menu absolute left-0 right-0 top-full mt-1 bg-background border border-foreground/[0.08] rounded-lg overflow-hidden z-50 opacity-0 pointer-events-none translate-y-[-8px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                  <div id="circle-dropdown-menu" class="custom-dropdown-menu absolute left-0 right-0 top-full mt-1 rounded-lg overflow-hidden z-[100] opacity-0 pointer-events-none translate-y-[-8px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" style="background:#EBE7E2;box-shadow:0 8px 30px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.08);border:1px solid rgba(15,9,6,0.1)">
                     <div class="py-1">
                       <button type="button" data-value="abuja" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Abuja</button>
                       <button type="button" data-value="kaduna" class="custom-dropdown-option w-full text-left px-4 py-2.5 text-sm text-foreground/70 transition-colors duration-200 hover:bg-foreground/[0.04] hover:text-foreground cursor-pointer">Kaduna</button>
@@ -225,6 +225,17 @@ const circles = [
                   </button>
                 </div>
               </form>
+
+              <!-- Success message (hidden by default) -->
+              <div id="form-success" class="hidden mt-8 p-6 rounded-xl border border-[#c49298]/20 bg-[#c49298]/[0.06]">
+                <div class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[#c49298] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <div>
+                    <p class="text-sm font-medium text-foreground">Message sent successfully!</p>
+                    <p class="text-xs text-muted-foreground mt-1">Thank you for reaching out. We'll get back to you as soon as possible.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -535,6 +546,7 @@ const circles = [
   const contactForm = document.getElementById("contact-form") as HTMLFormElement;
   const submitBtn = contactForm?.querySelector('button[type="submit"]') as HTMLButtonElement;
   const submitText = submitBtn?.querySelector('svg')?.previousSibling;
+  const successMsg = document.getElementById("form-success");
 
   contactForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -550,15 +562,18 @@ const circles = [
 
       if (data.success) {
         contactForm.reset();
-        if (submitText) submitText.textContent = "Message Sent! ";
+        if (submitText) submitText.textContent = "Send Message ";
+        submitBtn.disabled = false;
         label.textContent = "Select a city";
         label.classList.remove("text-foreground");
         label.classList.add("text-foreground/20");
         hidden.value = "";
-        setTimeout(() => {
-          if (submitText) submitText.textContent = "Send Message ";
-          submitBtn.disabled = false;
-        }, 3000);
+        // Show success message
+        if (successMsg) {
+          successMsg.classList.remove("hidden");
+          successMsg.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          setTimeout(() => successMsg.classList.add("hidden"), 8000);
+        }
       } else {
         throw new Error();
       }
