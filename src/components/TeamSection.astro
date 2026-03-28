@@ -1,92 +1,56 @@
 ---
-const team = [
-  { name: "Safiya Umar", role: "Founder & Group CEO", image: "/images/team/safiya-umar-founder-&-group-ceo.webp", featured: true },
+const founder = {
+  name: "Safiya Umar",
+  role: "Founder & Group CEO",
+  image: "/images/team/safiya-umar-founder-&-group-ceo.webp",
+};
+
+const leaders = [
   { name: "Rita Ogbuagu", role: "CEO, Flott Beauty Port Harcourt", image: "/images/team/rita-ogbuagu-ceo-flott-beauty-portharcourt.webp" },
+  { name: "Zulaihat Adamu Barde", role: "CEO, Abuja", image: "/images/team/zalihat-adamu-barde-abuja-ceo.jpg" },
   { name: "Maimuna Yakubu Adejoh", role: "CEO, Flott Beauty Kaduna", image: "/images/team/maimuna-yakubu-adejoh-ceo-flott-beauty-kaduna.webp" },
-  { name: "Emek Akpan", role: "Co-CEO, Flott Beauty Port Harcourt", image: "/images/team/emek-akpan-co-ceo-flott-beauty-portharcourt.webp" },
-  { name: "Fatima Abubbakar", role: "CEO, Flott Beauty Ilorin", image: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp" },
+  { name: "Emek Akpan", role: "Co-CEO, Flott Beauty PH", image: "/images/team/emek-akpan-co-ceo-flott-beauty-portharcourt.webp" },
   { name: "Dr. Jane Onyeanusi", role: "CEO, Flott Beauty Enugu", image: "/images/team/dr.jane-onyeanusi-ceo-flott-beauty-enugu.webp" },
   { name: "Silvia Aboh", role: "Chief Head of Operations", image: "/images/team/silvia-aboh-chief-head-of-operations.webp" },
+  { name: "Fatima Abubbakar", role: "CEO, Flott Beauty Ilorin", image: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp" },
 ];
 ---
 
-<section class="bg-background relative">
-  <div class="grid grid-cols-1 lg:grid-cols-2">
-    <!-- Left sticky column -->
-    <div class="relative px-6 py-14 md:px-12 md:py-20 lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:justify-center lg:px-20 lg:py-0">
-      <!-- Ornate Henna Vine — flowing vine with folk flowers -->
-      <svg class="absolute bottom-8 right-4 w-[240px] h-[360px] md:w-[280px] md:h-[420px] text-[#e8b4b8] opacity-[0.35] pointer-events-none" viewBox="0 0 300 450" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <!-- Main flowing vine -->
-        <path d="M150 440 C150 400 120 370 130 320 C140 270 100 250 115 200 C130 150 160 160 150 110 C142 70 120 50 140 20" />
-        <!-- Large folk flower at top -->
-        <circle cx="140" cy="20" r="5" /><circle cx="140" cy="20" r="12" />
-        <path d="M140 5 Q146 -8 140 -18 Q134 -8 140 5Z" />
-        <path d="M155 14 Q168 8 174 -2 Q162 6 155 14Z" />
-        <path d="M157 30 Q170 36 178 30 Q166 30 157 30Z" />
-        <path d="M150 38 Q156 50 150 60 Q144 50 150 38Z" />
-        <path d="M128 34 Q116 42 108 38 Q118 34 128 34Z" />
-        <path d="M125 18 Q112 12 106 0 Q118 8 125 18Z" />
-        <circle cx="140" cy="-22" r="2" /><circle cx="176" cy="-4" r="2" /><circle cx="182" cy="30" r="2" />
-        <circle cx="150" cy="64" r="2" /><circle cx="104" cy="40" r="2" /><circle cx="102" cy="-2" r="2" />
-        <!-- Concentric circles inside top flower -->
-        <path d="M140 20 C140 15 145 12 148 14 C151 16 150 22 147 23 C144 24 139 22 139 18" />
-        <!-- Paisley curl from top -->
-        <path d="M140 20 C170 15 190 30 185 52 C180 74 158 68 162 50" />
-        <path d="M175 40 C182 36 188 40 186 48" />
-        <circle cx="188" cy="50" r="2" />
-        <!-- Medium folk flower at middle (~200) -->
-        <circle cx="115" cy="200" r="4" /><circle cx="115" cy="200" r="10" />
-        <path d="M115 186 Q120 174 115 164 Q110 174 115 186Z" />
-        <path d="M128 194 Q140 188 146 178 Q134 186 128 194Z" />
-        <path d="M128 206 Q140 212 146 222 Q134 214 128 206Z" />
-        <path d="M115 214 Q120 226 115 236 Q110 226 115 214Z" />
-        <path d="M102 206 Q90 212 84 222 Q96 214 102 206Z" />
-        <path d="M102 194 Q90 188 84 178 Q96 186 102 194Z" />
-        <circle cx="115" cy="160" r="2" /><circle cx="150" cy="176" r="2" />
-        <circle cx="150" cy="224" r="2" /><circle cx="115" cy="240" r="2" />
-        <circle cx="80" cy="224" r="2" /><circle cx="80" cy="176" r="2" />
-        <!-- Leaf pairs along vine -->
-        <path d="M130 320 C105 305 90 312 86 298 C82 284 100 278 130 300" />
-        <path d="M130 308 C110 298 92 294 86 298" opacity="0.5" />
-        <path d="M130 320 C155 305 170 312 174 298 C178 284 160 278 130 300" />
-        <path d="M130 308 C150 298 168 294 174 298" opacity="0.5" />
-        <!-- Small leaves -->
-        <path d="M145 140 C160 130 168 136 164 148" />
-        <path d="M145 140 C158 134 166 138 164 148" opacity="0.4" />
-        <path d="M125 270 C108 262 100 268 104 278" />
-        <path d="M125 270 C110 264 102 270 104 278" opacity="0.4" />
-        <!-- Spiral tendril offshoots -->
-        <path d="M140 360 C168 350 182 360 180 380 C178 400 160 394 162 378" />
-        <path d="M180 380 C192 372 200 378 196 388" />
-        <circle cx="198" cy="390" r="2" />
-        <!-- Small geometric flower on tendril -->
-        <circle cx="180" cy="380" r="3" />
-        <path d="M180 374 L182 368 L180 362 L178 368Z" />
-        <path d="M186 377 L192 375 L196 378 L190 380Z" />
-        <path d="M186 383 L192 385 L196 382 L190 380Z" />
-        <path d="M180 386 L182 392 L180 398 L178 392Z" />
-        <path d="M174 383 L168 385 L164 382 L170 380Z" />
-        <path d="M174 377 L168 375 L164 378 L170 380Z" />
-        <!-- Dot trail accents -->
-        <circle cx="86" cy="294" r="2.5" /><circle cx="174" cy="294" r="2.5" />
-        <circle cx="135" cy="350" r="1.5" /><circle cx="128" cy="380" r="1.5" /><circle cx="140" cy="400" r="1.5" />
-        <!-- Small hydrangea cluster near bottom -->
-        <circle cx="108" cy="410" r="4" /><circle cx="118" cy="405" r="4" /><circle cx="113" cy="415" r="4" />
-        <circle cx="103" cy="418" r="3" /><circle cx="123" cy="413" r="3" /><circle cx="108" cy="424" r="3" />
-      </svg>
+<section class="relative overflow-hidden" style="background: var(--color-secondary);">
 
-      <!-- Small top-left accent — geometric bloom -->
-      <svg class="absolute top-12 left-6 w-[80px] h-[80px] md:w-[100px] md:h-[100px] text-[#e8b4b8] opacity-[0.25] pointer-events-none hidden md:block" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="50" cy="50" r="4" />
-        <path d="M50 42 Q54 30 50 20 Q46 30 50 42Z" />
-        <path d="M58 46 Q68 40 74 32 Q64 38 58 46Z" />
-        <path d="M58 54 Q68 60 74 68 Q64 62 58 54Z" />
-        <path d="M50 58 Q54 70 50 80 Q46 70 50 58Z" />
-        <path d="M42 54 Q32 60 26 68 Q36 62 42 54Z" />
-        <path d="M42 46 Q32 40 26 32 Q36 38 42 46Z" />
-        <circle cx="50" cy="16" r="1.5" /><circle cx="76" cy="30" r="1.5" /><circle cx="76" cy="70" r="1.5" />
-        <circle cx="50" cy="84" r="1.5" /><circle cx="24" cy="70" r="1.5" /><circle cx="24" cy="30" r="1.5" />
-      </svg>
+  <!-- Floral accents -->
+  <svg class="ts-floral-r" viewBox="0 0 200 400" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M100 380 C105 320 120 280 110 220 C100 160 120 120 110 60 C104 30 90 15 100 2"/>
+    <circle cx="100" cy="2" r="5"/><circle cx="100" cy="2" r="12"/>
+    <path d="M100 -12 Q94 -22 100 -32 Q106 -22 100 -12Z"/>
+    <path d="M114 -4 Q126 -10 132 -20 Q120 -8 114 -4Z"/>
+    <path d="M86 -4 Q74 -10 68 -20 Q80 -8 86 -4Z"/>
+    <circle cx="110" cy="220" r="4"/><circle cx="110" cy="220" r="10"/>
+    <path d="M110 206 Q115 194 110 184 Q105 194 110 206Z"/>
+    <path d="M123 214 Q134 208 140 198 Q128 206 123 214Z"/>
+    <path d="M97 214 Q86 208 80 198 Q92 206 97 214Z"/>
+    <path d="M110 300 C135 285 148 292 150 278 C152 264 135 260 110 280"/>
+    <path d="M110 300 C85 285 72 292 70 278 C68 264 85 260 110 280"/>
+  </svg>
+
+  <svg class="ts-floral-l" viewBox="0 0 200 400" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M100 20 C95 80 80 120 90 180 C100 240 80 280 90 340 C96 370 110 385 100 398"/>
+    <circle cx="100" cy="398" r="5"/><circle cx="100" cy="398" r="12"/>
+    <path d="M100 412 Q106 422 100 432 Q94 422 100 412Z"/>
+    <path d="M86 404 Q74 410 68 420 Q80 408 86 404Z"/>
+    <path d="M114 404 Q126 410 132 420 Q120 408 114 404Z"/>
+    <circle cx="90" cy="180" r="4"/><circle cx="90" cy="180" r="10"/>
+    <path d="M90 166 Q95 154 90 144 Q85 154 90 166Z"/>
+    <path d="M103 174 Q114 168 120 158 Q108 166 103 174Z"/>
+    <path d="M77 174 Q66 168 60 158 Q72 166 77 174Z"/>
+    <path d="M90 100 C65 85 52 92 50 78 C48 64 65 60 90 80"/>
+    <path d="M90 100 C115 85 128 92 130 78 C132 64 115 60 90 80"/>
+  </svg>
+
+  <div class="relative z-10 px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-32">
+
+    <!-- Heading -->
+    <div class="text-center mb-12 md:mb-16">
       <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4" style="font-style: italic">The Women Behind It</p>
       <h2 class="word-blur-group text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
         <span class="word-blur" style="transition-delay: 0.1s">Women</span>
@@ -94,126 +58,236 @@ const team = [
         <span class="word-blur" style="transition-delay: 0.3s">Hold</span>
         <span class="word-blur" style="transition-delay: 0.45s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Space</span>
       </h2>
-
-      <p class="blur-words mt-8 text-sm leading-relaxed text-muted-foreground max-w-md">
-        Every Circle is led by a woman who shows up with care, intention, and heart.
-      </p>
-      <p class="blur-words mt-4 text-sm leading-relaxed text-muted-foreground max-w-md">
-        No hierarchy. No titles for show. Just women who believe in this work and do it with purpose.
-      </p>
-
-      <div class="mt-10 border-t border-border"></div>
-
-      <div class="mt-10 grid grid-cols-2 gap-8">
-        <div class="reveal" style="transition-delay: 0.4s">
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-border">
-            <svg class="h-6 w-6 text-[#c49298]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Lotus bloom -->
-              <path d="M12 20c0-4-3-7-3-10s3-6 3-6 3 3 3 6-3 6-3 10z" />
-              <path d="M12 20c-2-3-6-5-8-5 2-1 5 0 8 5z" />
-              <path d="M12 20c2-3 6-5 8-5-2-1-5 0-8 5z" />
-              <circle cx="12" cy="7" r="1.5" fill="currentColor" opacity="0.3" />
-            </svg>
-          </div>
-          <h3 class="text-sm font-semibold text-foreground">Values-Based Leadership</h3>
-          <p class="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Each Lead carries the mission forward while honouring her community's unique rhythm.
-          </p>
-        </div>
-        <div class="reveal" style="transition-delay: 0.5s">
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-border">
-            <svg class="h-6 w-6 text-[#c49298]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Roots & branches — five connected -->
-              <path d="M12 6v12" />
-              <path d="M12 6c-2-3-5-4-7-3" />
-              <path d="M12 6c2-3 5-4 7-3" />
-              <path d="M12 6c-1-2-1-4 0-5" />
-              <path d="M12 18c-2 2-5 3-7 2" />
-              <path d="M12 18c2 2 5 3 7 2" />
-              <circle cx="5" cy="3" r="1.5" fill="currentColor" opacity="0.3" />
-              <circle cx="19" cy="3" r="1.5" fill="currentColor" opacity="0.3" />
-              <circle cx="12" cy="1" r="1.5" fill="currentColor" opacity="0.3" />
-              <circle cx="5" cy="20" r="1.5" fill="currentColor" opacity="0.3" />
-              <circle cx="19" cy="20" r="1.5" fill="currentColor" opacity="0.3" />
-            </svg>
-          </div>
-          <h3 class="text-sm font-semibold text-foreground">Local Roots, Shared Vision</h3>
-          <p class="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Four cities, one mission — helping women know themselves, care for themselves, and grow.
-          </p>
-        </div>
-      </div>
     </div>
 
-    <!-- Right scrolling column -->
-    <div class="grid grid-cols-2 gap-4 px-6 pb-14 md:pb-20 md:px-12 lg:px-4 lg:pr-20 lg:py-20">
-      {team.map((member, index) => (
-        member.featured ? (
-          <div class="col-span-2 reveal group" style={`transition-delay: ${index * 0.15}s`}>
-            <div class="relative overflow-hidden rounded-2xl flex" style="min-height: 340px;">
-              <div class="relative shrink-0 overflow-hidden" style="width: 42%; min-height: 340px;">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  class="absolute inset-0 w-full h-full object-cover hover-zoom"
-                  style="object-position: center 20%;"
-                />
+    <div class="mx-auto" style="max-width: 860px;">
+
+      <!-- Founder -->
+      <div class="ts-founder reveal">
+        <div class="ts-founder-photo">
+          <img src={founder.image} alt={founder.name} class="absolute inset-0 w-full h-full object-cover object-top" loading="eager" />
+        </div>
+        <div class="ts-founder-details">
+          <p class="text-xs uppercase tracking-[0.25em] opacity-40 mb-auto">Founder</p>
+          <p class="ts-quote" style="font-family: 'Playfair Display', serif; font-style: italic;">
+            Rooted in wellness.<br/>Growing in community.
+          </p>
+          <div>
+            <h3 class="text-xl md:text-2xl font-medium tracking-tight">{founder.name}</h3>
+            <p class="text-sm opacity-50 mt-1">{founder.role}</p>
+            <div class="mt-3 w-10 h-px" style="background: rgba(255,255,255,0.15);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All leaders in one grid -->
+      <div class="ts-grid">
+        {leaders.map((m, i) => (
+          <div class="ts-member reveal" style={`transition-delay: ${0.08 + i * 0.07}s`}>
+            <div class="ts-member-photo group">
+              <img src={m.image} alt={m.name} class="absolute inset-0 w-full h-full object-cover object-center hover-zoom" loading="lazy" />
+            </div>
+            <h3 class="mt-3 text-sm font-semibold text-foreground leading-tight">{m.name}</h3>
+            <p class="mt-0.5 text-xs text-muted-foreground leading-snug">{m.role}</p>
+          </div>
+        ))}
+
+        <!-- CTA -->
+        <div class="ts-cta-cell reveal" style="transition-delay: 0.6s">
+          <div class="ts-cta-inner">
+            <div class="ts-cta-bg"></div>
+            <div class="relative z-10 ts-cta-content">
+              <div class="ts-cta-text">
+                <p class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 mb-1 sm:mb-2">5 Cities &middot; 1 Mission</p>
+                <h3 class="text-lg sm:text-xl md:text-2xl font-medium text-white tracking-tight" style="font-family: 'Playfair Display', serif;">
+                  Find your <span style="font-style: italic;">Circle</span>
+                </h3>
               </div>
-              <div class="relative flex flex-col justify-between flex-1 p-6 md:p-8 overflow-hidden" style="background: #0F0906;">
-                <!-- Decorative botanical SVG watermark -->
-                <svg class="absolute -bottom-6 -right-6 w-[180px] h-[260px] pointer-events-none" style="color: #e8b4b8; opacity: 0.12;" viewBox="0 0 300 450" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M150 440 C150 400 120 370 130 320 C140 270 100 250 115 200 C130 150 160 160 150 110 C142 70 120 50 140 20" />
-                  <circle cx="140" cy="20" r="5" /><circle cx="140" cy="20" r="12" />
-                  <path d="M140 5 Q146 -8 140 -18 Q134 -8 140 5Z" />
-                  <path d="M155 14 Q168 8 174 -2 Q162 6 155 14Z" />
-                  <path d="M157 30 Q170 36 178 30 Q166 30 157 30Z" />
-                  <path d="M150 38 Q156 50 150 60 Q144 50 150 38Z" />
-                  <path d="M128 34 Q116 42 108 38 Q118 34 128 34Z" />
-                  <path d="M125 18 Q112 12 106 0 Q118 8 125 18Z" />
-                  <circle cx="115" cy="200" r="4" /><circle cx="115" cy="200" r="10" />
-                  <path d="M115 186 Q120 174 115 164 Q110 174 115 186Z" />
-                  <path d="M128 194 Q140 188 146 178 Q134 186 128 194Z" />
-                  <path d="M128 206 Q140 212 146 222 Q134 214 128 206Z" />
-                  <path d="M115 214 Q120 226 115 236 Q110 226 115 214Z" />
-                  <path d="M102 206 Q90 212 84 222 Q96 214 102 206Z" />
-                  <path d="M102 194 Q90 188 84 178 Q96 186 102 194Z" />
-                  <path d="M130 320 C105 305 90 312 86 298 C82 284 100 278 130 300" />
-                  <path d="M130 320 C155 305 170 312 174 298 C178 284 160 278 130 300" />
-                  <path d="M140 360 C168 350 182 360 180 380 C178 400 160 394 162 378" />
-                </svg>
-
-                <p class="text-xs uppercase tracking-[0.3em] text-white/40 relative z-10" style="font-style: italic">Founder</p>
-
-                <p class="relative z-10 text-white/20 text-sm leading-relaxed max-w-[180px]" style="font-family: 'Playfair Display', serif; font-style: italic;">
-                  "Rooted in wellness.<br/>Growing in community."
-                </p>
-
-                <div class="relative z-10">
-                  <p class="text-xl md:text-2xl font-medium text-white tracking-tight leading-tight">{member.name}</p>
-                  <p class="text-sm text-white/50 mt-2">{member.role}</p>
-                  <div class="mt-4 w-8 h-px" style="background: rgba(255,255,255,0.15);"></div>
-                </div>
-              </div>
+              <a href="#contact" class="ts-btn">
+                Join Us
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
             </div>
           </div>
-        ) : (
-          <div class="reveal group" style={`transition-delay: ${index * 0.15}s`}>
-            <div class="relative aspect-[3/4] overflow-hidden rounded-2xl">
-              <img
-                src={member.image}
-                alt={member.name}
-                class="absolute inset-0 w-full h-full object-cover object-center hover-zoom"
-              />
-              <div class="absolute inset-x-0 bottom-0 p-4">
-                <div class="backdrop-blur-md rounded-xl px-4 py-3" style="background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.1)">
-                  <p class="text-white text-sm font-medium">{member.name}</p>
-                  <p class="text-white/60 text-xs mt-0.5">{member.role}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      ))}
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
+
+<style>
+  /* Florals */
+  .ts-floral-r, .ts-floral-l {
+    position: absolute;
+    color: #e8b4b8;
+    opacity: 0.22;
+    pointer-events: none;
+    width: 140px;
+    height: 280px;
+  }
+  .ts-floral-r { top: 40px; right: 0; }
+  .ts-floral-l { bottom: 40px; left: 0; }
+  @media (max-width: 768px) {
+    .ts-floral-r, .ts-floral-l { display: none; }
+  }
+
+  /* Founder */
+  .ts-founder {
+    display: flex;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ts-founder:hover { transform: translateY(-3px); }
+  .ts-founder-photo {
+    position: relative;
+    width: 42%;
+    min-height: 300px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .ts-founder-photo img {
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ts-founder:hover .ts-founder-photo img { transform: scale(1.04); }
+  .ts-founder-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 28px;
+    background: #0F0906;
+    color: #fff;
+  }
+  .ts-quote {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    opacity: 0.2;
+    max-width: 190px;
+    margin: auto 0;
+  }
+  @media (max-width: 480px) {
+    .ts-founder { flex-direction: column; }
+    .ts-founder-photo { width: 100%; min-height: 220px; aspect-ratio: 4/3; }
+    .ts-founder-details { padding: 20px; gap: 12px; }
+    .ts-quote { display: none; }
+  }
+
+  /* Leaders grid — desktop/tablet: row1=3, row2=4 via 12-col trick */
+  .ts-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+  }
+  /* First 3 items: span 4 cols each = 3 across */
+  .ts-grid .ts-member:nth-child(1),
+  .ts-grid .ts-member:nth-child(2),
+  .ts-grid .ts-member:nth-child(3) {
+    grid-column: span 4;
+  }
+  /* Next 4 items: span 3 cols each = 4 across */
+  .ts-grid .ts-member:nth-child(4),
+  .ts-grid .ts-member:nth-child(5),
+  .ts-grid .ts-member:nth-child(6),
+  .ts-grid .ts-member:nth-child(7) {
+    grid-column: span 3;
+  }
+  /* CTA spans full width */
+  .ts-grid .ts-cta-cell {
+    grid-column: 1 / -1;
+  }
+  /* Mobile only: simple 2-col, ignore the 12-col system */
+  @media (max-width: 480px) {
+    .ts-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .ts-grid .ts-member:nth-child(1),
+    .ts-grid .ts-member:nth-child(2),
+    .ts-grid .ts-member:nth-child(3),
+    .ts-grid .ts-member:nth-child(4),
+    .ts-grid .ts-member:nth-child(5),
+    .ts-grid .ts-member:nth-child(6),
+    .ts-grid .ts-member:nth-child(7) {
+      grid-column: span 1;
+    }
+    .ts-grid .ts-cta-cell {
+      grid-column: span 1;
+    }
+  }
+
+  .ts-member {
+    text-align: center;
+  }
+  .ts-member-photo {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  }
+  .ts-member:hover .ts-member-photo {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  /* CTA cell */
+  .ts-cta-cell {}
+  .ts-cta-inner {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 3/4;
+  }
+  .ts-cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    height: 100%;
+    padding: 16px;
+  }
+  @media (min-width: 481px) {
+    .ts-cta-inner {
+      aspect-ratio: auto;
+    }
+    .ts-cta-content {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+      padding: 28px 40px;
+      gap: 20px;
+    }
+  }
+  .ts-cta-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0F0906 0%, #2a1a14 50%, #1a0e08 100%);
+  }
+  .ts-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: #e8b4b8;
+    color: #0F0906;
+    white-space: nowrap;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ts-btn:hover {
+    background: #fff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(232,180,184,0.4);
+  }
+  .ts-btn svg { transition: transform 0.3s ease; }
+  .ts-btn:hover svg { transform: translateX(3px); }
+</style>

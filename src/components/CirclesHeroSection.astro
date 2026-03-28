@@ -14,21 +14,21 @@ const women = [
     delay: "0.75s",
   },
   {
+    name: "Zulaihat Adamu Barde",
+    role: "CEO, Abuja",
+    image: "/images/team/zalihat-adamu-barde-abuja-ceo.jpg",
+    delay: "0.85s",
+  },
+  {
     name: "Maimuna Yakubu Adejoh",
     role: "CEO, Flott Beauty Kaduna",
     image: "/images/team/maimuna-yakubu-adejoh-ceo-flott-beauty-kaduna.webp",
-    delay: "0.85s",
+    delay: "0.95s",
   },
   {
     name: "Emek Akpan",
     role: "Co-CEO, Flott Beauty Port Harcourt",
     image: "/images/team/emek-akpan-co-ceo-flott-beauty-portharcourt.webp",
-    delay: "0.95s",
-  },
-  {
-    name: "Fatima Abubbakar",
-    role: "CEO, Flott Beauty Ilorin",
-    image: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp",
     delay: "1.05s",
   },
   {
@@ -42,6 +42,12 @@ const women = [
     role: "Chief Head of Operations",
     image: "/images/team/silvia-aboh-chief-head-of-operations.webp",
     delay: "1.25s",
+  },
+  {
+    name: "Fatima Abubbakar",
+    role: "CEO, Flott Beauty Ilorin",
+    image: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp",
+    delay: "1.35s",
   },
 ];
 ---
@@ -127,7 +133,7 @@ const women = [
           stroke-dasharray="28" stroke-dashoffset="28"/>
       </svg>
 
-      <!-- Row 2: Rita · Maimuna · Emek -->
+      <!-- Row 2: Rita · Zulaihat · Maimuna -->
       <div class="ch-row-grid">
         {women.slice(1, 4).map((w) => (
           <div class="ch-card ch-reveal" style={`--d: ${w.delay}`}>
@@ -142,8 +148,8 @@ const women = [
         ))}
       </div>
 
-      <!-- Row 3: Fatima · Dr. Jane · Silvia -->
-      <div class="ch-row-grid">
+      <!-- Row 3: Emek · Dr. Jane · Silvia · Fatima -->
+      <div class="ch-row-grid ch-row-4">
         {women.slice(4).map((w) => (
           <div class="ch-card ch-reveal" style={`--d: ${w.delay}`}>
             <div class="ch-img-wrap">
@@ -658,7 +664,7 @@ const women = [
   flex-direction: column;
   align-items: center;
   gap: 3rem;
-  padding: 7rem 1.5rem 38rem;
+  padding: 7rem 1.5rem 4rem;
   min-height: 85svh;
   justify-content: center;
   overflow: hidden;
@@ -839,7 +845,9 @@ const women = [
 .ch-row-grid + .ch-row-grid {
   margin-top: 14px;
 }
-
+.ch-row-4 {
+  grid-template-columns: repeat(4, auto);
+}
 @media (max-width: 1023px) {
   .ch-photos { align-items: center; gap: 14px; padding: 0 1.25rem 2rem; width: 100%; max-width: 480px; margin: 0 auto; }
   .ch-row-1 { flex: none; width: 100%; height: auto; display: flex; justify-content: center; }
@@ -851,6 +859,7 @@ const women = [
     width: 100%;
   }
   .ch-row-grid + .ch-row-grid { margin-top: 16px; }
+  .ch-row-4 { grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .ch-row-grid .ch-card { height: auto; aspect-ratio: 3/4; width: 100%; border-radius: 10px; }
   .ch-connector { margin: 0; }
 }
