@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { ScrollRevealText } from "./ScrollRevealText";
 
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -7,8 +6,6 @@ export function PhilosophySection() {
   const [forestTranslateX, setForestTranslateX] = useState(100);
   const [titleOpacity, setTitleOpacity] = useState(1);
   const rafRef = useRef<number | null>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const [textVisible, setTextVisible] = useState(false);
   const [titleWordsVisible, setTitleWordsVisible] = useState(false);
   const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
 
@@ -37,15 +34,6 @@ export function PhilosophySection() {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [updateTransforms]);
-
-  useEffect(() => {
-    if (!textRef.current) return;
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setTextVisible(true); obs.disconnect(); }
-    }, { threshold: 0.2 });
-    obs.observe(textRef.current);
-    return () => obs.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -167,43 +155,6 @@ export function PhilosophySection() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="relative px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-36 lg:pb-14">
-        {/* Decorative mandala flower */}
-        <svg className="absolute -bottom-20 -right-16 w-[360px] h-[360px] text-[#e8b4b8] opacity-50 pointer-events-none hidden lg:block" viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="200" cy="200" r="12" /><circle cx="200" cy="200" r="6" />
-          <circle cx="200" cy="172" r="3" /><circle cx="228" cy="186" r="3" /><circle cx="217" cy="214" r="3" />
-          <circle cx="183" cy="214" r="3" /><circle cx="172" cy="186" r="3" />
-          <path d="M200 168 Q212 148 200 128 Q188 148 200 168Z" /><path d="M230 184 Q250 178 258 158 Q238 168 230 184Z" />
-          <path d="M220 212 Q238 226 256 222 Q240 208 220 212Z" /><path d="M180 212 Q162 226 144 222 Q160 208 180 212Z" />
-          <path d="M170 184 Q150 178 142 158 Q162 168 170 184Z" />
-          <circle cx="200" cy="200" r="50" />
-          <path d="M200 150 Q218 120 200 88 Q182 120 200 150Z" /><path d="M235 157 Q262 138 266 104 Q244 128 235 157Z" />
-          <path d="M250 200 Q280 200 300 178 Q274 188 250 200Z" /><path d="M235 243 Q262 262 266 296 Q244 272 235 243Z" />
-          <path d="M200 250 Q218 280 200 312 Q182 280 200 250Z" /><path d="M165 243 Q138 262 134 296 Q156 272 165 243Z" />
-          <path d="M150 200 Q120 200 100 178 Q126 188 150 200Z" /><path d="M165 157 Q138 138 134 104 Q156 128 165 157Z" />
-          <circle cx="200" cy="200" r="90" />
-          <path d="M200 108 Q214 94 200 76 Q186 94 200 108" /><path d="M265 135 Q282 126 284 108 Q268 120 265 135" />
-          <path d="M292 200 Q306 194 314 178 Q298 186 292 200" /><path d="M265 265 Q282 274 284 292 Q268 280 265 265" />
-          <path d="M200 292 Q214 306 200 324 Q186 306 200 292" /><path d="M135 265 Q118 274 116 292 Q132 280 135 265" />
-          <path d="M108 200 Q94 194 86 178 Q102 186 108 200" /><path d="M135 135 Q118 126 116 108 Q132 120 135 135" />
-        </svg>
-
-        <div ref={textRef} className="text-center relative z-10">
-          <p className={`word-blur-group ${textVisible ? "visible" : ""} text-xs uppercase tracking-widest text-muted-foreground`}>
-            <span className="word-blur" style={{ transitionDelay: "0s" }}>What</span>{" "}
-            <span className="word-blur" style={{ transitionDelay: "0.06s" }}>We</span>{" "}
-            <span className="word-blur" style={{ transitionDelay: "0.12s" }}>Believe</span>
-          </p>
-          <div className="mt-8">
-            <ScrollRevealText
-              text="A space where women gather to reconnect with themselves. To learn skills that actually matter. To grow alongside other women who understand the journey — rooted in culture, care, and shared experience."
-              className="leading-relaxed text-muted-foreground text-3xl text-center"
-              accentWords={["reconnect", "journey"]}
-            />
           </div>
         </div>
       </div>
