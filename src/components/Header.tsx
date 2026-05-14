@@ -23,6 +23,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
     { label: "Programs", href: "/programs" },
     { label: "Our Circles", href: "/circles" },
     { label: "Gallery", href: "/gallery" },
+    { label: "Press", href: "/press" },
   ];
 
   // Close menu when clicking outside

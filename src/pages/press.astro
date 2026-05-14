@@ -1,0 +1,150 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const featured = {
+  outlet: "BellaNaija",
+  date: "May 2026",
+  type: "Editorial",
+  title: "Inside Flott Women's Circle: a new sisterhood model for Nigerian wellness.",
+  excerpt: "A women-only community quietly redefining what it means to gather, grow, and heal — meet the Circle of women shaping a movement across five Nigerian cities.",
+  image: "/images/gallery/event-50.webp",
+  url: "#",
+};
+---
+
+<Layout title="Press - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/press" />
+
+    <!-- PRESS HERO -->
+    <section class="px-6 pt-24 pb-10 md:px-12 md:pt-32 md:pb-12 lg:px-20 lg:pt-40 lg:pb-16 relative overflow-hidden">
+
+      <!-- Decorative paisley — top right -->
+      <svg class="absolute top-16 -right-8 w-[120px] h-[170px] md:w-[180px] md:h-[250px] text-[#e8b4b8] opacity-[0.22] pointer-events-none" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <path d="M150 210 C150 202 158 197 164 200 C170 203 168 214 162 216 C156 218 148 214 147 206" />
+        <circle cx="150" cy="152" r="2.5" /><circle cx="192" cy="178" r="2.5" />
+        <circle cx="150" cy="264" r="2.5" /><circle cx="108" cy="178" r="2.5" />
+      </svg>
+
+      <div class="max-w-5xl mx-auto relative z-10">
+        <p class="press-reveal text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5" style="font-style: italic; transition-delay: 0s;">In the press</p>
+        <h1 class="press-reveal text-4xl font-medium tracking-tight text-foreground md:text-5xl lg:text-6xl" style="transition-delay: 0.08s;">
+          Selected
+          <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">features</span>,
+          conversations,<br class="hidden md:block" /> and
+          <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">appearances</span>.
+        </h1>
+        <p class="press-reveal mt-6 text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl" style="transition-delay: 0.18s;">
+          A growing archive of editorials, interviews and press mentions covering the work of Flott Women's Circle across <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Abuja</span>, <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Kaduna</span>, <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Port Harcourt</span>, <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Enugu</span>, and <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Ilorin</span>.
+        </p>
+      </div>
+    </section>
+
+    <!-- FEATURED ARTICLE — Landscape card -->
+    <section class="px-6 pb-16 md:px-12 md:pb-20 lg:px-20 lg:pb-28 relative">
+      <!-- "featured" label -->
+      <div class="max-w-[1100px] mx-auto flex items-center gap-4 mb-10 md:mb-12">
+        <span class="h-[1px] flex-1 bg-border"></span>
+        <span class="text-[11px] uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Featured</span>
+        <span class="h-[1px] flex-1 bg-border"></span>
+      </div>
+
+      <a
+        href={featured.url}
+        target={featured.url !== "#" ? "_blank" : undefined}
+        rel={featured.url !== "#" ? "noopener noreferrer" : undefined}
+        class="press-card press-reveal block max-w-[1100px] mx-auto group no-underline"
+        style="transition-delay: 0.05s;"
+      >
+        <!-- Landscape image -->
+        <div class="relative aspect-[21/9] w-full overflow-hidden rounded-2xl bg-secondary">
+          <img
+            src={featured.image}
+            alt={featured.title}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+          />
+          <span class="absolute top-5 left-5 rounded-full bg-background/90 backdrop-blur-sm px-3 py-1.5 text-[10px] uppercase tracking-[0.32em] text-primary font-medium">
+            Latest
+          </span>
+        </div>
+
+        <!-- Text below -->
+        <div class="mt-8 md:mt-10 max-w-[760px]">
+          <p class="text-[11px] uppercase tracking-[0.32em] text-primary font-medium mb-5 inline-flex items-center gap-3">
+            <span class="h-[1px] w-7 bg-primary"></span>
+            Editorial · Feature
+          </p>
+          <h2 class="text-2xl md:text-3xl lg:text-[2.4rem] font-medium tracking-tight text-foreground leading-[1.18] mb-5">
+            {featured.title.split(" sisterhood ").map((part, i) => (
+              i === 0 ? <>{part} <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">sisterhood</span> </> : part
+            ))}
+          </h2>
+          <p class="text-sm md:text-[15px] text-muted-foreground leading-[1.72] max-w-[58ch] mb-7">
+            {featured.excerpt}
+          </p>
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.28em] text-muted-foreground font-medium mb-8">
+            <span class="text-primary">{featured.outlet}</span>
+            <span class="h-[1px] w-3 bg-muted-foreground/40"></span>
+            <time datetime="2026-05-08">{featured.date}</time>
+            <span class="h-[1px] w-3 bg-muted-foreground/40"></span>
+            <span>{featured.type}</span>
+          </div>
+          <span class="inline-flex items-center gap-2.5 text-[11px] uppercase tracking-[0.28em] font-medium text-foreground border-b border-foreground pb-1.5 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-primary group-hover:border-primary group-hover:gap-4">
+            Read the feature
+            <svg class="w-3.5 h-3.5 transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </div>
+      </a>
+    </section>
+
+    <!-- ARCHIVE PLACEHOLDER -->
+    <section class="px-6 pb-20 md:px-12 md:pb-28 lg:px-20 lg:pb-32 text-center">
+      <div class="max-w-xl mx-auto press-reveal" style="transition-delay: 0.15s;">
+        <div class="inline-block w-2 h-2 rounded-full bg-primary mb-6"></div>
+        <p class="text-sm md:text-base text-muted-foreground leading-relaxed">
+          <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">More features coming soon</span>
+          — the archive grows as new conversations land.
+        </p>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<style>
+  .press-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+    will-change: opacity, transform, filter;
+    transition:
+      opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .press-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+</style>
+
+<script>
+  const pressObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          pressObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+  document.querySelectorAll(".press-reveal").forEach((el) => pressObs.observe(el));
+</script>
