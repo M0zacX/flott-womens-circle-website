@@ -13,7 +13,7 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
 
-  const descriptionText = "Five cities across Nigeria — and now Dubai, our first in the MENA region. One shared philosophy. Each Circle moves to the rhythm of its community, honouring local culture while staying rooted in wellness, skills, and empowerment. From Kaduna to Ilorin, and now beyond Nigeria's borders, every gathering brings women closer to balanced, intentional living.";
+  const descriptionText = "Five cities across Nigeria, and now Dubai, our first in the MENA region. One shared philosophy. Each Circle moves to the rhythm of its community, honouring local culture while staying rooted in wellness, skills, and empowerment. From Kaduna to Ilorin, and now beyond Nigeria's borders, every gathering brings women closer to balanced, intentional living.";
 
   useEffect(() => {
     const handleScroll = () => {
