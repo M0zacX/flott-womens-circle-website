@@ -287,7 +287,7 @@ const circles = [
               href={circle.instagramUrl || undefined}
               target={circle.instagramUrl ? "_blank" : undefined}
               rel={circle.instagramUrl ? "noopener noreferrer" : undefined}
-              class={`circle-item contact-reveal flex flex-col items-center w-[42%] md:w-[28%] lg:w-auto lg:flex-1 no-underline ${circle.instagramUrl ? 'cursor-pointer' : 'cursor-default'}`}
+              class={`circle-item contact-reveal flex flex-col items-center w-[42%] md:w-[28%] lg:w-auto no-underline ${circle.instagramUrl ? 'cursor-pointer' : 'cursor-default'}`}
               style={`transition-delay: ${0.15 + i * 0.08}s;`}
             >
               <div class="flex flex-col items-center" style={`--stagger: ${circle.offset}px`}>
