@@ -189,7 +189,7 @@ export function TechnologySection() {
 
           {/* Right column — body text */}
           <div className="md:w-[58%] lg:w-[62%] flex items-center">
-            <ScrollRevealText text={descriptionText} accentWords={["Circle", "empowerment"]} className="!text-2xl md:!text-3xl lg:!text-[2.5rem] lg:!leading-snug" />
+            <ScrollRevealText text={descriptionText} accentWords={["Circle", "empowerment"]} className="!text-xl md:!text-2xl lg:!text-4xl lg:!leading-snug" />
           </div>
         </div>
       </div>
