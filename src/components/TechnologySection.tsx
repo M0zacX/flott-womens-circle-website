@@ -13,7 +13,7 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const stableHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800);
 
-  const descriptionText = "Four cities. One shared philosophy. Each Circle moves to the rhythm of its community — honouring local culture while staying rooted in wellness, skills, and empowerment. From Kaduna to Ilorin, every gathering brings women closer to balanced, intentional living.";
+  const descriptionText = "Five cities across Nigeria — and now Dubai, our first in the MENA region. One shared philosophy. Each Circle moves to the rhythm of its community, honouring local culture while staying rooted in wellness, skills, and empowerment. From Kaduna to Ilorin, and now beyond Nigeria's borders, every gathering brings women closer to balanced, intentional living.";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +67,7 @@ export function TechnologySection() {
               <div className="absolute inset-0 bg-foreground/40" />
               <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
                 <h2 className="max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl">
-                  {["Five Cities.", "One", "Circle."].map((word, index) => {
+                  {["One", "Circle.", "Beyond Borders."].map((word, index) => {
                     const wordFadeStart = index * 0.07;
                     const wordFadeEnd = wordFadeStart + 0.07;
                     const wordProgress = Math.max(0, Math.min(1, (scrollProgress - wordFadeStart) / (wordFadeEnd - wordFadeStart)));
@@ -168,15 +168,14 @@ export function TechnologySection() {
           {/* Left column — heading + CTA */}
           <div className="md:w-[42%] lg:w-[38%] flex flex-col justify-center">
             <h3 className="text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Five Cities.
+              One Circle.
               <br />
-              One{" "}
               <span style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic", fontWeight: 500 }}>
-                Circle.
+                Beyond Borders.
               </span>
             </h3>
             <p className="mt-6 text-sm tracking-[0.12em] uppercase text-muted-foreground/60">
-              Abuja &bull; Kaduna &bull; Port Harcourt &bull; Enugu &bull; Ilorin
+              Abuja &bull; Kaduna &bull; Port Harcourt &bull; Enugu &bull; Ilorin &bull; Dubai (Coming Soon)
             </p>
             <a
               href="/circles"

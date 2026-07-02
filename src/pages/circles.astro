@@ -47,6 +47,18 @@ const circles = [
     leadImage: "/images/team/fatima-abubbakar-ceo-flott-beauty-ilorin.webp",
     image: "/images/gallery/event-42.webp",
   },
+  {
+    city: "Dubai",
+    comingSoon: true,
+    focus: "The next chapter of the same journey — bringing the Circle to the MENA region, with wellness, sisterhood, and growth for women across the UAE.",
+    address: "Dubai, UAE — launching soon",
+    instagram: "@flott_beauty",
+    instagramUrl: "https://instagram.com/flott_beauty",
+    lead: "Safiya Umar",
+    leadTitle: "Founder & Group CEO",
+    leadImage: "/images/team/safiya-umar-founder-&-group-ceo.webp",
+    image: "/images/gallery/event-08.webp",
+  },
 ];
 ---
 
@@ -77,13 +89,13 @@ const circles = [
 
       <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4" style="font-style: italic">Our Circles</p>
       <h1 class="word-blur-group text-4xl font-medium tracking-tight text-foreground md:text-5xl lg:text-6xl max-w-3xl">
-        <span class="word-blur" style="transition-delay: 0.05s">Four</span>
-        <span class="word-blur" style="transition-delay: 0.12s">Cities.</span>
-        <span class="word-blur" style="transition-delay: 0.22s">One</span>
-        <span class="word-blur" style="transition-delay: 0.35s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Circle.</span>
+        <span class="word-blur" style="transition-delay: 0.05s">One</span>
+        <span class="word-blur" style="transition-delay: 0.12s">Circle.</span>
+        <span class="word-blur" style="transition-delay: 0.22s">Beyond</span>
+        <span class="word-blur" style="transition-delay: 0.35s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Borders.</span>
       </h1>
       <p class="blur-words mt-6 text-base text-muted-foreground max-w-xl leading-relaxed">
-        Same philosophy. Different rhythm. Each Circle moves with its community.
+        Same philosophy. Different rhythm. From Nigeria to the MENA region — each Circle moves with its community.
       </p>
     </section>
 
@@ -101,7 +113,7 @@ const circles = [
             </div>
             <div class={`${i % 2 === 1 ? 'lg:order-1' : ''}`}>
               <div class="reveal" style="transition-delay: 0s">
-                <p class="text-xs uppercase tracking-[0.3em] text-primary mb-3" style="font-style: italic">{`Circle 0${i + 1}`}</p>
+                <p class="text-xs uppercase tracking-[0.3em] text-primary mb-3" style="font-style: italic">{circle.comingSoon ? 'Coming Soon' : `Circle 0${i + 1}`}</p>
                 <h3 class="text-2xl md:text-3xl font-medium tracking-tight text-foreground">{circle.city}</h3>
                 <p class="mt-4 text-sm leading-relaxed text-muted-foreground">{circle.focus}</p>
               </div>
@@ -132,7 +144,7 @@ const circles = [
                   </div>
                   <div>
                     <p class="text-sm font-medium text-foreground">{circle.lead}</p>
-                    <p class="text-xs text-muted-foreground">CEO, Flott Beauty {circle.city}</p>
+                    <p class="text-xs text-muted-foreground">{circle.leadTitle ?? `CEO, Flott Beauty ${circle.city}`}</p>
                   </div>
                 </div>
                 {circle.coLead && (

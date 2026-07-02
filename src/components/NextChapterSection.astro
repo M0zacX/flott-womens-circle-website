@@ -1,0 +1,58 @@
+---
+import { ScrollRevealText } from "./ScrollRevealText";
+---
+
+<section class="bg-background relative overflow-hidden">
+  <div class="relative px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-36 lg:pb-24">
+    <!-- Decorative mandala flower -->
+    <svg
+      class="absolute -top-20 -left-16 w-[360px] h-[360px] text-[#e8b4b8] opacity-50 pointer-events-none hidden lg:block"
+      viewBox="0 0 400 400"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="200" cy="200" r="12" /><circle cx="200" cy="200" r="6" />
+      <circle cx="200" cy="200" r="50" />
+      <path d="M200 150 Q218 120 200 88 Q182 120 200 150Z" /><path d="M235 157 Q262 138 266 104 Q244 128 235 157Z" />
+      <path d="M250 200 Q280 200 300 178 Q274 188 250 200Z" /><path d="M235 243 Q262 262 266 296 Q244 272 235 243Z" />
+      <path d="M200 250 Q218 280 200 312 Q182 280 200 250Z" /><path d="M165 243 Q138 262 134 296 Q156 272 165 243Z" />
+      <path d="M150 200 Q120 200 100 178 Q126 188 150 200Z" /><path d="M165 157 Q138 138 134 104 Q156 128 165 157Z" />
+      <circle cx="200" cy="200" r="90" />
+    </svg>
+
+    <div class="text-center relative z-10 max-w-4xl mx-auto">
+      <p class="word-blur-group text-xs uppercase tracking-widest text-muted-foreground">
+        <span class="word-blur" style="transition-delay: 0s">Our</span>
+        <span class="word-blur" style="transition-delay: 0.06s">Next</span>
+        <span class="word-blur" style="transition-delay: 0.12s">Chapter</span>
+      </p>
+
+      <h2 class="word-blur-group mt-6 text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
+        <span class="word-blur" style="transition-delay: 0.05s">From</span>
+        <span class="word-blur" style="transition-delay: 0.12s">Nigeria</span>
+        <span class="word-blur" style="transition-delay: 0.2s">to</span>
+        <span class="word-blur" style="transition-delay: 0.28s">the</span>
+        <span class="word-blur" style="transition-delay: 0.36s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">World.</span>
+      </h2>
+
+      <div class="mt-8">
+        <ScrollRevealText
+          client:visible
+          text="Flott Women's Circle began in Nigeria — five cities, one growing sisterhood. Now that same Circle is opening its arms to the MENA region, starting with Dubai. Same vision. Same warmth. Same belief that when women gather with intention, everything grows. This isn't a new beginning — it's the next chapter of the one we started together."
+          className="leading-relaxed text-muted-foreground text-2xl md:text-3xl text-center"
+          accentWords={["Dubai", "together"]}
+        />
+      </div>
+
+      <div class="reveal mt-10 flex items-center justify-center gap-4">
+        <div class="w-10 h-[1px] bg-[#c49298]/30"></div>
+        <p class="text-[11px] text-muted-foreground/60 tracking-[0.2em] uppercase">Dubai &bull; Coming Soon</p>
+        <div class="w-10 h-[1px] bg-[#c49298]/30"></div>
+      </div>
+    </div>
+  </div>
+</section>

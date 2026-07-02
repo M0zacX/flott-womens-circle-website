@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: "5", label: "Circles Across Nigeria" },
+  { value: "6", label: "Cities, One Circle" },
   { value: "4", label: "Dimensions of Growth" },
   { value: "6", label: "Women Leading Change" },
   { value: "1", label: "Shared Mission" },
