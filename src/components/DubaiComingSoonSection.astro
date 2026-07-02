@@ -1,0 +1,151 @@
+---
+// Cinematic "Dubai — Coming Soon" section. Brand-faithful per DESIGN-GUIDE.md.
+// Placeholder skyline image; swap for a licensed/official shot later.
+const ticker = "Flott Women's Circle";
+const seq = ["Flott Women's Circle", "Dubai", "Coming Soon", "One Circle, Beyond Borders", "MENA"];
+---
+
+<section class="dubai-section relative w-full overflow-hidden bg-foreground">
+  <!-- Background image + brand-tinted overlays -->
+  <div class="absolute inset-0">
+    <img
+      src="/images/dubai-skyline.jpg"
+      alt="Dubai skyline at sunrise, the next home of Flott Women's Circle"
+      class="dubai-bg absolute inset-0 h-full w-full object-cover"
+      loading="lazy"
+    />
+    <!-- Legibility + warmth gradient -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(to top, #0f0906 0%, rgba(15,9,6,0.9) 22%, rgba(15,9,6,0.55) 52%, rgba(15,9,6,0.4) 100%);"
+    >
+    </div>
+    <!-- Warm primary glow, bottom-left -->
+    <div
+      class="absolute -bottom-48 -left-40 h-[620px] w-[620px] rounded-full"
+      style="background: radial-gradient(circle, rgba(246,131,19,0.20), transparent 70%);"
+    >
+    </div>
+  </div>
+
+  <!-- Large floral mandala (brand pink), top-right -->
+  <svg
+    class="pointer-events-none absolute -top-16 -right-20 hidden h-[420px] w-[420px] text-[#e8b4b8] opacity-[0.18] lg:block"
+    viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="0.9"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+  >
+    <circle cx="200" cy="200" r="14" /><circle cx="200" cy="200" r="7" />
+    <circle cx="200" cy="200" r="52" />
+    <path d="M200 148 Q218 118 200 86 Q182 118 200 148Z" /><path d="M235 157 Q262 138 266 104 Q244 128 235 157Z" />
+    <path d="M252 200 Q282 200 302 178 Q276 188 252 200Z" /><path d="M235 243 Q262 262 266 296 Q244 272 235 243Z" />
+    <path d="M200 252 Q218 282 200 314 Q182 282 200 252Z" /><path d="M165 243 Q138 262 134 296 Q156 272 165 243Z" />
+    <path d="M148 200 Q118 200 98 178 Q124 188 148 200Z" /><path d="M165 157 Q138 138 134 104 Q156 128 165 157Z" />
+    <circle cx="200" cy="200" r="92" />
+    <circle cx="200" cy="200" r="150" /><circle cx="200" cy="200" r="180" />
+  </svg>
+
+  <!-- Small rosette accent, bottom-left (mobile-visible) -->
+  <svg
+    class="pointer-events-none absolute bottom-24 left-5 h-[90px] w-[90px] text-[#e8b4b8] opacity-[0.22] md:h-[120px] md:w-[120px]"
+    viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.8"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+  >
+    <circle cx="100" cy="100" r="5" />
+    <path d="M100 92 Q104 80 100 68 Q96 80 100 92Z" /><path d="M108 96 Q120 92 128 82 Q118 90 108 96Z" />
+    <path d="M108 106 Q120 110 128 120 Q118 112 108 106Z" /><path d="M100 110 Q104 122 100 134 Q96 122 100 110Z" />
+    <path d="M92 106 Q80 110 72 120 Q82 112 92 106Z" /><path d="M92 96 Q80 92 72 82 Q82 90 92 96Z" />
+    <circle cx="100" cy="100" r="28" /><circle cx="100" cy="100" r="50" />
+  </svg>
+
+  <!-- Content -->
+  <div class="relative z-10 flex min-h-[92vh] w-full flex-col items-center justify-center px-6 py-28 text-center md:px-12 lg:px-20">
+    <p class="blur-words text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm" style="font-style: italic;">
+      Now Expanding to the UAE
+    </p>
+
+    <h2 class="word-blur-group mt-6 font-medium leading-[0.95] tracking-tight text-white text-[16vw] md:text-[12vw] lg:text-[8.5vw]">
+      <span class="word-blur" style="transition-delay: 0.05s">Hello,</span>
+      <span class="word-blur" style="transition-delay: 0.2s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Dubai.</span>
+    </h2>
+
+    <p class="reveal mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/70 md:text-lg" style="transition-delay: 0.15s;">
+      Flott Women's Circle is bringing its sisterhood to the UAE. Same vision, same warmth, a new city to call home.
+    </p>
+
+    <!-- Coming Soon pill -->
+    <div class="reveal mt-9 flex items-center justify-center" style="transition-delay: 0.25s;">
+      <span class="inline-flex items-center gap-2.5 rounded-full border border-primary/50 px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-primary">
+        <span class="dubai-dot"></span>
+        Coming Soon
+      </span>
+    </div>
+
+    <!-- CTA -->
+    <div class="reveal mt-8" style="transition-delay: 0.32s;">
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-primary-foreground transition-all duration-500 hover:gap-4"
+        style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+      >
+        Join the Waitlist
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Marquee ticker -->
+  <div class="absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-white/10 py-4">
+    <div class="dubai-track flex w-max whitespace-nowrap">
+      {[0, 1].map(() => (
+        <div class="flex shrink-0 items-center" aria-hidden="true">
+          {seq.concat(seq).map((word) => (
+            <span class="flex items-center">
+              <span class="px-6 text-[11px] uppercase tracking-[0.3em] text-white/35">{word}</span>
+              <span class="text-primary/60">&bull;</span>
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .dubai-bg {
+    transform: scale(1.06);
+    animation: dubaiKen 26s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes dubaiKen {
+    from { transform: scale(1.06) translateY(0); }
+    to   { transform: scale(1.14) translateY(-1.5%); }
+  }
+
+  .dubai-track {
+    animation: dubaiMarquee 30s linear infinite;
+    will-change: transform;
+  }
+  @keyframes dubaiMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .dubai-dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 9999px;
+    background: #f68313;
+    display: inline-block;
+    animation: dubaiPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes dubaiPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(246, 131, 19, 0.5); }
+    50%      { box-shadow: 0 0 0 7px rgba(246, 131, 19, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dubai-bg { animation: none; transform: scale(1.06); }
+    .dubai-track { animation: none; }
+    .dubai-dot { animation: none; }
+  }
+</style>
