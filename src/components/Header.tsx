@@ -47,7 +47,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
   const showGlass = isScrolled || isMenuOpen;
 
   return (
-    <header id="site-header" className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl">
+    <header id="site-header" className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-5xl">
       {/* Top bar — always a pill */}
       <div className="relative rounded-full" style={{ border: "1px solid transparent" }}>
         {/* Glass background for pill */}

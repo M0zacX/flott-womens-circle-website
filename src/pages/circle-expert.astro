@@ -41,7 +41,7 @@ const total = steps.length;
     <Header client:load innerPage={true} currentPath="/circle-expert" />
 
     <!-- Intro -->
-    <section class="px-6 pt-14 pb-4 md:px-12 md:pt-20 lg:px-20">
+    <section class="px-6 pt-32 pb-4 md:px-12 md:pt-40 lg:px-20">
       <div class="max-w-3xl mx-auto text-center reveal">
         <p class="text-xs uppercase tracking-[0.3em] text-primary mb-4" style="font-style:italic">Join the Circle Expert Network</p>
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">Circle Expert Information Form</h1>
@@ -169,12 +169,8 @@ const total = steps.length;
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
             Back
           </button>
-          <button type="button" id="w-next" class="inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]">
-            Next
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-          <button type="submit" id="w-submit" class="hidden inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]">
-            Submit Application
+          <button type="submit" id="w-cta" class="inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]">
+            <span id="w-cta-label">Next</span>
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
@@ -193,9 +189,8 @@ const total = steps.length;
   const numEl = document.getElementById("w-num") as HTMLElement;
   const titleEl = document.getElementById("w-title") as HTMLElement;
   const back = document.getElementById("w-back") as HTMLButtonElement;
-  const next = document.getElementById("w-next") as HTMLButtonElement;
-  const submit = document.getElementById("w-submit") as HTMLButtonElement;
-  const submitLabel = submit?.querySelector("svg")?.previousSibling;
+  const cta = document.getElementById("w-cta") as HTMLButtonElement;
+  const ctaLabel = document.getElementById("w-cta-label") as HTMLElement;
   const ok = document.getElementById("ce-success");
   const titles = steps.map((s) => s.querySelector(".wstep-t")?.textContent?.trim() || "");
   let cur = 0;
@@ -212,32 +207,33 @@ const total = steps.length;
     numEl.textContent = String(cur + 1);
     titleEl.textContent = titles[cur];
     back.style.visibility = cur === 0 ? "hidden" : "visible";
-    const last = cur === total - 1;
-    next.classList.toggle("hidden", last);
-    submit.classList.toggle("hidden", !last);
+    ctaLabel.textContent = cur === total - 1 ? "Submit Application" : "Next";
     document.getElementById("wizard")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  next?.addEventListener("click", () => show(cur + 1, 1));
   back?.addEventListener("click", () => show(cur - 1, -1));
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    submit.disabled = true;
-    if (submitLabel) submitLabel.textContent = "Sending... ";
+  async function doSubmit() {
+    cta.disabled = true;
+    ctaLabel.textContent = "Sending...";
     try {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
       const data = await res.json();
       if (data.success) {
-        if (submitLabel) submitLabel.textContent = "Submit Application ";
-        submit.disabled = false;
+        cta.disabled = false;
+        cta.style.display = "none";
         if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); }
-        submit.classList.add("hidden");
       } else { throw new Error(); }
     } catch {
-      if (submitLabel) submitLabel.textContent = "Failed — Try Again ";
-      submit.disabled = false;
+      cta.disabled = false;
+      ctaLabel.textContent = "Failed — Try Again";
     }
+  }
+
+  // single button: advances steps, submits on the last one (also handles Enter key)
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (cur < total - 1) { show(cur + 1, 1); } else { doSubmit(); }
   });
 </script>
 
