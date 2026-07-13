@@ -74,20 +74,20 @@ const total = steps.length;
           <div class="wstep active">
             <div class="wstep-head"><span class="wstep-n">01</span><h2 class="wstep-t">Personal <span class="acc">Information</span></h2></div>
             <div class="grid md:grid-cols-2 gap-x-10 gap-y-7">
-              <label class="block md:col-span-2"><span class="fld-label">Full Name</span><input type="text" name="full_name" class="fld" /></label>
+              <label class="block md:col-span-2"><span class="fld-label">Full Name <span class="req">*</span></span><input type="text" name="full_name" class="fld" required /></label>
               <label class="block"><span class="fld-label">Professional Title</span><input type="text" name="title" class="fld" /></label>
               <label class="block"><span class="fld-label">Company / Organisation (if applicable)</span><input type="text" name="company" class="fld" /></label>
-              <label class="block"><span class="fld-label">Email Address</span><input type="email" name="email" class="fld" /></label>
-              <label class="block"><span class="fld-label">Mobile Number</span><input type="tel" name="mobile" class="fld" /></label>
-              <label class="block md:col-span-2"><span class="fld-label">City / Country</span><input type="text" name="city_country" class="fld" /></label>
+              <label class="block"><span class="fld-label">Email Address <span class="req">*</span></span><input type="email" name="email" class="fld" required /></label>
+              <label class="block"><span class="fld-label">Mobile Number <span class="req">*</span></span><input type="tel" name="mobile" class="fld" required /></label>
+              <label class="block md:col-span-2"><span class="fld-label">City / Country <span class="req">*</span></span><input type="text" name="city_country" class="fld" required /></label>
             </div>
           </div>
 
           <!-- STEP 2 -->
           <div class="wstep">
             <div class="wstep-head"><span class="wstep-n">02</span><h2 class="wstep-t">Professional <span class="acc">Profile</span></h2></div>
-            <label class="block"><span class="fld-label">Please share a short professional biography (100–150 words)</span>
-              <textarea name="biography" rows="6" class="fld resize-none"></textarea></label>
+            <label class="block"><span class="fld-label">Please share a short professional biography (100–150 words) <span class="req">*</span></span>
+              <textarea name="biography" rows="6" class="fld resize-none" required></textarea></label>
           </div>
 
           <!-- STEP 3 -->
@@ -123,9 +123,9 @@ const total = steps.length;
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-9">
               {audiences.map((item) => (<label class="chk"><input type="checkbox" name="audience" value={item} class="box" /><span>{item}</span></label>))}
             </div>
-            <p class="text-xs text-muted-foreground mb-4">How often would you be open to contributing?</p>
+            <p class="text-xs text-muted-foreground mb-4">How often would you be open to contributing? <span class="req">*</span></p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-              {availability.map((item) => (<label class="chk"><input type="radio" name="availability" value={item} class="box" /><span>{item}</span></label>))}
+              {availability.map((item) => (<label class="chk"><input type="radio" name="availability" value={item} class="box" required /><span>{item}</span></label>))}
             </div>
           </div>
 
@@ -150,8 +150,8 @@ const total = steps.length;
           <!-- STEP 8 -->
           <div class="wstep">
             <div class="wstep-head"><span class="wstep-n">08</span><h2 class="wstep-t">Final <span class="acc">Question</span></h2></div>
-            <label class="block"><span class="fld-label">Why would you like to become a Circle Expert for Flott Women’s Circle?</span>
-              <textarea name="why" rows="5" class="fld resize-none"></textarea></label>
+            <label class="block"><span class="fld-label">Why would you like to become a Circle Expert for Flott Women’s Circle? <span class="req">*</span></span>
+              <textarea name="why" rows="5" class="fld resize-none" required></textarea></label>
             <div id="ce-success" class="hidden mt-8 rounded-2xl border border-primary/40 bg-primary/10 px-6 py-5 text-center text-sm text-foreground">
               Thank you, your Circle Expert application has been received. We’ll be in touch soon.
             </div>
@@ -213,7 +213,16 @@ const total = steps.length;
     if (ok) ok.classList.add("hidden");
   }
 
+  function validateStep(step: HTMLElement) {
+    const fields = step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[required]");
+    for (const f of Array.from(fields)) {
+      if (!f.checkValidity()) { f.reportValidity(); return false; }
+    }
+    return true;
+  }
+
   function advance() {
+    if (!validateStep(steps[cur])) return;
     if (cur < total - 1) { show(cur + 1, 1); } else { doSubmit(); }
   }
 
@@ -242,6 +251,7 @@ const total = steps.length;
 
 <style>
   .fld-label { display:block; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:8px; }
+  .req { color:var(--color-primary); }
   .fld { width:100%; background:transparent; border:0; border-bottom:1px solid var(--color-border); padding:8px 2px; font-size:15px; color:var(--color-foreground); transition:border-color 0.2s ease; }
   textarea.fld { border:1px solid var(--color-border); border-radius:14px; padding:14px 16px; }
   .fld:focus { outline:none; border-color:var(--color-primary); }
