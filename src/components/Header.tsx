@@ -22,6 +22,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
     { label: "Focus Areas", href: "/focus-areas" },
     { label: "Programs", href: "/programs" },
     { label: "Our Circles", href: "/circles" },
+    { label: "Circle Experts", href: "/circle-expert" },
     { label: "Gallery", href: "/gallery" },
     { label: "Press", href: "/press" },
   ];

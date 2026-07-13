@@ -1,0 +1,273 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const expertise = [
+  "Women’s Health", "Mental Health & Wellbeing", "Nutrition",
+  "Fitness", "Skincare & Beauty", "Career Development",
+  "Human Resources", "Recruitment", "Leadership",
+  "Entrepreneurship", "Marketing", "Branding",
+  "Public Speaking", "Financial Literacy", "Investing",
+  "AI & Technology", "Digital Marketing", "Law",
+  "Personal Development", "Productivity",
+];
+const formats = [
+  "Masterclass", "Hands-on Workshop", "Fireside Conversation",
+  "Panel Discussion", "Ask the Expert Q&A", "Roundtable Discussion",
+];
+const audiences = [
+  "Stay-at-home mums / Generation Shapers", "Women Returning to Work",
+  "Recent Graduates", "Freelancers", "Young Professionals",
+  "Entrepreneurs", "Open to All",
+];
+const availability = ["Once a year", "Twice a year", "Quarterly", "As opportunities arise"];
+
+const steps = [
+  "Personal Information",
+  "Professional Profile",
+  "Areas of Expertise",
+  "Topics You Can Facilitate",
+  "Preferred Session Format",
+  "Audience & Availability",
+  "Links & Supporting Materials",
+  "Final Question",
+];
+const total = steps.length;
+---
+
+<Layout title="Circle Expert Information Form - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/circle-expert" />
+
+    <!-- Intro -->
+    <section class="px-6 pt-14 pb-4 md:px-12 md:pt-20 lg:px-20">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <p class="text-xs uppercase tracking-[0.3em] text-primary mb-4" style="font-style:italic">Join the Circle Expert Network</p>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">Circle Expert Information Form</h1>
+        <p class="mt-5 text-sm md:text-base leading-relaxed text-muted-foreground max-w-2xl mx-auto">
+          Tell us about your expertise so we can thoughtfully match you with future community themes and learning experiences.
+        </p>
+      </div>
+    </section>
+
+    <form method="POST" action="https://api.web3forms.com/submit" id="ce-form" class="px-6 pb-24 md:px-12 lg:px-20">
+      <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+      <input type="hidden" name="subject" value="New Circle Expert Application — Flott Women's Circle" />
+      <input type="hidden" name="from_name" value="Flott Website — Circle Expert Form" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+      <div class="wizard max-w-3xl mx-auto" id="wizard">
+        <!-- Progress -->
+        <div class="mb-10">
+          <div class="flex items-center justify-between text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
+            <span>Step <span id="w-num">1</span> of {total}</span>
+            <span id="w-title" style="font-style:italic">{steps[0]}</span>
+          </div>
+          <div class="h-[3px] w-full rounded-full bg-border overflow-hidden">
+            <div id="w-fill" class="h-full rounded-full bg-primary transition-[width] duration-500 ease-out" style="width:12.5%"></div>
+          </div>
+        </div>
+
+        <div class="w-steps">
+          <!-- STEP 1 -->
+          <div class="wstep active">
+            <div class="wstep-head"><span class="wstep-n">01</span><h2 class="wstep-t">Personal <span class="acc">Information</span></h2></div>
+            <div class="grid md:grid-cols-2 gap-x-10 gap-y-7">
+              <label class="block md:col-span-2"><span class="fld-label">Full Name</span><input type="text" name="full_name" class="fld" /></label>
+              <label class="block"><span class="fld-label">Professional Title</span><input type="text" name="title" class="fld" /></label>
+              <label class="block"><span class="fld-label">Company / Organisation (if applicable)</span><input type="text" name="company" class="fld" /></label>
+              <label class="block"><span class="fld-label">Email Address</span><input type="email" name="email" class="fld" /></label>
+              <label class="block"><span class="fld-label">Mobile Number</span><input type="tel" name="mobile" class="fld" /></label>
+              <label class="block md:col-span-2"><span class="fld-label">City / Country</span><input type="text" name="city_country" class="fld" /></label>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">02</span><h2 class="wstep-t">Professional <span class="acc">Profile</span></h2></div>
+            <label class="block"><span class="fld-label">Please share a short professional biography (100–150 words)</span>
+              <textarea name="biography" rows="6" class="fld resize-none"></textarea></label>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">03</span><h2 class="wstep-t">Areas of <span class="acc">Expertise</span></h2></div>
+            <p class="text-xs text-muted-foreground mb-5">Tick all that apply.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3">
+              {expertise.map((item) => (<label class="chk"><input type="checkbox" name="expertise" value={item} class="box" /><span>{item}</span></label>))}
+            </div>
+            <label class="block mt-6"><span class="fld-label">Other</span><input type="text" name="expertise_other" class="fld" /></label>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">04</span><h2 class="wstep-t">Topics You Can <span class="acc">Facilitate</span></h2></div>
+            <label class="block"><span class="fld-label">Topics you would be confident delivering for our community</span>
+              <textarea name="topics" rows="5" class="fld resize-none"></textarea></label>
+          </div>
+
+          <!-- STEP 5 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">05</span><h2 class="wstep-t">Preferred Session <span class="acc">Format</span></h2></div>
+            <p class="text-xs text-muted-foreground mb-5">Tick all that apply.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+              {formats.map((item) => (<label class="chk"><input type="checkbox" name="format" value={item} class="box" /><span>{item}</span></label>))}
+            </div>
+          </div>
+
+          <!-- STEP 6 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">06</span><h2 class="wstep-t">Audience & <span class="acc">Availability</span></h2></div>
+            <p class="text-xs text-muted-foreground mb-4">Which audience(s) are you most passionate about supporting?</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-9">
+              {audiences.map((item) => (<label class="chk"><input type="checkbox" name="audience" value={item} class="box" /><span>{item}</span></label>))}
+            </div>
+            <p class="text-xs text-muted-foreground mb-4">How often would you be open to contributing?</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+              {availability.map((item) => (<label class="chk"><input type="radio" name="availability" value={item} class="box" /><span>{item}</span></label>))}
+            </div>
+          </div>
+
+          <!-- STEP 7 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">07</span><h2 class="wstep-t">Links & <span class="acc">Supporting Materials</span></h2></div>
+            <div class="grid md:grid-cols-2 gap-x-10 gap-y-7">
+              <label class="block"><span class="fld-label">Website</span><input type="url" name="website" class="fld" /></label>
+              <label class="block"><span class="fld-label">LinkedIn</span><input type="url" name="linkedin" class="fld" /></label>
+              <label class="block md:col-span-2"><span class="fld-label">Instagram</span><input type="text" name="instagram" class="fld" /></label>
+            </div>
+            <div class="rounded-2xl border border-border bg-secondary/60 p-6 md:p-7 mt-8">
+              <p class="text-sm text-muted-foreground mb-3">Please email the following to our team:</p>
+              <ul class="space-y-2 text-sm text-foreground">
+                <li class="flex items-start gap-3"><span class="text-primary">✦</span> Professional headshot</li>
+                <li class="flex items-start gap-3"><span class="text-primary">✦</span> Company logo (if applicable)</li>
+                <li class="flex items-start gap-3"><span class="text-primary">✦</span> Speaker profile or media kit (optional)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- STEP 8 -->
+          <div class="wstep">
+            <div class="wstep-head"><span class="wstep-n">08</span><h2 class="wstep-t">Final <span class="acc">Question</span></h2></div>
+            <label class="block"><span class="fld-label">Why would you like to become a Circle Expert for Flott Women’s Circle?</span>
+              <textarea name="why" rows="5" class="fld resize-none"></textarea></label>
+            <div id="ce-success" class="hidden mt-8 rounded-2xl border border-primary/40 bg-primary/10 px-6 py-5 text-center text-sm text-foreground">
+              Thank you, your Circle Expert application has been received. We’ll be in touch soon.
+            </div>
+            <div class="mt-10 text-center border-t border-border pt-8">
+              <p class="text-sm text-muted-foreground italic">Thank you for being part of our growing Circle Expert Network.</p>
+              <p class="mt-4 text-lg text-foreground" style="font-family:'Playfair Display',serif;font-style:italic">Safiya Umar</p>
+              <p class="text-[11px] uppercase tracking-[0.28em] text-muted-foreground mt-1">Founder · Flott Women’s Circle</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav -->
+        <div class="flex items-center justify-between mt-12">
+          <button type="button" id="w-back" class="inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground" style="visibility:hidden">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+            Back
+          </button>
+          <button type="button" id="w-next" class="inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]">
+            Next
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button type="submit" id="w-submit" class="hidden inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]">
+            Submit Application
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<script>
+  const form = document.getElementById("ce-form") as HTMLFormElement;
+  const steps = Array.from(form.querySelectorAll<HTMLElement>(".wstep"));
+  const total = steps.length;
+  const fill = document.getElementById("w-fill") as HTMLElement;
+  const numEl = document.getElementById("w-num") as HTMLElement;
+  const titleEl = document.getElementById("w-title") as HTMLElement;
+  const back = document.getElementById("w-back") as HTMLButtonElement;
+  const next = document.getElementById("w-next") as HTMLButtonElement;
+  const submit = document.getElementById("w-submit") as HTMLButtonElement;
+  const submitLabel = submit?.querySelector("svg")?.previousSibling;
+  const ok = document.getElementById("ce-success");
+  const titles = steps.map((s) => s.querySelector(".wstep-t")?.textContent?.trim() || "");
+  let cur = 0;
+
+  function show(i: number, dir: number) {
+    steps[cur].classList.remove("active");
+    cur = Math.max(0, Math.min(total - 1, i));
+    const s = steps[cur];
+    s.classList.remove("active", "from-left");
+    if (dir < 0) s.classList.add("from-left");
+    void s.offsetWidth; // restart animation
+    s.classList.add("active");
+    fill.style.width = `${((cur + 1) / total) * 100}%`;
+    numEl.textContent = String(cur + 1);
+    titleEl.textContent = titles[cur];
+    back.style.visibility = cur === 0 ? "hidden" : "visible";
+    const last = cur === total - 1;
+    next.classList.toggle("hidden", last);
+    submit.classList.toggle("hidden", !last);
+    document.getElementById("wizard")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  next?.addEventListener("click", () => show(cur + 1, 1));
+  back?.addEventListener("click", () => show(cur - 1, -1));
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submit.disabled = true;
+    if (submitLabel) submitLabel.textContent = "Sending... ";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
+      const data = await res.json();
+      if (data.success) {
+        if (submitLabel) submitLabel.textContent = "Submit Application ";
+        submit.disabled = false;
+        if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        submit.classList.add("hidden");
+      } else { throw new Error(); }
+    } catch {
+      if (submitLabel) submitLabel.textContent = "Failed — Try Again ";
+      submit.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .fld-label { display:block; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:8px; }
+  .fld { width:100%; background:transparent; border:0; border-bottom:1px solid var(--color-border); padding:8px 2px; font-size:15px; color:var(--color-foreground); transition:border-color 0.2s ease; }
+  textarea.fld { border:1px solid var(--color-border); border-radius:14px; padding:14px 16px; }
+  .fld:focus { outline:none; border-color:var(--color-primary); }
+  .chk { display:flex; align-items:center; gap:12px; font-size:14px; color:var(--color-foreground); cursor:pointer; transition:color 0.15s ease; }
+  .chk:hover { color:var(--color-primary); }
+  .box { appearance:none; -webkit-appearance:none; width:20px; height:20px; flex:none; border:1.5px solid var(--color-border); border-radius:6px; background:#fff; cursor:pointer; position:relative; transition:background-color 0.15s ease, border-color 0.15s ease; }
+  .box:hover { border-color:var(--color-primary); }
+  .box:focus-visible { outline:2px solid rgba(246,131,19,0.35); outline-offset:2px; }
+  .box:checked { background:var(--color-primary); border-color:var(--color-primary); }
+  .box:checked::after { content:""; position:absolute; left:6.5px; top:2.5px; width:5px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  input[type="radio"].box { border-radius:50%; }
+  input[type="radio"].box:checked { background:#fff; border-color:var(--color-primary); }
+  input[type="radio"].box:checked::after { left:4px; top:4px; width:8px; height:8px; border:0; border-radius:50%; background:var(--color-primary); transform:none; }
+
+  /* wizard */
+  #wizard { scroll-margin-top:110px; }
+  .w-steps { position:relative; min-height:340px; }
+  .wstep { display:none; }
+  .wstep.active { display:block; animation:stepIn 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .wstep.active.from-left { animation:stepInLeft 0.5s cubic-bezier(0.22,1,0.36,1); }
+  @keyframes stepIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:none; } }
+  @keyframes stepInLeft { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:none; } }
+  .wstep-head { display:flex; align-items:baseline; gap:14px; margin-bottom:26px; }
+  .wstep-n { font-family:'Playfair Display',serif; font-style:italic; font-size:34px; line-height:1; color:var(--color-primary); }
+  .wstep-t { font-size:30px; line-height:1.05; letter-spacing:-0.01em; font-weight:500; color:var(--color-foreground); }
+  .wstep-t .acc { font-family:'Playfair Display',serif; font-style:italic; color:var(--color-primary); }
+  @media (min-width:768px){ .wstep-t{ font-size:38px; } .wstep-n{ font-size:40px; } }
+</style>
