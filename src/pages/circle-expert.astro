@@ -165,11 +165,11 @@ const total = steps.length;
 
         <!-- Nav -->
         <div class="flex items-center justify-between mt-12">
-          <button type="button" id="w-back" class="inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground" style="visibility:hidden">
+          <button type="button" id="w-back" class="inline-flex items-center gap-2 text-sm uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground cursor-pointer" style="visibility:hidden">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
             Back
           </button>
-          <button type="submit" id="w-cta" class="inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]">
+          <button type="button" id="w-cta" class="inline-flex items-center gap-2 rounded-full bg-primary px-9 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03] cursor-pointer">
             <span id="w-cta-label">Next</span>
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
@@ -208,9 +208,19 @@ const total = steps.length;
     titleEl.textContent = titles[cur];
     back.style.visibility = cur === 0 ? "hidden" : "visible";
     ctaLabel.textContent = cur === total - 1 ? "Submit Application" : "Next";
+    cta.disabled = false;
+    cta.style.display = "";
+    if (ok) ok.classList.add("hidden");
   }
 
-  back?.addEventListener("click", () => show(cur - 1, -1));
+  function advance() {
+    if (cur < total - 1) { show(cur + 1, 1); } else { doSubmit(); }
+  }
+
+  back?.addEventListener("click", () => { if (cur > 0) show(cur - 1, -1); });
+  cta?.addEventListener("click", advance);
+  // Enter key inside single-line inputs also advances
+  form?.addEventListener("submit", (e) => { e.preventDefault(); advance(); });
 
   async function doSubmit() {
     cta.disabled = true;
@@ -219,8 +229,8 @@ const total = steps.length;
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
       const data = await res.json();
       if (data.success) {
-        cta.disabled = false;
         cta.style.display = "none";
+        back.style.visibility = "hidden";
         if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); }
       } else { throw new Error(); }
     } catch {
@@ -228,12 +238,6 @@ const total = steps.length;
       ctaLabel.textContent = "Failed — Try Again";
     }
   }
-
-  // single button: advances steps, submits on the last one (also handles Enter key)
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (cur < total - 1) { show(cur + 1, 1); } else { doSubmit(); }
-  });
 </script>
 
 <style>
