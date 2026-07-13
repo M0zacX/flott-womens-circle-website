@@ -208,7 +208,6 @@ const total = steps.length;
     titleEl.textContent = titles[cur];
     back.style.visibility = cur === 0 ? "hidden" : "visible";
     ctaLabel.textContent = cur === total - 1 ? "Submit Application" : "Next";
-    document.getElementById("wizard")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   back?.addEventListener("click", () => show(cur - 1, -1));
