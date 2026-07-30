@@ -110,13 +110,53 @@ const team = [
 
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2 lg:gap-20">
-          <!-- Founder portrait -->
-          <div class="group reveal-clip relative aspect-[4/5] overflow-hidden rounded-2xl bg-secondary md:order-1">
-            <img src="/images/founder-safiya.jpg" alt="Safiya Umar, Founder of Flott Women's Circle Dubai" class="fade-image hover-zoom absolute inset-0 h-full w-full object-cover object-top" loading="lazy" onload="this.classList.add('loaded')" />
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(15,9,6,0.28), transparent 42%);"></div>
-            <div class="absolute bottom-5 left-5 backdrop-blur-md rounded-xl px-4 py-3" style="background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.14);">
-              <p class="text-[11px] uppercase tracking-[0.25em] text-white/80">Safiya Umar</p>
-              <p class="text-[11px] text-white/60" style="font-style: italic;">Founder</p>
+          <!-- Infographic: from opportunity to belonging -->
+          <div class="reveal md:order-1">
+            <div class="relative overflow-hidden rounded-2xl border border-border bg-secondary p-8 md:p-10">
+              <!-- decorative concentric rings -->
+              <svg class="pointer-events-none absolute -right-12 -top-12 h-[230px] w-[230px] text-[#e8b4b8] opacity-[0.28]" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="100" cy="100" r="6" /><circle cx="100" cy="100" r="32" /><circle cx="100" cy="100" r="58" /><circle cx="100" cy="100" r="84" />
+                <path d="M100 68 Q106 54 100 40 Q94 54 100 68Z" /><path d="M132 100 Q146 94 160 84 Q144 96 132 100Z" />
+                <path d="M100 132 Q106 146 100 160 Q94 146 100 132Z" /><path d="M68 100 Q54 94 40 84 Q56 96 68 100Z" />
+              </svg>
+
+              <p class="relative text-[11px] uppercase tracking-[0.3em] text-primary" style="font-style: italic;">The idea</p>
+              <h3 class="relative mt-3 text-xl font-medium tracking-tight text-foreground md:text-2xl">
+                From opportunity to <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">belonging.</span>
+              </h3>
+
+              <div class="relative mt-8">
+                <span class="absolute left-4 top-3 bottom-10 w-px -translate-x-1/2 bg-primary/25" aria-hidden="true"></span>
+                <div class="space-y-6">
+                  <div class="relative flex items-start gap-5">
+                    <span class="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-background text-[11px] font-medium text-primary">01</span>
+                    <div class="pt-1">
+                      <p class="text-sm font-semibold text-foreground">Opportunity</p>
+                      <p class="mt-1 text-xs leading-relaxed text-muted-foreground">A city full of possibility — career, business, family, a beautiful life.</p>
+                    </div>
+                  </div>
+                  <div class="relative flex items-start gap-5">
+                    <span class="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-background text-[11px] font-medium text-primary">02</span>
+                    <div class="pt-1">
+                      <p class="text-sm font-semibold text-foreground">Connection</p>
+                      <p class="mt-1 text-xs leading-relaxed text-muted-foreground">A thoughtfully curated Circle — gatherings, ideas and genuine relationships.</p>
+                    </div>
+                  </div>
+                  <div class="relative flex items-start gap-5">
+                    <span class="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-medium text-primary-foreground shadow-[0_0_0_5px_rgba(246,131,19,0.14)]">03</span>
+                    <div class="pt-1">
+                      <p class="text-sm font-semibold text-foreground">Belonging</p>
+                      <p class="mt-1 text-xs leading-relaxed text-muted-foreground">Where you're understood — and doors open through genuine connection.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative mt-8 flex flex-wrap gap-2 border-t border-border pt-6">
+                <span class="rounded-full border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Dubai</span>
+                <span class="rounded-full border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Est. 2026</span>
+                <span class="rounded-full border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">By invitation</span>
+              </div>
             </div>
           </div>
 
@@ -286,6 +326,9 @@ const team = [
 
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
+          <div class="reveal mx-auto mb-8 h-28 w-28 overflow-hidden rounded-full ring-1 ring-primary/25 md:h-32 md:w-32">
+            <img src="/images/founder-safiya.jpg" alt="Safiya Umar, Founder of Flott Women's Circle Dubai" class="fade-image h-full w-full object-cover object-top" loading="lazy" onload="this.classList.add('loaded')" />
+          </div>
           <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Founder's Message</p>
           <blockquote class="mt-8 space-y-6 text-xl leading-relaxed text-foreground md:text-2xl md:leading-[1.7]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">
             <p class="reveal" style="transition-delay: 0s;">&ldquo;When I first arrived in Dubai, I experienced first-hand what so many women quietly feel. Opportunity was everywhere, but finding a place where I truly belonged took much longer.</p>
@@ -293,12 +336,10 @@ const team = [
             <p class="reveal" style="transition-delay: 0.24s;">Welcome to the Circle.&rdquo;</p>
           </blockquote>
 
-          <div class="reveal mt-10 flex items-center justify-center gap-4" style="transition-delay: 0.32s;">
-            <img src="/images/founder-safiya.jpg" alt="Safiya Umar" class="h-14 w-14 rounded-full object-cover object-top" loading="lazy" />
-            <div class="text-left">
-              <p class="text-base font-medium text-foreground">Safiya Umar</p>
-              <p class="text-xs uppercase tracking-[0.2em] text-muted-foreground">Founder, Flott Women's Circle Dubai</p>
-            </div>
+          <div class="reveal mt-10 flex flex-col items-center gap-1.5" style="transition-delay: 0.32s;">
+            <div class="mb-1 h-px w-10 bg-primary/40"></div>
+            <p class="text-xl text-foreground" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Safiya Umar</p>
+            <p class="text-xs uppercase tracking-[0.2em] text-muted-foreground">Founder, Flott Women's Circle Dubai</p>
           </div>
         </div>
       </div>
