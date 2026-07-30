@@ -1,0 +1,507 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+import { ScrollRevealText } from "../components/ScrollRevealText";
+
+const experiences = [
+  { n: "01", title: "Curated Gatherings", body: "Small, intentional gatherings designed to encourage authentic conversations and meaningful relationships." },
+  { n: "02", title: "Meaningful Relationships", body: "A Circle where women support one another, exchange ideas and grow together." },
+  { n: "03", title: "Inspiring Conversations", body: "Thought-provoking discussions, shared experiences and practical insights from remarkable women." },
+  { n: "04", title: "Learning & Personal Growth", body: "Experiences designed to encourage confidence, wellbeing and continuous growth." },
+];
+
+const audience = [
+  "Building a business",
+  "Growing your career",
+  "New to Dubai",
+  "Raising a family",
+  "Starting over",
+  "Looking for meaningful friendships",
+  "Seeking personal growth",
+];
+
+const values = [
+  { title: "Grace", body: "Leading with kindness, respect and authenticity." },
+  { title: "Growth", body: "Believing every woman deserves opportunities to keep evolving." },
+  { title: "Gratitude", body: "Creating a culture where generosity, encouragement and appreciation flourish." },
+];
+
+const faqs = [
+  { q: "Who can join?", a: "Women from all backgrounds and professions who value meaningful relationships, personal growth and thoughtful conversations." },
+  { q: "Do I have to be a business owner?", a: "Not at all. Our Circle brings together entrepreneurs, professionals, mothers, creatives, women returning to work and those starting new chapters." },
+  { q: "How often do gatherings take place?", a: "We host curated experiences throughout the year, each designed to foster meaningful relationships and learning." },
+  { q: "How can I receive updates?", a: "Join our mailing list below or follow us on Instagram to be the first to hear about upcoming gatherings." },
+];
+
+const team = [
+  { name: "Komal Badar", role: "Partnerships & Circle Growth", image: "/images/team-komal.jpg" },
+  { name: "Taqwa Suleiman", role: "Circle Relations", image: "/images/team-taqwa.jpg" },
+  { name: "Namrata Sureshkumar", role: "Circle Experience", image: "/images/team-namrata.jpg" },
+  { name: "Shahana Khan", role: "Events & Operations", image: "/images/team-shahana.jpg" },
+  { name: "Cheene", role: "Member Engagement", image: "/images/team-cheene.jpg" },
+];
+---
+
+<Layout
+  title="Flott Women's Circle Dubai — Request an Invitation"
+  description="A thoughtfully curated Circle where women in Dubai build meaningful relationships, exchange ideas and grow together. Founded by Safiya Umar. Request an invitation to join."
+>
+  <main class="bg-background overflow-x-clip">
+    <Header client:load currentPath="/dubai" />
+
+    <!-- ══════════════ HERO ══════════════ -->
+    <section class="relative w-full overflow-hidden bg-foreground">
+      <div class="absolute inset-0">
+        <img
+          src="/images/dubai-skyline.jpg"
+          alt="Dubai skyline at golden hour — the home of Flott Women's Circle Dubai"
+          class="dubai-hero-bg absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0" style="background: linear-gradient(to top, #0f0906 0%, rgba(15,9,6,0.86) 26%, rgba(15,9,6,0.5) 58%, rgba(15,9,6,0.42) 100%);"></div>
+        <div class="absolute -bottom-48 -left-40 h-[620px] w-[620px] rounded-full" style="background: radial-gradient(circle, rgba(246,131,19,0.20), transparent 70%);"></div>
+      </div>
+
+      <!-- Large floral mandala, top-right -->
+      <svg class="pointer-events-none absolute -top-16 -right-20 hidden h-[420px] w-[420px] text-[#e8b4b8] opacity-[0.16] lg:block" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="200" cy="200" r="14" /><circle cx="200" cy="200" r="7" /><circle cx="200" cy="200" r="52" />
+        <path d="M200 148 Q218 118 200 86 Q182 118 200 148Z" /><path d="M235 157 Q262 138 266 104 Q244 128 235 157Z" />
+        <path d="M252 200 Q282 200 302 178 Q276 188 252 200Z" /><path d="M235 243 Q262 262 266 296 Q244 272 235 243Z" />
+        <path d="M200 252 Q218 282 200 314 Q182 282 200 252Z" /><path d="M165 243 Q138 262 134 296 Q156 272 165 243Z" />
+        <path d="M148 200 Q118 200 98 178 Q124 188 148 200Z" /><path d="M165 157 Q138 138 134 104 Q156 128 165 157Z" />
+        <circle cx="200" cy="200" r="92" /><circle cx="200" cy="200" r="150" /><circle cx="200" cy="200" r="180" />
+      </svg>
+
+      <div class="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-6 py-32 text-center md:px-12 lg:px-20">
+        <p class="blur-words text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm" style="font-style: italic;">Flott Women's Circle &bull; Dubai</p>
+
+        <h1 class="word-blur-group mt-7 font-medium leading-[1.02] tracking-tight text-white text-[10vw] md:text-[7.5vw] lg:text-[6vw] max-w-5xl">
+          <span class="word-blur" style="transition-delay: 0.05s">Dubai</span>
+          <span class="word-blur" style="transition-delay: 0.13s">is</span>
+          <span class="word-blur" style="transition-delay: 0.21s">full</span>
+          <span class="word-blur" style="transition-delay: 0.29s">of</span>
+          <span class="word-blur" style="transition-delay: 0.37s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">opportunity.</span>
+        </h1>
+
+        <p class="reveal mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl" style="transition-delay: 0.2s;">
+          Finding where you truly <span style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">belong</span> can take a little longer.
+        </p>
+
+        <p class="reveal mx-auto mt-5 max-w-xl text-sm leading-relaxed text-white/55 md:text-base" style="transition-delay: 0.28s;">
+          A thoughtfully curated space where women build meaningful relationships, exchange ideas and grow together.
+        </p>
+
+        <div class="reveal mt-10" style="transition-delay: 0.36s;">
+          <a href="#waitlist" class="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-primary-foreground transition-all duration-500 hover:gap-4" style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);">
+            Request an Invitation
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ WELCOME (founder story) ══════════════ -->
+    <section class="relative overflow-hidden bg-background">
+      <svg class="pointer-events-none absolute -top-10 -left-16 hidden h-[360px] w-[260px] text-[#e8b4b8] opacity-[0.14] lg:block" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+        <circle cx="150" cy="196" r="30" /><circle cx="150" cy="196" r="12" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2 lg:gap-20">
+          <!-- Founder portrait -->
+          <div class="group reveal-clip relative aspect-[4/5] overflow-hidden rounded-2xl bg-secondary md:order-1">
+            <img src="/images/founder-safiya.jpg" alt="Safiya Umar, Founder of Flott Women's Circle Dubai" class="fade-image hover-zoom absolute inset-0 h-full w-full object-cover object-top" loading="lazy" onload="this.classList.add('loaded')" />
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(15,9,6,0.28), transparent 42%);"></div>
+            <div class="absolute bottom-5 left-5 backdrop-blur-md rounded-xl px-4 py-3" style="background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.14);">
+              <p class="text-[11px] uppercase tracking-[0.25em] text-white/80">Safiya Umar</p>
+              <p class="text-[11px] text-white/60" style="font-style: italic;">Founder</p>
+            </div>
+          </div>
+
+          <!-- Story -->
+          <div class="md:order-0">
+            <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Welcome</p>
+            <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              <span class="word-blur" style="transition-delay: 0s">Welcome</span>
+              <span class="word-blur" style="transition-delay: 0.1s">to</span>
+              <span class="word-blur" style="transition-delay: 0.2s">the</span>
+              <span class="word-blur" style="transition-delay: 0.32s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Circle.</span>
+            </h2>
+
+            <div class="mt-7 space-y-5 text-sm leading-relaxed text-muted-foreground md:text-[15px] md:leading-[1.8]">
+              <p class="reveal" style="transition-delay: 0.05s;">When I first moved to Dubai over a decade ago, I quickly discovered something. This city offers incredible opportunities — you can build a career, start a business, raise a family, create a beautiful life. But I also realised that opportunity doesn't automatically create belonging.</p>
+              <p class="reveal" style="transition-delay: 0.12s;">Over the years, I met remarkable women from all over the world — building successful careers, growing businesses, raising families and starting new chapters. Yet many quietly shared the same feeling. They were still looking for a Circle where they felt understood.</p>
+              <p class="reveal text-foreground" style="transition-delay: 0.18s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; font-size: 1.05rem; line-height: 1.6;">A place where meaningful relationships could grow naturally. Where conversations had depth. Where encouragement, learning and opportunities flowed through genuine connection.</p>
+              <p class="reveal" style="transition-delay: 0.24s;">That's why I created Flott Women's Circle Dubai — a thoughtfully curated Circle where women come together to build meaningful relationships, exchange ideas and open doors for one another.</p>
+              <p class="reveal text-foreground font-medium" style="transition-delay: 0.3s;">Because sometimes, one conversation can change everything.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ WHAT YOU'LL EXPERIENCE ══════════════ -->
+    <section class="relative overflow-hidden bg-secondary">
+      <svg class="pointer-events-none absolute -bottom-12 -right-16 hidden h-[300px] w-[300px] text-[#e8b4b8] opacity-[0.25] lg:block" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="100" cy="100" r="5" />
+        <path d="M100 92 Q104 80 100 68 Q96 80 100 92Z" /><path d="M108 96 Q120 92 128 82 Q118 90 108 96Z" />
+        <path d="M108 106 Q120 110 128 120 Q118 112 108 106Z" /><path d="M100 110 Q104 122 100 134 Q96 122 100 110Z" />
+        <path d="M92 106 Q80 110 72 120 Q82 112 92 106Z" /><path d="M92 96 Q80 92 72 82 Q82 90 92 96Z" />
+        <circle cx="100" cy="100" r="28" /><circle cx="100" cy="100" r="50" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">What You'll Experience</p>
+          <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            <span class="word-blur" style="transition-delay: 0s">Designed</span>
+            <span class="word-blur" style="transition-delay: 0.1s">for</span>
+            <span class="word-blur" style="transition-delay: 0.22s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">connection.</span>
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {experiences.map((item, i) => (
+            <div class="reveal group relative rounded-2xl border border-border bg-background/60 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_-24px_rgba(15,9,6,0.25)]" style={`transition-delay: ${i * 0.12}s`}>
+              <span class="text-2xl text-primary/70" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">{item.n}</span>
+              <div class="mt-4 h-px w-8 bg-primary/40"></div>
+              <h3 class="mt-5 text-lg font-semibold text-foreground">{item.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ WHO IT'S FOR ══════════════ -->
+    <section class="relative overflow-hidden bg-background">
+      <svg class="pointer-events-none absolute top-16 right-6 h-[120px] w-[120px] text-[#e8b4b8] opacity-[0.18] md:h-[160px] md:w-[160px]" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="100" cy="100" r="4" /><circle cx="100" cy="100" r="28" /><circle cx="100" cy="100" r="52" />
+        <path d="M100 72 Q106 58 100 44 Q94 58 100 72Z" /><path d="M128 100 Q142 94 156 84 Q140 96 128 100Z" />
+        <path d="M100 128 Q106 142 100 156 Q94 142 100 128Z" /><path d="M72 100 Q58 94 44 84 Q60 96 72 100Z" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-6xl grid gap-12 md:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div>
+            <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Who It's For</p>
+            <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              <span class="word-blur" style="transition-delay: 0s">For</span>
+              <span class="word-blur" style="transition-delay: 0.1s">women</span>
+              <span class="word-blur" style="transition-delay: 0.2s">at</span>
+              <span class="word-blur" style="transition-delay: 0.3s">every</span>
+              <span class="word-blur" style="transition-delay: 0.42s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">stage.</span>
+            </h2>
+            <p class="reveal mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground" style="transition-delay: 0.15s;">
+              Flott Women's Circle Dubai welcomes women from every stage of life. Whatever chapter you're in, you'll find women who understand the journey.
+            </p>
+          </div>
+
+          <ul class="grid grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-2">
+            {audience.map((item, i) => (
+              <li class="reveal flex items-center gap-4 border-b border-border py-4" style={`transition-delay: ${i * 0.07}s`}>
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70"></span>
+                <span class="text-sm text-foreground md:text-[15px]">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ OUR VALUES (dark) ══════════════ -->
+    <section class="relative overflow-hidden bg-foreground">
+      <svg class="pointer-events-none absolute -top-12 -left-16 hidden h-[360px] w-[360px] text-[#e8b4b8] opacity-[0.12] lg:block" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="200" cy="200" r="30" /><circle cx="200" cy="200" r="50" /><circle cx="200" cy="200" r="80" />
+        <path d="M200 148 Q206 134 200 120 Q194 134 200 148Z" /><path d="M252 194 Q266 188 278 178 Q264 190 252 194Z" />
+        <path d="M200 252 Q206 266 200 278 Q194 266 200 252Z" /><path d="M148 194 Q134 188 122 178 Q136 190 148 194Z" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-white/50" style="font-style: italic;">Our Values</p>
+          <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl">
+            <span class="word-blur" style="transition-delay: 0s">Grace.</span>
+            <span class="word-blur" style="transition-delay: 0.12s">Growth.</span>
+            <span class="word-blur" style="transition-delay: 0.26s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Gratitude.</span>
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          {values.map((v, i) => (
+            <div class="reveal text-center md:text-left" style={`transition-delay: ${i * 0.14}s`}>
+              <h3 class="text-2xl text-white md:text-3xl" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">{v.title}</h3>
+              <div class="mx-auto mt-4 h-px w-10 bg-primary/50 md:mx-0"></div>
+              <p class="mt-4 text-sm leading-relaxed text-white/60">{v.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ MEET THE CIRCLE TEAM ══════════════ -->
+    <section class="relative overflow-hidden bg-secondary">
+      <svg class="pointer-events-none absolute top-14 right-6 h-[110px] w-[110px] text-[#e8b4b8] opacity-[0.2] md:h-[150px] md:w-[150px]" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="100" cy="100" r="5" /><circle cx="100" cy="100" r="28" /><circle cx="100" cy="100" r="50" />
+        <path d="M100 72 Q106 58 100 44 Q94 58 100 72Z" /><path d="M128 100 Q142 94 156 84 Q140 96 128 100Z" />
+        <path d="M100 128 Q106 142 100 156 Q94 142 100 128Z" /><path d="M72 100 Q58 94 44 84 Q60 96 72 100Z" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">The Circle Team</p>
+          <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            <span class="word-blur" style="transition-delay: 0s">The</span>
+            <span class="word-blur" style="transition-delay: 0.1s">women</span>
+            <span class="word-blur" style="transition-delay: 0.2s">who</span>
+            <span class="word-blur" style="transition-delay: 0.32s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">hold space.</span>
+          </h2>
+          <p class="reveal mx-auto mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground" style="transition-delay: 0.15s;">
+            A dedicated team caring for every detail of the Circle — from your first welcome to every gathering that follows.
+          </p>
+        </div>
+
+        <div class="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-5 sm:grid-cols-3 md:gap-6 lg:grid-cols-5">
+          {team.map((m, i) => (
+            <div class="reveal group text-center" style={`transition-delay: ${i * 0.08}s`}>
+              <div class="relative aspect-[3/4] overflow-hidden rounded-xl bg-background shadow-[0_2px_12px_rgba(15,9,6,0.06)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_14px_34px_rgba(15,9,6,0.14)]">
+                <img src={m.image} alt={`${m.name} — ${m.role}, Flott Women's Circle Dubai`} class="fade-image hover-zoom absolute inset-0 h-full w-full object-cover object-top" loading="lazy" onload="this.classList.add('loaded')" />
+              </div>
+              <h3 class="mt-4 text-sm font-semibold leading-tight text-foreground">{m.name}</h3>
+              <p class="mt-1 text-xs leading-snug text-muted-foreground">{m.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ FOUNDER'S MESSAGE ══════════════ -->
+    <section class="relative overflow-hidden bg-background">
+      <svg class="pointer-events-none absolute -bottom-10 -right-14 hidden h-[320px] w-[240px] text-[#e8b4b8] opacity-[0.16] lg:block" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Founder's Message</p>
+          <blockquote class="mt-8 space-y-6 text-xl leading-relaxed text-foreground md:text-2xl md:leading-[1.7]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">
+            <p class="reveal" style="transition-delay: 0s;">&ldquo;When I first arrived in Dubai, I experienced first-hand what so many women quietly feel. Opportunity was everywhere, but finding a place where I truly belonged took much longer.</p>
+            <p class="reveal" style="transition-delay: 0.12s;">Flott Women's Circle Dubai was created so that women don't have to navigate that journey alone. My hope is that every woman who joins finds meaningful relationships, encouragement and opportunities that enrich both her personal and professional life.</p>
+            <p class="reveal" style="transition-delay: 0.24s;">Welcome to the Circle.&rdquo;</p>
+          </blockquote>
+
+          <div class="reveal mt-10 flex items-center justify-center gap-4" style="transition-delay: 0.32s;">
+            <img src="/images/founder-safiya.jpg" alt="Safiya Umar" class="h-14 w-14 rounded-full object-cover object-top" loading="lazy" />
+            <div class="text-left">
+              <p class="text-base font-medium text-foreground">Safiya Umar</p>
+              <p class="text-xs uppercase tracking-[0.2em] text-muted-foreground">Founder, Flott Women's Circle Dubai</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ UPCOMING EVENT ══════════════ -->
+    <section class="relative overflow-hidden bg-secondary">
+      <div class="px-6 py-20 md:px-12 md:py-24 lg:px-20 lg:py-28">
+        <div class="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-border bg-background">
+          <div class="grid md:grid-cols-[0.8fr_1.2fr]">
+            <!-- Date block -->
+            <div class="relative flex flex-col items-center justify-center gap-1 bg-foreground px-8 py-12 text-center">
+              <svg class="pointer-events-none absolute right-4 top-4 h-[70px] w-[70px] text-[#e8b4b8] opacity-[0.25]" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="100" cy="100" r="5" /><circle cx="100" cy="100" r="26" /><circle cx="100" cy="100" r="46" />
+                <path d="M100 74 Q106 60 100 46 Q94 60 100 74Z" /><path d="M126 100 Q140 94 154 84 Q138 96 126 100Z" />
+                <path d="M100 126 Q106 140 100 154 Q94 140 100 126Z" /><path d="M74 100 Q60 94 46 84 Q60 96 74 100Z" />
+              </svg>
+              <p class="reveal text-[11px] uppercase tracking-[0.3em] text-primary" style="transition-delay: 0s;">22</p>
+              <p class="reveal text-6xl text-white md:text-7xl" style="transition-delay: 0.06s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Aug</p>
+              <p class="reveal text-sm tracking-[0.2em] text-white/60" style="transition-delay: 0.12s;">2026</p>
+            </div>
+            <!-- Details -->
+            <div class="flex flex-col justify-center px-8 py-12 md:px-12">
+              <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Upcoming Event</p>
+              <h2 class="word-blur-group mt-4 text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+                <span class="word-blur" style="transition-delay: 0s">Founding</span>
+                <span class="word-blur" style="transition-delay: 0.14s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Gathering.</span>
+              </h2>
+              <p class="reveal mt-5 max-w-md text-sm leading-relaxed text-muted-foreground" style="transition-delay: 0.14s;">
+                Our first gathering brings together a small group of women for an afternoon of meaningful conversations, new relationships and the beginning of something special.
+              </p>
+              <div class="reveal mt-8" style="transition-delay: 0.22s;">
+                <a href="#waitlist" class="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-primary-foreground transition-all duration-500 hover:gap-4" style="transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);">
+                  Request an Invitation
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ FAQ ══════════════ -->
+    <section class="relative overflow-hidden bg-background">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl">
+          <div class="text-center">
+            <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Frequently Asked Questions</p>
+            <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              <span class="word-blur" style="transition-delay: 0s">Questions,</span>
+              <span class="word-blur" style="transition-delay: 0.14s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">answered.</span>
+            </h2>
+          </div>
+
+          <div class="mt-12">
+            {faqs.map((f, i) => (
+              <details class="faq-item reveal group border-b border-border" style={`transition-delay: ${i * 0.08}s`}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-left">
+                  <span class="text-base font-medium text-foreground md:text-lg">{f.q}</span>
+                  <span class="faq-icon shrink-0 text-primary transition-transform duration-500" style="transition-timing-function: cubic-bezier(0.22,1,0.36,1);">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                  </span>
+                </summary>
+                <p class="pb-6 pr-10 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ WAITLIST ══════════════ -->
+    <section id="waitlist" class="relative overflow-hidden bg-secondary" style="scroll-margin-top: 90px;">
+      <svg class="pointer-events-none absolute -top-10 left-6 hidden h-[280px] w-[200px] text-[#e8b4b8] opacity-[0.14] md:block" viewBox="0 0 300 420" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M150 400 C100 350 40 280 40 190 C40 100 85 40 150 20 C215 40 260 100 260 190 C260 280 200 350 150 400Z" />
+        <path d="M150 350 C115 315 75 265 75 195 C75 130 105 85 150 68 C195 85 225 130 225 195 C225 265 185 315 150 350Z" />
+      </svg>
+
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="blur-words text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">Join Our Community</p>
+          <h2 class="word-blur-group mt-5 text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            <span class="word-blur" style="transition-delay: 0s">Join</span>
+            <span class="word-blur" style="transition-delay: 0.1s">the</span>
+            <span class="word-blur" style="transition-delay: 0.22s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">Waitlist.</span>
+          </h2>
+          <p class="reveal mx-auto mt-5 max-w-md text-sm leading-relaxed text-muted-foreground" style="transition-delay: 0.15s;">
+            Be among the first to hear about upcoming gatherings, experiences and announcements.
+          </p>
+        </div>
+
+        <form id="waitlist-form" action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-12 max-w-2xl">
+          <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+          <input type="hidden" name="subject" value="New Dubai Waitlist Signup — Flott Women's Circle" />
+          <input type="hidden" name="from_name" value="Flott Women's Circle Dubai" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div class="reveal" style="transition-delay: 0.05s;">
+              <label for="wl-name" class="mb-3 block text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Name</label>
+              <input type="text" id="wl-name" name="name" required placeholder="Full name" class="w-full border-0 border-b border-foreground/[0.15] bg-transparent px-0 py-3 text-sm text-foreground outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] placeholder:text-foreground/25 focus:border-primary" />
+            </div>
+            <div class="reveal" style="transition-delay: 0.1s;">
+              <label for="wl-email" class="mb-3 block text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Email</label>
+              <input type="email" id="wl-email" name="email" required placeholder="you@example.com" class="w-full border-0 border-b border-foreground/[0.15] bg-transparent px-0 py-3 text-sm text-foreground outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] placeholder:text-foreground/25 focus:border-primary" />
+            </div>
+            <div class="reveal" style="transition-delay: 0.15s;">
+              <label for="wl-phone" class="mb-3 block text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Phone Number</label>
+              <input type="tel" id="wl-phone" name="phone" placeholder="+971 ..." class="w-full border-0 border-b border-foreground/[0.15] bg-transparent px-0 py-3 text-sm text-foreground outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] placeholder:text-foreground/25 focus:border-primary" />
+            </div>
+            <div class="reveal" style="transition-delay: 0.2s;">
+              <label for="wl-profession" class="mb-3 block text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Profession</label>
+              <input type="text" id="wl-profession" name="profession" placeholder="What you do" class="w-full border-0 border-b border-foreground/[0.15] bg-transparent px-0 py-3 text-sm text-foreground outline-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] placeholder:text-foreground/25 focus:border-primary" />
+            </div>
+          </div>
+
+          <div class="reveal mt-10 flex justify-center" style="transition-delay: 0.25s;">
+            <button type="submit" class="inline-flex items-center gap-2.5 rounded-full bg-foreground px-9 py-4 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:gap-4 hover:bg-foreground/85">
+              Join the Waitlist
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <div id="waitlist-success" class="mx-auto mt-8 hidden max-w-2xl rounded-xl border border-primary/25 bg-primary/[0.06] p-6">
+          <div class="flex items-start gap-3">
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div>
+              <p class="text-sm font-medium text-foreground">You're on the list!</p>
+              <p class="mt-1 text-xs text-muted-foreground">Thank you for joining. We'll be in touch with news of our first gathering and everything to come.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ CLOSING QUOTE ══════════════ -->
+    <section class="relative overflow-hidden bg-background">
+      <div class="px-6 py-16 md:px-12 md:py-20 lg:px-20 lg:py-24">
+        <ScrollRevealText
+          client:visible
+          text="The relationships you build today have the power to shape the opportunities of tomorrow."
+          className="mx-auto max-w-4xl text-center text-2xl leading-relaxed md:text-3xl lg:text-[2.3rem] lg:leading-snug"
+          accentWords={["relationships", "tomorrow"]}
+        />
+        <p class="reveal mx-auto mt-8 text-center text-xs uppercase tracking-[0.3em] text-muted-foreground" style="font-style: italic;">The philosophy of Flott Women's Circle</p>
+      </div>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<style>
+  .dubai-hero-bg {
+    transform: scale(1.06);
+    animation: dubaiHeroKen 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes dubaiHeroKen {
+    from { transform: scale(1.06) translateY(0); }
+    to   { transform: scale(1.13) translateY(-1.5%); }
+  }
+
+  /* FAQ accordion */
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dubai-hero-bg { animation: none; transform: scale(1.06); }
+  }
+</style>
+
+<script>
+  // Waitlist form — submit via Web3Forms without a page redirect
+  const wf = document.getElementById("waitlist-form") as HTMLFormElement | null;
+  const wSuccess = document.getElementById("waitlist-success");
+  const wBtn = wf?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+  wf?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (wBtn) wBtn.disabled = true;
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: new FormData(wf),
+      });
+      const data = await res.json();
+      if (data.success) {
+        wf.style.display = "none";
+        if (wSuccess) {
+          wSuccess.classList.remove("hidden");
+          wSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      } else {
+        throw new Error("submit failed");
+      }
+    } catch {
+      if (wBtn) {
+        wBtn.disabled = false;
+        wBtn.firstChild && (wBtn.firstChild.textContent = "Try again ");
+      }
+    }
+  });
+</script>

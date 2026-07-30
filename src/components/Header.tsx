@@ -22,6 +22,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
     { label: "Focus Areas", href: "/focus-areas" },
     { label: "Programs", href: "/programs" },
     { label: "Our Circles", href: "/circles" },
+    { label: "Dubai", href: "/dubai" },
     { label: "Circle Experts", href: "/circle-expert" },
     { label: "Gallery", href: "/gallery" },
     { label: "Press", href: "/press" },
@@ -66,7 +67,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
             <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" className={`h-8 w-auto transition-all duration-700 ${showGlass ? "" : "brightness-0 invert"}`} />
           </a>
 
-          <nav className="hidden items-center gap-10 md:flex">
+          <nav className="hidden items-center gap-7 md:flex lg:gap-8">
             {navLinks.map((link) => {
               const isActive = currentPath.replace(/\/$/, "") === link.href;
               return (
