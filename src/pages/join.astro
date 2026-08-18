@@ -40,13 +40,22 @@ const hearAbout = [
           Join <span style="font-family:'Playfair Display',serif;font-style:italic;font-weight:500">the Circle</span>
         </h1>
         <p class="reveal mt-6 text-sm md:text-base leading-relaxed text-muted-foreground max-w-xl mx-auto" style="transition-delay:0.16s">
-          A community for women navigating different seasons of life, career and business, built around genuine connection, shared experiences and meaningful opportunities.
+          A community for women navigating different seasons of life, career and business, built around <span class="hl">genuine connection</span>, shared experiences and meaningful opportunities.
         </p>
-        <div class="reveal mt-8 flex items-center justify-center gap-3" style="transition-delay:0.24s">
-          <div class="w-8 h-[1px] bg-[#c49298]/40"></div>
-          <p class="text-xs text-muted-foreground/60 tracking-wide" style="font-style:italic">Every woman enters with her own story</p>
-          <div class="w-8 h-[1px] bg-[#c49298]/40"></div>
+      </div>
+    </section>
+
+    <!-- Pull quote -->
+    <section class="px-6 py-12 md:px-12 md:py-16 lg:px-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="reveal flex items-center justify-center gap-3 mb-7">
+          <div class="w-8 h-[1px] bg-[#c49298]/50"></div>
+          <p class="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">The Circle</p>
+          <div class="w-8 h-[1px] bg-[#c49298]/50"></div>
         </div>
+        <p class="reveal text-2xl md:text-3xl lg:text-[2.4rem] lg:leading-[1.32] text-foreground" style="font-family:'Playfair Display',serif;font-style:italic;transition-delay:0.08s">
+          More than a membership. A room of women who choose to <span class="hl">grow, give, and rise</span> <span style="color:#c49298">together</span>.
+        </p>
       </div>
     </section>
 
@@ -190,6 +199,8 @@ const hearAbout = [
 </script>
 
 <style>
+  .hl { background:rgba(196,146,152,0.28); box-decoration-break:clone; -webkit-box-decoration-break:clone; padding:0.04em 0.22em; border-radius:3px; }
+
   .jsec { display:flex; align-items:center; gap:16px; margin-bottom:34px; }
   .jsec-n { font-family:'Playfair Display',serif; font-style:italic; font-size:22px; line-height:1; color:#c49298; }
   .jsec-t { font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--color-muted-foreground); white-space:nowrap; }
