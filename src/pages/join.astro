@@ -1,0 +1,210 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const describes = [
+  "Entrepreneur / Business Owner", "Corporate Professional", "Career Transition",
+  "Starting or exploring an idea", "Freelancer / Consultant", "Creative",
+  "Student", "Full-time Mum / Homemaker", "Taking a career break", "Other",
+];
+const loveToFind = [
+  "Genuine friendships & connection", "Collaboration opportunities",
+  "Business connections", "Support while navigating a new season",
+  "Professional networking", "Community experiences & gatherings",
+  "Personal growth", "Giving back / supporting other women",
+  "Mentorship & learning", "Other",
+];
+const hearAbout = [
+  "Through a member", "Friend / family", "Instagram",
+  "WhatsApp", "An FWC gathering or event", "Other",
+];
+---
+
+<Layout title="Join the Circle - Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/join" />
+
+    <!-- HERO -->
+    <section class="pt-20 md:pt-24">
+      <div class="grid lg:grid-cols-[1.05fr_0.95fr] items-stretch">
+        <div class="px-6 md:px-12 lg:px-20 py-14 md:py-20 flex flex-col justify-center reveal">
+          <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" class="h-14 w-auto mb-8 object-contain" style="object-position:left" />
+          <h1 class="text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-foreground font-medium">Join<br />the Circle</h1>
+          <p class="script mt-4 text-primary">Flott Women's Circle</p>
+          <p class="mt-6 text-sm md:text-base leading-relaxed text-muted-foreground max-w-md">
+            A community for women navigating different seasons of life, career and business, built around genuine connection, shared experiences and meaningful opportunities.
+          </p>
+        </div>
+        <div class="relative min-h-[300px] lg:min-h-[560px] reveal-clip">
+          <img src="/images/join-hero.webp" alt="Flott Women's Circle" class="absolute inset-0 h-full w-full object-cover" />
+        </div>
+      </div>
+    </section>
+
+    <form method="POST" action="https://api.web3forms.com/submit" id="join-form" class="px-6 md:px-12 lg:px-20 pt-16 pb-24">
+      <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+      <input type="hidden" name="subject" value="New Circle Membership Application — Flott Women's Circle" />
+      <input type="hidden" name="from_name" value="Flott Website — Join the Circle" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+      <div class="max-w-5xl mx-auto">
+
+        <!-- 01 ABOUT YOU -->
+        <div class="sec-head reveal"><span class="sec-n">01</span><h2 class="sec-t">About You</h2><span class="sec-rule"></span></div>
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-7 reveal">
+          <label class="block"><span class="fld-label">Full Name <span class="req">*</span></span><input type="text" name="full_name" class="fld" required /></label>
+          <label class="block"><span class="fld-label">WhatsApp Number <span class="req">*</span></span><input type="tel" name="whatsapp" class="fld" placeholder="e.g. +971 50 123 4567" required /></label>
+          <label class="block"><span class="fld-label">Email Address <span class="req">*</span></span><input type="email" name="email" class="fld" required /></label>
+          <label class="block"><span class="fld-label">Where are you currently based? <span class="req">*</span></span><input type="text" name="location" class="fld" placeholder="City, Country" required /></label>
+          <label class="block"><span class="fld-label">Nationality <span class="req">*</span></span><input type="text" name="nationality" class="fld" required /></label>
+          <div class="block">
+            <span class="fld-label">What best describes you right now? <span class="text-muted-foreground normal-case tracking-normal">(Select all that apply)</span></span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-1">
+              {describes.map((item) => (<label class="chk"><input type="checkbox" name="describes" value={item} class="box" /><span>{item}</span></label>))}
+            </div>
+          </div>
+          <label class="block md:col-span-2"><span class="fld-label">Tell us a little about what you do, or the season of life you're in right now. <span class="req">*</span></span>
+            <textarea name="about_you" rows="4" class="fld resize-none" placeholder="Share as much or as little as you'd like…" required></textarea></label>
+        </div>
+
+        <!-- 02 YOUR CIRCLE -->
+        <div class="sec-head reveal mt-20"><span class="sec-n">02</span><h2 class="sec-t">Your Circle</h2><span class="sec-rule"></span></div>
+        <div class="grid lg:grid-cols-3 gap-x-12 gap-y-9 reveal">
+          <label class="block">
+            <span class="fld-label"><span class="q-n">1.</span> What made you interested in joining Flott Women's Circle? <span class="req">*</span></span>
+            <textarea name="why_interested" rows="7" class="fld resize-none" placeholder="Your answer" required></textarea>
+          </label>
+          <div class="block">
+            <span class="fld-label"><span class="q-n">2.</span> What would you most love to find within the Circle? <span class="req">*</span><br /><span class="text-muted-foreground normal-case tracking-normal">(Select up to 3)</span></span>
+            <div class="grid grid-cols-1 gap-y-3 mt-1" id="love-group">
+              {loveToFind.map((item) => (<label class="chk"><input type="checkbox" name="love_to_find" value={item} class="box" /><span>{item}</span></label>))}
+            </div>
+          </div>
+          <label class="block">
+            <span class="fld-label"><span class="q-n">3.</span> Is there something you would also love to contribute to the Circle?</span>
+            <span class="block text-xs text-muted-foreground mb-2 -mt-1">This could be your experience, knowledge, connections, skills, support, mentorship, or simply your presence and perspective.</span>
+            <textarea name="contribute" rows="6" class="fld resize-none" placeholder="Your answer"></textarea>
+          </label>
+        </div>
+
+        <!-- 03 ONE LAST THING -->
+        <div class="sec-head reveal mt-20"><span class="sec-n">03</span><h2 class="sec-t">One Last Thing</h2><span class="sec-rule"></span></div>
+        <div class="grid lg:grid-cols-[1fr_1fr_0.9fr] gap-x-12 gap-y-9 reveal">
+          <div class="block">
+            <span class="fld-label">How did you hear about Flott Women's Circle? <span class="req">*</span></span>
+            <div class="grid grid-cols-1 gap-y-3 mt-1">
+              {hearAbout.map((item) => (<label class="chk"><input type="radio" name="heard_about" value={item} class="box" required /><span>{item}</span></label>))}
+            </div>
+          </div>
+          <label class="block">
+            <span class="fld-label">If a member introduced you, please tell us her name.</span>
+            <input type="text" name="referrer_name" class="fld" placeholder="Her name" />
+          </label>
+          <div class="thankyou">
+            <svg class="rose" viewBox="0 0 48 60" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M24 20c-4 0-7-3-7-6.5S20 7 24 7s7 3 7 6.5S28 20 24 20Z" />
+              <path d="M24 20c0-4-3-7-7-7m7 7c0-4 3-7 7-7M24 20v34" />
+              <path d="M24 34c-6 0-11-3-11-8 6 0 11 3 11 8Zm0 0c6 0 11-3 11-8-6 0-11 3-11 8Z" />
+              <path d="M24 46c-5 0-9-2.5-9-6.5 5 0 9 2.5 9 6.5Zm0 0c5 0 9-2.5 9-6.5-5 0-9 2.5-9 6.5Z" />
+            </svg>
+            <p class="ty-h">Thank You</p>
+            <p class="ty-b">Every woman enters the circle with her own story, season and perspective. <b class="text-foreground font-medium">We look forward to learning a little about yours.</b></p>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="mt-14 flex flex-col items-center gap-5">
+          <div id="join-success" class="hidden w-full max-w-lg rounded-2xl border border-primary/40 bg-primary/10 px-6 py-5 text-center text-sm text-foreground">
+            Thank you, your application to join the Circle has been received. We'll be in touch soon.
+          </div>
+          <button type="submit" id="join-cta" class="inline-flex items-center gap-2 rounded-full bg-primary px-12 py-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03] cursor-pointer">
+            <span id="join-cta-label">Send My Application</span>
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Quote band -->
+    <section class="bg-foreground text-secondary py-14 px-6 text-center">
+      <p class="text-xl md:text-2xl max-w-2xl mx-auto" style="font-family:'Playfair Display',serif;font-style:italic">
+        "Alone we can do so little; together we can do so much."
+      </p>
+      <p class="mt-4 text-[11px] uppercase tracking-[0.3em] text-secondary/70">Flott Women's Circle · Dubai, UAE</p>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<script>
+  const form = document.getElementById("join-form") as HTMLFormElement;
+  const cta = document.getElementById("join-cta") as HTMLButtonElement;
+  const ctaLabel = document.getElementById("join-cta-label") as HTMLElement;
+  const ok = document.getElementById("join-success");
+
+  // Limit "What would you most love to find" to a maximum of 3 selections
+  const loveBoxes = Array.from(
+    document.querySelectorAll<HTMLInputElement>('#love-group input[name="love_to_find"]')
+  );
+  loveBoxes.forEach((b) => b.addEventListener("change", () => {
+    const checked = loveBoxes.filter((x) => x.checked);
+    loveBoxes.forEach((x) => { x.disabled = !x.checked && checked.length >= 3; });
+  }));
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    cta.disabled = true;
+    ctaLabel.textContent = "Sending…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
+      const data = await res.json();
+      if (data.success) {
+        cta.style.display = "none";
+        if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      } else { throw new Error(); }
+    } catch {
+      cta.disabled = false;
+      ctaLabel.textContent = "Failed — Try Again";
+    }
+  });
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
+  .script { font-family:'Parisienne', cursive; font-size:34px; line-height:1; }
+
+  .fld-label { display:block; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:8px; }
+  .req { color:var(--color-primary); }
+  .q-n { color:var(--color-primary); font-family:'Playfair Display',serif; font-style:italic; font-size:14px; }
+  .fld { width:100%; background:transparent; border:0; border-bottom:1px solid var(--color-border); padding:8px 2px; font-size:15px; color:var(--color-foreground); transition:border-color 0.2s ease; }
+  textarea.fld { border:1px solid var(--color-border); border-radius:14px; padding:14px 16px; background:rgba(255,255,255,0.4); }
+  .fld:focus { outline:none; border-color:var(--color-primary); }
+  .fld::placeholder { color:var(--color-border); }
+
+  .chk { display:flex; align-items:flex-start; gap:12px; font-size:14px; line-height:1.35; color:var(--color-foreground); cursor:pointer; transition:color 0.15s ease; }
+  .chk:hover { color:var(--color-primary); }
+  .box { appearance:none; -webkit-appearance:none; width:20px; height:20px; flex:none; margin-top:1px; border:1.5px solid var(--color-border); border-radius:6px; background:#fff; cursor:pointer; position:relative; transition:background-color 0.15s ease, border-color 0.15s ease; }
+  .box:hover { border-color:var(--color-primary); }
+  .box:disabled { opacity:0.4; cursor:not-allowed; }
+  .box:checked { background:var(--color-primary); border-color:var(--color-primary); }
+  .box:checked::after { content:""; position:absolute; left:6.5px; top:2.5px; width:5px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  input[type="radio"].box { border-radius:50%; }
+  input[type="radio"].box:checked { background:#fff; border-color:var(--color-primary); }
+  input[type="radio"].box:checked::after { left:4px; top:4px; width:8px; height:8px; border:0; border-radius:50%; background:var(--color-primary); transform:none; }
+
+  .sec-head { display:flex; align-items:center; gap:16px; margin-bottom:30px; }
+  .sec-n { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; flex:none; border-radius:50%; background:var(--color-foreground); color:var(--color-background); font-family:'Playfair Display',serif; font-style:italic; font-size:18px; }
+  .sec-t { font-size:22px; letter-spacing:0.28em; text-transform:uppercase; font-weight:500; color:var(--color-foreground); }
+  .sec-rule { flex:1; height:1px; background:var(--color-border); }
+
+  .thankyou { background:var(--color-secondary); border-radius:18px; padding:32px 28px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .thankyou .rose { width:38px; height:48px; color:var(--color-primary); margin-bottom:14px; }
+  .ty-h { font-family:'Playfair Display',serif; font-style:italic; font-size:24px; color:var(--color-foreground); letter-spacing:0.02em; }
+  .ty-b { margin-top:10px; font-size:13px; line-height:1.5; color:var(--color-muted-foreground); max-width:30ch; }
+
+  @media (min-width:768px){ .sec-t{ font-size:26px; } }
+</style>
