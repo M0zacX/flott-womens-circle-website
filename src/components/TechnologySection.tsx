@@ -175,7 +175,7 @@ export function TechnologySection() {
               </span>
             </h3>
             <p className="mt-6 text-sm tracking-[0.12em] uppercase text-muted-foreground/60">
-              Abuja &bull; Kaduna &bull; Port Harcourt &bull; Enugu &bull; Ilorin &bull; Dubai (Coming Soon)
+              Abuja &bull; Kaduna &bull; Port Harcourt &bull; Enugu &bull; Ilorin &bull; Dubai
             </p>
             <a
               href="/circles"
