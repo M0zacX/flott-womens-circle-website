@@ -1,0 +1,187 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const situations = [
+  "I am looking for an internship or practical work opportunity.",
+  "I have skills but I am not currently earning from them.",
+  "I would like to learn a practical skill that can generate income.",
+  "I want to start a business or income-generating activity.",
+  "I currently run a home-based or small business.",
+  "I currently run an established business and want to grow.",
+  "I am producing or selling products and need access to more customers or markets.",
+];
+const helpForward = [
+  "Internship / practical work experience", "Skills training",
+  "Machinery, tools or production support", "Help turning a skill into an income-generating activity",
+  "Business development support", "Access to customers / buyers", "Market access",
+  "Distribution / export opportunities", "B2B / procurement opportunities",
+  "Partnerships or business connections", "Technology or digital support",
+];
+const emirates = ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"];
+const ages = ["18–24", "25–34", "35–44", "45–54", "55+"];
+---
+
+<Layout title="UAE Women's Economic Opportunity Mapping — Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/diagnostic" />
+
+    <!-- Intro -->
+    <section class="px-6 pt-32 pb-4 md:px-12 md:pt-40 lg:px-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="reveal text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Step 1 of 3 · Discovery Diagnostic</p>
+        <h1 class="reveal text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground leading-[1.08]" style="transition-delay:0.08s">
+          UAE Women's Economic <span style="font-family:'Playfair Display',serif;font-style:italic;font-weight:500">Opportunity Mapping</span>
+        </h1>
+        <p class="reveal mt-6 text-sm md:text-base leading-relaxed text-muted-foreground max-w-2xl mx-auto" style="transition-delay:0.16s">
+          This mapping helps us understand your current economic position, the opportunities you're seeking, and the practical gaps preventing access to work, internships, income, enterprise growth or markets. Your answers help us connect you to <span class="hl">practical support</span>.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-12 md:px-12 md:py-14 lg:px-20">
+      <form method="POST" action="https://api.web3forms.com/submit" id="dg-form" class="max-w-3xl mx-auto relative z-10">
+        <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+        <input type="hidden" name="subject" value="New Diagnostic Response — UAE Women's Economic Opportunity Mapping" />
+        <input type="hidden" name="from_name" value="Flott Website — Discovery Diagnostic" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+        <!-- A -->
+        <div class="jsec reveal"><span class="jsec-n">A</span><span class="jsec-t">Basic Information</span><span class="jsec-line"></span></div>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 reveal" style="transition-delay:0.06s">
+          <div class="sm:col-span-2"><label class="jlabel">Full Name <span class="req">*</span></label><input type="text" name="full_name" class="jinput" placeholder="Your full name" required /></div>
+          <div><label class="jlabel">Age Range <span class="req">*</span></label><select name="age_range" class="jinput" required><option value="" disabled selected>Select…</option>{ages.map((a)=>(<option value={a}>{a}</option>))}</select></div>
+          <div><label class="jlabel">Nationality <span class="req">*</span></label><input type="text" name="nationality" class="jinput" placeholder="Your nationality" required /></div>
+          <div><label class="jlabel">Emirate of Residence <span class="req">*</span></label><select name="emirate" class="jinput" required><option value="" disabled selected>Select…</option>{emirates.map((e)=>(<option value={e}>{e}</option>))}</select></div>
+          <div><label class="jlabel">Contact Number <span class="req">*</span></label><input type="tel" name="phone" class="jinput" placeholder="e.g. +971 50 123 4567" required /></div>
+          <div class="sm:col-span-2"><label class="jlabel">Email Address <span class="req">*</span></label><input type="email" name="email" class="jinput" placeholder="you@example.com" required /></div>
+        </div>
+
+        <!-- B -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">B</span><span class="jsec-t">Current Economic Position</span><span class="jsec-line"></span></div>
+        <div class="reveal">
+          <label class="jlabel"><span class="q-n">6 —</span> Which best describes your current situation? <span class="lowercase tracking-normal text-muted-foreground/70" style="font-size:11px">(select all that apply)</span> <span class="req">*</span></label>
+          <div class="ack-list">
+            {situations.map((item)=>(<label class="ack"><input type="checkbox" name="situation" value={item} class="dg-req-group" data-group="situation" /><span class="ack-box"></span><span class="ack-text">{item}</span></label>))}
+          </div>
+          <div class="mt-4 sm:max-w-md"><input type="text" name="situation_other" class="jinput" placeholder="Other (please specify)" /></div>
+        </div>
+        <div class="mt-9 reveal">
+          <label class="jlabel"><span class="q-n">7 —</span> If you are currently working, running a business, producing something or offering a service, please describe what you do.</label>
+          <textarea name="what_you_do" rows="3" class="jinput" placeholder="Your answer"></textarea>
+        </div>
+
+        <!-- C -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">C</span><span class="jsec-t">Skills, Practical Work &amp; Income</span><span class="jsec-line"></span></div>
+        <div class="space-y-9">
+          <div class="reveal"><label class="jlabel"><span class="q-n">8 —</span> What skills, qualifications, work experience or practical abilities do you currently have? <span class="req">*</span></label><textarea name="skills" rows="3" class="jinput" placeholder="Your answer" required></textarea></div>
+          <div class="reveal"><label class="jlabel"><span class="q-n">9 —</span> If seeking practical work or an internship, what type of work or sector interests you?</label><textarea name="sector_interest" rows="2" class="jinput" placeholder="Your answer"></textarea></div>
+          <div class="reveal"><label class="jlabel"><span class="q-n">10 —</span> Are you open to practical training or skills development that can lead to work or income? If yes, what areas interest you?</label><textarea name="training_interest" rows="2" class="jinput" placeholder="Your answer"></textarea></div>
+        </div>
+
+        <!-- D -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">D</span><span class="jsec-t">Enterprise &amp; Production</span><span class="jsec-line"></span></div>
+        <div class="space-y-9">
+          <div class="reveal"><label class="jlabel"><span class="q-n">11 —</span> If you want to start or already run a business, what product or service do you provide or want to provide?</label><textarea name="product_service" rows="2" class="jinput" placeholder="Your answer"></textarea></div>
+          <div class="reveal"><label class="jlabel"><span class="q-n">12 —</span> What is currently stopping you from starting, earning more or growing?</label><textarea name="blockers" rows="2" class="jinput" placeholder="Your answer"></textarea></div>
+          <div class="reveal">
+            <label class="jlabel"><span class="q-n">13 —</span> Which of the following would practically help you move forward? <span class="lowercase tracking-normal text-muted-foreground/70" style="font-size:11px">(select all that apply)</span></label>
+            <div class="flex flex-wrap gap-2.5">{helpForward.map((item)=>(<label class="chip"><input type="checkbox" name="help_forward" value={item} /><span class="chip-face">{item}</span></label>))}</div>
+          </div>
+        </div>
+
+        <!-- E -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">E</span><span class="jsec-t">Market &amp; Growth Gaps</span><span class="jsec-line"></span></div>
+        <div class="space-y-9">
+          <div class="reveal"><label class="jlabel"><span class="q-n">14 —</span> If you already have a business, what is the biggest challenge preventing it from growing?</label><textarea name="growth_challenge" rows="2" class="jinput" placeholder="Your answer"></textarea></div>
+          <div class="reveal"><label class="jlabel"><span class="q-n">15 —</span> Are you looking to sell to larger buyers, companies, institutions, distributors or markets outside your current customer base? Please explain.</label><textarea name="larger_buyers" rows="2" class="jinput" placeholder="Your answer"></textarea></div>
+          <div class="reveal"><label class="jlabel"><span class="q-n">16 —</span> What one opportunity, connection or form of practical support would make the biggest economic difference for you right now? <span class="req">*</span></label><textarea name="one_opportunity" rows="2" class="jinput" placeholder="Your answer" required></textarea></div>
+        </div>
+
+        <!-- F -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">F</span><span class="jsec-t">Follow-up</span><span class="jsec-line"></span></div>
+        <div class="reveal">
+          <label class="jlabel"><span class="q-n">17 —</span> Would you be open to a short follow-up conversation so we can understand your situation and needs more clearly? <span class="req">*</span></label>
+          <div class="flex flex-wrap gap-2.5">
+            <label class="chip"><input type="radio" name="follow_up" value="Yes" required /><span class="chip-face">Yes</span></label>
+            <label class="chip"><input type="radio" name="follow_up" value="No" required /><span class="chip-face">No</span></label>
+          </div>
+        </div>
+
+        <p class="mt-10 text-xs leading-relaxed text-muted-foreground/80 reveal max-w-2xl">
+          Note: This is a discovery and opportunity-mapping exercise. It is not a guarantee of practical work, internships, funding, training, machinery, business support or any other opportunity.
+        </p>
+
+        <!-- Submit -->
+        <div class="mt-12 reveal">
+          <button type="submit" id="dg-cta" class="submit-cta"><span id="dg-cta-label">Submit &amp; Continue</span><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+          <div id="dg-success" class="hidden mt-8 max-w-lg p-6 rounded-xl border border-[#c49298]/25 bg-[#c49298]/[0.06]">
+            <p class="text-sm font-medium text-foreground">Thank you — your responses have been received.</p>
+            <p class="text-xs text-muted-foreground mt-1 mb-4">Next, please read and confirm the Community Confidentiality &amp; Participation Agreement.</p>
+            <a href="/confidentiality" class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-foreground border-b border-[#c49298] pb-1 hover:gap-3 transition-all">Continue to Step 2 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<script>
+  const form = document.getElementById("dg-form") as HTMLFormElement;
+  const cta = document.getElementById("dg-cta") as HTMLButtonElement;
+  const ctaLabel = document.getElementById("dg-cta-label") as HTMLElement;
+  const ok = document.getElementById("dg-success");
+
+  // Require at least one Q6 selection (unless "Other" is filled)
+  const q6 = Array.from(document.querySelectorAll<HTMLInputElement>('input[data-group="situation"]'));
+  const q6other = document.querySelector<HTMLInputElement>('input[name="situation_other"]');
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const anyQ6 = q6.some((b) => b.checked) || (q6other && q6other.value.trim().length > 0);
+    if (!anyQ6) { q6[0].setCustomValidity("Please select at least one option"); q6[0].reportValidity(); setTimeout(()=>q6[0].setCustomValidity(""),50); return; }
+    cta.disabled = true; ctaLabel.textContent = "Sending…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
+      const data = await res.json();
+      if (data.success) { cta.style.display = "none"; if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); } }
+      else { throw new Error(); }
+    } catch { cta.disabled = false; ctaLabel.textContent = "Failed — Try Again"; }
+  });
+</script>
+
+<style>
+  .hl { background:rgba(196,146,152,0.28); box-decoration-break:clone; -webkit-box-decoration-break:clone; padding:0.04em 0.22em; border-radius:3px; }
+  .jsec { display:flex; align-items:center; gap:16px; margin-bottom:30px; }
+  .jsec-n { font-family:'Playfair Display',serif; font-style:italic; font-size:22px; line-height:1; color:#c49298; }
+  .jsec-t { font-size:12px; letter-spacing:0.28em; text-transform:uppercase; color:var(--color-muted-foreground); white-space:nowrap; }
+  .jsec-line { flex:1; height:1px; background:var(--color-border); }
+  .jlabel { display:block; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:12px; line-height:1.6; }
+  .req { color:#c49298; }
+  .q-n { color:#c49298; font-family:'Playfair Display',serif; font-style:italic; text-transform:none; letter-spacing:0; margin-right:2px; }
+  .jinput { width:100%; background:transparent; border:0; border-bottom:1px solid rgba(15,9,6,0.12); padding:12px 0; font-size:15px; color:var(--color-foreground); outline:none; transition:border-color 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .jinput:focus { border-color:#c49298; }
+  .jinput::placeholder { color:rgba(15,9,6,0.22); }
+  select.jinput { cursor:pointer; }
+  textarea.jinput { border:1px solid rgba(15,9,6,0.12); border-radius:14px; padding:14px 16px; resize:none; }
+  textarea.jinput:focus { border-color:#c49298; }
+  .chip { position:relative; display:inline-flex; }
+  .chip input { position:absolute; opacity:0; width:0; height:0; }
+  .chip-face { display:inline-block; border:1px solid rgba(15,9,6,0.15); border-radius:9999px; padding:9px 16px; font-size:13.5px; line-height:1.2; color:rgba(15,9,6,0.7); cursor:pointer; user-select:none; transition:all 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .chip:hover .chip-face { border-color:rgba(15,9,6,0.4); color:var(--color-foreground); }
+  .chip input:checked + .chip-face { background:var(--color-foreground); color:var(--color-background); border-color:var(--color-foreground); }
+  .ack-list { display:flex; flex-direction:column; gap:14px; }
+  .ack { display:flex; align-items:flex-start; gap:13px; cursor:pointer; }
+  .ack input { position:absolute; opacity:0; width:0; height:0; }
+  .ack-box { flex-shrink:0; width:20px; height:20px; margin-top:1px; border:1px solid rgba(15,9,6,0.25); border-radius:6px; position:relative; transition:all 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .ack input:checked + .ack-box { background:#c49298; border-color:#c49298; }
+  .ack input:checked + .ack-box::after { content:""; position:absolute; left:6px; top:2px; width:5px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  .ack input:focus-visible + .ack-box { outline:2px solid rgba(196,146,152,0.45); outline-offset:2px; }
+  .ack-text { font-size:14.5px; line-height:1.5; color:rgba(15,9,6,0.78); }
+  .submit-cta { display:inline-flex; align-items:center; gap:10px; border-radius:9999px; background:var(--color-foreground); padding:16px 36px; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--color-background); transition:all 0.5s cubic-bezier(0.22,1,0.36,1); cursor:pointer; border:0; }
+  .submit-cta:hover { gap:16px; opacity:0.85; }
+</style>

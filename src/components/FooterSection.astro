@@ -90,6 +90,26 @@ const navLinks = [
   </div>
 
   <!-- Divider -->
+  <div class="mx-6 md:mx-12 lg:mx-20 footer-reveal border-t border-border" style="transition-delay: 0.35s; transform-origin: left;"></div>
+
+  <!-- Row 1b: Member forms download (email-gated) -->
+  <div class="px-6 py-9 md:px-12 lg:px-20">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="footer-reveal max-w-md" style="transition-delay: 0.4s">
+        <p class="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">Member Forms</p>
+        <p class="mt-2 text-sm text-foreground">Prefer to print &amp; fill by hand? Enter your email and download the full member forms pack (diagnostic, confidentiality &amp; photo/video consent).</p>
+      </div>
+      <form id="footer-dl-form" class="footer-reveal flex w-full max-w-md flex-col gap-3 sm:flex-row sm:items-center" style="transition-delay: 0.5s" novalidate>
+        <input type="email" name="email" required placeholder="Your email address" class="dl-input" aria-label="Your email address" />
+        <button type="submit" id="footer-dl-btn" class="dl-btn">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span id="footer-dl-label">Download</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Divider -->
   <div class="mx-6 md:mx-12 lg:mx-20 footer-reveal border-t border-border" style="transition-delay: 0.4s; transform-origin: left;"></div>
 
   <!-- Row 2: Contact info + Social -->
@@ -168,6 +188,35 @@ const navLinks = [
       { threshold: 0.01, rootMargin: "0px 0px 0px 0px" }
     );
     document.querySelectorAll(".footer-reveal").forEach((el) => footerObs.observe(el));
+
+    // Email-gated member forms download
+    const dlForm = document.getElementById("footer-dl-form");
+    const dlBtn = document.getElementById("footer-dl-btn");
+    const dlLabel = document.getElementById("footer-dl-label");
+    dlForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const emailEl = dlForm.querySelector('input[name="email"]');
+      if (!emailEl.checkValidity()) { emailEl.reportValidity(); return; }
+      dlBtn.disabled = true;
+      if (dlLabel) dlLabel.textContent = "Preparing…";
+      try {
+        const fd = new FormData();
+        fd.append("access_key", "e80680ce-9b98-4fe1-b6b5-58893c5fac01");
+        fd.append("subject", "Member Forms Download — Flott Women's Circle");
+        fd.append("from_name", "Flott Website — Forms Download");
+        fd.append("email", emailEl.value);
+        fd.append("message", "Requested the FWC Dubai member forms pack (print & fill) via the website footer.");
+        fd.append("botcheck", "");
+        await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+      } catch (_) { /* still let them download */ }
+      const a = document.createElement("a");
+      a.href = "/downloads/FWC-Dubai-Member-Forms.pdf";
+      a.setAttribute("download", "FWC-Dubai-Member-Forms.pdf");
+      document.body.appendChild(a); a.click(); a.remove();
+      if (dlLabel) dlLabel.textContent = "Downloaded ✓";
+      dlForm.reset();
+      setTimeout(() => { dlBtn.disabled = false; if (dlLabel) dlLabel.textContent = "Download"; }, 3500);
+    });
   </script>
 </footer>
 
@@ -187,4 +236,39 @@ const navLinks = [
     transform: translateY(0);
     filter: blur(0);
   }
+
+  .dl-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 2px;
+    font-size: 14px;
+    color: var(--color-foreground);
+    outline: none;
+    transition: border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .dl-input:focus { border-color: #c49298; }
+  .dl-input::placeholder { color: rgba(15, 9, 6, 0.28); }
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    border-radius: 9999px;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    padding: 12px 24px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border: 0;
+    cursor: pointer;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .dl-btn:hover { opacity: 0.85; }
+  .dl-btn:disabled { opacity: 0.55; cursor: default; }
 </style>

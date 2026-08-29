@@ -1,0 +1,183 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const covers = [
+  "Photographs in which you are clearly identifiable.",
+  "Video footage in which you are clearly identifiable.",
+  "Your recorded voice, only where you have separately agreed to be interviewed or recorded speaking.",
+  "Event group photographs, short recap videos and behind-the-scenes content.",
+];
+const categories = [
+  { key: "consent_community", label: "A. FWC Dubai Community Records", desc: "Use within FWC Dubai's private member groups, internal event records and member-only recaps.", yes: "YES, I consent to this use.", no: "NO, I do not consent to this use." },
+  { key: "consent_public", label: "B. FWC Dubai-Owned Public Channels", desc: "Use on FWC Dubai's website, social media pages, newsletters, presentations and promotional materials.", yes: "YES, I consent to this use.", no: "NO, I do not consent to this use." },
+  { key: "consent_partner", label: "C. Partner, Sponsor or External Media Channels", desc: "Sharing identifiable photographs or video with named event partners, sponsors, publications, broadcasters or other external media channels.", yes: "YES, I consent to this use.", no: "NO, I do not consent to this use." },
+  { key: "consent_interview", label: "D. Recorded Interview, Testimonial or Direct Quote", desc: "Use of your recorded interview, spoken testimonial or an attributed quote. This does not cover comments made privately during circle conversations.", yes: "YES, I consent, but only when I knowingly agree to the interview, recording or quotation.", no: "NO, I do not consent to interviews, testimonials or attributed quotes." },
+];
+const protections = [
+  "Private stories and sensitive information shared during circle conversations will not be treated as publicity consent.",
+  "FWC Dubai will make reasonable efforts to respect your selections during photography, filming and editing.",
+  "If you decline consent, please inform the event team at check-in so practical arrangements can be made.",
+  "Consent may be withdrawn for future use by contacting FWC Dubai through the contact route published with the form.",
+  "Withdrawal cannot always remove materials already printed, published, broadcast, archived or shared with authorised third parties before the withdrawal was received.",
+  "FWC Dubai will not sell your photograph, video or voice recording as a standalone commercial asset.",
+];
+const acknowledgements = [
+  "I understand the choices I have made above and confirm that they reflect my preferences.",
+  "I understand that declining photography or video consent will not affect my FWC Dubai membership or access to community activities.",
+  "I understand that this form does not permit the use of private stories or sensitive information shared within the circle.",
+  "I consent to FWC Dubai recording and storing my selections for community and event administration.",
+];
+---
+
+<Layout title="Photography & Video Consent — Flott Women's Circle Dubai">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/media-consent" />
+
+    <section class="px-6 pt-32 pb-4 md:px-12 md:pt-40 lg:px-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="reveal text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Step 3 of 3 · Member Form</p>
+        <h1 class="reveal text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground leading-[1.08]" style="transition-delay:0.08s">
+          Photography &amp; <span style="font-family:'Playfair Display',serif;font-style:italic;font-weight:500">Video Consent</span>
+        </h1>
+        <p class="reveal mt-6 text-sm md:text-base leading-relaxed text-muted-foreground max-w-2xl mx-auto" style="transition-delay:0.16s">
+          Your participation in FWC Dubai <span class="hl">does not depend</span> on giving photography or video consent. This form lets you choose exactly where your identifiable image, voice or contribution may be used.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-12 md:px-12 md:py-14 lg:px-20">
+      <form method="POST" action="https://api.web3forms.com/submit" id="mc-form" class="max-w-3xl mx-auto relative z-10">
+        <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+        <input type="hidden" name="subject" value="New Photo/Video Consent Signed — Flott Women's Circle Dubai" />
+        <input type="hidden" name="from_name" value="Flott Website — Photo/Video Consent" />
+        <input type="hidden" name="signed_at" id="mc-signed-at" value="" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+        <!-- 1 -->
+        <div class="jsec reveal"><span class="jsec-n">1</span><span class="jsec-t">Member Details</span><span class="jsec-line"></span></div>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 reveal">
+          <div><label class="jlabel">Full Name <span class="req">*</span></label><input type="text" name="full_name" class="jinput" placeholder="Your full name" required /></div>
+          <div><label class="jlabel">Mobile Number <span class="req">*</span></label><input type="tel" name="mobile" class="jinput" placeholder="e.g. +971 50 123 4567" required /></div>
+          <div><label class="jlabel">Email Address <span class="req">*</span></label><input type="email" name="email" class="jinput" placeholder="you@example.com" required /></div>
+          <div><label class="jlabel">Member Status <span class="req">*</span></label><select name="membership_status" class="jinput" required><option value="" disabled selected>Select…</option><option>Member</option><option>Guest</option><option>Support Team</option></select></div>
+        </div>
+
+        <!-- 2 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">2</span><span class="jsec-t">What the Consent May Cover</span><span class="jsec-line"></span></div>
+        <ul class="reveal read-list">{covers.map((c)=>(<li>{c}</li>))}</ul>
+
+        <!-- 3 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">3</span><span class="jsec-t">Your Choices</span><span class="jsec-line"></span></div>
+        <p class="reveal text-sm leading-relaxed text-muted-foreground mb-8">Please select one option under every category. Your choices can be different for each category.</p>
+        <div class="space-y-10">
+          {categories.map((cat)=>(
+            <div class="reveal choice-block">
+              <p class="choice-title">{cat.label}</p>
+              <p class="choice-desc">{cat.desc}</p>
+              <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
+                <label class="chip"><input type="radio" name={cat.key} value={cat.yes} required /><span class="chip-face">{cat.yes}</span></label>
+                <label class="chip"><input type="radio" name={cat.key} value={cat.no} required /><span class="chip-face">{cat.no}</span></label>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- 4 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">4</span><span class="jsec-t">Important Protections</span><span class="jsec-line"></span></div>
+        <ul class="reveal read-list">{protections.map((c)=>(<li>{c}</li>))}</ul>
+
+        <!-- 5 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">5</span><span class="jsec-t">Required Acknowledgements</span><span class="jsec-line"></span></div>
+        <div class="ack-list reveal">
+          {acknowledgements.map((c)=>(<label class="ack"><input type="checkbox" name="acknowledgements" value={c} required /><span class="ack-box"></span><span class="ack-text">{c} <span class="req">*</span></span></label>))}
+        </div>
+
+        <!-- 6 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">6</span><span class="jsec-t">Electronic Agreement</span><span class="jsec-line"></span></div>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 reveal">
+          <div><label class="jlabel">Typed Full Name (signature) <span class="req">*</span></label><input type="text" name="signature" class="jinput sig" placeholder="Type your full name" required /></div>
+          <div><label class="jlabel">Date</label><input type="text" name="date" id="mc-date" class="jinput" readonly /></div>
+        </div>
+
+        <div class="mt-12 reveal">
+          <button type="submit" id="mc-cta" class="submit-cta"><span id="mc-cta-label">Sign &amp; Submit</span><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+          <div id="mc-success" class="hidden mt-8 max-w-lg p-6 rounded-xl border border-[#c49298]/25 bg-[#c49298]/[0.06]">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#c49298] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div>
+                <p class="text-sm font-medium text-foreground">All done — welcome to Flott Women's Circle Dubai.</p>
+                <p class="text-xs text-muted-foreground mt-1">Your diagnostic, agreement and consent are all recorded. We'll be in touch soon.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<script>
+  const d = new Date();
+  const dateStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+  const dEl = document.getElementById("mc-date") as HTMLInputElement; if (dEl) dEl.value = dateStr;
+  const sAt = document.getElementById("mc-signed-at") as HTMLInputElement; if (sAt) sAt.value = d.toISOString();
+
+  const form = document.getElementById("mc-form") as HTMLFormElement;
+  const cta = document.getElementById("mc-cta") as HTMLButtonElement;
+  const ctaLabel = document.getElementById("mc-cta-label") as HTMLElement;
+  const ok = document.getElementById("mc-success");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    cta.disabled = true; ctaLabel.textContent = "Sending…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
+      const data = await res.json();
+      if (data.success) { cta.style.display = "none"; if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); } }
+      else { throw new Error(); }
+    } catch { cta.disabled = false; ctaLabel.textContent = "Failed — Try Again"; }
+  });
+</script>
+
+<style>
+  .hl { background:rgba(196,146,152,0.28); box-decoration-break:clone; -webkit-box-decoration-break:clone; padding:0.04em 0.22em; border-radius:3px; }
+  .jsec { display:flex; align-items:center; gap:16px; margin-bottom:26px; }
+  .jsec-n { font-family:'Playfair Display',serif; font-style:italic; font-size:22px; line-height:1; color:#c49298; }
+  .jsec-t { font-size:12px; letter-spacing:0.24em; text-transform:uppercase; color:var(--color-muted-foreground); }
+  .jsec-line { flex:1; height:1px; background:var(--color-border); }
+  .jlabel { display:block; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:12px; }
+  .req { color:#c49298; }
+  .jinput { width:100%; background:transparent; border:0; border-bottom:1px solid rgba(15,9,6,0.12); padding:12px 0; font-size:15px; color:var(--color-foreground); outline:none; transition:border-color 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .jinput:focus { border-color:#c49298; }
+  .jinput::placeholder { color:rgba(15,9,6,0.22); }
+  .jinput[readonly] { color:var(--color-muted-foreground); }
+  select.jinput { cursor:pointer; }
+  .sig { font-family:'Playfair Display',serif; font-style:italic; font-size:19px; }
+  .read-list { display:flex; flex-direction:column; gap:12px; max-width:46rem; padding-left:0; list-style:none; }
+  .read-list li { position:relative; padding-left:22px; font-size:14px; line-height:1.6; color:rgba(15,9,6,0.72); }
+  .read-list li::before { content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:9999px; background:#c49298; }
+  .choice-block { border:1px solid rgba(15,9,6,0.1); border-radius:16px; padding:22px 22px 24px; }
+  .choice-title { font-size:14px; font-weight:600; color:var(--color-foreground); margin-bottom:6px; }
+  .choice-desc { font-size:13px; line-height:1.55; color:rgba(15,9,6,0.62); margin-bottom:16px; }
+  .chip { position:relative; display:inline-flex; }
+  .chip input { position:absolute; opacity:0; width:0; height:0; }
+  .chip-face { display:inline-block; border:1px solid rgba(15,9,6,0.15); border-radius:9999px; padding:10px 18px; font-size:13px; line-height:1.3; color:rgba(15,9,6,0.72); cursor:pointer; user-select:none; transition:all 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .chip:hover .chip-face { border-color:rgba(15,9,6,0.4); color:var(--color-foreground); }
+  .chip input:checked + .chip-face { background:var(--color-foreground); color:var(--color-background); border-color:var(--color-foreground); }
+  .chip input:focus-visible + .chip-face { outline:2px solid rgba(196,146,152,0.45); outline-offset:2px; }
+  .ack-list { display:flex; flex-direction:column; gap:16px; max-width:46rem; }
+  .ack { display:flex; align-items:flex-start; gap:13px; cursor:pointer; }
+  .ack input { position:absolute; opacity:0; width:0; height:0; }
+  .ack-box { flex-shrink:0; width:20px; height:20px; margin-top:1px; border:1px solid rgba(15,9,6,0.25); border-radius:6px; position:relative; transition:all 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .ack input:checked + .ack-box { background:#c49298; border-color:#c49298; }
+  .ack input:checked + .ack-box::after { content:""; position:absolute; left:6px; top:2px; width:5px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  .ack input:focus-visible + .ack-box { outline:2px solid rgba(196,146,152,0.45); outline-offset:2px; }
+  .ack-text { font-size:14.5px; line-height:1.55; color:rgba(15,9,6,0.78); }
+  .submit-cta { display:inline-flex; align-items:center; gap:10px; border-radius:9999px; background:var(--color-foreground); padding:16px 36px; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--color-background); transition:all 0.5s cubic-bezier(0.22,1,0.36,1); cursor:pointer; border:0; }
+  .submit-cta:hover { gap:16px; opacity:0.85; }
+</style>

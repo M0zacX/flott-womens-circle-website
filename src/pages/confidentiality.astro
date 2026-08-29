@@ -1,0 +1,169 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+
+const commitments = [
+  "I will not share another member's name, story, message, screenshot, photograph, recording or identifying detail outside the circle without her clear permission.",
+  "I will not copy, forward, publish, reproduce or use information shared in the circle for social media, media coverage, marketing, research, business development or any other external purpose without permission.",
+  "I will not contact, pitch to or approach another member using sensitive information disclosed in the circle in a way that exploits her vulnerability or trust.",
+  "I may carry forward general lessons, ideas and wisdom, provided I remove all names and details that could identify the person or her situation.",
+  "If I am unsure whether something may be shared, I will treat it as confidential and ask the person concerned or an FWC Dubai administrator before using it.",
+  "These confidentiality commitments continue after a gathering ends and after I leave the community.",
+];
+const respectful = [
+  "I will engage respectfully and will not harass, shame, discriminate against or deliberately misrepresent another member.",
+  "I understand that a serious or repeated breach may result in removal from an activity, group or the FWC Dubai community.",
+];
+const confirmations = [
+  "I have read and understood the FWC Dubai Community Confidentiality and Participation Agreement.",
+  "I agree to protect personal and sensitive information shared within the circle.",
+  "I understand that I may take away the wisdom from shared experiences, but not another person's private story or identifying details.",
+  "I understand that this agreement does not give FWC Dubai ownership of my personal story, ideas or business information.",
+  "I confirm that the information I provide in this form is accurate.",
+];
+---
+
+<Layout title="Community Confidentiality & Participation Agreement — Flott Women's Circle">
+  <main class="min-h-screen bg-background overflow-x-clip">
+    <Header client:load innerPage={true} currentPath="/confidentiality" />
+
+    <section class="px-6 pt-32 pb-4 md:px-12 md:pt-40 lg:px-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="reveal text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Step 2 of 3 · Member Form</p>
+        <h1 class="reveal text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-foreground leading-[1.08]" style="transition-delay:0.08s">
+          Community <span style="font-family:'Playfair Display',serif;font-style:italic;font-weight:500">Confidentiality</span> &amp; Participation Agreement
+        </h1>
+        <p class="reveal mt-6 max-w-2xl mx-auto" style="transition-delay:0.16s">
+          <span style="font-family:'Playfair Display',serif;font-style:italic;color:#c49298;font-size:1.15rem">Take the wisdom from each experience, not the person's story.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="px-6 py-12 md:px-12 md:py-14 lg:px-20">
+      <form method="POST" action="https://api.web3forms.com/submit" id="cf-form" class="max-w-3xl mx-auto relative z-10">
+        <input type="hidden" name="access_key" value="e80680ce-9b98-4fe1-b6b5-58893c5fac01" />
+        <input type="hidden" name="subject" value="New Confidentiality Agreement Signed — Flott Women's Circle Dubai" />
+        <input type="hidden" name="from_name" value="Flott Website — Confidentiality Agreement" />
+        <input type="hidden" name="signed_at" id="cf-signed-at" value="" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+        <p class="reveal text-sm leading-relaxed text-muted-foreground max-w-2xl mb-14">
+          FWC Dubai is designed to be a safe and respectful space where women can connect, learn, grow and share experiences openly. This agreement protects the trust of the circle and applies to gatherings, WhatsApp groups, online sessions, workshops and other FWC Dubai activities.
+        </p>
+
+        <!-- 1 -->
+        <div class="jsec reveal"><span class="jsec-n">1</span><span class="jsec-t">Member Details</span><span class="jsec-line"></span></div>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 reveal">
+          <div><label class="jlabel">Full Name <span class="req">*</span></label><input type="text" name="full_name" class="jinput" placeholder="Your full name" required /></div>
+          <div><label class="jlabel">Mobile Number <span class="req">*</span></label><input type="tel" name="mobile" class="jinput" placeholder="e.g. +971 50 123 4567" required /></div>
+          <div><label class="jlabel">Email Address <span class="req">*</span></label><input type="email" name="email" class="jinput" placeholder="you@example.com" required /></div>
+          <div><label class="jlabel">Membership Status <span class="req">*</span></label><select name="membership_status" class="jinput" required><option value="" disabled selected>Select…</option><option>Member</option><option>Guest</option><option>Support Team</option></select></div>
+        </div>
+
+        <!-- 2 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">2</span><span class="jsec-t">What Must Remain Within the Circle</span><span class="jsec-line"></span></div>
+        <p class="reveal text-sm leading-relaxed text-muted-foreground mb-6">
+          Confidential information includes any personal, professional, family, health, financial, business or other sensitive information shared by a member during an FWC Dubai activity — whether shared verbally, in writing, through a message, image, document or group conversation.
+        </p>
+        <ul class="reveal read-list">{commitments.map((c)=>(<li>{c}</li>))}</ul>
+
+        <!-- 3 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">3</span><span class="jsec-t">Information Not Covered</span><span class="jsec-line"></span></div>
+        <p class="reveal text-sm leading-relaxed text-muted-foreground max-w-2xl">
+          This agreement does not prevent a member from sharing her own story, using information that is already genuinely public, sharing information with the clear permission of the person concerned, or making a disclosure required by law or necessary to report an immediate safety concern. Where safe and lawful, the member should notify an FWC Dubai administrator.
+        </p>
+
+        <!-- 4 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">4</span><span class="jsec-t">Respectful Participation</span><span class="jsec-line"></span></div>
+        <div class="ack-list reveal">
+          {respectful.map((c)=>(<label class="ack"><input type="checkbox" name="respectful" value={c} class="cf-req" required /><span class="ack-box"></span><span class="ack-text">{c} <span class="req">*</span></span></label>))}
+        </div>
+
+        <!-- 5 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">5</span><span class="jsec-t">Required Confirmations</span><span class="jsec-line"></span></div>
+        <p class="reveal text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">Please read and confirm each statement before submitting.</p>
+        <div class="ack-list reveal">
+          {confirmations.map((c)=>(<label class="ack"><input type="checkbox" name="confirmations" value={c} class="cf-req" required /><span class="ack-box"></span><span class="ack-text">{c} <span class="req">*</span></span></label>))}
+        </div>
+
+        <!-- 6 -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">6</span><span class="jsec-t">Personal Data</span><span class="jsec-line"></span></div>
+        <p class="reveal text-sm leading-relaxed text-muted-foreground max-w-2xl">
+          The details submitted through this form will be used to record your agreement, administer your participation and communicate with you about FWC Dubai. Access is limited to authorised team members.
+        </p>
+
+        <!-- Signature -->
+        <div class="jsec reveal mt-20"><span class="jsec-n">7</span><span class="jsec-t">Electronic Agreement</span><span class="jsec-line"></span></div>
+        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 reveal">
+          <div><label class="jlabel">Typed Full Name (signature) <span class="req">*</span></label><input type="text" name="signature" class="jinput sig" placeholder="Type your full name" required /></div>
+          <div><label class="jlabel">Date</label><input type="text" name="date" id="cf-date" class="jinput" readonly /></div>
+        </div>
+
+        <div class="mt-12 reveal">
+          <button type="submit" id="cf-cta" class="submit-cta"><span id="cf-cta-label">Sign &amp; Continue</span><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+          <div id="cf-success" class="hidden mt-8 max-w-lg p-6 rounded-xl border border-[#c49298]/25 bg-[#c49298]/[0.06]">
+            <p class="text-sm font-medium text-foreground">Agreement recorded. Thank you.</p>
+            <p class="text-xs text-muted-foreground mt-1 mb-4">One last step — the Photography &amp; Video Consent form.</p>
+            <a href="/media-consent" class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-foreground border-b border-[#c49298] pb-1 hover:gap-3 transition-all">Continue to Step 3 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<script>
+  const d = new Date();
+  const dateStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+  const dEl = document.getElementById("cf-date") as HTMLInputElement; if (dEl) dEl.value = dateStr;
+  const sAt = document.getElementById("cf-signed-at") as HTMLInputElement; if (sAt) sAt.value = d.toISOString();
+
+  const form = document.getElementById("cf-form") as HTMLFormElement;
+  const cta = document.getElementById("cf-cta") as HTMLButtonElement;
+  const ctaLabel = document.getElementById("cf-cta-label") as HTMLElement;
+  const ok = document.getElementById("cf-success");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    cta.disabled = true; ctaLabel.textContent = "Sending…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
+      const data = await res.json();
+      if (data.success) { cta.style.display = "none"; if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); } }
+      else { throw new Error(); }
+    } catch { cta.disabled = false; ctaLabel.textContent = "Failed — Try Again"; }
+  });
+</script>
+
+<style>
+  .hl { background:rgba(196,146,152,0.28); box-decoration-break:clone; -webkit-box-decoration-break:clone; padding:0.04em 0.22em; border-radius:3px; }
+  .jsec { display:flex; align-items:center; gap:16px; margin-bottom:26px; }
+  .jsec-n { font-family:'Playfair Display',serif; font-style:italic; font-size:22px; line-height:1; color:#c49298; }
+  .jsec-t { font-size:12px; letter-spacing:0.24em; text-transform:uppercase; color:var(--color-muted-foreground); }
+  .jsec-line { flex:1; height:1px; background:var(--color-border); }
+  .jlabel { display:block; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:12px; }
+  .req { color:#c49298; }
+  .jinput { width:100%; background:transparent; border:0; border-bottom:1px solid rgba(15,9,6,0.12); padding:12px 0; font-size:15px; color:var(--color-foreground); outline:none; transition:border-color 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .jinput:focus { border-color:#c49298; }
+  .jinput::placeholder { color:rgba(15,9,6,0.22); }
+  .jinput[readonly] { color:var(--color-muted-foreground); }
+  select.jinput { cursor:pointer; }
+  .sig { font-family:'Playfair Display',serif; font-style:italic; font-size:19px; }
+  .read-list { display:flex; flex-direction:column; gap:12px; max-width:44rem; padding-left:0; list-style:none; }
+  .read-list li { position:relative; padding-left:22px; font-size:14px; line-height:1.6; color:rgba(15,9,6,0.72); }
+  .read-list li::before { content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:9999px; background:#c49298; }
+  .ack-list { display:flex; flex-direction:column; gap:16px; max-width:46rem; }
+  .ack { display:flex; align-items:flex-start; gap:13px; cursor:pointer; }
+  .ack input { position:absolute; opacity:0; width:0; height:0; }
+  .ack-box { flex-shrink:0; width:20px; height:20px; margin-top:1px; border:1px solid rgba(15,9,6,0.25); border-radius:6px; position:relative; transition:all 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .ack input:checked + .ack-box { background:#c49298; border-color:#c49298; }
+  .ack input:checked + .ack-box::after { content:""; position:absolute; left:6px; top:2px; width:5px; height:10px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  .ack input:focus-visible + .ack-box { outline:2px solid rgba(196,146,152,0.45); outline-offset:2px; }
+  .ack-text { font-size:14.5px; line-height:1.55; color:rgba(15,9,6,0.78); }
+  .submit-cta { display:inline-flex; align-items:center; gap:10px; border-radius:9999px; background:var(--color-foreground); padding:16px 36px; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--color-background); transition:all 0.5s cubic-bezier(0.22,1,0.36,1); cursor:pointer; border:0; }
+  .submit-cta:hover { gap:16px; opacity:0.85; }
+</style>
