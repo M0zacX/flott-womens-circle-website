@@ -20,6 +20,9 @@ const hearAbout = [
   "Through a member", "Friend / family", "Instagram",
   "WhatsApp", "An FWC gathering or event", "Other",
 ];
+
+const steps = ["About You", "Your Circle", "One Last Thing"];
+const total = steps.length;
 ---
 
 <Layout title="Join the Circle - Flott Women's Circle">
@@ -45,20 +48,6 @@ const hearAbout = [
       </div>
     </section>
 
-    <!-- Pull quote -->
-    <section class="px-6 py-12 md:px-12 md:py-16 lg:px-20">
-      <div class="max-w-3xl mx-auto text-center">
-        <div class="reveal flex items-center justify-center gap-3 mb-7">
-          <div class="w-8 h-[1px] bg-[#c49298]/50"></div>
-          <p class="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">The Circle</p>
-          <div class="w-8 h-[1px] bg-[#c49298]/50"></div>
-        </div>
-        <p class="reveal text-2xl md:text-3xl lg:text-[2.4rem] lg:leading-[1.32] text-foreground" style="font-family:'Playfair Display',serif;font-style:italic;transition-delay:0.08s">
-          More than a membership. A room of women who choose to <span class="hl">grow, give, and rise</span> <span style="color:#c49298">together</span>.
-        </p>
-      </div>
-    </section>
-
     <!-- Form -->
     <section class="relative overflow-hidden px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-20">
       <!-- Decorative floral -->
@@ -74,75 +63,98 @@ const hearAbout = [
         <input type="hidden" name="from_name" value="Flott Website — Join the Circle" />
         <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
 
-        <!-- 01 -->
-        <div class="jsec reveal"><span class="jsec-n">01</span><span class="jsec-t">About You</span><span class="jsec-line"></span></div>
-        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 reveal" style="transition-delay:0.06s">
-          <div><label class="jlabel">Full Name <span class="req">*</span></label><input type="text" name="full_name" class="jinput" placeholder="Your full name" required /></div>
-          <div><label class="jlabel">WhatsApp Number <span class="req">*</span></label><input type="tel" name="whatsapp" class="jinput" placeholder="e.g. +971 50 123 4567" required /></div>
-          <div><label class="jlabel">Email Address <span class="req">*</span></label><input type="email" name="email" class="jinput" placeholder="you@example.com" required /></div>
-          <div><label class="jlabel">Where are you based? <span class="req">*</span></label><input type="text" name="location" class="jinput" placeholder="City, Country" required /></div>
-          <div class="sm:col-span-2"><label class="jlabel">Nationality <span class="req">*</span></label><input type="text" name="nationality" class="jinput" placeholder="Your nationality" required /></div>
-        </div>
-
-        <div class="mt-9 reveal">
-          <label class="jlabel">What best describes you right now? <span class="lowercase tracking-normal text-muted-foreground/70" style="font-size:11px">(select all that apply)</span></label>
-          <div class="flex flex-wrap gap-2.5">
-            {describes.map((item) => (<label class="chip"><input type="checkbox" name="describes" value={item} /><span class="chip-face">{item}</span></label>))}
-          </div>
-        </div>
-
-        <div class="mt-9 reveal">
-          <label class="jlabel">Tell us a little about what you do, or the season of life you're in. <span class="req">*</span></label>
-          <textarea name="about_you" rows="4" class="jinput" placeholder="Share as much or as little as you'd like…" required></textarea>
-        </div>
-
-        <!-- 02 -->
-        <div class="jsec reveal mt-20"><span class="jsec-n">02</span><span class="jsec-t">Your Circle</span><span class="jsec-line"></span></div>
-        <div class="space-y-10">
-          <div class="reveal">
-            <label class="jlabel"><span class="q-n">1 —</span> What made you interested in joining Flott Women's Circle? <span class="req">*</span></label>
-            <textarea name="why_interested" rows="3" class="jinput" placeholder="Your answer" required></textarea>
-          </div>
-          <div class="reveal">
-            <label class="jlabel"><span class="q-n">2 —</span> What would you most love to find within the Circle? <span class="lowercase tracking-normal text-muted-foreground/70" style="font-size:11px">(select up to 3)</span> <span class="req">*</span></label>
-            <div class="flex flex-wrap gap-2.5" id="love-group">
-              {loveToFind.map((item) => (<label class="chip"><input type="checkbox" name="love_to_find" value={item} /><span class="chip-face">{item}</span></label>))}
+        <div class="wizard" id="wizard">
+          <!-- Progress -->
+          <div class="mb-12 reveal">
+            <div class="flex items-center justify-between text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-3">
+              <span>Step <span id="w-num">1</span> of {total}</span>
+              <span id="w-title" style="font-style:italic">{steps[0]}</span>
+            </div>
+            <div class="h-[3px] w-full rounded-full bg-border overflow-hidden">
+              <div id="w-fill" class="h-full rounded-full transition-[width] duration-500 ease-out" style="width:33.33%;background:#c49298"></div>
             </div>
           </div>
-          <div class="reveal">
-            <label class="jlabel"><span class="q-n">3 —</span> Is there something you would also love to contribute?</label>
-            <p class="text-xs text-muted-foreground/80 mb-3 -mt-1 leading-relaxed">Your experience, knowledge, connections, skills, mentorship, or simply your presence and perspective.</p>
-            <textarea name="contribute" rows="3" class="jinput" placeholder="Your answer"></textarea>
-          </div>
-        </div>
 
-        <!-- 03 -->
-        <div class="jsec reveal mt-20"><span class="jsec-n">03</span><span class="jsec-t">One Last Thing</span><span class="jsec-line"></span></div>
-        <div class="reveal">
-          <label class="jlabel">How did you hear about Flott Women's Circle? <span class="req">*</span></label>
-          <div class="flex flex-wrap gap-2.5">
-            {hearAbout.map((item) => (<label class="chip"><input type="radio" name="heard_about" value={item} required /><span class="chip-face">{item}</span></label>))}
-          </div>
-        </div>
-        <div class="mt-9 reveal sm:max-w-md">
-          <label class="jlabel">If a member introduced you, please tell us her name</label>
-          <input type="text" name="referrer_name" class="jinput" placeholder="Her name" />
-        </div>
-
-        <!-- Submit -->
-        <div class="mt-14 reveal">
-          <button type="submit" id="join-cta" class="inline-flex items-center gap-2.5 rounded-full bg-foreground px-9 py-4 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-foreground/85 hover:gap-4 cursor-pointer">
-            <span id="join-cta-label">Send My Application</span>
-            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-          <div id="join-success" class="hidden mt-8 max-w-lg p-6 rounded-xl border border-[#c49298]/25 bg-[#c49298]/[0.06]">
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-[#c49298] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <div>
-                <p class="text-sm font-medium text-foreground">Welcome to the Circle.</p>
-                <p class="text-xs text-muted-foreground mt-1">Your application has been received. We'll be in touch soon.</p>
+          <div class="w-steps">
+            <!-- STEP 1 · About You -->
+            <div class="wstep active">
+              <div class="wstep-head"><span class="wstep-n">01</span><h2 class="wstep-t">About <span class="acc">You</span></h2></div>
+              <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8">
+                <div><label class="jlabel">Full Name <span class="req">*</span></label><input type="text" name="full_name" class="jinput" placeholder="Your full name" required /></div>
+                <div><label class="jlabel">WhatsApp Number <span class="req">*</span></label><input type="tel" name="whatsapp" class="jinput" placeholder="e.g. +971 50 123 4567" required /></div>
+                <div><label class="jlabel">Email Address <span class="req">*</span></label><input type="email" name="email" class="jinput" placeholder="you@example.com" required /></div>
+                <div><label class="jlabel">Where are you based? <span class="req">*</span></label><input type="text" name="location" class="jinput" placeholder="City, Country" required /></div>
+                <div class="sm:col-span-2"><label class="jlabel">Nationality <span class="req">*</span></label><input type="text" name="nationality" class="jinput" placeholder="Your nationality" required /></div>
+              </div>
+              <div class="mt-9">
+                <label class="jlabel">What best describes you right now? <span class="lowercase tracking-normal text-muted-foreground/70" style="font-size:11px">(select all that apply)</span></label>
+                <div class="flex flex-wrap gap-2.5">
+                  {describes.map((item) => (<label class="chip"><input type="checkbox" name="describes" value={item} /><span class="chip-face">{item}</span></label>))}
+                </div>
+              </div>
+              <div class="mt-9">
+                <label class="jlabel">Tell us a little about what you do, or the season of life you're in. <span class="req">*</span></label>
+                <textarea name="about_you" rows="4" class="jinput" placeholder="Share as much or as little as you'd like…" required></textarea>
               </div>
             </div>
+
+            <!-- STEP 2 · Your Circle -->
+            <div class="wstep">
+              <div class="wstep-head"><span class="wstep-n">02</span><h2 class="wstep-t">Your <span class="acc">Circle</span></h2></div>
+              <div class="space-y-10">
+                <div>
+                  <label class="jlabel"><span class="q-n">1 —</span> What made you interested in joining Flott Women's Circle? <span class="req">*</span></label>
+                  <textarea name="why_interested" rows="3" class="jinput" placeholder="Your answer" required></textarea>
+                </div>
+                <div>
+                  <label class="jlabel"><span class="q-n">2 —</span> What would you most love to find within the Circle? <span class="lowercase tracking-normal text-muted-foreground/70" style="font-size:11px">(select up to 3)</span> <span class="req">*</span></label>
+                  <div class="flex flex-wrap gap-2.5" id="love-group">
+                    {loveToFind.map((item) => (<label class="chip"><input type="checkbox" name="love_to_find" value={item} /><span class="chip-face">{item}</span></label>))}
+                  </div>
+                </div>
+                <div>
+                  <label class="jlabel"><span class="q-n">3 —</span> Is there something you would also love to contribute?</label>
+                  <p class="text-xs text-muted-foreground/80 mb-3 -mt-1 leading-relaxed">Your experience, knowledge, connections, skills, mentorship, or simply your presence and perspective.</p>
+                  <textarea name="contribute" rows="3" class="jinput" placeholder="Your answer"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3 · One Last Thing -->
+            <div class="wstep">
+              <div class="wstep-head"><span class="wstep-n">03</span><h2 class="wstep-t">One Last <span class="acc">Thing</span></h2></div>
+              <div>
+                <label class="jlabel">How did you hear about Flott Women's Circle? <span class="req">*</span></label>
+                <div class="flex flex-wrap gap-2.5">
+                  {hearAbout.map((item) => (<label class="chip"><input type="radio" name="heard_about" value={item} required /><span class="chip-face">{item}</span></label>))}
+                </div>
+              </div>
+              <div class="mt-9 sm:max-w-md">
+                <label class="jlabel">If a member introduced you, please tell us her name</label>
+                <input type="text" name="referrer_name" class="jinput" placeholder="Her name" />
+              </div>
+              <div id="join-success" class="hidden mt-10 max-w-lg p-6 rounded-xl border border-[#c49298]/25 bg-[#c49298]/[0.06]">
+                <div class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[#c49298] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <div>
+                    <p class="text-sm font-medium text-foreground">Welcome to the Circle.</p>
+                    <p class="text-xs text-muted-foreground mt-1">Your application has been received. We'll be in touch soon.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nav -->
+          <div class="flex items-center justify-between mt-14">
+            <button type="button" id="w-back" class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground cursor-pointer" style="visibility:hidden">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+              Back
+            </button>
+            <button type="button" id="w-cta" class="inline-flex items-center gap-2.5 rounded-full bg-foreground px-9 py-4 text-xs font-medium uppercase tracking-[0.15em] text-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-foreground/85 hover:gap-4 cursor-pointer">
+              <span id="w-cta-label">Next</span>
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
       </form>
@@ -165,23 +177,72 @@ const hearAbout = [
 </Layout>
 
 <script>
+  const form = document.getElementById("join-form") as HTMLFormElement;
+  const wizardSteps = Array.from(form.querySelectorAll<HTMLElement>(".wstep"));
+  const total = wizardSteps.length;
+  const fill = document.getElementById("w-fill") as HTMLElement;
+  const numEl = document.getElementById("w-num") as HTMLElement;
+  const titleEl = document.getElementById("w-title") as HTMLElement;
+  const back = document.getElementById("w-back") as HTMLButtonElement;
+  const cta = document.getElementById("w-cta") as HTMLButtonElement;
+  const ctaLabel = document.getElementById("w-cta-label") as HTMLElement;
+  const ok = document.getElementById("join-success");
+  const wizard = document.getElementById("wizard") as HTMLElement;
+  const titles = wizardSteps.map((s) => s.querySelector(".wstep-t")?.textContent?.trim() || "");
+  let cur = 0;
+
   // Limit "What would you most love to find" to a maximum of 3 selections
-  const loveBoxes = Array.from(
-    document.querySelectorAll<HTMLInputElement>('#love-group input[type="checkbox"]')
-  );
+  const loveBoxes = Array.from(document.querySelectorAll<HTMLInputElement>('#love-group input[type="checkbox"]'));
   loveBoxes.forEach((b) => b.addEventListener("change", () => {
     const checked = loveBoxes.filter((x) => x.checked);
     loveBoxes.forEach((x) => { x.disabled = !x.checked && checked.length >= 3; });
   }));
 
-  const form = document.getElementById("join-form") as HTMLFormElement;
-  const cta = document.getElementById("join-cta") as HTMLButtonElement;
-  const ctaLabel = document.getElementById("join-cta-label") as HTMLElement;
-  const ok = document.getElementById("join-success");
+  function show(i: number, dir: number) {
+    wizardSteps[cur].classList.remove("active");
+    cur = Math.max(0, Math.min(total - 1, i));
+    const s = wizardSteps[cur];
+    s.classList.remove("active", "from-left");
+    if (dir < 0) s.classList.add("from-left");
+    void s.offsetWidth;
+    s.classList.add("active");
+    fill.style.width = `${((cur + 1) / total) * 100}%`;
+    numEl.textContent = String(cur + 1);
+    titleEl.textContent = titles[cur];
+    back.style.visibility = cur === 0 ? "hidden" : "visible";
+    ctaLabel.textContent = cur === total - 1 ? "Send My Application" : "Next";
+    cta.disabled = false;
+    cta.style.display = "";
+    wizard.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
+  function validateStep(step: HTMLElement) {
+    const fields = step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[required]");
+    for (const f of Array.from(fields)) {
+      if (!f.checkValidity()) { f.reportValidity(); return false; }
+    }
+    // Step 2: require at least one "love to find"
+    if (step.querySelector("#love-group")) {
+      if (!loveBoxes.some((b) => b.checked)) {
+        loveBoxes[0].setCustomValidity("Please select at least one");
+        loveBoxes[0].reportValidity();
+        setTimeout(() => loveBoxes[0].setCustomValidity(""), 50);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function advance() {
+    if (!validateStep(wizardSteps[cur])) return;
+    if (cur < total - 1) { show(cur + 1, 1); } else { doSubmit(); }
+  }
+
+  back?.addEventListener("click", () => { if (cur > 0) show(cur - 1, -1); });
+  cta?.addEventListener("click", advance);
+  form?.addEventListener("submit", (e) => { e.preventDefault(); advance(); });
+
+  async function doSubmit() {
     cta.disabled = true;
     ctaLabel.textContent = "Sending…";
     try {
@@ -189,22 +250,18 @@ const hearAbout = [
       const data = await res.json();
       if (data.success) {
         cta.style.display = "none";
+        back.style.visibility = "hidden";
         if (ok) { ok.classList.remove("hidden"); ok.scrollIntoView({ behavior: "smooth", block: "center" }); }
       } else { throw new Error(); }
     } catch {
       cta.disabled = false;
       ctaLabel.textContent = "Failed — Try Again";
     }
-  });
+  }
 </script>
 
 <style>
   .hl { background:rgba(196,146,152,0.28); box-decoration-break:clone; -webkit-box-decoration-break:clone; padding:0.04em 0.22em; border-radius:3px; }
-
-  .jsec { display:flex; align-items:center; gap:16px; margin-bottom:34px; }
-  .jsec-n { font-family:'Playfair Display',serif; font-style:italic; font-size:22px; line-height:1; color:#c49298; }
-  .jsec-t { font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--color-muted-foreground); white-space:nowrap; }
-  .jsec-line { flex:1; height:1px; background:var(--color-border); }
 
   .jlabel { display:block; font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:var(--color-muted-foreground); margin-bottom:12px; }
   .req { color:#c49298; }
@@ -223,4 +280,18 @@ const hearAbout = [
   .chip input:checked + .chip-face { background:var(--color-foreground); color:var(--color-background); border-color:var(--color-foreground); }
   .chip input:focus-visible + .chip-face { outline:2px solid rgba(196,146,152,0.45); outline-offset:2px; }
   .chip input:disabled + .chip-face { opacity:0.35; cursor:not-allowed; }
+
+  /* wizard */
+  #wizard { scroll-margin-top:110px; }
+  .w-steps { position:relative; min-height:300px; }
+  .wstep { display:none; }
+  .wstep.active { display:block; animation:stepIn 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .wstep.active.from-left { animation:stepInLeft 0.5s cubic-bezier(0.22,1,0.36,1); }
+  @keyframes stepIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:none; } }
+  @keyframes stepInLeft { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:none; } }
+  .wstep-head { display:flex; align-items:baseline; gap:14px; margin-bottom:28px; }
+  .wstep-n { font-family:'Playfair Display',serif; font-style:italic; font-size:34px; line-height:1; color:#c49298; }
+  .wstep-t { font-size:30px; line-height:1.05; letter-spacing:-0.01em; font-weight:500; color:var(--color-foreground); }
+  .wstep-t .acc { font-family:'Playfair Display',serif; font-style:italic; color:#c49298; }
+  @media (min-width:768px){ .wstep-t{ font-size:38px; } .wstep-n{ font-size:40px; } }
 </style>
