@@ -92,25 +92,36 @@ const navLinks = [
   <!-- Divider -->
   <div class="mx-6 md:mx-12 lg:mx-20 footer-reveal border-t border-border" style="transition-delay: 0.35s; transform-origin: left;"></div>
 
-  <!-- Row 1b: Member forms download (email-gated) -->
+  <!-- Row 1b: Member forms download (3 options, email captured once) -->
   <div class="px-6 py-9 md:px-12 lg:px-20">
-    <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-      <div class="footer-reveal max-w-lg" style="transition-delay: 0.4s">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <div class="footer-reveal max-w-md" style="transition-delay: 0.4s">
         <p class="text-[11px] font-medium uppercase tracking-[0.25em] text-[#c49298]">Member Onboarding</p>
         <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight text-foreground leading-snug">
           Prefer to <span style="font-family:'Playfair Display',serif;font-style:italic">print &amp; fill by hand?</span>
         </h3>
         <p class="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-          Download the complete FWC Dubai member forms pack — the diagnostic, confidentiality agreement and photo/video consent. Enter your email and your download starts right away, ready to print, complete and bring to your first gathering.
+          Download any of the FWC Dubai member forms below. Enter your email once, then grab the ones you need — ready to print, complete and bring to your first gathering.
         </p>
       </div>
-      <form id="footer-dl-form" class="footer-reveal flex w-full max-w-md flex-col gap-3 sm:flex-row sm:items-center" style="transition-delay: 0.5s" novalidate>
-        <input type="email" name="email" required placeholder="Your email address" class="dl-input" aria-label="Your email address" />
-        <button type="submit" id="footer-dl-btn" class="dl-btn">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span id="footer-dl-label">Download</span>
-        </button>
-      </form>
+
+      <div id="footer-dl" class="footer-reveal w-full max-w-md" style="transition-delay: 0.5s">
+        <input type="email" id="dl-email" required placeholder="Your email address" class="dl-input mb-4" aria-label="Your email address" />
+        <div class="flex flex-col divide-y divide-border rounded-2xl border border-border overflow-hidden">
+          <button type="button" class="dl-opt" data-dl="/downloads/FWC-Dubai-Diagnostic-Form.pdf">
+            <span class="dl-opt-txt"><span class="dl-opt-n">01</span> Discovery Diagnostic Form</span>
+            <span class="dl-opt-act"><span class="dl-opt-label">Download</span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+          </button>
+          <button type="button" class="dl-opt" data-dl="/downloads/FWC-Dubai-Confidentiality-Agreement.pdf">
+            <span class="dl-opt-txt"><span class="dl-opt-n">02</span> Confidentiality &amp; Participation</span>
+            <span class="dl-opt-act"><span class="dl-opt-label">Download</span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+          </button>
+          <button type="button" class="dl-opt" data-dl="/downloads/FWC-Dubai-PhotoVideo-Consent.pdf">
+            <span class="dl-opt-txt"><span class="dl-opt-n">03</span> Photography &amp; Video Consent</span>
+            <span class="dl-opt-act"><span class="dl-opt-label">Download</span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -194,33 +205,37 @@ const navLinks = [
     );
     document.querySelectorAll(".footer-reveal").forEach((el) => footerObs.observe(el));
 
-    // Email-gated member forms download
-    const dlForm = document.getElementById("footer-dl-form");
-    const dlBtn = document.getElementById("footer-dl-btn");
-    const dlLabel = document.getElementById("footer-dl-label");
-    dlForm?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const emailEl = dlForm.querySelector('input[name="email"]');
-      if (!emailEl.checkValidity()) { emailEl.reportValidity(); return; }
-      dlBtn.disabled = true;
-      if (dlLabel) dlLabel.textContent = "Preparing…";
-      try {
-        const fd = new FormData();
-        fd.append("access_key", "e80680ce-9b98-4fe1-b6b5-58893c5fac01");
-        fd.append("subject", "Member Forms Download — Flott Women's Circle");
-        fd.append("from_name", "Flott Website — Forms Download");
-        fd.append("email", emailEl.value);
-        fd.append("message", "Requested the FWC Dubai member forms pack (print & fill) via the website footer.");
-        fd.append("botcheck", "");
-        await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
-      } catch (_) { /* still let them download */ }
-      const a = document.createElement("a");
-      a.href = "/downloads/FWC-Dubai-Member-Forms.pdf";
-      a.setAttribute("download", "FWC-Dubai-Member-Forms.pdf");
-      document.body.appendChild(a); a.click(); a.remove();
-      if (dlLabel) dlLabel.textContent = "Downloaded ✓";
-      dlForm.reset();
-      setTimeout(() => { dlBtn.disabled = false; if (dlLabel) dlLabel.textContent = "Download"; }, 3500);
+    // Member forms — 3 options, email captured once, then any file downloads
+    const dlEmail = document.getElementById("dl-email");
+    const dlOpts = Array.from(document.querySelectorAll("#footer-dl .dl-opt"));
+    let dlCaptured = false;
+    dlOpts.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!dlEmail.checkValidity()) { dlEmail.reportValidity(); return; }
+        const file = btn.getAttribute("data-dl");
+        const lbl = btn.querySelector(".dl-opt-label");
+        const original = lbl ? lbl.textContent : "";
+        if (lbl) lbl.textContent = "Preparing…";
+        if (!dlCaptured) {
+          try {
+            const fd = new FormData();
+            fd.append("access_key", "e80680ce-9b98-4fe1-b6b5-58893c5fac01");
+            fd.append("subject", "Member Forms Download — Flott Women's Circle");
+            fd.append("from_name", "Flott Website — Forms Download");
+            fd.append("email", dlEmail.value);
+            fd.append("message", "Requested a member form (print & fill) via the website footer.");
+            fd.append("botcheck", "");
+            await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
+            dlCaptured = true;
+          } catch (_) { /* still let them download */ }
+        }
+        const a = document.createElement("a");
+        a.href = file;
+        a.setAttribute("download", "");
+        document.body.appendChild(a); a.click(); a.remove();
+        if (lbl) lbl.textContent = "Downloaded ✓";
+        setTimeout(() => { if (lbl) lbl.textContent = original; }, 2800);
+      });
     });
   </script>
 </footer>
@@ -243,8 +258,7 @@ const navLinks = [
   }
 
   .dl-input {
-    flex: 1;
-    min-width: 0;
+    width: 100%;
     background: transparent;
     border: 0;
     border-bottom: 1px solid var(--color-border);
@@ -256,24 +270,38 @@ const navLinks = [
   }
   .dl-input:focus { border-color: #c49298; }
   .dl-input::placeholder { color: rgba(15, 9, 6, 0.28); }
-  .dl-btn {
+
+  .dl-opt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    padding: 15px 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .dl-opt:hover { background: rgba(196, 146, 152, 0.07); }
+  .dl-opt-txt { font-size: 14px; color: var(--color-foreground); }
+  .dl-opt-n {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #c49298;
+    margin-right: 8px;
+  }
+  .dl-opt-act {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
     white-space: nowrap;
-    border-radius: 9999px;
-    background: var(--color-foreground);
-    color: var(--color-background);
-    padding: 12px 24px;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    border: 0;
-    cursor: pointer;
-    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    color: #c49298;
   }
-  .dl-btn:hover { opacity: 0.85; }
-  .dl-btn:disabled { opacity: 0.55; cursor: default; }
+  .dl-opt:hover .dl-opt-act { color: var(--color-foreground); }
 </style>
