@@ -1,4 +1,10 @@
 ---
+const {
+  address = "No. 6 Ubiaja Crescent, Garki 2, Abuja",
+  instagram = "@flott_beauty",
+  instagramUrl = "https://instagram.com/flott_beauty",
+} = Astro.props;
+
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -103,7 +109,7 @@ const navLinks = [
           </div>
           <div>
             <p class="text-xs font-medium text-muted-foreground/60 uppercase tracking-wider">Address:</p>
-            <p class="mt-1 text-sm text-foreground">No. 6 Ubiaja Crescent, Garki 2, Abuja</p>
+            <p class="mt-1 text-sm text-foreground">{address}</p>
           </div>
         </div>
         <!-- Instagram -->
@@ -113,7 +119,7 @@ const navLinks = [
           </div>
           <div>
             <p class="text-xs font-medium text-muted-foreground/60 uppercase tracking-wider">Instagram:</p>
-            <p class="mt-1 text-sm text-foreground">@flott_beauty</p>
+            <p class="mt-1 text-sm text-foreground">{instagram}</p>
           </div>
         </div>
         <!-- Email -->
@@ -130,7 +136,7 @@ const navLinks = [
 
       <!-- Social icons -->
       <div class="flex items-center gap-3">
-        <a href="https://instagram.com/flott_beauty" target="_blank" rel="noopener noreferrer" class="footer-reveal flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground" style="transition-delay: 0.8s" aria-label="Instagram">
+        <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="footer-reveal flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground" style="transition-delay: 0.8s" aria-label="Instagram">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
         <a href="#" class="footer-reveal flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground" style="transition-delay: 0.85s" aria-label="Facebook">
