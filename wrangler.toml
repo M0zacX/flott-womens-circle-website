@@ -10,7 +10,7 @@ directory = "./dist"
 [[d1_databases]]
 binding = "GT_DB"
 database_name = "grand-table"
-database_id = "REPLACE_WITH_D1_ID"
+database_id = "a8aa4688-3cbd-40a6-9cc5-d335665763d9"
 
 [[r2_buckets]]
 binding = "GT_UPLOADS"
@@ -21,13 +21,13 @@ bucket_name = "grand-table-uploads"
 # but the binding must exist or the adapter logs an "Invalid binding" warning.
 [[kv_namespaces]]
 binding = "SESSION"
-id = "REPLACE_WITH_KV_ID"
+id = "3e8c3a8171c647ba8af69af4acfab48b"
 
 [vars]
 EMAIL_ENABLED = "false"
 PAYMENTS_ENABLED = "false"
-EMAIL_FROM = ""
-ADMIN_NOTIFY_TO = ""
+EMAIL_FROM = "info@flottwomenscircle.com"
+ADMIN_NOTIFY_TO = "info@flottwomenscircle.com"
 
 # Secrets (set with `npx wrangler secret put <NAME>`, never committed):
 # ADMIN_PASSWORD
