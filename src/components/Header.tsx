@@ -68,7 +68,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
             <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" className={`h-8 w-auto transition-all duration-700 ${showGlass ? "" : "brightness-0 invert"}`} />
           </a>
 
-          <nav className="hidden items-center gap-5 md:flex lg:ml-8 xl:gap-7">
+          <nav className="hidden items-center gap-5 md:flex lg:ml-8 lg:gap-4 xl:gap-6">
             {navLinks.map((link) => {
               const isActive = currentPath.replace(/\/$/, "") === link.href;
               return (
@@ -77,7 +77,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
             })}
           </nav>
 
-          <div className="hidden items-center gap-6 md:flex">
+          <div className="hidden items-center gap-6 md:flex ml-6 lg:ml-8">
             <a href="/contact" className={`flex h-10 w-10 items-center justify-center text-sm font-medium transition-all rounded-full ${isScrolled ? "bg-primary text-primary-foreground hover:opacity-80" : "bg-white text-foreground hover:bg-white/90"}`} title="Join a Circle">
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
