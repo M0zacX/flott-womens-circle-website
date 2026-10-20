@@ -139,6 +139,7 @@ const investor: FormConfig = {
       label: "Partnership type",
       type: "select",
       required: true,
+      full: true,
       options: ["Equity investment", "Debt / financing", "Joint venture", "Strategic partnership", "Distribution / market access", "Other"],
     },
     { name: "message", label: "Message", type: "textarea", full: true },

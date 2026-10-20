@@ -890,8 +890,9 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
   #delegate-form,
   #investor-form,
   #sponsor-form,
-  #contact-form {
-    scroll-margin-top: 84px;
+  #contact-form,
+  .gt-form-tabs {
+    scroll-margin-top: 112px;
   }
 
   @media (min-width: 768px) {
@@ -900,8 +901,9 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     #delegate-form,
     #investor-form,
     #sponsor-form,
-    #contact-form {
-      scroll-margin-top: 96px;
+    #contact-form,
+    .gt-form-tabs {
+      scroll-margin-top: 124px;
     }
   }
 
@@ -1680,11 +1682,29 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
       });
     });
 
-    const gtWantsInvestorTab =
-      window.location.hash === "#investor-form" || new URLSearchParams(window.location.search).get("form") === "investor";
-    if (gtWantsInvestorTab) {
-      gtActivateFormTab("investor");
-      document.getElementById("investor-form")?.scrollIntoView({ block: "start" });
-    }
+    // Deep links to either tabbed form land on the tab pill (not the form below it),
+    // so the Delegate | Investor/Partner toggle stays visible under the fixed nav.
+    const gtScrollToFormTabs = (smooth: boolean) => {
+      const tabs = document.querySelector(".gt-form-tabs");
+      if (tabs) tabs.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+    };
+    const gtHandleFormHash = (smooth: boolean) => {
+      const hash = window.location.hash;
+      const wantsInvestor = hash === "#investor-form" || new URLSearchParams(window.location.search).get("form") === "investor";
+      if (wantsInvestor) gtActivateFormTab("investor");
+      else if (hash === "#delegate-form") gtActivateFormTab("delegate");
+      else return;
+      requestAnimationFrame(() => gtScrollToFormTabs(smooth));
+      setTimeout(() => gtScrollToFormTabs(false), 400);
+    };
+    document.querySelectorAll('a[href="#investor-form"], a[href="#delegate-form"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        history.pushState(null, "", link.getAttribute("href"));
+        gtHandleFormHash(true);
+      });
+    });
+    window.addEventListener("hashchange", () => gtHandleFormHash(true));
+    gtHandleFormHash(false);
   }
 </script>
