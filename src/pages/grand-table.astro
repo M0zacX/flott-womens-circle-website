@@ -6,230 +6,62 @@ import { Header } from "../components/Header";
 import FooterSection from "../components/FooterSection.astro";
 import GrandTableForm from "../components/GrandTableForm.astro";
 import { forms } from "../data/grand-table-forms";
+import { event, faqs } from "../data/grand-table-event";
 
-const objectives = [
-  {
-    num: "01",
-    title: "Enterprise Development",
-    description: "Equipping enterprises with the structures, skills and networks needed to grow into new markets.",
-  },
-  {
-    num: "02",
-    title: "Investment Connections",
-    description: "Linking investors directly with enterprises and projects ready for capital and partnership.",
-  },
-  {
-    num: "03",
-    title: "International Market Access",
-    description: "Opening practical pathways for enterprises to enter and operate within international markets.",
-  },
-  {
-    num: "04",
-    title: "Strategic Partnerships",
-    description: "Facilitating partnerships between businesses, investors and institutions across regions.",
-  },
-  {
-    num: "05",
-    title: "Business Expansion",
-    description: "Supporting enterprises as they scale operations beyond their home markets.",
-  },
-];
-
-const sectors = [
-  {
-    num: "01",
-    name: "Agriculture & Agribusiness",
-    description: "Farming, processing and agribusiness ventures across the value chain.",
-  },
-  {
-    num: "02",
-    name: "Manufacturing & Industrial",
-    description: "Production, industrial capacity and manufacturing partnerships.",
-  },
-  {
-    num: "03",
-    name: "Energy & Natural Resources",
-    description: "Power generation, extractives and natural resource development.",
-  },
-  {
-    num: "04",
-    name: "Healthcare & Medical Tourism",
-    description: "Healthcare delivery, medical infrastructure and wellness travel.",
-  },
-  {
-    num: "05",
-    name: "Technology & Innovation",
-    description: "Digital platforms, innovation and emerging technology ventures.",
-  },
-  {
-    num: "06",
-    name: "Real Estate & Infrastructure",
-    description: "Property development, construction and infrastructure projects.",
-  },
-  {
-    num: "07",
-    name: "Trade, Logistics & International Business",
-    description: "Cross-border trade, logistics networks and international business services.",
-  },
-];
-
-const delegateReasons = [
-  {
-    num: "01",
-    title: "Curated enterprise access",
-    description: "Meet enterprises across seven priority sectors.",
-  },
-  {
-    num: "02",
-    title: "Investment pipeline",
-    description: "Discover opportunities ready for capital and partnership.",
-  },
-  {
-    num: "03",
-    title: "Market entry",
-    description: "Gain insight into Nigeria and partner markets.",
-  },
-  {
-    num: "04",
-    title: "Strategic networking",
-    description: "Connect with business leaders, institutions and partners.",
-  },
-  {
-    num: "05",
-    title: "International platform",
-    description: "Be part of a gathering linking Nigeria, the UAE, India and beyond.",
-  },
-];
-
-const sponsorTiers = [
-  { name: "Silver", amount: "₦2,500,000" },
-  { name: "Gold", amount: "₦3,500,000" },
-  { name: "Platinum", amount: "₦5,000,000" },
-  { name: "Title Sponsor", amount: "₦10,000,000", featured: true },
-];
-
-const highlights = [
-  {
-    num: "01",
-    title: "Enterprise Showcase",
-    description: "Selected enterprises present their businesses to investors and partners.",
-    icon: '<rect x="4" y="4" width="20" height="13" rx="1"/><line x1="14" y1="17" x2="14" y2="23"/><line x1="9" y1="23" x2="19" y2="23"/>',
-  },
-  {
-    num: "02",
-    title: "Investor Meetings",
-    description: "Structured conversations between enterprises and investors.",
-    icon: '<circle cx="11" cy="14" r="7"/><circle cx="17" cy="14" r="7"/>',
-  },
-  {
-    num: "03",
-    title: "International Delegations",
-    description: "Delegates from Nigeria, the UAE, India and other markets.",
-    icon: '<circle cx="14" cy="14" r="10"/><ellipse cx="14" cy="14" rx="4.2" ry="10"/><line x1="4" y1="14" x2="24" y2="14"/>',
-  },
-  {
-    num: "04",
-    title: "Sector Sessions",
-    description: "Focused discussions across the seven priority sectors.",
-    icon: '<rect x="4" y="4" width="8" height="8" rx="1"/><rect x="16" y="4" width="8" height="8" rx="1"/><rect x="4" y="16" width="8" height="8" rx="1"/><rect x="16" y="16" width="8" height="8" rx="1"/>',
-  },
-  {
-    num: "05",
-    title: "Partnership Building",
-    description: "Introductions that open strategic partnerships and market access.",
-    icon: '<path d="M11.5 17.5a5 5 0 0 1 0-7.07l2-2a5 5 0 0 1 7.07 7.07l-1 1"/><path d="M16.5 10.5a5 5 0 0 1 0 7.07l-2 2a5 5 0 0 1-7.07-7.07l1-1"/>',
-  },
-  {
-    num: "06",
-    title: "Networking",
-    description: "Time to connect with business leaders, institutions and sponsors.",
-    icon: '<circle cx="7" cy="8" r="3"/><circle cx="21" cy="8" r="3"/><circle cx="14" cy="21" r="3"/><line x1="9.5" y1="10" x2="12" y2="18.5"/><line x1="18.5" y1="10" x2="16" y2="18.5"/><line x1="10" y1="8" x2="18" y2="8"/>',
-  },
-];
-
-const sectorsSentence = `${sectors.slice(0, -1).map((sector) => sector.name).join(", ")}, and ${sectors[sectors.length - 1].name}.`;
-
-const faqs = [
-  {
-    q: "When and where is The Grand Table 2026?",
-    a: "5 December 2026 in Abuja, Nigeria. The exact venue will be announced soon.",
-  },
-  {
-    q: "Who can take part?",
-    a: "Enterprises, international delegates, investors, partners and sponsors.",
-  },
-  {
-    q: "Which sectors are included?",
-    a: sectorsSentence,
-  },
-  {
-    q: "Does applying guarantee selection?",
-    a: "No. Submitting an Expression of Interest does not guarantee selection, investment or funding. All submissions are reviewed.",
-  },
-  {
-    q: "What do I need to apply as an enterprise?",
-    a: "Complete the online Expression of Interest form and upload your company profile as a PDF.",
-  },
-  {
-    q: "Is there a delegate participation fee?",
-    a: "Yes, ₦500,000. Payment details are shared after your registration is reviewed.",
-  },
-  {
-    q: "What sponsorship packages are available?",
-    a: "Silver ₦2.5M, Gold ₦3.5M, Platinum ₦5M and Title ₦10M. Request the brochure for benefits.",
-  },
-  {
-    q: "When do registrations open?",
-    a: "Online submissions open on 29 October 2026.",
-  },
-  {
-    q: "Who is organising the event?",
-    a: "The Grand Table 2026 is an initiative of Flott Women's Circle. Partners will be announced soon.",
-  },
-];
-
-const enterpriseSteps = [
-  {
-    num: "01",
-    title: "Submit your Expression of Interest",
-    description: "Complete the online form and upload your company profile as a PDF.",
-  },
-  {
-    num: "02",
-    title: "Review",
-    description: "Our team reviews every submission.",
-  },
-  {
-    num: "03",
-    title: "Confirmation",
-    description: "Shortlisted enterprises are contacted with next steps.",
-  },
-  {
-    num: "04",
-    title: "Participate",
-    description: "Prepare for showcase and investor meetings in Abuja.",
-  },
-];
+const {
+  objectives,
+  sectors,
+  delegateReasons,
+  sponsorTiers,
+  highlights,
+  enterpriseSteps,
+  speakers,
+  organisers,
+  venue,
+  copy,
+} = event;
 
 const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 ---
 
 <Layout
-  title="The Grand Table 2026 | Flott Women's Circle"
-  description="The Grand Table 2026: an initiative of Flott Women's Circle connecting enterprises, investors and global opportunities. Abuja, Nigeria, 5 December 2026."
+  title={`${event.name} ${event.year} | Flott Women's Circle`}
+  description={`${event.name} ${event.year}: an initiative of Flott Women's Circle connecting enterprises, investors and global opportunities. ${event.cityCountry}, ${event.date.display}.`}
 >
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
-  <script is:inline define:vars={{ live: formsLive }}>window.GT_FORMS_LIVE = live;</script>
+  <script is:inline define:vars={{ live: formsLive, countdownTarget: event.date.countdownTarget }}>
+    window.GT_FORMS_LIVE = live;
+    window.GT_COUNTDOWN_TARGET = countdownTarget;
+  </script>
 
   <main class="overflow-x-clip">
     <Header client:load currentPath="/grand-table" variant="gold" />
 
     <!-- ══════════════ HERO ══════════════ -->
     <section class="relative w-full overflow-hidden" style="background: #0B0B0C;">
-      <!-- Decorative light + atmosphere layer -->
+      <!-- Venue photo backdrop, toned with a dark jet overlay + gold grade so hero text stays AA-readable -->
       <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <img
+          src={venue.heroImage.src}
+          srcset={`${venue.heroImage.srcSmall} 960w, ${venue.heroImage.src} 1512w`}
+          sizes="100vw"
+          alt=""
+          width={venue.heroImage.width}
+          height={venue.heroImage.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="h-full w-full object-cover"
+          style="filter: grayscale(0.35) sepia(0.25);"
+        />
+        <div class="absolute inset-0" style="background: rgba(201,169,110,0.12); mix-blend-mode: color;"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(11,11,12,0.88) 0%, rgba(11,11,12,0.72) 100%);"></div>
+      </div>
+
+      <!-- Decorative light + atmosphere layer -->
+      <div class="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
         <!-- Soft volumetric light beam, fanning from a bright source -->
         <div
           class="gt-beam absolute left-1/2 top-0 h-[70vh] w-[150vw] -translate-x-1/2"
@@ -264,14 +96,14 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 
       <!-- Title-card corner labels (desktop) -->
       <div class="pointer-events-none absolute inset-x-0 top-24 z-20 hidden items-start justify-between px-6 md:px-12 lg:flex lg:px-20 lg:top-28">
-        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#E6D3A3]/60" style="transition-delay: 0.1s;">Edition I</span>
-        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#E6D3A3]/60" style="transition-delay: 0.1s;">05.12.26</span>
+        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#E6D3A3]/60" style="transition-delay: 0.1s;">{event.edition}</span>
+        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#E6D3A3]/60" style="transition-delay: 0.1s;">{event.date.short}</span>
       </div>
 
       <div class="relative z-10 flex min-h-screen flex-col">
         <!-- Main content -->
         <div class="flex flex-1 flex-col items-center justify-center px-6 pb-8 pt-28 text-center md:px-12 lg:px-20 lg:pb-6 lg:pt-24">
-          <p class="blur-words text-[10px] uppercase tracking-[0.35em] text-[#C9A96E]/80 md:text-xs" style="font-style: italic;">An initiative of Flott Women&rsquo;s Circle</p>
+          <p class="blur-words text-[10px] uppercase tracking-[0.35em] text-[#C9A96E]/80 md:text-xs" style="font-style: italic;">{copy.hero.eyebrow}</p>
 
           <h1 class="word-blur-group mt-4 max-w-5xl leading-[1.02] tracking-[-0.02em] text-[#F5F0E6] text-[13vw] sm:mt-6 md:text-[9vw] lg:text-[clamp(5rem,7vw,8.5rem)]" style="font-family: 'Playfair Display', serif; font-weight: 400;">
             <span class="word-blur" style="transition-delay: 0.05s;">The</span>
@@ -279,16 +111,16 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
             <span class="word-blur" style="transition-delay: 0.27s;">Table</span>
           </h1>
 
-          <p class="reveal mt-2 text-sm uppercase tracking-[0.5em] text-[#C9A96E]/85 sm:mt-3 md:text-base" style="transition-delay: 0.3s;">2026</p>
+          <p class="reveal mt-2 text-sm uppercase tracking-[0.5em] text-[#C9A96E]/85 sm:mt-3 md:text-base" style="transition-delay: 0.3s;">{event.year}</p>
 
           <p class="reveal mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#F5F0E6]/75 sm:mt-5 md:text-lg lg:mt-4" style="transition-delay: 0.38s;">
-            Connecting Enterprises, Investors &amp; Global Opportunities
+            {event.tagline}
           </p>
 
           <div class="reveal mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-[#F5F0E6]/55 sm:mt-5 md:text-xs lg:mt-4" style="transition-delay: 0.46s;">
-            <span>Abuja, Nigeria &bull; 5 December 2026</span>
+            <span>{event.heroLocationLine} &bull; {event.date.display}</span>
             <span class="hidden h-3 w-px bg-[#C9A96E]/30 sm:block" aria-hidden="true"></span>
-            <span>Nigeria &bull; UAE &bull; India &bull; Beyond</span>
+            <span>{copy.hero.travelLine}</span>
           </div>
 
           <!-- The table: focal gold line the beam lands on, with a soft reflection pool -->
@@ -313,7 +145,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
           </div>
 
           <!-- Countdown -->
-          <div class="reveal mt-5 flex items-center justify-center gap-5 sm:mt-7 sm:gap-8 lg:mt-5" style="transition-delay: 0.56s;" aria-label="Countdown to The Grand Table 2026">
+          <div class="reveal mt-5 flex items-center justify-center gap-5 sm:mt-7 sm:gap-8 lg:mt-5" style="transition-delay: 0.56s;" aria-label={`Countdown to ${event.name} ${event.year}`}>
             <div class="flex flex-col items-center">
               <span id="gt-days" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
               <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Days</span>
@@ -371,15 +203,22 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
           </a>
         </div>
 
-        <!-- Bottom credit strip -->
-        <div id="gt-credit-strip" class="gt-credit-strip relative border-t px-6 py-4 md:px-12 lg:px-20 lg:py-4" style="border-color: rgba(201,169,110,0.15);">
-          <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 text-center sm:gap-4">
-            <div class="flex items-center gap-3">
-              <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/40">Initiated by</span>
-              <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" class="h-6 w-auto brightness-0 invert opacity-90" />
+        <!-- Bottom organisers strip -->
+        <div id="gt-credit-strip" class="gt-credit-strip relative border-t px-6 py-4 md:px-12 lg:px-20 lg:py-5" style="border-color: rgba(201,169,110,0.15);">
+          <div class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 text-center sm:flex-row sm:flex-wrap sm:gap-5">
+            <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/40">{organisers.label}</span>
+            <div class="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+              {organisers.logos.map((logo) => (
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  loading="lazy"
+                  class="h-8 w-auto max-w-[130px] object-contain opacity-80 transition-opacity duration-300 hover:opacity-100 md:h-11 md:max-w-[160px]"
+                />
+              ))}
             </div>
-            <span class="hidden h-3 w-px bg-[#C9A96E]/20 sm:block" aria-hidden="true"></span>
-            <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/50">Partners announced soon</span>
           </div>
         </div>
       </div>
@@ -402,17 +241,17 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="about" class="relative overflow-hidden" style="background: #F5F0E6;">
       <div class="px-6 pt-12 pb-20 md:px-12 md:pt-16 md:pb-28 lg:px-20 lg:pt-20 lg:pb-32">
         <div class="mx-auto max-w-5xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">About the event</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.about.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
           >
-            Where Business Meets <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Opportunity</span>
+            {copy.about.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.about.headingEmphasis}</span>
           </h2>
 
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
-            The Grand Table 2026 is an international business platform initiated by Flott Women&rsquo;s Circle that brings enterprises, investors and global partners together in Abuja to unlock investment, open international markets and build lasting partnerships across Nigeria, the UAE, India and beyond.
+            {copy.about.body}
           </p>
         </div>
 
@@ -456,7 +295,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
           </div>
 
           <p class="reveal mt-10 text-center text-[10px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.6s;">
-            Initiated by Flott Women&rsquo;s Circle &middot; Partners announced soon
+            {copy.about.initiatedBy}
           </p>
         </div>
       </div>
@@ -468,17 +307,17 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="sectors" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">Sectors</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.sectors.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
           >
-            Seven sectors, <span style="font-style: italic; font-weight: 500; color: #C9A96E;">one Table</span>
+            {copy.sectors.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.sectors.headingEmphasis}</span>
           </h2>
 
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#F5F0E6]/70 md:text-lg" style="transition-delay: 0.2s;">
-            Enterprises and investors are matched across seven priority sectors shaping growth in Nigeria and its partner markets.
+            {copy.sectors.body}
           </p>
         </div>
 
@@ -532,17 +371,17 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="enterprise" class="relative overflow-hidden" style="background: #F5F0E6;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">For enterprises</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.enterprise.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
           >
-            Apply as an <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Enterprise</span>
+            {copy.enterprise.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.enterprise.headingEmphasis}</span>
           </h2>
 
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
-            Enterprises across the seven priority sectors can submit an Expression of Interest to be considered for showcase, investor meetings and international partnership opportunities at The Grand Table 2026.
+            {copy.enterprise.body}
           </p>
         </div>
 
@@ -579,7 +418,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
             <p class="text-sm leading-relaxed text-[#0B0B0C]/70">
-              <span class="font-medium text-[#0B0B0C]">Please note:</span> submitting an Expression of Interest does not guarantee selection, investment or funding. All submissions are reviewed and successful enterprises will be contacted directly.
+              <span class="font-medium text-[#0B0B0C]">Please note:</span> {copy.enterprise.notice}
             </p>
           </div>
         </div>
@@ -594,7 +433,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
             Start your application
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <span class="text-[11px] uppercase tracking-[0.25em] text-[#0B0B0C]/45">Form opens with launch on 29 October 2026</span>
+          <span class="text-[11px] uppercase tracking-[0.25em] text-[#0B0B0C]/45">{copy.enterprise.formOpens}</span>
         </div>
 
         <div id="enterprise-form" class="mt-16 md:mt-20">
@@ -609,23 +448,23 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="delegates" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">Delegates &amp; investors</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.delegates.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.08s;"
           >
-            Join the room where <span style="font-style: italic; font-weight: 500; color: #C9A96E;">deals begin</span>
+            {copy.delegates.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.delegates.headingEmphasis}</span>
           </h2>
 
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#F5F0E6]/70 md:text-lg" style="transition-delay: 0.16s;">
-            International delegates and investors join The Grand Table 2026 in Abuja to meet vetted enterprises, explore new markets and build partnerships across Nigeria, the UAE, India and beyond.
+            {copy.delegates.body}
           </p>
         </div>
 
         <!-- Five reasons to participate -->
         <div class="mx-auto mt-16 max-w-5xl md:mt-20">
-          <p class="reveal text-center text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/80" style="transition-delay: 0.24s;">Five reasons to participate</p>
+          <p class="reveal text-center text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/80" style="transition-delay: 0.24s;">{copy.delegates.reasonsLabel}</p>
 
           <!-- DRAFT COPY: replace with the 5 reasons from client brief when received -->
           <div class="mt-10 grid grid-cols-1 gap-8 md:mt-12 lg:grid-cols-6 lg:gap-x-8 lg:gap-y-10">
@@ -647,9 +486,9 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
           class="reveal mx-auto mt-16 max-w-xl rounded-xl border px-6 py-8 text-center md:mt-20 md:px-10 md:py-10"
           style="border-color: rgba(201,169,110,0.35); transition-delay: 0.3s;"
         >
-          <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">Delegate participation fee</p>
-          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">₦500,000</p>
-          <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">Payment details are shared after your registration is reviewed.</p>
+          <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">{copy.delegates.feeLabel}</p>
+          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{event.fees.delegate}</p>
+          <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">{copy.delegates.feeNote}</p>
         </div>
 
         <!-- CTA -->
@@ -677,17 +516,17 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="sponsorship" class="relative overflow-hidden" style="background: #F5F0E6;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">Partner with us</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.sponsorship.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.08s;"
           >
-            Become a <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Sponsor</span>
+            {copy.sponsorship.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.sponsorship.headingEmphasis}</span>
           </h2>
 
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.16s;">
-            Align your brand with an international business platform connecting enterprises, investors and global partners in Abuja.
+            {copy.sponsorship.body}
           </p>
         </div>
 
@@ -754,19 +593,60 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
       </div>
     </section>
 
+    <!-- ══════════════ SPEAKERS ══════════════ -->
+    <section id="speakers" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.speakers.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em]"
+            style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45; transition-delay: 0.1s;"
+          >
+            {copy.speakers.heading}
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 grid max-w-xl grid-cols-2 gap-6 sm:gap-10 md:mt-16">
+          {speakers.map((speaker, index) => (
+            <div class="gt-speaker-card reveal flex flex-col items-center" style={`transition-delay: ${index * 0.1}s;`}>
+              <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
+                <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
+                  <img
+                    src={speaker.image.src}
+                    alt={speaker.image.alt}
+                    width={speaker.image.width}
+                    height={speaker.image.height}
+                    loading="lazy"
+                    class="gt-speaker-img h-full w-full object-cover"
+                  />
+                  <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-[0.95rem] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{speaker.name}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="reveal mt-10 text-center text-[11px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.3s;">
+          {copy.speakers.moreToCome}
+        </p>
+      </div>
+    </section>
+
     <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
 
     <!-- ══════════════ EVENT EXPERIENCE ══════════════ -->
     <section id="experience" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">Event experience</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.experience.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
           >
-            Six moments that define <span style="font-style: italic; font-weight: 500; color: #C9A96E;">the Table</span>
+            {copy.experience.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.experience.headingEmphasis}</span>
           </h2>
         </div>
 
@@ -827,33 +707,73 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
       <div class="px-6 py-[4.5rem] md:px-12 lg:px-20 lg:py-[6rem]">
         <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div class="text-center lg:text-left">
-            <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">Venue</p>
+            <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.venue.eyebrow}</p>
 
             <h2
               class="reveal mt-4 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
               style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
             >
-              Abuja, <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Nigeria</span>
+              {copy.venue.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.venue.headingEmphasis}</span>
             </h2>
 
-            <p class="reveal mt-5 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.18s;">Venue announced soon.</p>
-            <p class="reveal mt-2 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">5 December 2026</p>
+            <p class="reveal mt-5 text-sm leading-relaxed text-[#0B0B0C]/70" style="transition-delay: 0.18s;">{venue.name}</p>
+            <p class="reveal mt-1 text-xs uppercase tracking-[0.2em] text-[#0B0B0C]/50" style="transition-delay: 0.22s;">{venue.officialName}</p>
+            <p class="reveal mt-3 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">{venue.address}</p>
+            <p class="reveal mt-2 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.3s;">{event.date.display}</p>
+
+            <a
+              href={venue.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="reveal mt-6 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#9A7B45] transition-all duration-300 hover:gap-3 hover:text-[#0B0B0C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45]"
+              style="transition-delay: 0.36s;"
+            >
+              {copy.venue.directionsLabel}
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
 
           <div class="reveal" style="transition-delay: 0.2s;">
-            <div class="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border px-6 py-14 lg:aspect-video" style="background: #0B0B0C; border-color: rgba(201,169,110,0.25);">
-              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div
-                  class="gt-table-ambient absolute left-1/2 top-1/2 h-16 w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-                  style="background: radial-gradient(ellipse at center, rgba(230,211,163,0.25), rgba(230,211,163,0) 72%); filter: blur(20px);"
-                ></div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="gt-venue-photo col-span-2 overflow-hidden rounded-2xl border" style="aspect-ratio: 3 / 2; border-color: rgba(201,169,110,0.25);">
+                <img
+                  src={venue.gallery[0].src}
+                  alt={venue.gallery[0].alt}
+                  width={venue.gallery[0].width}
+                  height={venue.gallery[0].height}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
               </div>
-              <div
-                class="relative h-px w-2/3 max-w-xs"
-                style="background: linear-gradient(to right, transparent, #E6D3A3 18%, #E6D3A3 82%, transparent); box-shadow: 0 0 16px 2px rgba(230,211,163,0.5), 0 0 50px 10px rgba(201,169,110,0.18);"
-              ></div>
-              <p class="relative mt-6 text-[10px] uppercase tracking-[0.35em] text-[#C9A96E]/70">Venue reveal coming soon</p>
+              <div class="gt-venue-photo overflow-hidden rounded-xl border" style="aspect-ratio: 4 / 3; border-color: rgba(201,169,110,0.25);">
+                <img
+                  src={venue.gallery[1].src}
+                  srcset={`${venue.gallery[1].srcSmall} 800w, ${venue.gallery[1].src} 1400w`}
+                  sizes="(min-width: 1024px) 25vw, 45vw"
+                  alt={venue.gallery[1].alt}
+                  width={venue.gallery[1].width}
+                  height={venue.gallery[1].height}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <div class="gt-venue-photo overflow-hidden rounded-xl border" style="aspect-ratio: 4 / 3; border-color: rgba(201,169,110,0.25);">
+                <img
+                  src={venue.gallery[2].src}
+                  srcset={`${venue.gallery[2].srcSmall} 800w, ${venue.gallery[2].src} 1400w`}
+                  sizes="(min-width: 1024px) 25vw, 45vw"
+                  alt={venue.gallery[2].alt}
+                  width={venue.gallery[2].width}
+                  height={venue.gallery[2].height}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
+              </div>
             </div>
+
+            <p class="mt-3 text-center text-[10px] leading-relaxed text-[#0B0B0C]/40 lg:text-left">
+              Photos: <a href={venue.credits[0].url} target="_blank" rel="noopener noreferrer" class="underline decoration-[#9A7B45]/40 underline-offset-2 hover:text-[#9A7B45]">{venue.credits[0].text}</a>; {venue.credits[1].text}; {venue.credits[2].text}.
+            </p>
           </div>
         </div>
       </div>
@@ -865,13 +785,13 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="faq" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">FAQ</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.faq.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
           >
-            Questions, <span style="font-style: italic; font-weight: 500; color: #C9A96E;">answered</span>
+            {copy.faq.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.faq.headingEmphasis}</span>
           </h2>
         </div>
 
@@ -901,17 +821,17 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     <section id="contact" class="relative overflow-hidden" style="background: #F5F0E6;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">Contact</p>
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.contact.eyebrow}</p>
 
           <h2
             class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
             style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
           >
-            Get in <span style="font-style: italic; font-weight: 500; color: #9A7B45;">touch</span>
+            {copy.contact.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.contact.headingEmphasis}</span>
           </h2>
 
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
-            Email and phone details will be announced soon.
+            {copy.contact.body}
           </p>
         </div>
 
@@ -1110,6 +1030,61 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     .gt-tier-card.gt-tier-featured {
       transform: none;
     }
+  }
+
+  .gt-speaker-frame {
+    transition: border-color 0.5s ease;
+  }
+
+  .gt-speaker-img {
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+  }
+
+  .gt-speaker-duotone {
+    background: linear-gradient(160deg, rgba(201,169,110,0.55), rgba(11,11,12,0.35));
+    mix-blend-mode: color;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gt-speaker-card:hover .gt-speaker-frame {
+      border-color: #C9A96E;
+    }
+    .gt-speaker-card:hover .gt-speaker-img {
+      transform: scale(1.05);
+    }
+    .gt-speaker-card:hover .gt-speaker-duotone {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-speaker-frame,
+    .gt-speaker-img,
+    .gt-speaker-duotone {
+      transition: none;
+    }
+    .gt-speaker-card:hover .gt-speaker-img {
+      transform: none;
+    }
+  }
+
+  .gt-venue-photo {
+    position: relative;
+  }
+
+  .gt-venue-photo img {
+    filter: grayscale(0.15) sepia(0.15);
+  }
+
+  .gt-venue-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(201,169,110,0.08);
+    mix-blend-mode: color;
+    pointer-events: none;
   }
 
   .gt-process-line {
@@ -1449,7 +1424,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 </style>
 
 <script>
-  const GT_TARGET = new Date("2026-12-05T09:00:00+01:00").getTime();
+  const GT_TARGET = new Date((window as unknown as { GT_COUNTDOWN_TARGET: string }).GT_COUNTDOWN_TARGET).getTime();
 
   function gtUpdateCountdown() {
     const now = Date.now();
@@ -1476,8 +1451,8 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
   gtUpdateCountdown();
   setInterval(gtUpdateCountdown, 1000);
 
-  // Hide the "Initiated by / Partners announced soon" strip once the page
-  // scrolls past the point where the nav becomes a sticky glass bar.
+  // Hide the organisers strip once the page scrolls past the point where
+  // the nav becomes a sticky glass bar.
   const gtCreditStrip = document.getElementById("gt-credit-strip");
   if (gtCreditStrip) {
     const gtToggleCreditStrip = () => {
