@@ -6,7 +6,7 @@
 export type Field = {
   name: string;
   label: string;
-  type: "text" | "email" | "tel" | "url" | "select" | "textarea" | "file" | "country" | "number";
+  type: "text" | "email" | "tel" | "url" | "select" | "textarea" | "file" | "country" | "number" | "checkbox";
   required?: boolean;
   options?: string[];
   accept?: string;
@@ -114,6 +114,44 @@ const delegate: FormConfig = {
   ],
 };
 
+const investor: FormConfig = {
+  id: "investor",
+  title: "Investor and Partner Enquiry",
+  intro: "Tell us about your investment focus and our partnerships team will follow up with tailored opportunities.",
+  submitLabel: "Submit enquiry",
+  fields: [
+    { name: "fullName", label: "Full name", type: "text", required: true },
+    { name: "organisation", label: "Organisation", type: "text", required: true },
+    { name: "role", label: "Role / job title", type: "text", required: true },
+    { name: "email", label: "Email", type: "email", required: true },
+    { name: "phone", label: "Phone", type: "tel", required: true },
+    { name: "country", label: "Country", type: "country", required: true },
+    { name: "sectors", label: "Investment focus / sectors", type: "select", required: true, options: SECTORS },
+    {
+      name: "ticketSize",
+      label: "Ticket size range",
+      type: "select",
+      required: true,
+      options: ["Under $50K", "$50K–$250K", "$250K–$1M", "$1M–$5M", "Over $5M", "Not applicable"],
+    },
+    {
+      name: "partnershipType",
+      label: "Partnership type",
+      type: "select",
+      required: true,
+      options: ["Equity investment", "Debt / financing", "Joint venture", "Strategic partnership", "Distribution / market access", "Other"],
+    },
+    { name: "message", label: "Message", type: "textarea", full: true },
+    {
+      name: "consent",
+      label: "I agree to be contacted by Flott Women's Circle about The Grand Table 2026",
+      type: "checkbox",
+      required: true,
+      full: true,
+    },
+  ],
+};
+
 const sponsor: FormConfig = {
   id: "sponsor",
   title: "Sponsorship Enquiry",
@@ -148,4 +186,4 @@ const contact: FormConfig = {
   ],
 };
 
-export const forms = { enterprise, delegate, sponsor, contact };
+export const forms = { enterprise, delegate, investor, sponsor, contact };

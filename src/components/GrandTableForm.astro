@@ -64,10 +64,30 @@ const sections = form.steps
               const describedBy = helperId ? `${helperId} ${errorId}` : errorId;
               return (
                 <div class={`gtf-field ${field.full ? "gtf-field-full" : ""}`}>
-                  <label for={id} class="gtf-label">
-                    {field.label}
-                    {field.required && <span class="gtf-required" aria-hidden="true">*</span>}
-                  </label>
+                  {field.type !== "checkbox" && (
+                    <label for={id} class="gtf-label">
+                      {field.label}
+                      {field.required && <span class="gtf-required" aria-hidden="true">*</span>}
+                    </label>
+                  )}
+
+                  {field.type === "checkbox" && (
+                    <label for={id} class="gtf-consent">
+                      <input
+                        type="checkbox"
+                        id={id}
+                        name={field.name}
+                        required={field.required}
+                        aria-required={field.required ? "true" : undefined}
+                        aria-describedby={describedBy}
+                        class="gtf-checkbox"
+                      />
+                      <span>
+                        {field.label}
+                        {field.required && <span class="gtf-required" aria-hidden="true"> *</span>}
+                      </span>
+                    </label>
+                  )}
 
                   {field.type === "select" && (
                     <div class="gtf-select-wrap">
@@ -189,7 +209,7 @@ const sections = form.steps
             })}
           </div>
 
-          {(!form.steps || section.index === form.steps.length - 1) && (
+          {(!form.steps || section.index === form.steps.length - 1) && !form.fields.some((f) => f.type === "checkbox") && (
             <label class="gtf-consent">
               <input type="checkbox" name="consent" class="gtf-checkbox" />
               <span>I agree to be contacted about The Grand Table 2026</span>
@@ -419,6 +439,15 @@ const sections = form.steps
   .gtf-field-invalid .gtf-select:focus {
     border-bottom-color: transparent;
     box-shadow: 0 2px 0 0 var(--gtf-error);
+  }
+
+  .gtf-field-invalid .gtf-consent {
+    color: var(--gtf-error);
+  }
+
+  .gtf-field-invalid .gtf-checkbox {
+    outline: 1px solid var(--gtf-error);
+    outline-offset: 2px;
   }
 
   .gtf-field-error {
@@ -729,6 +758,7 @@ const sections = form.steps
     if (control.validity.customError) return control.validationMessage;
     if (control.validity.valueMissing) {
       if (control.tagName === "SELECT") return "Please choose an option";
+      if (control instanceof HTMLInputElement && control.type === "checkbox") return "Please confirm to continue";
       if (control instanceof HTMLInputElement && control.type === "file") return `Please upload your ${getLabelText(wrapper)}`;
       return `Please enter your ${getLabelText(wrapper)}`;
     }

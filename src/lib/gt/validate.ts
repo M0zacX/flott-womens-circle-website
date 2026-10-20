@@ -39,6 +39,17 @@ export async function validateSubmission(form: FormConfig, formData: FormData, o
       continue;
     }
 
+    if (field.type === "checkbox") {
+      const checkboxValue = typeof raw === "string" ? raw.toLowerCase() : "";
+      const checked = checkboxValue === "yes" || checkboxValue === "on";
+      if (field.required && !checked) {
+        errors[field.name] = `${field.label} is required`;
+        continue;
+      }
+      if (checked) data[field.name] = "Yes";
+      continue;
+    }
+
     const value = typeof raw === "string" ? raw.trim() : "";
 
     if (field.required && !value) {

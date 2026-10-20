@@ -504,8 +504,47 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
           </a>
         </div>
 
-        <div id="delegate-form" class="mt-16 md:mt-20">
-          <GrandTableForm form={forms.delegate} theme="dark" />
+        <div class="mt-16 md:mt-20">
+          <div class="flex justify-center">
+            <div
+              role="tablist"
+              aria-label={copy.delegates.formTabsLabel}
+              class="gt-form-tabs inline-flex rounded-full border p-1"
+              style="border-color: rgba(201,169,110,0.35);"
+            >
+              <button
+                type="button"
+                role="tab"
+                id="gt-form-tab-delegate"
+                aria-selected="true"
+                aria-controls="delegate-panel"
+                tabindex="0"
+                data-gt-form-tab="delegate"
+                class="gt-form-tab"
+              >
+                {copy.delegates.tabs.delegate}
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="gt-form-tab-investor"
+                aria-selected="false"
+                aria-controls="investor-panel"
+                tabindex="-1"
+                data-gt-form-tab="investor"
+                class="gt-form-tab"
+              >
+                {copy.delegates.tabs.investor}
+              </button>
+            </div>
+          </div>
+
+          <div id="delegate-panel" role="tabpanel" aria-labelledby="gt-form-tab-delegate" data-gt-form-panel="delegate" class="mt-10">
+            <GrandTableForm form={forms.delegate} theme="dark" />
+          </div>
+          <div id="investor-panel" role="tabpanel" aria-labelledby="gt-form-tab-investor" data-gt-form-panel="investor" class="mt-10" hidden>
+            <GrandTableForm form={forms.investor} theme="dark" />
+          </div>
         </div>
       </div>
     </section>
@@ -849,6 +888,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
   section[id],
   #enterprise-form,
   #delegate-form,
+  #investor-form,
   #sponsor-form,
   #contact-form {
     scroll-margin-top: 84px;
@@ -858,6 +898,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     section[id],
     #enterprise-form,
     #delegate-form,
+    #investor-form,
     #sponsor-form,
     #contact-form {
       scroll-margin-top: 96px;
@@ -1421,6 +1462,36 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     box-shadow: 0 0 4px rgba(201,169,110,0.55);
   }
 
+  .gt-form-tab {
+    border: none;
+    border-radius: 9999px;
+    padding: 0.65rem 1.5rem;
+    background: transparent;
+    color: rgba(245,240,230,0.6);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .gt-form-tab[aria-selected="true"] {
+    background: #C9A96E;
+    color: #0B0B0C;
+  }
+
+  .gt-form-tab:focus-visible {
+    outline: 2px solid #E6D3A3;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-form-tab {
+      transition: none;
+    }
+  }
+
 </style>
 
 <script>
@@ -1576,4 +1647,44 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
       }
     });
   }, 2500);
+
+  // Delegate / Investor registration tab toggle
+  const gtFormTabs = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gt-form-tab]"));
+  const gtFormPanels = Array.from(document.querySelectorAll<HTMLElement>("[data-gt-form-panel]"));
+  if (gtFormTabs.length && gtFormPanels.length) {
+    const gtActivateFormTab = (key: string, focusTab = false) => {
+      gtFormTabs.forEach((tab) => {
+        const active = tab.dataset.gtFormTab === key;
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+        tab.tabIndex = active ? 0 : -1;
+        if (active && focusTab) tab.focus();
+      });
+      gtFormPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.gtFormPanel !== key;
+      });
+    };
+
+    gtFormTabs.forEach((tab) => {
+      tab.addEventListener("click", () => gtActivateFormTab(tab.dataset.gtFormTab || "delegate"));
+      tab.addEventListener("keydown", (e) => {
+        const index = gtFormTabs.indexOf(tab);
+        let nextIndex: number | null = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") nextIndex = (index + 1) % gtFormTabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") nextIndex = (index - 1 + gtFormTabs.length) % gtFormTabs.length;
+        else if (e.key === "Home") nextIndex = 0;
+        else if (e.key === "End") nextIndex = gtFormTabs.length - 1;
+        if (nextIndex !== null) {
+          e.preventDefault();
+          gtActivateFormTab(gtFormTabs[nextIndex].dataset.gtFormTab || "delegate", true);
+        }
+      });
+    });
+
+    const gtWantsInvestorTab =
+      window.location.hash === "#investor-form" || new URLSearchParams(window.location.search).get("form") === "investor";
+    if (gtWantsInvestorTab) {
+      gtActivateFormTab("investor");
+      document.getElementById("investor-form")?.scrollIntoView({ block: "start" });
+    }
+  }
 </script>

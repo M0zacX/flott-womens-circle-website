@@ -64,6 +64,12 @@ const CONFIRMATIONS: Record<string, { subject: string; heading: string; message:
     message:
       "Thank you for registering for The Grand Table 2026. Our team will review your registration and follow up with details, including the delegate participation fee where applicable.",
   },
+  investor: {
+    subject: "We received your enquiry",
+    heading: "Enquiry received",
+    message:
+      "Thank you for your interest in investing or partnering with The Grand Table 2026. Our partnerships team will review your enquiry and follow up with tailored opportunities.",
+  },
   sponsor: {
     subject: "We received your sponsorship enquiry",
     heading: "Sponsorship enquiry received",
@@ -92,6 +98,7 @@ export function confirmationEmail(form: FormConfig, name: string): { subject: st
 const FORM_SHORT: Record<string, { name: string; kind: string }> = {
   enterprise: { name: "Enterprise", kind: "registration" },
   delegate: { name: "Delegate", kind: "registration" },
+  investor: { name: "Investor/Partner", kind: "enquiry" },
   sponsor: { name: "Sponsor", kind: "enquiry" },
   contact: { name: "Contact", kind: "enquiry" },
 };

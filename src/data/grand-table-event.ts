@@ -348,6 +348,11 @@ export const event = {
       reasonsLabel: "Five reasons to participate",
       feeLabel: "Delegate participation fee",
       feeNote: "Payment details are shared after your registration is reviewed.",
+      formTabsLabel: "Choose how you'd like to register",
+      tabs: {
+        delegate: "Delegate",
+        investor: "Investor/Partner",
+      },
     },
     sponsorship: {
       eyebrow: "Partner with us",
