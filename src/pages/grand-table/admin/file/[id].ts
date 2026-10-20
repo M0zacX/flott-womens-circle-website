@@ -16,6 +16,7 @@ export const GET: APIRoute = async ({ params, cookies, locals, redirect }) => {
   const row = await getSubmission(env.GT_DB, id);
   if (!row || !row.file_key) return new Response("Not found", { status: 404 });
 
+  if (!env.GT_UPLOADS) return new Response("Uploads not enabled", { status: 404 });
   const object = await getFile(env.GT_UPLOADS, row.file_key);
   if (!object) return new Response("Not found", { status: 404 });
 

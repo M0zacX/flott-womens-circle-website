@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request, cookies, locals, redirect }) => 
 
   const deleted = await deleteTestSubmissions(env.GT_DB);
   await Promise.all(
-    deleted.filter((row) => row.file_key).map((row) => deleteFile(env.GT_UPLOADS, row.file_key as string))
+    deleted.filter((row) => row.file_key && env.GT_UPLOADS).map((row) => deleteFile(env.GT_UPLOADS, row.file_key as string))
   );
 
   destination.searchParams.set("cleared", String(deleted.length));

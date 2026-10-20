@@ -15,7 +15,7 @@ const URL_RE = /^https?:\/\/[^\s]+\.[^\s]+/i;
 const PDF_MAGIC = [0x25, 0x50, 0x44, 0x46];
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 
-export async function validateSubmission(form: FormConfig, formData: FormData): Promise<ValidationResult> {
+export async function validateSubmission(form: FormConfig, formData: FormData, opts: { uploadsEnabled?: boolean } = {}): Promise<ValidationResult> {
   const errors: ValidationErrors = {};
   const data: Record<string, string> = {};
   let file: File | null = null;
@@ -24,6 +24,7 @@ export async function validateSubmission(form: FormConfig, formData: FormData): 
     const raw = formData.get(field.name);
 
     if (field.type === "file") {
+      if (opts.uploadsEnabled === false) continue;
       const candidate = raw instanceof File ? raw : null;
       if (!candidate || candidate.size === 0) {
         if (field.required) errors[field.name] = `${field.label} is required`;

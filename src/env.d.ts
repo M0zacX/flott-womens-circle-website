@@ -39,7 +39,7 @@ interface R2Bucket {
 
 type GTRuntimeEnv = {
   GT_DB: D1Database;
-  GT_UPLOADS: R2Bucket;
+  GT_UPLOADS?: R2Bucket;
   EMAIL_ENABLED: string;
   PAYMENTS_ENABLED: string;
   EMAIL_FROM: string;

@@ -9,6 +9,8 @@ interface Props {
 
 const { form, theme } = Astro.props as Props;
 
+const uploadsEnabled = import.meta.env.PUBLIC_GT_UPLOADS_ENABLED !== "false";
+
 const fieldId = (field: Field) => `${form.id}-${field.name}`;
 const noticeId = `${form.id}-notice`;
 
@@ -118,7 +120,11 @@ const sections = form.steps
                     ></textarea>
                   )}
 
-                  {field.type === "file" && (
+                  {field.type === "file" && !uploadsEnabled && (
+                    <p class="gtf-dropzone-helper" data-uploads-off>Uploads coming soon. You can send your {field.label.toLowerCase()} later.</p>
+                  )}
+
+                  {field.type === "file" && uploadsEnabled && (
                     <div class="gtf-file-field">
                       <label for={id} class="gtf-dropzone" data-dropzone>
                         <svg class="gtf-dropzone-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">

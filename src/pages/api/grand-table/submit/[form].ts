@@ -40,7 +40,8 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
     return jsonResponse({ ok: true, id: crypto.randomUUID() }, 200);
   }
 
-  const { errors, data, file } = await validateSubmission(form, formData);
+  const uploadsEnabled = Boolean(locals.runtime.env.GT_UPLOADS);
+  const { errors, data, file } = await validateSubmission(form, formData, { uploadsEnabled });
 
   if (Object.keys(errors).length > 0) {
     return jsonResponse({ ok: false, errors }, 400);
@@ -55,7 +56,7 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
   let fileName: string | undefined;
   let fileSize: number | undefined;
 
-  if (file) {
+  if (file && env.GT_UPLOADS) {
     fileKey = enterpriseFileKey(id, file.name);
     await putFile(env.GT_UPLOADS, fileKey, file);
     fileName = file.name;
