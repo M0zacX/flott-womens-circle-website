@@ -1,0 +1,439 @@
+---
+import type { Field, FormConfig } from "../data/grand-table-forms";
+import { COUNTRIES } from "../data/grand-table-forms";
+
+interface Props {
+  form: FormConfig;
+  theme: "dark" | "light";
+}
+
+const { form, theme } = Astro.props as Props;
+
+const fieldId = (field: Field) => `${form.id}-${field.name}`;
+const noticeId = `${form.id}-notice`;
+---
+
+<div class={`gtf gtf-${theme}`}>
+  <div class="gtf-panel">
+    <span class="gtf-pending-tag">Form preview: fields pending confirmation</span>
+
+    <h3 class="gtf-title">{form.title}</h3>
+    <p class="gtf-intro">{form.intro}</p>
+
+    <form id={`${form.id}-form`} class="gtf-form" data-pending="true" novalidate>
+      <div class="gtf-grid">
+        {form.fields.map((field) => {
+          const id = fieldId(field);
+          return (
+            <div class={`gtf-field ${field.full ? "gtf-field-full" : ""}`}>
+              <label for={id} class="gtf-label">
+                {field.label}
+                {field.required && <span class="gtf-required" aria-hidden="true">*</span>}
+              </label>
+
+              {field.type === "select" && (
+                <div class="gtf-select-wrap">
+                  <select
+                    id={id}
+                    name={field.name}
+                    required={field.required}
+                    aria-required={field.required ? "true" : undefined}
+                    class="gtf-select"
+                  >
+                    <option value="" selected disabled>Select an option</option>
+                    {field.options?.map((opt) => <option value={opt}>{opt}</option>)}
+                  </select>
+                  <svg class="gtf-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+              )}
+
+              {field.type === "country" && (
+                <div class="gtf-select-wrap">
+                  <select
+                    id={id}
+                    name={field.name}
+                    required={field.required}
+                    aria-required={field.required ? "true" : undefined}
+                    class="gtf-select"
+                  >
+                    <option value="" selected disabled>Select a country</option>
+                    {COUNTRIES.map((country) => <option value={country}>{country}</option>)}
+                  </select>
+                  <svg class="gtf-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+              )}
+
+              {field.type === "textarea" && (
+                <textarea
+                  id={id}
+                  name={field.name}
+                  required={field.required}
+                  aria-required={field.required ? "true" : undefined}
+                  placeholder={field.placeholder}
+                  rows={4}
+                  class="gtf-textarea"
+                ></textarea>
+              )}
+
+              {field.type === "file" && (
+                <>
+                  <label for={id} class="gtf-dropzone">
+                    <svg class="gtf-dropzone-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span class="gtf-dropzone-text" data-default-text="Choose PDF file">Choose PDF file</span>
+                    <input
+                      type="file"
+                      id={id}
+                      name={field.name}
+                      accept={field.accept}
+                      required={field.required}
+                      aria-required={field.required ? "true" : undefined}
+                      class="gtf-file-input"
+                    />
+                  </label>
+                  {field.helper && <p class="gtf-helper">{field.helper}</p>}
+                </>
+              )}
+
+              {(field.type === "text" || field.type === "email" || field.type === "tel" || field.type === "url" || field.type === "number") && (
+                <input
+                  type={field.type}
+                  id={id}
+                  name={field.name}
+                  required={field.required}
+                  aria-required={field.required ? "true" : undefined}
+                  placeholder={field.placeholder}
+                  class="gtf-input"
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <label class="gtf-consent">
+        <input type="checkbox" name="consent" class="gtf-checkbox" />
+        <span>I agree to be contacted about The Grand Table 2026</span>
+      </label>
+
+      <div class="gtf-submit-row">
+        <button type="submit" class="gtf-submit">{form.submitLabel}</button>
+        <p id={noticeId} class="gtf-notice" role="status" aria-live="polite" hidden></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .gtf {
+    --gtf-text: #0b0b0c;
+    --gtf-muted: rgba(11, 11, 12, 0.6);
+    --gtf-accent: #9a7b45;
+    --gtf-border: rgba(154, 123, 69, 0.35);
+    --gtf-border-strong: rgba(154, 123, 69, 0.6);
+    --gtf-panel-bg: rgba(255, 255, 255, 0.45);
+    --gtf-placeholder: rgba(11, 11, 12, 0.35);
+    --gtf-submit-bg: #0b0b0c;
+    --gtf-submit-text: #f5f0e6;
+  }
+
+  .gtf-dark {
+    --gtf-text: #f5f0e6;
+    --gtf-muted: rgba(245, 240, 230, 0.6);
+    --gtf-accent: #c9a96e;
+    --gtf-border: rgba(201, 169, 110, 0.25);
+    --gtf-border-strong: rgba(201, 169, 110, 0.55);
+    --gtf-panel-bg: rgba(255, 255, 255, 0.03);
+    --gtf-placeholder: rgba(245, 240, 230, 0.35);
+    --gtf-submit-bg: #c9a96e;
+    --gtf-submit-text: #0b0b0c;
+  }
+
+  .gtf-panel {
+    position: relative;
+    margin: 0 auto;
+    max-width: 56rem;
+    border: 1px solid var(--gtf-border);
+    border-radius: 1rem;
+    background: var(--gtf-panel-bg);
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .gtf-panel {
+      padding: 3rem 3rem;
+    }
+  }
+
+  .gtf-pending-tag {
+    display: inline-flex;
+    border: 1px solid var(--gtf-border-strong);
+    border-radius: 9999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-title {
+    margin-top: 1.25rem;
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--gtf-text);
+  }
+
+  .gtf-intro {
+    margin-top: 0.6rem;
+    max-width: 38rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-form {
+    margin-top: 2.25rem;
+  }
+
+  .gtf-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .gtf-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .gtf-field-full {
+    grid-column: 1 / -1;
+  }
+
+  .gtf-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-required {
+    margin-left: 0.25rem;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-input,
+  .gtf-textarea,
+  .gtf-select {
+    width: 100%;
+    margin-top: 0.65rem;
+    border: none;
+    border-bottom: 1px solid var(--gtf-border-strong);
+    background: transparent;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--gtf-text);
+    transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gtf-input::placeholder,
+  .gtf-textarea::placeholder {
+    color: var(--gtf-placeholder);
+  }
+
+  .gtf-input:focus,
+  .gtf-textarea:focus,
+  .gtf-select:focus {
+    outline: none;
+    border-bottom-color: var(--gtf-accent);
+  }
+
+  .gtf-input:focus-visible,
+  .gtf-textarea:focus-visible,
+  .gtf-select:focus-visible,
+  .gtf-checkbox:focus-visible,
+  .gtf-dropzone:focus-within,
+  .gtf-submit:focus-visible {
+    outline: 2px solid var(--gtf-accent);
+    outline-offset: 4px;
+  }
+
+  .gtf-textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .gtf-select-wrap {
+    position: relative;
+  }
+
+  .gtf-select {
+    appearance: none;
+    padding-right: 1.5rem;
+    cursor: pointer;
+  }
+
+  .gtf-select option {
+    color: #0b0b0c;
+  }
+
+  .gtf-chevron {
+    position: absolute;
+    right: 0;
+    bottom: 0.7rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--gtf-accent);
+    pointer-events: none;
+  }
+
+  .gtf-dropzone {
+    margin-top: 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px dashed var(--gtf-border-strong);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s;
+  }
+
+  .gtf-dropzone:hover {
+    border-color: var(--gtf-accent);
+  }
+
+  .gtf-dropzone-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: none;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-dropzone-text {
+    font-size: 0.85rem;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .gtf-helper {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-consent {
+    margin-top: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--gtf-muted);
+    cursor: pointer;
+  }
+
+  .gtf-checkbox {
+    margin-top: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    accent-color: var(--gtf-accent);
+  }
+
+  .gtf-submit-row {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .gtf-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    padding: 1rem 2.25rem;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: var(--gtf-submit-bg);
+    color: var(--gtf-submit-text);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gtf-submit:hover {
+    opacity: 0.85;
+  }
+
+  .gtf-notice {
+    font-size: 0.85rem;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-notice[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gtf-input,
+    .gtf-textarea,
+    .gtf-select,
+    .gtf-dropzone,
+    .gtf-submit {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('form[data-pending="true"]').forEach((formEl) => {
+    const form = formEl as HTMLFormElement;
+    if (form.dataset.gtfInit === "true") return;
+    form.dataset.gtfInit = "true";
+
+    form.querySelectorAll('input[type="file"]').forEach((inputEl) => {
+      const input = inputEl as HTMLInputElement;
+      const label = input.closest(".gtf-dropzone");
+      const text = label?.querySelector(".gtf-dropzone-text");
+      input.addEventListener("change", () => {
+        const defaultText = text?.getAttribute("data-default-text") || "";
+        if (text) text.textContent = input.files && input.files[0] ? input.files[0].name : defaultText;
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const notice = form.querySelector(".gtf-notice") as HTMLElement | null;
+      if (notice) {
+        notice.textContent = "Thank you. Online submissions open on 29 October 2026.";
+        notice.hidden = false;
+      }
+    });
+  });
+</script>

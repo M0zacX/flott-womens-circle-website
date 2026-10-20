@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { Header } from "../components/Header";
 import FooterSection from "../components/FooterSection.astro";
+import GrandTableForm from "../components/GrandTableForm.astro";
+import { forms } from "../data/grand-table-forms";
 
 const objectives = [
   {
@@ -67,6 +69,41 @@ const sectors = [
     name: "Trade, Logistics & International Business",
     description: "Cross-border trade, logistics networks and international business services.",
   },
+];
+
+const delegateReasons = [
+  {
+    num: "01",
+    title: "Curated enterprise access",
+    description: "Meet enterprises across seven priority sectors.",
+  },
+  {
+    num: "02",
+    title: "Investment pipeline",
+    description: "Discover opportunities ready for capital and partnership.",
+  },
+  {
+    num: "03",
+    title: "Market entry",
+    description: "Gain insight into Nigeria and partner markets.",
+  },
+  {
+    num: "04",
+    title: "Strategic networking",
+    description: "Connect with business leaders, institutions and partners.",
+  },
+  {
+    num: "05",
+    title: "International platform",
+    description: "Be part of a gathering linking Nigeria, the UAE, India and beyond.",
+  },
+];
+
+const sponsorTiers = [
+  { name: "Silver", amount: "NGN 2,500,000" },
+  { name: "Gold", amount: "NGN 3,500,000" },
+  { name: "Platinum", amount: "NGN 5,000,000" },
+  { name: "Title Sponsor", amount: "NGN 10,000,000", featured: true },
 ];
 
 const enterpriseSteps = [
@@ -471,12 +508,180 @@ const enterpriseSteps = [
           <span class="text-[11px] uppercase tracking-[0.25em] text-[#0B0B0C]/45">Form opens with launch on 29 October 2026</span>
         </div>
 
-        <!-- Placeholder for the Expression of Interest form; fields not yet confirmed -->
-        <div id="enterprise-form"></div>
+        <div id="enterprise-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.enterprise} theme="light" />
+        </div>
       </div>
     </section>
 
-    <FooterSection />
+    <!-- ══════════════ INTERNATIONAL DELEGATES & INVESTORS ══════════════ -->
+    <section id="delegates" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">Delegates &amp; investors</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.08s;"
+          >
+            Join the room where <span style="font-style: italic; font-weight: 500; color: #C9A96E;">deals begin</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#F5F0E6]/70 md:text-lg" style="transition-delay: 0.16s;">
+            International delegates and investors join The Grand Table 2026 in Abuja to meet vetted enterprises, explore new markets and build partnerships across Nigeria, the UAE, India and beyond.
+          </p>
+        </div>
+
+        <!-- Five reasons to participate -->
+        <div class="mx-auto mt-16 max-w-5xl md:mt-20">
+          <p class="reveal text-center text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/80" style="transition-delay: 0.24s;">Five reasons to participate</p>
+
+          <!-- DRAFT COPY: replace with the 5 reasons from client brief when received -->
+          <div class="mt-10 grid grid-cols-1 gap-8 md:mt-12 lg:grid-cols-6 lg:gap-x-8 lg:gap-y-10">
+            {delegateReasons.map((reason, index) => (
+              <div
+                class={`gt-reason-card reveal border-t pt-6 lg:col-span-2 ${index === 3 ? "lg:col-start-2" : index === 4 ? "lg:col-start-4" : ""}`}
+                style={`border-color: rgba(201,169,110,0.2); transition-delay: ${0.32 + index * 0.08}s;`}
+              >
+                <span class="block text-[2rem] leading-none" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{reason.num}</span>
+                <h3 class="mt-3 text-base font-medium text-[#F5F0E6]">{reason.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{reason.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Participation fee -->
+        <div
+          class="reveal mx-auto mt-16 max-w-xl rounded-xl border px-6 py-8 text-center md:mt-20 md:px-10 md:py-10"
+          style="border-color: rgba(201,169,110,0.35); transition-delay: 0.3s;"
+        >
+          <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">Delegate participation fee</p>
+          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">NGN 500,000</p>
+          <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">Payment details are shared after your registration is reviewed.</p>
+        </div>
+
+        <!-- CTA -->
+        <div class="reveal mt-10 flex flex-col items-center gap-3 md:mt-12" style="transition-delay: 0.38s;">
+          <p class="text-sm leading-relaxed text-[#F5F0E6]/70">Delegates, investors and partners register here</p>
+          <a
+            href="#delegate-form"
+            class="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]"
+            style="background: #C9A96E; color: #0B0B0C; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Register as a Delegate
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div id="delegate-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.delegate} theme="dark" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ SPONSORSHIP ══════════════ -->
+    <section id="sponsorship" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">Partner with us</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.08s;"
+          >
+            Become a <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Sponsor</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.16s;">
+            Align your brand with an international business platform connecting enterprises, investors and global partners in Abuja.
+          </p>
+        </div>
+
+        <!-- Tiers -->
+        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
+          {sponsorTiers.map((tier, index) => (
+            <div
+              class={`gt-tier-card reveal relative flex flex-col rounded-xl border px-6 py-8 text-center ${tier.featured ? "gt-tier-featured" : ""}`}
+              style={`border-color: ${tier.featured ? "#9A7B45" : "rgba(154,123,69,0.35)"}; background: ${tier.featured ? "#0B0B0C" : "transparent"}; transition-delay: ${0.24 + index * 0.08}s;`}
+            >
+              {tier.featured && (
+                <span
+                  class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border px-3 py-1 text-[9px] uppercase tracking-[0.25em]"
+                  style="background: #0B0B0C; border-color: #9A7B45; color: #C9A96E;"
+                >
+                  Headline partner
+                </span>
+              )}
+              <h3
+                class="text-[11px] uppercase tracking-[0.3em]"
+                style={`color: ${tier.featured ? "#C9A96E" : "#9A7B45"};`}
+              >
+                {tier.name}
+              </h3>
+              <p
+                class={`mt-4 text-[clamp(1.6rem,3vw,2.1rem)] leading-tight ${tier.featured ? "text-[#F5F0E6]" : "text-[#0B0B0C]"}`}
+                style="font-family: 'Playfair Display', serif; font-weight: 400;"
+              >
+                <span class="block text-[10px] uppercase tracking-[0.3em] opacity-60" style="font-family: inherit;">NGN</span><span class="mt-1 block whitespace-nowrap">{tier.amount.replace("NGN ", "")}</span>
+              </p>
+              <p class={`mt-4 text-xs leading-relaxed ${tier.featured ? "text-[#F5F0E6]/60" : "text-[#0B0B0C]/60"}`}>
+                Benefits shared in the sponsorship brochure.
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- CTA -->
+        <div class="reveal mt-14 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-16" style="transition-delay: 0.56s;">
+          <a
+            href="#sponsor-form"
+            class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45] sm:w-auto sm:max-w-none"
+            style="background: #0B0B0C; color: #F5F0E6; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Request Brochure
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a
+            href="#sponsor-form"
+            class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#0B0B0C] transition-all duration-500 hover:gap-4 hover:border-[#9A7B45] hover:bg-[#9A7B45]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45] sm:w-auto sm:max-w-none"
+            style="border-color: rgba(154,123,69,0.5); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Become a Sponsor
+          </a>
+        </div>
+
+        <div id="sponsor-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.sponsor} theme="light" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ CONTACT ══════════════ -->
+    <section id="contact" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">Contact</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            Get in <span style="font-style: italic; font-weight: 500; color: #9A7B45;">touch</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
+            Email and phone details will be announced soon.
+          </p>
+        </div>
+
+        <div id="contact-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.contact} theme="light" />
+        </div>
+      </div>
+    </section>
+
+    <FooterSection variant="gold" />
   </main>
 </Layout>
 
@@ -593,6 +798,49 @@ const enterpriseSteps = [
       transition: none;
     }
     .gt-objective:hover {
+      transform: none;
+    }
+  }
+
+  .gt-reason-card {
+    transition: border-color 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-reason-card:hover {
+      border-color: rgba(201,169,110,0.9);
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-reason-card {
+      transition: none;
+    }
+    .gt-reason-card:hover {
+      transform: none;
+    }
+  }
+
+  .gt-tier-card {
+    transition: border-color 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-tier-card:hover {
+      border-color: rgba(154,123,69,0.9);
+      transform: translateY(-4px);
+    }
+    .gt-tier-card.gt-tier-featured:hover {
+      border-color: #C9A96E;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-tier-card {
+      transition: none;
+    }
+    .gt-tier-card:hover {
       transform: none;
     }
   }
