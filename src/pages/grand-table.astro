@@ -30,6 +30,44 @@ const objectives = [
     description: "Supporting enterprises as they scale operations beyond their home markets.",
   },
 ];
+
+const sectors = [
+  {
+    num: "01",
+    name: "Agriculture & Agribusiness",
+    description: "Farming, processing and agribusiness ventures across the value chain.",
+  },
+  {
+    num: "02",
+    name: "Manufacturing & Industrial",
+    description: "Production, industrial capacity and manufacturing partnerships.",
+  },
+  {
+    num: "03",
+    name: "Energy & Natural Resources",
+    description: "Power generation, extractives and natural resource development.",
+  },
+  {
+    num: "04",
+    name: "Healthcare & Medical Tourism",
+    description: "Healthcare delivery, medical infrastructure and wellness travel.",
+  },
+  {
+    num: "05",
+    name: "Technology & Innovation",
+    description: "Digital platforms, innovation and emerging technology ventures.",
+  },
+  {
+    num: "06",
+    name: "Real Estate & Infrastructure",
+    description: "Property development, construction and infrastructure projects.",
+  },
+  {
+    num: "07",
+    name: "Trade, Logistics & International Business",
+    description: "Cross-border trade, logistics networks and international business services.",
+  },
+];
 ---
 
 <Layout
@@ -41,7 +79,7 @@ const objectives = [
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
 
   <main class="overflow-x-clip">
-    <Header client:load currentPath="/grand-table" />
+    <Header client:load currentPath="/grand-table" variant="gold" />
 
     <!-- ══════════════ HERO ══════════════ -->
     <section class="relative w-full overflow-hidden" style="background: #0B0B0C;">
@@ -81,8 +119,8 @@ const objectives = [
 
       <!-- Title-card corner labels (desktop) -->
       <div class="pointer-events-none absolute inset-x-0 top-24 z-20 hidden items-start justify-between px-6 md:px-12 lg:flex lg:px-20 lg:top-28">
-        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/70" style="transition-delay: 0.1s;">Edition I</span>
-        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/70" style="transition-delay: 0.1s;">05.12.26</span>
+        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#E6D3A3]/60" style="transition-delay: 0.1s;">Edition I</span>
+        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#E6D3A3]/60" style="transition-delay: 0.1s;">05.12.26</span>
       </div>
 
       <div class="relative z-10 flex min-h-screen flex-col">
@@ -132,27 +170,27 @@ const objectives = [
           <!-- Countdown -->
           <div class="reveal mt-5 flex items-center justify-center gap-5 sm:mt-7 sm:gap-8 lg:mt-5" style="transition-delay: 0.56s;" aria-label="Countdown to The Grand Table 2026">
             <div class="flex flex-col items-center">
-              <span id="gt-days" class="text-[2.25rem] text-[#F5F0E6] lg:text-[3rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span id="gt-days" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
               <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Days</span>
             </div>
             <span class="h-10 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
             <div class="flex flex-col items-center">
-              <span id="gt-hours" class="text-[2.25rem] text-[#F5F0E6] lg:text-[3rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span id="gt-hours" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
               <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Hours</span>
             </div>
             <span class="h-10 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
             <div class="flex flex-col items-center">
-              <span id="gt-mins" class="text-[2.25rem] text-[#F5F0E6] lg:text-[3rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span id="gt-mins" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
               <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Mins</span>
             </div>
             <span class="h-10 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
             <div class="flex flex-col items-center">
-              <span id="gt-secs" class="text-[2.25rem] text-[#F5F0E6] lg:text-[3rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span id="gt-secs" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
               <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Secs</span>
             </div>
           </div>
 
-          <div class="reveal mt-6 flex flex-col items-center gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 lg:mt-5" style="transition-delay: 0.64s;">
+          <div class="reveal mt-[48px] flex flex-col items-center gap-3 sm:mt-[52px] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 lg:mt-[44px]" style="transition-delay: 0.64s;">
             <a
               href="#register"
               class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
@@ -183,7 +221,7 @@ const objectives = [
             class="group reveal mt-6 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[#F5F0E6]/50 transition-colors duration-500 hover:text-[#E6D3A3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] lg:mt-4"
             style="transition-delay: 0.72s;"
           >
-            <span class="gt-scrollline relative block h-9 w-px overflow-hidden bg-[#C9A96E]/25" aria-hidden="true"></span>
+            <span class="gt-scrollline relative block h-12 w-px overflow-hidden bg-[#C9A96E]/25" aria-hidden="true"></span>
             <span>Explore the Event</span>
           </a>
         </div>
@@ -201,13 +239,23 @@ const objectives = [
         </div>
       </div>
 
+      <!-- Fade through warm dark into ivory, carrying the table motif to the seam -->
+      <div class="relative h-40 w-full" style="background: linear-gradient(to bottom, #0B0B0C 0%, #1a1612 45%, #F5F0E6 100%);" aria-hidden="true"></div>
+
       <!-- Cinema-matte hairline frame (desktop) -->
       <div class="pointer-events-none absolute inset-6 z-30 hidden lg:block" style="border: 1px solid rgba(201,169,110,0.08);" aria-hidden="true"></div>
     </section>
 
     <!-- ══════════════ ABOUT THE EVENT ══════════════ -->
     <section id="about" class="relative overflow-hidden" style="background: #F5F0E6;">
-      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+      <!-- Gold horizon line, straddling the hero/About seam -->
+      <div
+        class="pointer-events-none absolute left-1/2 top-0 z-20 h-px w-[60%] -translate-x-1/2 -translate-y-1/2"
+        style="background: linear-gradient(to right, transparent, rgba(201,169,110,0.55) 50%, transparent); box-shadow: 0 0 12px 2px rgba(201,169,110,0.5);"
+        aria-hidden="true"
+      ></div>
+
+      <div class="px-6 pt-12 pb-20 md:px-12 md:pt-16 md:pb-28 lg:px-20 lg:pt-20 lg:pb-32">
         <div class="mx-auto max-w-5xl text-center">
           <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">About the event</p>
 
@@ -221,37 +269,37 @@ const objectives = [
           <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
             The Grand Table 2026 is an international business platform initiated by Flott Women&rsquo;s Circle that brings enterprises, investors and global partners together in Abuja to unlock investment, open international markets and build lasting partnerships across Nigeria, the UAE, India and beyond.
           </p>
+        </div>
 
-          <!-- Key facts -->
-          <div class="reveal mx-auto mt-10 max-w-4xl border-y" style="transition-delay: 0.3s; border-color: rgba(154,123,69,0.35);">
-            <div class="grid grid-cols-2 md:grid-cols-4">
-              <div class="border-r border-b px-5 py-6 text-left md:border-r-0 md:border-b-0" style="border-color: rgba(154,123,69,0.35);">
-                <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Date</span>
-                <span class="mt-2 block text-[1.125rem] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">5 December 2026</span>
-              </div>
-              <div class="border-b px-5 py-6 text-left md:border-b-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
-                <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">City</span>
-                <span class="mt-2 block text-[1.125rem] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">Abuja, Nigeria</span>
-              </div>
-              <div class="border-r px-5 py-6 text-left md:border-r-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
-                <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Markets</span>
-                <span class="mt-2 block text-[1.125rem] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">Nigeria, UAE, India, beyond</span>
-              </div>
-              <div class="px-5 py-6 text-left md:border-l" style="border-color: rgba(154,123,69,0.35);">
-                <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Format</span>
-                <span class="mt-2 block text-[1.125rem] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">Enterprise showcase, investor meetings, partnerships</span>
-              </div>
+        <!-- Key facts -->
+        <div class="reveal mx-auto mt-8 max-w-6xl border-y" style="transition-delay: 0.3s; border-color: rgba(154,123,69,0.35);">
+          <div class="grid grid-cols-2 md:grid-cols-4">
+            <div class="border-r border-b px-5 py-6 text-left md:border-r-0 md:border-b-0" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Format</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Business platform</span>
+            </div>
+            <div class="border-b px-5 py-6 text-left md:border-b-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Participants</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Enterprises, investors</span>
+            </div>
+            <div class="border-r px-5 py-6 text-left md:border-r-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Sectors</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Seven</span>
+            </div>
+            <div class="px-5 py-6 text-left md:border-l" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Tracks</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Enterprise, delegate, sponsor</span>
             </div>
           </div>
         </div>
 
         <!-- Objectives -->
-        <div class="mx-auto mt-16 max-w-6xl md:mt-20 lg:mt-24">
-          <div class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:items-stretch lg:gap-x-8 lg:gap-y-0">
+        <div class="mx-auto mt-10 max-w-6xl md:mt-14 lg:mt-16">
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:items-stretch lg:gap-x-8 lg:gap-y-0">
             {objectives.map((objective, index) => (
               <div
-                class="reveal flex items-start gap-4 border-t pt-6 lg:h-full lg:flex-col lg:items-stretch lg:gap-0 lg:pt-8 lg:pb-2"
-                style={`border-color: rgba(154,123,69,0.35); transition-delay: ${0.1 + index * 0.1}s;`}
+                class="gt-objective reveal flex items-start gap-4 border-t pt-6 lg:h-full lg:flex-col lg:items-stretch lg:gap-0 lg:pt-8 lg:pb-2"
+                style={`transition-delay: ${0.1 + index * 0.1}s;`}
               >
                 <span class="shrink-0 text-[2rem] leading-none lg:text-[2.75rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45;">{objective.num}</span>
                 <div class="lg:mt-5">
@@ -265,6 +313,56 @@ const objectives = [
           <p class="reveal mt-10 text-center text-[10px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.6s;">
             Initiated by Flott Women&rsquo;s Circle &middot; Partners announced soon
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ PRIORITY SECTORS ══════════════ -->
+    <section id="sectors" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">Sectors</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            Seven sectors, <span style="font-style: italic; font-weight: 500; color: #C9A96E;">one Table</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#F5F0E6]/70 md:text-lg" style="transition-delay: 0.2s;">
+            Enterprises and investors are matched across seven priority sectors shaping growth in Nigeria and its partner markets.
+          </p>
+        </div>
+
+        <!-- Sector index -->
+        <div class="mx-auto mt-14 max-w-6xl md:mt-16 lg:mt-20">
+          {sectors.map((sector, index) => (
+            <a
+              href="#enterprise"
+              aria-label={`Apply as an enterprise in ${sector.name}`}
+              class="gt-sector-row reveal grid grid-cols-[2.5rem_1fr] items-start gap-x-4 gap-y-2 border-t py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] lg:grid-cols-[3.5rem_1fr_minmax(0,24rem)] lg:items-center lg:gap-x-8 lg:gap-y-0 lg:py-[1.5rem]"
+              style={`border-color: rgba(201,169,110,0.18); transition-delay: ${0.1 + index * 0.08}s;`}
+            >
+              <span class="text-base md:text-lg lg:text-xl" style="font-family: 'Playfair Display', serif; font-style: italic; color: #C9A96E;">{sector.num}</span>
+              <span
+                class="gt-sector-title inline-block text-[clamp(1.5rem,4vw,2.75rem)] leading-tight text-[#F5F0E6] lg:whitespace-nowrap lg:text-[clamp(1.5rem,2.6vw,2.25rem)]"
+                style="font-family: 'Playfair Display', serif; font-weight: 400;"
+              >{sector.name}</span>
+              <span class="col-start-2 row-start-2 text-sm text-[#F5F0E6]/60 lg:col-start-3 lg:row-start-1 lg:max-w-sm lg:justify-self-end lg:text-right">{sector.description}</span>
+            </a>
+          ))}
+          <div class="border-t" style="border-color: rgba(201,169,110,0.18);" aria-hidden="true"></div>
+        </div>
+
+        <div class="reveal mt-14 flex justify-center md:mt-16" style="transition-delay: 0.6s;">
+          <a
+            href="#enterprise"
+            class="inline-flex items-center justify-center rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#C9A96E] transition-all duration-500 hover:bg-[#C9A96E]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]"
+            style="border-color: rgba(201,169,110,0.5);"
+          >
+            Apply as an Enterprise
+          </a>
         </div>
       </div>
     </section>
@@ -327,6 +425,66 @@ const objectives = [
       transform: translateY(0);
       background: #C9A96E;
       opacity: 0.6;
+    }
+  }
+
+  .gt-sector-title {
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-sector-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 0;
+    background: #C9A96E;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) {
+    .gt-sector-row:hover .gt-sector-title {
+      transform: translateX(8px);
+    }
+    .gt-sector-row:hover .gt-sector-title::after {
+      width: 100%;
+    }
+  }
+
+  .gt-sector-row:focus-visible .gt-sector-title {
+    transform: translateX(8px);
+  }
+  .gt-sector-row:focus-visible .gt-sector-title::after {
+    width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-sector-title,
+    .gt-sector-title::after {
+      transition: none;
+    }
+  }
+
+  .gt-objective {
+    border-color: rgba(154,123,69,0.35);
+    transition: border-color 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-objective:hover {
+      border-color: rgba(154,123,69,0.9);
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-objective {
+      transition: none;
+    }
+    .gt-objective:hover {
+      transform: none;
     }
   }
 </style>
