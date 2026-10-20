@@ -20,7 +20,7 @@ binding = "SESSION"
 id = "3e8c3a8171c647ba8af69af4acfab48b"
 
 [vars]
-EMAIL_ENABLED = "false"
+EMAIL_ENABLED = "true"
 PAYMENTS_ENABLED = "false"
 EMAIL_FROM = "notify@notify.flottwomenscircle.com"
 EMAIL_FROM_NAME = "The Grand Table 2026"
