@@ -492,7 +492,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
         </div>
 
         <!-- CTA -->
-        <div class="reveal mt-10 flex flex-col items-center gap-3 md:mt-12" style="transition-delay: 0.38s;">
+        <div id="gt-delegate-cta" class="reveal mt-10 flex flex-col items-center gap-3 md:mt-12" style="transition-delay: 0.38s;">
           <p class="text-sm leading-relaxed text-[#F5F0E6]/70">Delegates, investors and partners register here</p>
           <a
             href="#delegate-form"
@@ -1706,5 +1706,23 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
     });
     window.addEventListener("hashchange", () => gtHandleFormHash(true));
     gtHandleFormHash(false);
+
+    // Fade the "Register as a Delegate" CTA out while the tabbed forms are in view,
+    // so it never sits half-hidden behind the fixed nav.
+    const gtDelegateCta = document.getElementById("gt-delegate-cta");
+    const gtFormTabsWrap = document.querySelector(".gt-form-tabs")?.parentElement?.parentElement;
+    if (gtDelegateCta && gtFormTabsWrap && "IntersectionObserver" in window) {
+      gtDelegateCta.style.transition = "opacity 0.4s ease";
+      new IntersectionObserver(
+        ([entry]) => {
+          const hide = entry.isIntersecting;
+          gtDelegateCta.style.opacity = hide ? "0" : "";
+          gtDelegateCta.style.pointerEvents = hide ? "none" : "";
+          gtDelegateCta.toggleAttribute("aria-hidden", hide);
+          gtDelegateCta.querySelector("a")?.setAttribute("tabindex", hide ? "-1" : "0");
+        },
+        { rootMargin: "-140px 0px 0px 0px" }
+      ).observe(gtFormTabsWrap);
+    }
   }
 </script>

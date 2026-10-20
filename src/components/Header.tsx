@@ -22,6 +22,8 @@ export function Header({
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+    // Run once on mount so pages opened already scrolled (e.g. via #anchor) get the solid nav.
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [innerPage]);
