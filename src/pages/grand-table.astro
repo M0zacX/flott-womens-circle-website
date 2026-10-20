@@ -451,6 +451,8 @@ const enterpriseSteps = [
       </div>
     </section>
 
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
     <!-- ══════════════ PRIORITY SECTORS ══════════════ -->
     <section id="sectors" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
@@ -512,6 +514,8 @@ const enterpriseSteps = [
         </div>
       </div>
     </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
 
     <!-- ══════════════ ENTERPRISE REGISTRATION ══════════════ -->
     <section id="enterprise" class="relative overflow-hidden" style="background: #F5F0E6;">
@@ -588,6 +592,8 @@ const enterpriseSteps = [
       </div>
     </section>
 
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
     <!-- ══════════════ INTERNATIONAL DELEGATES & INVESTORS ══════════════ -->
     <section id="delegates" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
@@ -653,6 +659,8 @@ const enterpriseSteps = [
         </div>
       </div>
     </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
 
     <!-- ══════════════ SPONSORSHIP ══════════════ -->
     <section id="sponsorship" class="relative overflow-hidden" style="background: #F5F0E6;">
@@ -735,6 +743,8 @@ const enterpriseSteps = [
       </div>
     </section>
 
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
     <!-- ══════════════ EVENT EXPERIENCE ══════════════ -->
     <section id="experience" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
@@ -763,7 +773,31 @@ const enterpriseSteps = [
           ))}
         </div>
       </div>
+
+      <!-- Marquee strip: tiny duplicate of the six highlight titles, decorative only -->
+      <div class="gt-strip relative w-full overflow-hidden border-t border-b" style="border-color: rgba(201,169,110,0.2);" aria-hidden="true">
+        <div class="gt-strip-track flex w-max items-center">
+          <div class="gt-strip-set flex items-center gap-4 whitespace-nowrap py-2.5 pr-4 sm:gap-6 sm:py-3 sm:pr-6">
+            {highlights.map((highlight) => (
+              <span class="inline-flex items-center gap-4 sm:gap-6">
+                <span class="text-[9px] uppercase tracking-[0.3em] text-[#C9A96E]/70 sm:text-[10px]">{highlight.title}</span>
+                <span class="text-[7px] text-[#C9A96E]/40 sm:text-[8px]">&#9670;</span>
+              </span>
+            ))}
+          </div>
+          <div class="gt-strip-set flex items-center gap-4 whitespace-nowrap py-2.5 pr-4 sm:gap-6 sm:py-3 sm:pr-6">
+            {highlights.map((highlight) => (
+              <span class="inline-flex items-center gap-4 sm:gap-6">
+                <span class="text-[9px] uppercase tracking-[0.3em] text-[#C9A96E]/70 sm:text-[10px]">{highlight.title}</span>
+                <span class="text-[7px] text-[#C9A96E]/40 sm:text-[8px]">&#9670;</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
 
     <!-- ══════════════ VENUE ══════════════ -->
     <section id="venue" class="relative overflow-hidden" style="background: #F5F0E6;">
@@ -802,6 +836,8 @@ const enterpriseSteps = [
       </div>
     </section>
 
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
     <!-- ══════════════ FAQ ══════════════ -->
     <section id="faq" class="relative overflow-hidden" style="background: #0B0B0C;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
@@ -835,6 +871,8 @@ const enterpriseSteps = [
         </div>
       </div>
     </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
 
     <!-- ══════════════ CONTACT ══════════════ -->
     <section id="contact" class="relative overflow-hidden" style="background: #F5F0E6;">
@@ -1218,6 +1256,66 @@ const enterpriseSteps = [
     }
     .gt-faq-item::details-content {
       transition: opacity 0.3s ease;
+    }
+  }
+
+  /* Reusable seam: short gradient band + crisp champagne line at the exact join
+     between a jet section and an ivory section. */
+  .gt-seam {
+    position: relative;
+    width: 100%;
+    height: 64px;
+  }
+
+  @media (min-width: 768px) {
+    .gt-seam {
+      height: 96px;
+    }
+  }
+
+  .gt-seam-to-ivory {
+    background: linear-gradient(to bottom, #0B0B0C 0%, #2a2218 50%, #F5F0E6 100%);
+  }
+
+  .gt-seam-to-jet {
+    background: linear-gradient(to bottom, #F5F0E6 0%, #2a2218 50%, #0B0B0C 100%);
+  }
+
+  .gt-seam::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 70%;
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(to right, transparent, #B08D57 20%, #C9A96E 50%, #B08D57 80%, transparent);
+    box-shadow: 0 0 4px rgba(201,169,110,0.55);
+  }
+
+  .gt-strip-track {
+    animation: gtStripScroll 40s linear infinite;
+  }
+
+  @media (hover: hover) {
+    .gt-strip:hover .gt-strip-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes gtStripScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-strip-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+    }
+    .gt-strip-set:nth-of-type(2) {
+      display: none;
     }
   }
 </style>
