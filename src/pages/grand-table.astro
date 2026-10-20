@@ -98,7 +98,6 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
       <!-- Title-card corner labels (desktop) -->
       <div class="pointer-events-none absolute inset-x-0 top-24 z-20 hidden items-start justify-between px-6 md:px-12 lg:flex lg:px-20 lg:top-28">
         <span class="reveal text-[10px] font-light uppercase tracking-[0.22em] text-[#E6D3A3]/90" style="transition-delay: 0.1s;">{event.edition}</span>
-        <span class="reveal text-[10px] font-light uppercase tracking-[0.22em] text-[#E6D3A3]/90" style="transition-delay: 0.1s;">{event.date.short}</span>
       </div>
 
       <div class="relative z-10 flex min-h-screen flex-col">
@@ -118,8 +117,9 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
             {event.tagline}
           </p>
 
-          <div class="reveal mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-[#F5F0E6]/55 sm:mt-5 md:text-xs lg:mt-4" style="transition-delay: 0.46s;">
-            <span>{event.heroLocationLine} &bull; {event.date.display} <span class="text-[#C9A96E]/60" aria-hidden="true">&nbsp;|&nbsp;</span> {copy.hero.travelLine}</span>
+          <div class="reveal mt-3 flex flex-col items-center justify-center gap-y-1 text-[13px] uppercase tracking-[0.12em] text-[#F5F0E6]/75 sm:mt-5 md:text-[14px] lg:mt-4" style="transition-delay: 0.46s;">
+            <span class="block w-full">{event.heroLocationLine} &bull; {event.date.display}</span>
+            <span class="block w-full">{copy.hero.travelLine}</span>
           </div>
 
           <!-- The table: focal gold line the beam lands on, with a soft reflection pool -->

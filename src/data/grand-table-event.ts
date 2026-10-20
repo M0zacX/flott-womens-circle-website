@@ -309,9 +309,8 @@ export const event = {
   organisers: {
     label: "Hosted by Flott Women Circle, in partnership with",
     logos: [
-      { src: "/images/grand-table/organisers/organiser-1.webp", alt: "Partner logo 1", width: 420, height: 120 },
-      { src: "/images/grand-table/organisers/organiser-2.webp", alt: "Partner logo 2", width: 420, height: 120 },
-      { src: "/images/grand-table/organisers/organiser-3.webp", alt: "Partner logo 3", width: 420, height: 150 },
+      { src: "/images/grand-table/organisers/organiser-2.webp", alt: "Partner logo 1", width: 420, height: 120 },
+      { src: "/images/grand-table/organisers/organiser-3.webp", alt: "Partner logo 2", width: 420, height: 150 },
     ] satisfies OrganiserLogo[],
   },
 
