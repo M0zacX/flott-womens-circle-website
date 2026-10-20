@@ -1,0 +1,194 @@
+---
+export const prerender = false;
+
+import Layout from "../../../layouts/Layout.astro";
+import "../../../styles/gt-admin.css";
+import type { FormConfig } from "../../../data/grand-table-forms";
+import { forms } from "../../../data/grand-table-forms";
+import { getAuthedSession } from "../../../lib/gt/auth";
+import { SUBMISSION_STATUSES, countSubmissions, listSubmissions, statusCounts } from "../../../lib/gt/db";
+import type { SubmissionStatus } from "../../../lib/gt/db";
+
+const env = Astro.locals.runtime.env;
+const authed = await getAuthedSession(Astro.cookies, env.SESSION_SECRET);
+if (!authed) return Astro.redirect("/grand-table/admin/login");
+
+const TAB_LABELS: Record<string, string> = {
+  enterprise: "Enterprise",
+  delegate: "Delegate/Investor",
+  sponsor: "Sponsor",
+  contact: "Contact",
+};
+
+const STATUS_LABELS: Record<SubmissionStatus | "all", string> = {
+  all: "All",
+  new: "New",
+  reviewing: "Reviewing",
+  accepted: "Accepted",
+  declined: "Declined",
+  archived: "Archived",
+};
+
+const formEntries = Object.values(forms) as FormConfig[];
+const url = Astro.url;
+const activeFormId = url.searchParams.get("form") || formEntries[0].id;
+const activeForm = (forms as Record<string, FormConfig>)[activeFormId] ?? formEntries[0];
+const statusParam = (url.searchParams.get("status") || "all") as SubmissionStatus | "all";
+const search = url.searchParams.get("q") || "";
+const page = Math.max(1, Number(url.searchParams.get("page") || "1"));
+const PAGE_SIZE = 25;
+
+const [rows, total, counts, tabCounts] = await Promise.all([
+  listSubmissions(env.GT_DB, { form: activeForm.id, status: statusParam, search, page, pageSize: PAGE_SIZE }),
+  countSubmissions(env.GT_DB, { form: activeForm.id, status: statusParam, search }),
+  statusCounts(env.GT_DB, activeForm.id),
+  Promise.all(formEntries.map((f) => statusCounts(env.GT_DB, f.id))),
+]);
+
+const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+const columns = activeForm.fields.slice(0, 5);
+const statusFilters: (SubmissionStatus | "all")[] = ["all", ...SUBMISSION_STATUSES];
+const parsedRows = rows.map((row) => ({ row, data: JSON.parse(row.data) as Record<string, string> }));
+const emailColumn = columns.find((c) => c.type === "email");
+
+function buildUrl(overrides: Record<string, string | number | undefined>) {
+  const params = new URLSearchParams(url.search);
+  for (const [key, value] of Object.entries(overrides)) {
+    if (value === undefined || value === "") params.delete(key);
+    else params.set(key, String(value));
+  }
+  return `${url.pathname}?${params.toString()}`;
+}
+
+const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam !== "all" ? `?status=${statusParam}` : ""}`;
+---
+
+<Layout title="Admin Dashboard | The Grand Table 2026">
+  <meta name="robots" content="noindex" />
+  <div class="gta">
+    <header class="gta-header">
+      <div class="gta-header-left">
+        <span class="gta-brand">The Grand Table <em>2026</em></span>
+        <span class="gta-admin-label">Admin</span>
+      </div>
+      <div class="gta-header-right">
+        <span class="gta-pill">Payments: not activated</span>
+        <a href="/grand-table/admin/logout" class="gta-logout">Log out</a>
+      </div>
+    </header>
+
+    <nav class="gta-tabs">
+      {formEntries.map((f, i) => (
+        <a
+          href={buildUrl({ form: f.id, status: undefined, q: undefined, page: undefined })}
+          class={`gta-tab ${f.id === activeForm.id ? "gta-tab-active" : ""}`}
+        >
+          {TAB_LABELS[f.id] ?? f.title}
+          <span class="gta-badge">{tabCounts[i].all}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="gta-toolbar">
+      <div class="gta-chips">
+        {statusFilters.map((s) => (
+          <a
+            href={buildUrl({ status: s === "all" ? undefined : s, page: undefined })}
+            class={`gta-chip ${statusParam === s ? "gta-chip-active" : ""}`}
+          >
+            {STATUS_LABELS[s]} <span>{counts[s]}</span>
+          </a>
+        ))}
+      </div>
+
+      <form method="GET" class="gta-search">
+        <input type="hidden" name="form" value={activeForm.id} />
+        {statusParam !== "all" && <input type="hidden" name="status" value={statusParam} />}
+        <input type="search" name="q" placeholder="Search name or email" value={search} />
+        <button type="submit">Search</button>
+      </form>
+
+      <a class="gta-export" href={exportHref}>Export CSV</a>
+    </div>
+
+    <div class="gta-table-wrap">
+      <table class="gta-table">
+        <thead>
+          <tr>
+            {columns.map((c) => <th>{c.label}</th>)}
+            <th>Status</th>
+            <th>Created</th>
+            <th aria-hidden="true"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.length === 0 && (
+            <tr>
+              <td colspan={columns.length + 3} class="gta-empty">No submissions yet</td>
+            </tr>
+          )}
+          {parsedRows.map(({ row, data }) => {
+            const href = `/grand-table/admin/${activeForm.id}/${row.id}`;
+            return (
+              <tr class="gta-row" data-href={href}>
+                {columns.map((c, i) => (
+                  i === 0 ? (
+                    <td><a href={href}>{data[c.name] || "Not provided"}</a></td>
+                  ) : (
+                    <td>{data[c.name] || ""}</td>
+                  )
+                ))}
+                <td><span class={`gta-status gta-status-${row.status}`}>{row.status}</span></td>
+                <td>{new Date(row.created_at).toLocaleDateString()}</td>
+                <td class="gta-row-chevron" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="gta-cards">
+      {rows.length === 0 && <div class="gta-empty">No submissions yet</div>}
+      {parsedRows.map(({ row, data }) => {
+        const href = `/grand-table/admin/${activeForm.id}/${row.id}`;
+        const primary = data[columns[0].name] || "Not provided";
+        const secondary = columns[1] ? data[columns[1].name] : "";
+        const email = emailColumn ? data[emailColumn.name] : "";
+        return (
+          <a class="gta-card" href={href}>
+            <div class="gta-card-top">
+              <span class="gta-card-name">{primary}</span>
+              {secondary && <span class="gta-card-company">{secondary}</span>}
+            </div>
+            {email && <div class="gta-card-email">{email}</div>}
+            <div class="gta-card-meta">
+              <span class={`gta-status gta-status-${row.status}`}>{row.status}</span>
+              <span class="gta-card-date">{new Date(row.created_at).toLocaleDateString()}</span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <div class="gta-pagination">
+      <span>Page {page} of {totalPages}, {total} total</span>
+      <div class="gta-pagination-links">
+        {page > 1 && <a href={buildUrl({ page: page - 1 })}>Previous</a>}
+        {page < totalPages && <a href={buildUrl({ page: page + 1 })}>Next</a>}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll<HTMLTableRowElement>(".gta-row[data-href]").forEach((row) => {
+      row.addEventListener("click", (e) => {
+        if ((e.target as HTMLElement).closest("a")) return;
+        const href = row.dataset.href;
+        if (href) window.location.href = href;
+      });
+    });
+  </script>
+</Layout>

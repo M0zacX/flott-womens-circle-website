@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "../layouts/Layout.astro";
 import { Header } from "../components/Header";
 import FooterSection from "../components/FooterSection.astro";
@@ -111,31 +113,37 @@ const highlights = [
     num: "01",
     title: "Enterprise Showcase",
     description: "Selected enterprises present their businesses to investors and partners.",
+    icon: '<rect x="4" y="4" width="20" height="13" rx="1"/><line x1="14" y1="17" x2="14" y2="23"/><line x1="9" y1="23" x2="19" y2="23"/>',
   },
   {
     num: "02",
     title: "Investor Meetings",
     description: "Structured conversations between enterprises and investors.",
+    icon: '<circle cx="11" cy="14" r="7"/><circle cx="17" cy="14" r="7"/>',
   },
   {
     num: "03",
     title: "International Delegations",
     description: "Delegates from Nigeria, the UAE, India and other markets.",
+    icon: '<circle cx="14" cy="14" r="10"/><ellipse cx="14" cy="14" rx="4.2" ry="10"/><line x1="4" y1="14" x2="24" y2="14"/>',
   },
   {
     num: "04",
     title: "Sector Sessions",
     description: "Focused discussions across the seven priority sectors.",
+    icon: '<rect x="4" y="4" width="8" height="8" rx="1"/><rect x="16" y="4" width="8" height="8" rx="1"/><rect x="4" y="16" width="8" height="8" rx="1"/><rect x="16" y="16" width="8" height="8" rx="1"/>',
   },
   {
     num: "05",
     title: "Partnership Building",
     description: "Introductions that open strategic partnerships and market access.",
+    icon: '<path d="M11.5 17.5a5 5 0 0 1 0-7.07l2-2a5 5 0 0 1 7.07 7.07l-1 1"/><path d="M16.5 10.5a5 5 0 0 1 0 7.07l-2 2a5 5 0 0 1-7.07-7.07l1-1"/>',
   },
   {
     num: "06",
     title: "Networking",
     description: "Time to connect with business leaders, institutions and sponsors.",
+    icon: '<circle cx="7" cy="8" r="3"/><circle cx="21" cy="8" r="3"/><circle cx="14" cy="21" r="3"/><line x1="9.5" y1="10" x2="12" y2="18.5"/><line x1="18.5" y1="10" x2="16" y2="18.5"/><line x1="10" y1="8" x2="18" y2="8"/>',
   },
 ];
 
@@ -202,6 +210,8 @@ const enterpriseSteps = [
     description: "Prepare for showcase and investor meetings in Abuja.",
   },
 ];
+
+const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 ---
 
 <Layout
@@ -211,6 +221,7 @@ const enterpriseSteps = [
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
+  <script is:inline define:vars={{ live: formsLive }}>window.GT_FORMS_LIVE = live;</script>
 
   <main class="overflow-x-clip">
     <Header client:load currentPath="/grand-table" variant="gold" />
@@ -760,38 +771,50 @@ const enterpriseSteps = [
         </div>
 
         <!-- DRAFT COPY: brief lists 6 highlights without detail; replace with client wording -->
-        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
-          {highlights.map((highlight, index) => (
-            <div
-              class="gt-highlight-card reveal border-t pt-6"
-              style={`border-color: rgba(201,169,110,0.25); transition-delay: ${index * 0.08}s;`}
-            >
-              <span class="block text-[2rem] leading-none" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{highlight.num}</span>
-              <h3 class="mt-3 text-base font-medium text-[#F5F0E6]">{highlight.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{highlight.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+        <div class="relative mx-auto mt-14 max-w-6xl md:mt-16">
+          <div
+            id="gt-highlight-strip"
+            class="gt-highlight-strip flex gap-5 overflow-x-auto pb-3"
+            tabindex="0"
+            role="region"
+            aria-label="Event highlights"
+          >
+            {highlights.map((highlight, index) => (
+              <div
+                class="gt-highlight-frame reveal group relative aspect-[3/4] w-[76vw] shrink-0 overflow-hidden rounded-2xl border md:w-[300px]"
+                style={`border-color: rgba(230,211,163,0.2); transition-delay: ${index * 0.08}s;`}
+              >
+                <div class={`gt-frame-bg gt-frame-bg-${index + 1} absolute inset-0`} aria-hidden="true"></div>
+                <svg class="absolute inset-0 h-full w-full opacity-40 mix-blend-overlay" aria-hidden="true">
+                  <rect width="100%" height="100%" filter="url(#gt-noise)"></rect>
+                </svg>
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, transparent 36%, #0B0B0C 92%);" aria-hidden="true"></div>
 
-      <!-- Marquee strip: tiny duplicate of the six highlight titles, decorative only -->
-      <div class="gt-strip relative w-full overflow-hidden border-t border-b" style="border-color: rgba(201,169,110,0.2);" aria-hidden="true">
-        <div class="gt-strip-track flex w-max items-center">
-          <div class="gt-strip-set flex items-center gap-4 whitespace-nowrap py-2.5 pr-4 sm:gap-6 sm:py-3 sm:pr-6">
-            {highlights.map((highlight) => (
-              <span class="inline-flex items-center gap-4 sm:gap-6">
-                <span class="text-[9px] uppercase tracking-[0.3em] text-[#C9A96E]/70 sm:text-[10px]">{highlight.title}</span>
-                <span class="text-[7px] text-[#C9A96E]/40 sm:text-[8px]">&#9670;</span>
-              </span>
+                <div class="relative z-10 flex h-full flex-col justify-end p-5 md:p-6">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <Fragment set:html={highlight.icon} />
+                  </svg>
+                  <h3 class="gt-frame-title relative mt-4 text-[1.5rem] text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">
+                    {highlight.title}
+                  </h3>
+                  <p class="gt-frame-desc mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{highlight.description}</p>
+                </div>
+              </div>
             ))}
           </div>
-          <div class="gt-strip-set flex items-center gap-4 whitespace-nowrap py-2.5 pr-4 sm:gap-6 sm:py-3 sm:pr-6">
-            {highlights.map((highlight) => (
-              <span class="inline-flex items-center gap-4 sm:gap-6">
-                <span class="text-[9px] uppercase tracking-[0.3em] text-[#C9A96E]/70 sm:text-[10px]">{highlight.title}</span>
-                <span class="text-[7px] text-[#C9A96E]/40 sm:text-[8px]">&#9670;</span>
-              </span>
-            ))}
+
+          <div class="mt-5 flex items-center gap-5">
+            <div class="hidden items-center gap-3 lg:flex">
+              <button id="gt-strip-prev" type="button" aria-label="Previous highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+              </button>
+              <button id="gt-strip-next" type="button" aria-label="Next highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+            <div class="relative h-px flex-1" style="background: rgba(201,169,110,0.18);">
+              <div id="gt-strip-progress" class="absolute left-0 top-0 h-full" style="background: #C9A96E; width: 16.666%;"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1179,21 +1202,151 @@ const enterpriseSteps = [
     }
   }
 
-  .gt-highlight-card {
-    transition: border-color 0.6s ease, box-shadow 0.6s ease;
+  .gt-highlight-strip {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scrollbar-width: none;
+  }
+
+  .gt-highlight-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gt-highlight-strip:focus-visible {
+    outline: 2px solid #E6D3A3;
+    outline-offset: 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gt-highlight-strip {
+      cursor: grab;
+    }
+
+    .gt-highlight-strip.gt-strip-grabbing {
+      cursor: grabbing;
+    }
+  }
+
+  .gt-highlight-frame {
+    scroll-snap-align: start;
+    transition: border-color 0.6s ease;
+  }
+
+  .gt-frame-bg {
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-frame-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 1px;
+    width: 0;
+    background: #C9A96E;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-frame-desc {
+    opacity: 0.6;
+    transform: translateY(6px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gt-highlight-frame:hover {
+      border-color: rgba(230,211,163,0.6);
+    }
+
+    .gt-highlight-frame:hover .gt-frame-title::after {
+      width: 48px;
+    }
+
+    .gt-highlight-frame:hover .gt-frame-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .gt-highlight-frame:hover .gt-frame-bg {
+      transform: scale(1.04);
+    }
+  }
+
+  .gt-strip-arrow {
+    transition: border-color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
   }
 
   @media (hover: hover) {
-    .gt-highlight-card:hover {
-      border-color: rgba(201,169,110,0.9);
-      box-shadow: 0 0 40px -12px rgba(201,169,110,0.5);
+    .gt-strip-arrow:not(:disabled):hover {
+      border-color: #C9A96E;
+      background-color: rgba(201,169,110,0.1);
     }
   }
 
+  .gt-strip-arrow:focus-visible {
+    outline: 2px solid #E6D3A3;
+    outline-offset: 2px;
+  }
+
+  .gt-strip-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .gt-highlight-card {
+    .gt-highlight-frame,
+    .gt-frame-bg,
+    .gt-frame-title::after,
+    .gt-frame-desc,
+    .gt-strip-arrow {
       transition: none;
     }
+  }
+
+  .gt-frame-bg-1 {
+    background:
+      radial-gradient(60% 50% at 50% -10%, rgba(230,211,163,0.35), transparent 70%),
+      linear-gradient(100deg, transparent 40%, rgba(230,211,163,0.16) 50%, transparent 60%),
+      linear-gradient(80deg, transparent 44%, rgba(230,211,163,0.12) 50%, transparent 56%),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-2 {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(230,211,163,0.22), transparent 30%),
+      repeating-radial-gradient(circle at 50% 42%, rgba(230,211,163,0.14) 0, rgba(230,211,163,0.14) 1px, transparent 1px, transparent 22px),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-3 {
+    background:
+      linear-gradient(to bottom, transparent 0%, rgba(230,211,163,0.18) 46%, rgba(230,211,163,0.06) 50%, transparent 54%),
+      repeating-linear-gradient(to bottom, rgba(230,211,163,0.07) 0, rgba(230,211,163,0.07) 1px, transparent 1px, transparent 16px),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-4 {
+    background:
+      radial-gradient(circle, rgba(230,211,163,0.4) 1px, transparent 1.6px) 0 0 / 24px 24px,
+      radial-gradient(60% 50% at 50% 100%, rgba(201,169,110,0.14), transparent 70%),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-5 {
+    background:
+      repeating-linear-gradient(118deg, rgba(230,211,163,0.03) 0px, rgba(230,211,163,0.14) 3px, transparent 42px, transparent 84px),
+      radial-gradient(50% 50% at 30% 20%, rgba(230,211,163,0.12), transparent 70%),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-6 {
+    background:
+      repeating-linear-gradient(45deg, rgba(230,211,163,0.12) 0, rgba(230,211,163,0.12) 1.5px, transparent 1.5px, transparent 13px),
+      repeating-linear-gradient(-45deg, rgba(230,211,163,0.1) 0, rgba(230,211,163,0.1) 1.5px, transparent 1.5px, transparent 13px),
+      #0B0B0C;
   }
 
   .gt-faq-item summary {
@@ -1293,31 +1446,6 @@ const enterpriseSteps = [
     box-shadow: 0 0 4px rgba(201,169,110,0.55);
   }
 
-  .gt-strip-track {
-    animation: gtStripScroll 40s linear infinite;
-  }
-
-  @media (hover: hover) {
-    .gt-strip:hover .gt-strip-track {
-      animation-play-state: paused;
-    }
-  }
-
-  @keyframes gtStripScroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .gt-strip-track {
-      animation: none;
-      flex-wrap: wrap;
-      width: auto;
-    }
-    .gt-strip-set:nth-of-type(2) {
-      display: none;
-    }
-  }
 </style>
 
 <script>
@@ -1370,6 +1498,97 @@ const enterpriseSteps = [
       });
     });
   });
+
+  // Event Experience highlight strip: arrow nav, progress hairline, pointer drag-to-scroll
+  const gtStrip = document.getElementById("gt-highlight-strip");
+  if (gtStrip) {
+    // Frames live in a horizontally scrolling row, so the shared per-element reveal
+    // observer never sees frames parked off-screen to the right. Reveal them all together
+    // when the strip itself enters the viewport; each frame's own transition-delay staggers it.
+    const gtFrames = Array.from(gtStrip.querySelectorAll<HTMLElement>(".gt-highlight-frame"));
+    const gtStripObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          gtFrames.forEach((frame) => frame.classList.add("visible"));
+          gtStripObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
+    );
+    gtStripObserver.observe(gtStrip);
+
+    const gtPrev = document.getElementById("gt-strip-prev") as HTMLButtonElement | null;
+    const gtNext = document.getElementById("gt-strip-next") as HTMLButtonElement | null;
+    const gtProgress = document.getElementById("gt-strip-progress") as HTMLElement | null;
+
+    const gtFrameStep = () => {
+      const frame = gtStrip.querySelector(".gt-highlight-frame") as HTMLElement | null;
+      const gap = parseFloat(getComputedStyle(gtStrip).columnGap || "0") || 20;
+      return (frame ? frame.getBoundingClientRect().width : gtStrip.clientWidth) + gap;
+    };
+
+    const gtUpdateStripUI = () => {
+      const max = gtStrip.scrollWidth - gtStrip.clientWidth;
+      const ratio = max > 0 ? gtStrip.scrollLeft / max : 0;
+      if (gtProgress) gtProgress.style.width = `${Math.min(100, Math.max(6, ratio * 100))}%`;
+      if (gtPrev) gtPrev.disabled = gtStrip.scrollLeft <= 2;
+      if (gtNext) gtNext.disabled = gtStrip.scrollLeft >= max - 2;
+    };
+
+    gtPrev?.addEventListener("click", () => {
+      gtStrip.scrollBy({ left: -gtFrameStep(), behavior: "smooth" });
+    });
+    gtNext?.addEventListener("click", () => {
+      gtStrip.scrollBy({ left: gtFrameStep(), behavior: "smooth" });
+    });
+
+    gtStrip.addEventListener("scroll", gtUpdateStripUI, { passive: true });
+    window.addEventListener("resize", gtUpdateStripUI);
+    gtUpdateStripUI();
+
+    // Pointer drag-to-scroll for mouse/pen; touch keeps native swipe
+    let gtDragging = false;
+    let gtDragMoved = false;
+    let gtStartX = 0;
+    let gtStartScroll = 0;
+
+    gtStrip.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return;
+      gtDragging = true;
+      gtDragMoved = false;
+      gtStartX = e.clientX;
+      gtStartScroll = gtStrip.scrollLeft;
+      gtStrip.classList.add("gt-strip-grabbing");
+    });
+
+    gtStrip.addEventListener("pointermove", (e) => {
+      if (!gtDragging) return;
+      const dx = e.clientX - gtStartX;
+      if (Math.abs(dx) > 3) gtDragMoved = true;
+      gtStrip.scrollLeft = gtStartScroll - dx;
+    });
+
+    const gtEndDrag = () => {
+      gtDragging = false;
+      gtStrip.classList.remove("gt-strip-grabbing");
+    };
+    gtStrip.addEventListener("pointerup", gtEndDrag);
+    gtStrip.addEventListener("pointerleave", gtEndDrag);
+    gtStrip.addEventListener("pointercancel", gtEndDrag);
+
+    // Only swallow the click that follows an actual drag; normal taps pass through untouched
+    gtStrip.addEventListener(
+      "click",
+      (e) => {
+        if (gtDragMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      { capture: true }
+    );
+  }
 
   // Safety net: if the shared IntersectionObserver ever misses an element,
   // force it visible after 2.5s so nothing stays permanently hidden.
