@@ -25,7 +25,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 
 // SEO: schema.org Event built from grand-table-event.ts
 const GT_SITE = "https://flottwomenscircle.com";
-const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle connecting enterprises, investors and global opportunities. ${venue.name}, ${event.date.display}.`;
+const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions, connecting enterprises, investors and global opportunities. Abuja, Nigeria, ${event.date.display}.`;
 const gtDelegatePrice = Number(String(event.fees.delegate).replace(/[^0-9.]/g, ""));
 const gtEventJsonLd = {
   "@context": "https://schema.org",
@@ -37,10 +37,9 @@ const gtEventJsonLd = {
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   location: {
     "@type": "Place",
-    name: venue.officialName,
+    name: "Abuja",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Herbert Macaulay Way, Central Area",
       addressLocality: "Abuja",
       addressRegion: "FCT",
       addressCountry: "NG",
@@ -792,21 +791,7 @@ const gtEventJsonLd = {
               {copy.venue.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.venue.headingEmphasis}</span>
             </h2>
 
-            <p class="reveal mt-5 text-sm leading-relaxed text-[#0B0B0C]/70" style="transition-delay: 0.18s;">{venue.name}</p>
-            <p class="reveal mt-1 text-xs uppercase tracking-[0.2em] text-[#0B0B0C]/50" style="transition-delay: 0.22s;">{venue.officialName}</p>
-            <p class="reveal mt-3 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">{venue.address}</p>
-            <p class="reveal mt-2 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.3s;">{event.date.display}</p>
-
-            <a
-              href={venue.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="reveal mt-6 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#9A7B45] transition-all duration-300 hover:gap-3 hover:text-[#0B0B0C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45]"
-              style="transition-delay: 0.36s;"
-            >
-              {copy.venue.directionsLabel}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
+            <p class="reveal mt-5 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.18s;">{event.date.display}</p>
           </div>
 
           <div class="reveal" style="transition-delay: 0.2s;">

@@ -40,7 +40,7 @@ function baseTemplate(bodyHtml: string): string {
             </tr>
             <tr>
               <td style="padding:20px 32px;border-top:1px solid rgba(154,123,69,0.2);text-align:center;background:#FFFFFF;">
-                <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(11,11,12,0.5);">An initiative of Flott Women's Circle</div>
+                <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(11,11,12,0.5);">An initiative of Flott Women's Circle, in collaboration with the Indo-African Chamber of Commerce &amp; Industry and Smart Solutions</div>
               </td>
             </tr>
           </table>
