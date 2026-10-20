@@ -134,8 +134,7 @@
   color: var(--gta-champagne);
 }
 
-.gta-logout,
-.gta-back {
+.gta-logout {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -614,3 +613,18 @@
     transform: translateY(8px);
   }
 }
+
+.gta-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6f5730;
+  text-decoration: none;
+}
+.gta-back::before { content: "\2190"; }
+.gta-back:hover { color: #0b0b0c; }
+.gta-back:focus-visible { outline: 2px solid #9a7b45; outline-offset: 3px; }
