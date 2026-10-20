@@ -2,7 +2,7 @@
 
 ## Research (2026-10-20)
 ### Global Entrepreneurship Festival Egypt (globalentrepreneurshipfestival.com)
-- Hero leads with date + venue line and a live countdown — urgency works for registration launch (29 Oct). Use a countdown to 5 Dec 2026.
+- Hero leads with date + venue line and a live countdown — urgency works for registration launch (29 Oct). Use a countdown to 6 Dec 2026.
 - Big stat strip (10,000+ delegates, 70+ countries, 200+ investors). We should use a restrained stat row (Markets: Nigeria · UAE · India) — no invented numbers until client confirms.
 - Weakness: busy, conversion-heavy, many tiers on homepage. We go calmer and more luxurious; tiers live on Sponsorship page.
 - Clear multi-audience CTAs (tickets, exhibit, sponsor) — mirrors our 4 buttons; make one primary, three secondary.

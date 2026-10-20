@@ -63,10 +63,10 @@ export const event = {
   tagline: "Connecting Enterprises, Investors & Global Opportunities",
 
   date: {
-    iso: "2026-12-05",
-    display: "5 December 2026",
-    short: "05.12.26",
-    countdownTarget: "2026-12-05T09:00:00+01:00",
+    iso: "2026-12-06",
+    display: "6 December 2026",
+    short: "06.12.26",
+    countdownTarget: "2026-12-06T09:00:00+01:00",
   },
 
   city: "Abuja",
