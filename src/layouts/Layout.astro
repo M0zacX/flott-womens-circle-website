@@ -4,9 +4,14 @@ import "../styles/globals.css";
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogImage?: string;
 }
+const SITE = "https://flottwomenscircle.com";
 const {
   title,
+  canonical,
+  ogImage,
   description = "Flott Women's Circle - A women-focused wellness, personal development, and empowerment community rooted in Nigeria and growing across the MENA region.",
 } = Astro.props;
 ---
@@ -22,6 +27,15 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    {canonical && <link rel="canonical" href={new URL(canonical, SITE).href} />}
+    {canonical && <meta property="og:url" content={new URL(canonical, SITE).href} />}
+    <meta property="og:site_name" content="Flott Women's Circle" />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, SITE).href} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={new URL(ogImage, SITE).href} />}
+    <slot name="head" />
     <title>{title}</title>
   </head>
   <body class="bg-background text-foreground antialiased">
