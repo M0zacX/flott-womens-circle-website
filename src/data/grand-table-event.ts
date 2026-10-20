@@ -89,10 +89,10 @@ export const event = {
     } satisfies EventImage,
     gallery: [
       {
-        src: "/images/grand-table/venue/venue-facade-1080.webp",
-        alt: "Glass-fronted event venue entrance in Abuja",
-        width: 1080,
-        height: 506,
+        src: "/images/grand-table/venue/venue-hall-detail-1400.webp",
+        alt: "Banquet tables set in the event hall",
+        width: 1400,
+        height: 933,
       },
       {
         src: "/images/grand-table/venue/venue-entrance-1400.webp",
@@ -102,9 +102,9 @@ export const event = {
         height: 933,
       },
       {
-        src: "/images/grand-table/venue/venue-hall-detail-1400.webp",
-        srcSmall: "/images/grand-table/venue/venue-hall-detail-800.webp",
-        alt: "Banquet tables set in the event hall",
+        src: "/images/grand-table/venue/venue-hall-1512.webp",
+        srcSmall: "/images/grand-table/venue/venue-hall-960.webp",
+        alt: "Grand event hall in Abuja",
         width: 1400,
         height: 933,
       },
