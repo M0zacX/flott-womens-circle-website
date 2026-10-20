@@ -22,5 +22,13 @@ id = "3e8c3a8171c647ba8af69af4acfab48b"
 [vars]
 EMAIL_ENABLED = "false"
 PAYMENTS_ENABLED = "false"
-EMAIL_FROM = "info@flottwomenscircle.com"
+EMAIL_FROM = "notify@notify.flottwomenscircle.com"
+EMAIL_FROM_NAME = "The Grand Table 2026"
 ADMIN_NOTIFY_TO = "info@flottwomenscircle.com"
+
+# Cloudflare send_email binding: free admin notifications to verified destinations only.
+# Requires Email Routing enabled on the notify.flottwomenscircle.com SUBDOMAIN (root MX stays on Zoho)
+# and info@flottwomenscircle.com verified as a destination address.
+[[send_email]]
+name = "SEND_EMAIL"
+allowed_destination_addresses = ["info@flottwomenscircle.com"]

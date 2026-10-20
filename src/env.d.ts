@@ -45,7 +45,10 @@ type GTRuntimeEnv = {
   EMAIL_FROM: string;
   ADMIN_NOTIFY_TO: string;
   ADMIN_PASSWORD: string;
-  RESEND_API_KEY: string;
+  RESEND_API_KEY?: string;
+  EMAIL_FROM_NAME?: string;
+  GT_TEST_SUBJECTS?: string;
+  SEND_EMAIL?: import("./lib/gt/email").SendEmailBinding;
   SESSION_SECRET: string;
 };
 

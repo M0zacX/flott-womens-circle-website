@@ -5,10 +5,13 @@ import { validateSubmission } from "../../../../lib/gt/validate";
 import { insertSubmission } from "../../../../lib/gt/db";
 import { enterpriseFileKey, putFile } from "../../../../lib/gt/storage";
 import { sendEmail } from "../../../../lib/gt/email";
-import { confirmationEmail, adminNotificationEmail } from "../../../../lib/gt/templates";
+import { confirmationEmail, adminNotificationEmail, type AdminFileInfo } from "../../../../lib/gt/templates";
 import { formatDateTime } from "../../../../lib/gt/dates";
 
 export const prerender = false;
+
+// Attach PDFs up to 8 MB; larger ones are linked to the admin download instead.
+const MAX_ATTACH_BYTES = 8 * 1024 * 1024;
 
 const HONEYPOT_FIELD = "company_website_hp";
 
@@ -87,9 +90,26 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
 
   if (adminRecipients.length > 0) {
     try {
-      const adminUrl = `${new URL(request.url).origin}/grand-table/admin/${form.id}/${id}`;
-      const { subject, html } = adminNotificationEmail(form, data, formatDateTime(createdAt), adminUrl);
-      await sendEmail(env, { to: adminRecipients, subject, html });
+      const origin = new URL(request.url).origin;
+      const adminUrl = `${origin}/grand-table/admin/${form.id}/${id}`;
+      const hasFileField = form.fields.some((f) => f.type === "file");
+      let fileInfo: AdminFileInfo = { state: "none" };
+      const attachments = [];
+      if (file && fileKey && fileName) {
+        if (file.size <= MAX_ATTACH_BYTES) {
+          attachments.push({ filename: fileName, contentType: "application/pdf", content: await file.arrayBuffer() });
+          fileInfo = { state: "attached", name: fileName, size: file.size };
+        } else {
+          fileInfo = { state: "linked", name: fileName, size: file.size, url: `${origin}/grand-table/admin/file/${id}` };
+        }
+      } else if (hasFileField && !uploadsEnabled) {
+        fileInfo = { state: "uploads-off" };
+      }
+      const { subject, html, text } = adminNotificationEmail(form, data, formatDateTime(createdAt), adminUrl, {
+        file: fileInfo,
+        isTest: env.GT_TEST_SUBJECTS === "true",
+      });
+      await sendEmail(env, { to: adminRecipients, subject, html, text, replyTo: data.email, attachments });
     } catch (error) {
       console.error("admin notification email failed", error);
     }

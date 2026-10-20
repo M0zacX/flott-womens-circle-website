@@ -24,7 +24,7 @@ function baseTemplate(bodyHtml: string): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0E6;">
       <tr>
         <td align="center" style="padding:32px 16px;">
-          <table role="presentation" width="100%" style="max-width:560px;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid rgba(154,123,69,0.25);">
+          <table role="presentation" width="100%" style="max-width:640px;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid rgba(154,123,69,0.25);">
             <tr>
               <td style="background:#0B0B0C;padding:28px 32px;text-align:center;">
                 <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:0.02em;color:#F5F0E6;">The Grand Table <span style="color:#C9A96E;font-style:italic;">2026</span></div>
@@ -89,32 +89,109 @@ export function confirmationEmail(form: FormConfig, name: string): { subject: st
   return { subject: copy.subject, html: baseTemplate(body) };
 }
 
+const FORM_SHORT: Record<string, { name: string; kind: string }> = {
+  enterprise: { name: "Enterprise", kind: "registration" },
+  delegate: { name: "Delegate", kind: "registration" },
+  sponsor: { name: "Sponsor", kind: "enquiry" },
+  contact: { name: "Contact", kind: "enquiry" },
+};
+
+export type AdminFileInfo =
+  | { state: "attached"; name: string; size: number }
+  | { state: "linked"; name: string; size: number; url: string }
+  | { state: "uploads-off" }
+  | { state: "none" };
+
+function formatBytes(n: number): string {
+  if (n < 1024 * 1024) return `${Math.max(1, Math.round(n / 1024))} KB`;
+  return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function linkify(field: { type: string }, value: string): string {
+  const safe = escapeHtml(value);
+  if (field.type === "email") return `<a href="mailto:${safe}" style="color:#9A7B45;text-decoration:underline;">${safe}</a>`;
+  if (field.type === "tel") return `<a href="tel:${safe.replace(/[^0-9+]/g, "")}" style="color:#0B0B0C;text-decoration:none;">${safe}</a>`;
+  if (field.type === "url" && /^https?:\/\//i.test(value)) return `<a href="${safe}" style="color:#9A7B45;text-decoration:underline;">${safe}</a>`;
+  return safe.replace(/\n/g, "<br />");
+}
+
 export function adminNotificationEmail(
   form: FormConfig,
   data: Record<string, string>,
   submittedAtWat: string,
-  adminUrl: string
-): { subject: string; html: string } {
-  const subject = `New ${form.title} submission`;
-  const rows = form.fields
-    .slice(0, 6)
-    .map((field) => {
-      const value = field.type === "file" ? "" : data[field.name] || "Not provided";
-      return `
+  adminUrl: string,
+  opts: { file?: AdminFileInfo; isTest?: boolean } = {}
+): { subject: string; html: string; text: string } {
+  const short = FORM_SHORT[form.id] ?? { name: form.title, kind: "submission" };
+  const who = data.companyName || data.organisation || data.organization || data.fullName || data.contactName || data.email || "New applicant";
+  const subject = `${opts.isTest ? "[TEST] " : ""}New ${short.name} ${short.kind} – ${who}`;
+  const file = opts.file ?? { state: "none" };
+
+  const rowsData = form.fields.map((field) => {
+    if (field.type === "file") {
+      let html: string, text: string;
+      if (file.state === "attached") {
+        html = `${escapeHtml(file.name)} <span style="color:rgba(11,11,12,0.5);">(${formatBytes(file.size)}, attached to this email)</span>`;
+        text = `${file.name} (attached)`;
+      } else if (file.state === "linked") {
+        html = `<a href="${escapeHtml(file.url)}" style="color:#9A7B45;text-decoration:underline;">${escapeHtml(file.name)}</a> <span style="color:rgba(11,11,12,0.5);">(${formatBytes(file.size)}, too large to attach – sign in to download)</span>`;
+        text = `${file.name}: ${file.url}`;
+      } else if (file.state === "uploads-off") {
+        html = `<span style="color:rgba(11,11,12,0.5);">Uploads not open yet – please request the PDF by reply</span>`;
+        text = "Uploads not open yet";
+      } else {
+        html = `<span style="color:rgba(11,11,12,0.4);">Not provided</span>`;
+        text = "Not provided";
+      }
+      return { label: field.label, html, text };
+    }
+    const value = data[field.name];
+    return value
+      ? { label: field.label, html: linkify(field, value), text: value }
+      : { label: field.label, html: `<span style="color:rgba(11,11,12,0.4);">Not provided</span>`, text: "Not provided" };
+  });
+
+  const rows = rowsData
+    .map(
+      (r, i) => `
         <tr>
-          <td style="padding:6px 12px 6px 0;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(11,11,12,0.5);vertical-align:top;white-space:nowrap;">${escapeHtml(field.label)}</td>
-          <td style="padding:6px 0;font-size:13px;color:#0B0B0C;vertical-align:top;">${escapeHtml(value)}</td>
-        </tr>`;
-    })
+          <td style="padding:12px 14px;width:38%;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:600;color:rgba(11,11,12,0.6);vertical-align:top;background:${i % 2 ? "#FFFFFF" : "#FBF8F2"};border-bottom:1px solid rgba(154,123,69,0.15);">${escapeHtml(r.label)}</td>
+          <td style="padding:12px 14px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#0B0B0C;vertical-align:top;background:${i % 2 ? "#FFFFFF" : "#FBF8F2"};border-bottom:1px solid rgba(154,123,69,0.15);word-break:break-word;">${r.html}</td>
+        </tr>`
+    )
     .join("");
 
+  const replyHint = data.email
+    ? `<p style="margin:0 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:rgba(11,11,12,0.65);">Reply to this email to answer ${escapeHtml(who)} directly.</p>`
+    : "";
+
+  const testBanner = opts.isTest
+    ? `<div style="margin:0 0 20px;padding:10px 14px;border-radius:8px;background:#FFF4D6;border:1px solid #E6C766;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6B5310;">This is a test submission. No action needed.</div>`
+    : "";
+
   const body = `
-    <h1 style="margin:0 0 16px;font-size:20px;font-weight:400;color:#0B0B0C;">${subject}</h1>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+    ${testBanner}
+    <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9A7B45;margin:0 0 8px;">${escapeHtml(form.title)}</div>
+    <h1 style="margin:0 0 6px;font-size:24px;font-weight:400;line-height:1.3;color:#0B0B0C;">${escapeHtml(who)}</h1>
+    <p style="margin:0 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:rgba(11,11,12,0.55);">Submitted ${escapeHtml(submittedAtWat)}</p>
+    ${replyHint}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid rgba(154,123,69,0.2);border-radius:8px;overflow:hidden;margin:0 0 24px;">
       ${rows}
     </table>
-    <p style="margin:0 0 24px;font-size:12px;color:rgba(11,11,12,0.55);">Submitted ${escapeHtml(submittedAtWat)}</p>
-    <a href="${adminUrl}" style="display:inline-block;background:#0B0B0C;color:#F5F0E6;text-decoration:none;padding:12px 24px;border-radius:9999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Open in admin</a>
+    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:rgba(11,11,12,0.45);">All submissions are also saved in the <a href="${escapeHtml(adminUrl)}" style="color:#9A7B45;">admin panel</a>.</p>
   `;
-  return { subject, html: baseTemplate(body) };
+
+  const text = [
+    opts.isTest ? "[TEST SUBMISSION]" : "",
+    `${form.title}: ${who}`,
+    `Submitted ${submittedAtWat}`,
+    "",
+    ...rowsData.map((r) => `${r.label}: ${r.text}`),
+    "",
+    `Admin: ${adminUrl}`,
+  ]
+    .filter((l, i) => l !== "" || i > 0)
+    .join("\n");
+
+  return { subject, html: baseTemplate(body), text };
 }

@@ -126,3 +126,11 @@ Run in order:
 11. PR #1's `wrangler.jsonc` must **not** be merged as-is: it conflicts with this branch's `wrangler.toml` (duplicate config, and it is missing the D1/R2/KV bindings this app needs). Reconcile into a single config before merging.
 12. Later: add a Cloudflare Access policy in front of `/grand-table/admin*` as a second auth layer.
 13. Payments stay `PAYMENTS_ENABLED=false` until the client approves a provider and flow.
+
+## Email delivery (primary channel for the client)
+
+Every submission emails info@flottwomenscircle.com (`ADMIN_NOTIFY_TO`) with all fields in a label/value table, the PDF attached (≤ 8 MB, otherwise an admin download link), and Reply-To set to the registrant. Subject: `New <Form> registration – <Company/Name>` (`[TEST]` prefix when `GT_TEST_SUBJECTS=true`).
+
+- Admin notifications: Cloudflare `send_email` binding `SEND_EMAIL`, sender `notify@notify.flottwomenscircle.com`. Free. Needs Email Routing on the `notify.` subdomain only (root MX stays on Zoho) and info@ verified as a destination.
+- Registrant confirmations: `send_email` can't reach unverified addresses, so they go through Resend (`RESEND_API_KEY`, domain verified via DNS on a subdomain) or Cloudflare Email Sending (Workers Paid). Without either, confirmations are skipped and logged.
+- Nothing sends unless `EMAIL_ENABLED=true`.
