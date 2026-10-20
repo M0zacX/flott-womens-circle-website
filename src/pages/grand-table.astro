@@ -68,6 +68,29 @@ const sectors = [
     description: "Cross-border trade, logistics networks and international business services.",
   },
 ];
+
+const enterpriseSteps = [
+  {
+    num: "01",
+    title: "Submit your Expression of Interest",
+    description: "Complete the online form and upload your company profile as a PDF.",
+  },
+  {
+    num: "02",
+    title: "Review",
+    description: "Our team reviews every submission.",
+  },
+  {
+    num: "03",
+    title: "Confirmation",
+    description: "Shortlisted enterprises are contacted with next steps.",
+  },
+  {
+    num: "04",
+    title: "Participate",
+    description: "Prepare for showcase and investor meetings in Abuja.",
+  },
+];
 ---
 
 <Layout
@@ -227,7 +250,7 @@ const sectors = [
         </div>
 
         <!-- Bottom credit strip -->
-        <div class="relative border-t px-6 py-4 md:px-12 lg:px-20 lg:py-4" style="border-color: rgba(201,169,110,0.15);">
+        <div id="gt-credit-strip" class="gt-credit-strip relative border-t px-6 py-4 md:px-12 lg:px-20 lg:py-4" style="border-color: rgba(201,169,110,0.15);">
           <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 text-center sm:gap-4">
             <div class="flex items-center gap-3">
               <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/40">Initiated by</span>
@@ -240,7 +263,14 @@ const sectors = [
       </div>
 
       <!-- Fade through warm dark into ivory, carrying the table motif to the seam -->
-      <div class="relative h-40 w-full" style="background: linear-gradient(to bottom, #0B0B0C 0%, #1a1612 45%, #F5F0E6 100%);" aria-hidden="true"></div>
+      <div class="relative h-40 w-full" style="background: linear-gradient(to bottom, rgba(11,11,12,0) 0%, #2a2218 52%, #F5F0E6 100%);" aria-hidden="true"></div>
+
+      <!-- Crisp gold seam line, rendered above the fade, exactly at the hero/about join -->
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 z-40 mx-auto h-px w-[70%]"
+        style="background: linear-gradient(to right, transparent, #B08D57 20%, #C9A96E 50%, #B08D57 80%, transparent); box-shadow: 0 0 4px rgba(201,169,110,0.55);"
+        aria-hidden="true"
+      ></div>
 
       <!-- Cinema-matte hairline frame (desktop) -->
       <div class="pointer-events-none absolute inset-6 z-30 hidden lg:block" style="border: 1px solid rgba(201,169,110,0.08);" aria-hidden="true"></div>
@@ -248,13 +278,6 @@ const sectors = [
 
     <!-- ══════════════ ABOUT THE EVENT ══════════════ -->
     <section id="about" class="relative overflow-hidden" style="background: #F5F0E6;">
-      <!-- Gold horizon line, straddling the hero/About seam -->
-      <div
-        class="pointer-events-none absolute left-1/2 top-0 z-20 h-px w-[60%] -translate-x-1/2 -translate-y-1/2"
-        style="background: linear-gradient(to right, transparent, rgba(201,169,110,0.55) 50%, transparent); box-shadow: 0 0 12px 2px rgba(201,169,110,0.5);"
-        aria-hidden="true"
-      ></div>
-
       <div class="px-6 pt-12 pb-20 md:px-12 md:pt-16 md:pb-28 lg:px-20 lg:pt-20 lg:pb-32">
         <div class="mx-auto max-w-5xl text-center">
           <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">About the event</p>
@@ -276,30 +299,30 @@ const sectors = [
           <div class="grid grid-cols-2 md:grid-cols-4">
             <div class="border-r border-b px-5 py-6 text-left md:border-r-0 md:border-b-0" style="border-color: rgba(154,123,69,0.35);">
               <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Format</span>
-              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Business platform</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Business platform</span>
             </div>
             <div class="border-b px-5 py-6 text-left md:border-b-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
               <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Participants</span>
-              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Enterprises, investors</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Enterprises, investors</span>
             </div>
             <div class="border-r px-5 py-6 text-left md:border-r-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
               <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Sectors</span>
-              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Seven</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Seven</span>
             </div>
             <div class="px-5 py-6 text-left md:border-l" style="border-color: rgba(154,123,69,0.35);">
               <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Tracks</span>
-              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C] md:whitespace-nowrap">Enterprise, delegate, sponsor</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Enterprise, delegate, investor, sponsor</span>
             </div>
           </div>
         </div>
 
         <!-- Objectives -->
-        <div class="mx-auto mt-10 max-w-6xl md:mt-14 lg:mt-16">
+        <div class="mx-auto mt-10 max-w-6xl md:mt-12">
           <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:items-stretch lg:gap-x-8 lg:gap-y-0">
             {objectives.map((objective, index) => (
               <div
                 class="gt-objective reveal flex items-start gap-4 border-t pt-6 lg:h-full lg:flex-col lg:items-stretch lg:gap-0 lg:pt-8 lg:pb-2"
-                style={`transition-delay: ${0.1 + index * 0.1}s;`}
+                style={`transition-delay: ${Math.min(0.1 + index * 0.1, 0.24)}s;`}
               >
                 <span class="shrink-0 text-[2rem] leading-none lg:text-[2.75rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45;">{objective.num}</span>
                 <div class="lg:mt-5">
@@ -341,15 +364,27 @@ const sectors = [
             <a
               href="#enterprise"
               aria-label={`Apply as an enterprise in ${sector.name}`}
-              class="gt-sector-row reveal grid grid-cols-[2.5rem_1fr] items-start gap-x-4 gap-y-2 border-t py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] lg:grid-cols-[3.5rem_1fr_minmax(0,24rem)] lg:items-center lg:gap-x-8 lg:gap-y-0 lg:py-[1.5rem]"
-              style={`border-color: rgba(201,169,110,0.18); transition-delay: ${0.1 + index * 0.08}s;`}
+              class="gt-sector-row reveal relative grid grid-cols-[2.5rem_1fr] items-start gap-x-4 border-t py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] lg:grid-cols-[3.5rem_1fr] lg:items-center lg:gap-x-8 lg:py-[1.5rem]"
+              style={`border-color: rgba(201,169,110,0.18); transition-delay: ${index * 0.08}s;`}
             >
               <span class="text-base md:text-lg lg:text-xl" style="font-family: 'Playfair Display', serif; font-style: italic; color: #C9A96E;">{sector.num}</span>
-              <span
-                class="gt-sector-title inline-block text-[clamp(1.5rem,4vw,2.75rem)] leading-tight text-[#F5F0E6] lg:whitespace-nowrap lg:text-[clamp(1.5rem,2.6vw,2.25rem)]"
-                style="font-family: 'Playfair Display', serif; font-weight: 400;"
-              >{sector.name}</span>
-              <span class="col-start-2 row-start-2 text-sm text-[#F5F0E6]/60 lg:col-start-3 lg:row-start-1 lg:max-w-sm lg:justify-self-end lg:text-right">{sector.description}</span>
+              <span class="flex flex-col items-start gap-2 pr-10 lg:pr-28">
+                <span
+                  class="gt-sector-title inline-block text-[clamp(1.5rem,4vw,2.75rem)] leading-tight text-[#F5F0E6] lg:whitespace-nowrap lg:text-[clamp(1.5rem,2.6vw,2.25rem)]"
+                  style="font-family: 'Playfair Display', serif; font-weight: 400;"
+                >{sector.name}</span>
+                <span class="text-[0.9rem] text-[#F5F0E6]/70">{sector.description}</span>
+              </span>
+
+              <!-- Desktop hover/focus: gold sweep + Apply label + sliding arrow -->
+              <span class="gt-sector-sweep pointer-events-none absolute inset-y-0 right-0 hidden w-2/5 lg:block" aria-hidden="true"></span>
+              <span class="gt-sector-apply pointer-events-none absolute inset-y-0 right-0 hidden items-center gap-2 pr-2 lg:flex" aria-hidden="true">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#C9A96E]">Apply</span>
+                <svg class="gt-sector-arrow h-4 w-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+
+              <!-- Touch/mobile: subtle, always-visible arrow -->
+              <svg class="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C9A96E]/40 lg:hidden" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
           ))}
           <div class="border-t" style="border-color: rgba(201,169,110,0.18);" aria-hidden="true"></div>
@@ -364,6 +399,80 @@ const sectors = [
             Apply as an Enterprise
           </a>
         </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ ENTERPRISE REGISTRATION ══════════════ -->
+    <section id="enterprise" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">For enterprises</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            Apply as an <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Enterprise</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
+            Enterprises across the seven priority sectors can submit an Expression of Interest to be considered for showcase, investor meetings and international partnership opportunities at The Grand Table 2026.
+          </p>
+        </div>
+
+        <!-- Process -->
+        <div class="relative mx-auto mt-16 max-w-5xl md:mt-20">
+          <!-- Connecting line: vertical on mobile, horizontal on desktop, running only from node 01 to node 04 -->
+          <div class="gt-process-line pointer-events-none absolute" aria-hidden="true"></div>
+
+          <div class="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
+            {enterpriseSteps.map((step, index) => (
+              <div class="gt-step reveal relative flex items-start gap-5 md:flex-col md:items-start md:gap-0" style={`transition-delay: ${index * 0.08}s;`}>
+                <span class="relative z-10 flex h-4 w-4 shrink-0 items-center justify-center md:mb-5" aria-hidden="true">
+                  <span class="h-2.5 w-2.5 rounded-full" style="background: #9A7B45; box-shadow: 0 0 0 4px #F5F0E6;"></span>
+                </span>
+                <div>
+                  <span class="block text-[11px] uppercase tracking-[0.3em] text-[#9A7B45]">{step.num}</span>
+                  <h3 class="mt-1 text-[1.25rem] text-[#0B0B0C] md:mt-2" style="font-family: 'Playfair Display', serif; font-weight: 400;">{step.title}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-[#0B0B0C]/70">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Notice -->
+        <div
+          class="reveal mx-auto mt-14 max-w-3xl rounded-xl border px-6 py-5 text-left md:mt-16 md:px-8 md:py-6"
+          style="border-color: rgba(154,123,69,0.35); transition-delay: 0.3s;"
+        >
+          <div class="flex items-start gap-3">
+            <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#9A7B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <p class="text-sm leading-relaxed text-[#0B0B0C]/70">
+              <span class="font-medium text-[#0B0B0C]">Please note:</span> submitting an Expression of Interest does not guarantee selection, investment or funding. All submissions are reviewed and successful enterprises will be contacted directly.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="reveal mt-10 flex flex-col items-center gap-3 md:mt-12" style="transition-delay: 0.4s;">
+          <a
+            href="#enterprise-form"
+            class="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45]"
+            style="background: #0B0B0C; color: #F5F0E6; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Start your application
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <span class="text-[11px] uppercase tracking-[0.25em] text-[#0B0B0C]/45">Form opens with launch on 29 October 2026</span>
+        </div>
+
+        <!-- Placeholder for the Expression of Interest form; fields not yet confirmed -->
+        <div id="enterprise-form"></div>
       </div>
     </section>
 
@@ -487,6 +596,96 @@ const sectors = [
       transform: none;
     }
   }
+
+  .gt-process-line {
+    left: 0.5rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: rgba(154,123,69,0.3);
+  }
+
+  @media (min-width: 768px) {
+    .gt-process-line {
+      left: 8px;
+      right: calc(25% - 32px);
+      top: 0.5rem;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+  }
+
+  .gt-credit-strip {
+    transition: opacity 0.4s ease;
+  }
+
+  .gt-credit-strip.gt-strip-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-credit-strip {
+      transition: none;
+    }
+  }
+
+  .gt-sector-sweep {
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.08));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-sector-apply {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .gt-sector-arrow {
+    transform: translateX(-10px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-sector-apply {
+      opacity: 0.35;
+    }
+    .gt-sector-arrow {
+      opacity: 1;
+    }
+    .gt-sector-row:hover .gt-sector-sweep {
+      transform: scaleX(1);
+    }
+    .gt-sector-row:hover .gt-sector-apply,
+    .gt-sector-row:hover .gt-sector-arrow {
+      opacity: 1;
+    }
+    .gt-sector-row:hover .gt-sector-arrow {
+      transform: translateX(0);
+    }
+  }
+
+  .gt-sector-row:focus-visible .gt-sector-sweep {
+    transform: scaleX(1);
+  }
+  .gt-sector-row:focus-visible .gt-sector-apply,
+  .gt-sector-row:focus-visible .gt-sector-arrow {
+    opacity: 1;
+  }
+  .gt-sector-row:focus-visible .gt-sector-arrow {
+    transform: translateX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-sector-sweep,
+    .gt-sector-apply,
+    .gt-sector-arrow {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
@@ -516,4 +715,27 @@ const sectors = [
 
   gtUpdateCountdown();
   setInterval(gtUpdateCountdown, 1000);
+
+  // Hide the "Initiated by / Partners announced soon" strip once the page
+  // scrolls past the point where the nav becomes a sticky glass bar.
+  const gtCreditStrip = document.getElementById("gt-credit-strip");
+  if (gtCreditStrip) {
+    const gtToggleCreditStrip = () => {
+      gtCreditStrip.classList.toggle("gt-strip-hidden", window.scrollY > 80);
+    };
+    gtToggleCreditStrip();
+    window.addEventListener("scroll", gtToggleCreditStrip, { passive: true });
+  }
+
+  // Safety net: if the shared IntersectionObserver ever misses an element,
+  // force it visible after 2.5s so nothing stays permanently hidden.
+  setTimeout(() => {
+    document.querySelectorAll(".reveal").forEach((el) => {
+      if (el.classList.contains("visible")) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add("visible");
+      }
+    });
+  }, 2500);
 </script>
