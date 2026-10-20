@@ -12,9 +12,11 @@ binding = "GT_DB"
 database_name = "grand-table"
 database_id = "a8aa4688-3cbd-40a6-9cc5-d335665763d9"
 
-[[r2_buckets]]
-binding = "GT_UPLOADS"
-bucket_name = "grand-table-uploads"
+# R2 uploads are OFF until R2 is enabled on the account. To turn on: create the
+# bucket, uncomment this block and build with PUBLIC_GT_UPLOADS_ENABLED=true.
+# [[r2_buckets]]
+# binding = "GT_UPLOADS"
+# bucket_name = "grand-table-uploads"
 
 # Astro's Cloudflare adapter auto-enables session storage via KV; the app
 # doesn't use Astro.session (auth uses a signed cookie, see src/lib/gt/auth.ts),
@@ -24,11 +26,12 @@ binding = "SESSION"
 id = "3e8c3a8171c647ba8af69af4acfab48b"
 
 [vars]
-EMAIL_ENABLED = "false"
+EMAIL_ENABLED = "true"
 PAYMENTS_ENABLED = "false"
 EMAIL_FROM = "notify@notify.flottwomenscircle.com"
 EMAIL_FROM_NAME = "The Grand Table 2026"
 ADMIN_NOTIFY_TO = "info@flottwomenscircle.com"
+GT_TEST_SUBJECTS = "false"
 
 # Secrets (set with `npx wrangler secret put <NAME>`, never committed):
 # ADMIN_PASSWORD

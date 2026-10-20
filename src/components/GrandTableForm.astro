@@ -9,7 +9,7 @@ interface Props {
 
 const { form, theme } = Astro.props as Props;
 
-const uploadsEnabled = import.meta.env.PUBLIC_GT_UPLOADS_ENABLED !== "false";
+const uploadsEnabled = import.meta.env.PUBLIC_GT_UPLOADS_ENABLED === "true";
 
 const fieldId = (field: Field) => `${form.id}-${field.name}`;
 const noticeId = `${form.id}-notice`;
