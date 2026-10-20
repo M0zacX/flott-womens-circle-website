@@ -24,3 +24,11 @@
 ## Scope change (08:45 Dubai)
 - Lives inside FWC Astro site as /grand-table (pattern copied from /dubai: Layout + Header + FooterSection, word-blur reveals, dark hero). FWC credited as initiator; two co-organiser slots TBC.
 - Page-scoped palette (Jet/Champagne/Ivory) overrides FWC orange only within the page; Playfair italic accent kept for brand continuity.
+
+## Form UX (10:25 Dubai, 20 Oct)
+- Mobbin connector returned "requires a paid plan"; not purchased (rule). Takeaways below come from established form-UX practice (Baymard, GOV.UK Design System, NN/g) instead.
+- Long forms (15 fields): chunk into 3 named steps with a visible progress cue; validate per step; Back never loses data.
+- Errors: inline, under the field, specific wording, shown on blur/submit only (never while typing first time); focus first invalid field; aria-invalid + aria-describedby.
+- Uploads: show explicit states (idle, drag-over, selected chip with name + size + remove, error for type/size) and the constraint up front ("PDF only, max 10 MB").
+- Remove internal-status badges from public UI; keep notes in config/code.
+- Anchored sections need scroll-margin-top so the floating nav pill does not cover headings.

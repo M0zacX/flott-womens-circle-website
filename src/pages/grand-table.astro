@@ -100,10 +100,84 @@ const delegateReasons = [
 ];
 
 const sponsorTiers = [
-  { name: "Silver", amount: "NGN 2,500,000" },
-  { name: "Gold", amount: "NGN 3,500,000" },
-  { name: "Platinum", amount: "NGN 5,000,000" },
-  { name: "Title Sponsor", amount: "NGN 10,000,000", featured: true },
+  { name: "Silver", amount: "₦2,500,000" },
+  { name: "Gold", amount: "₦3,500,000" },
+  { name: "Platinum", amount: "₦5,000,000" },
+  { name: "Title Sponsor", amount: "₦10,000,000", featured: true },
+];
+
+const highlights = [
+  {
+    num: "01",
+    title: "Enterprise Showcase",
+    description: "Selected enterprises present their businesses to investors and partners.",
+  },
+  {
+    num: "02",
+    title: "Investor Meetings",
+    description: "Structured conversations between enterprises and investors.",
+  },
+  {
+    num: "03",
+    title: "International Delegations",
+    description: "Delegates from Nigeria, the UAE, India and other markets.",
+  },
+  {
+    num: "04",
+    title: "Sector Sessions",
+    description: "Focused discussions across the seven priority sectors.",
+  },
+  {
+    num: "05",
+    title: "Partnership Building",
+    description: "Introductions that open strategic partnerships and market access.",
+  },
+  {
+    num: "06",
+    title: "Networking",
+    description: "Time to connect with business leaders, institutions and sponsors.",
+  },
+];
+
+const sectorsSentence = `${sectors.slice(0, -1).map((sector) => sector.name).join(", ")}, and ${sectors[sectors.length - 1].name}.`;
+
+const faqs = [
+  {
+    q: "When and where is The Grand Table 2026?",
+    a: "5 December 2026 in Abuja, Nigeria. The exact venue will be announced soon.",
+  },
+  {
+    q: "Who can take part?",
+    a: "Enterprises, international delegates, investors, partners and sponsors.",
+  },
+  {
+    q: "Which sectors are included?",
+    a: sectorsSentence,
+  },
+  {
+    q: "Does applying guarantee selection?",
+    a: "No. Submitting an Expression of Interest does not guarantee selection, investment or funding. All submissions are reviewed.",
+  },
+  {
+    q: "What do I need to apply as an enterprise?",
+    a: "Complete the online Expression of Interest form and upload your company profile as a PDF.",
+  },
+  {
+    q: "Is there a delegate participation fee?",
+    a: "Yes, ₦500,000. Payment details are shared after your registration is reviewed.",
+  },
+  {
+    q: "What sponsorship packages are available?",
+    a: "Silver ₦2.5M, Gold ₦3.5M, Platinum ₦5M and Title ₦10M. Request the brochure for benefits.",
+  },
+  {
+    q: "When do registrations open?",
+    a: "Online submissions open on 29 October 2026.",
+  },
+  {
+    q: "Who is organising the event?",
+    a: "The Grand Table 2026 is an initiative of Flott Women's Circle. Partners will be announced soon.",
+  },
 ];
 
 const enterpriseSteps = [
@@ -557,7 +631,7 @@ const enterpriseSteps = [
           style="border-color: rgba(201,169,110,0.35); transition-delay: 0.3s;"
         >
           <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">Delegate participation fee</p>
-          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">NGN 500,000</p>
+          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">₦500,000</p>
           <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">Payment details are shared after your registration is reviewed.</p>
         </div>
 
@@ -620,14 +694,18 @@ const enterpriseSteps = [
                 {tier.name}
               </h3>
               <p
-                class={`mt-4 text-[clamp(1.6rem,3vw,2.1rem)] leading-tight ${tier.featured ? "text-[#F5F0E6]" : "text-[#0B0B0C]"}`}
+                class={`mt-4 whitespace-nowrap text-[clamp(1.6rem,3vw,2.1rem)] leading-tight ${tier.featured ? "text-[#F5F0E6]" : "text-[#0B0B0C]"}`}
                 style="font-family: 'Playfair Display', serif; font-weight: 400;"
               >
-                <span class="block text-[10px] uppercase tracking-[0.3em] opacity-60" style="font-family: inherit;">NGN</span><span class="mt-1 block whitespace-nowrap">{tier.amount.replace("NGN ", "")}</span>
+                {tier.amount}
               </p>
-              <p class={`mt-4 text-xs leading-relaxed ${tier.featured ? "text-[#F5F0E6]/60" : "text-[#0B0B0C]/60"}`}>
-                Benefits shared in the sponsorship brochure.
-              </p>
+              <a
+                href="#sponsor-form"
+                class={`gt-brochure-link mt-4 inline-flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-[0.2em] transition-all duration-300 hover:gap-2.5 ${tier.featured ? "text-[#C9A96E]/70 hover:text-[#C9A96E]" : "text-[#0B0B0C]/50 hover:text-[#9A7B45]"}`}
+              >
+                See brochure
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
           ))}
         </div>
@@ -653,6 +731,107 @@ const enterpriseSteps = [
 
         <div id="sponsor-form" class="mt-16 md:mt-20">
           <GrandTableForm form={forms.sponsor} theme="light" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ EVENT EXPERIENCE ══════════════ -->
+    <section id="experience" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">Event experience</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            Six moments that define <span style="font-style: italic; font-weight: 500; color: #C9A96E;">the Table</span>
+          </h2>
+        </div>
+
+        <!-- DRAFT COPY: brief lists 6 highlights without detail; replace with client wording -->
+        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
+          {highlights.map((highlight, index) => (
+            <div
+              class="gt-highlight-card reveal border-t pt-6"
+              style={`border-color: rgba(201,169,110,0.25); transition-delay: ${index * 0.08}s;`}
+            >
+              <span class="block text-[2rem] leading-none" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{highlight.num}</span>
+              <h3 class="mt-3 text-base font-medium text-[#F5F0E6]">{highlight.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{highlight.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ VENUE ══════════════ -->
+    <section id="venue" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-[4.5rem] md:px-12 lg:px-20 lg:py-[6rem]">
+        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div class="text-center lg:text-left">
+            <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">Venue</p>
+
+            <h2
+              class="reveal mt-4 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+              style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+            >
+              Abuja, <span style="font-style: italic; font-weight: 500; color: #9A7B45;">Nigeria</span>
+            </h2>
+
+            <p class="reveal mt-5 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.18s;">Venue announced soon.</p>
+            <p class="reveal mt-2 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">5 December 2026</p>
+          </div>
+
+          <div class="reveal" style="transition-delay: 0.2s;">
+            <div class="relative flex aspect-[4/3] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border px-6 py-14 lg:aspect-video" style="background: #0B0B0C; border-color: rgba(201,169,110,0.25);">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div
+                  class="gt-table-ambient absolute left-1/2 top-1/2 h-16 w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                  style="background: radial-gradient(ellipse at center, rgba(230,211,163,0.25), rgba(230,211,163,0) 72%); filter: blur(20px);"
+                ></div>
+              </div>
+              <div
+                class="relative h-px w-2/3 max-w-xs"
+                style="background: linear-gradient(to right, transparent, #E6D3A3 18%, #E6D3A3 82%, transparent); box-shadow: 0 0 16px 2px rgba(230,211,163,0.5), 0 0 50px 10px rgba(201,169,110,0.18);"
+              ></div>
+              <p class="relative mt-6 text-[10px] uppercase tracking-[0.35em] text-[#C9A96E]/70">Venue reveal coming soon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ FAQ ══════════════ -->
+    <section id="faq" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">FAQ</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            Questions, <span style="font-style: italic; font-weight: 500; color: #C9A96E;">answered</span>
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 max-w-3xl md:mt-16">
+          {faqs.map((faq, index) => (
+            <details class="gt-faq-item reveal border-t" style={`border-color: rgba(201,169,110,0.18); transition-delay: ${Math.min(index * 0.08, 0.56)}s;`}>
+              <summary class="gt-faq-summary flex cursor-pointer list-none items-center justify-between gap-4 py-6 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]">
+                <span class="text-base text-[#F5F0E6] md:text-lg" style="font-family: 'Playfair Display', serif; font-weight: 400;">{faq.q}</span>
+                <span class="gt-faq-icon relative shrink-0" aria-hidden="true">
+                  <span class="gt-faq-icon-line gt-faq-icon-h"></span>
+                  <span class="gt-faq-icon-line gt-faq-icon-v"></span>
+                </span>
+              </summary>
+              <div class="gt-faq-content">
+                <p class="pb-6 text-sm leading-relaxed text-[#F5F0E6]/70">{faq.a}</p>
+              </div>
+            </details>
+          ))}
+          <div class="border-t" style="border-color: rgba(201,169,110,0.18);" aria-hidden="true"></div>
         </div>
       </div>
     </section>
@@ -686,6 +865,24 @@ const enterpriseSteps = [
 </Layout>
 
 <style>
+  section[id],
+  #enterprise-form,
+  #delegate-form,
+  #sponsor-form,
+  #contact-form {
+    scroll-margin-top: 84px;
+  }
+
+  @media (min-width: 768px) {
+    section[id],
+    #enterprise-form,
+    #delegate-form,
+    #sponsor-form,
+    #contact-form {
+      scroll-margin-top: 96px;
+    }
+  }
+
   .gt-beam {
     animation: gtBeamBreathe 8s ease-in-out infinite;
   }
@@ -823,7 +1020,12 @@ const enterpriseSteps = [
   }
 
   .gt-tier-card {
-    transition: border-color 0.6s ease, transform 0.6s ease;
+    transition: border-color 0.6s ease, transform 0.6s ease, box-shadow 0.6s ease;
+  }
+
+  .gt-tier-card.gt-tier-featured {
+    transform: translateY(-6px);
+    box-shadow: 0 0 0 1px rgba(201,169,110,0.6), 0 12px 40px -12px rgba(201,169,110,0.35);
   }
 
   @media (hover: hover) {
@@ -833,6 +1035,7 @@ const enterpriseSteps = [
     }
     .gt-tier-card.gt-tier-featured:hover {
       border-color: #C9A96E;
+      transform: translateY(-10px);
     }
   }
 
@@ -841,6 +1044,9 @@ const enterpriseSteps = [
       transition: none;
     }
     .gt-tier-card:hover {
+      transform: none;
+    }
+    .gt-tier-card.gt-tier-featured {
       transform: none;
     }
   }
@@ -934,6 +1140,86 @@ const enterpriseSteps = [
       transition: none;
     }
   }
+
+  .gt-highlight-card {
+    transition: border-color 0.6s ease, box-shadow 0.6s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-highlight-card:hover {
+      border-color: rgba(201,169,110,0.9);
+      box-shadow: 0 0 40px -12px rgba(201,169,110,0.5);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-highlight-card {
+      transition: none;
+    }
+  }
+
+  .gt-faq-item summary {
+    list-style: none;
+  }
+
+  .gt-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gt-faq-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .gt-faq-icon-line {
+    position: absolute;
+    background: #C9A96E;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  }
+
+  .gt-faq-icon-h {
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .gt-faq-icon-v {
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  .gt-faq-item[open] .gt-faq-icon-v {
+    transform: translateX(-50%) scaleY(0);
+    opacity: 0;
+  }
+
+  .gt-faq-item::details-content {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, content-visibility 0.5s allow-discrete;
+    content-visibility: hidden;
+  }
+
+  .gt-faq-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+    content-visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-faq-icon-line {
+      transition: none;
+    }
+    .gt-faq-item::details-content {
+      transition: opacity 0.3s ease;
+    }
+  }
 </style>
 
 <script>
@@ -974,6 +1260,18 @@ const enterpriseSteps = [
     gtToggleCreditStrip();
     window.addEventListener("scroll", gtToggleCreditStrip, { passive: true });
   }
+
+  // FAQ accordion: keep only one entry open at a time
+  document.querySelectorAll(".gt-faq-item").forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (!(item as HTMLDetailsElement).open) return;
+      document.querySelectorAll(".gt-faq-item").forEach((other) => {
+        if (other !== item && (other as HTMLDetailsElement).open) {
+          (other as HTMLDetailsElement).open = false;
+        }
+      });
+    });
+  });
 
   // Safety net: if the shared IntersectionObserver ever misses an element,
   // force it visible after 2.5s so nothing stays permanently hidden.

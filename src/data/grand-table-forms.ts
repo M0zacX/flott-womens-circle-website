@@ -15,12 +15,18 @@ export type Field = {
   helper?: string;
 };
 
+export type FormStep = {
+  label: string;
+  fields: string[];
+};
+
 export type FormConfig = {
   id: string;
   title: string;
   intro: string;
   submitLabel: string;
   fields: Field[];
+  steps?: FormStep[];
 };
 
 const SECTORS = [
@@ -79,7 +85,12 @@ const enterprise: FormConfig = {
     { name: "revenue", label: "Annual revenue range", type: "select", required: true, options: ["Under NGN 50M", "NGN 50M-250M", "NGN 250M-1B", "Over NGN 1B", "Prefer not to say"] },
     { name: "seeking", label: "What you are seeking", type: "select", required: true, options: ["Investment", "Partnerships", "Market access", "Expansion support", "Other"] },
     { name: "description", label: "Brief business description", type: "textarea", required: true, full: true },
-    { name: "companyProfile", label: "Company profile", type: "file", accept: "application/pdf", required: true, full: true, helper: "PDF, max 10 MB" },
+    { name: "companyProfile", label: "Company profile", type: "file", accept: "application/pdf", required: true, full: true, helper: "PDF only, max 10 MB" },
+  ],
+  steps: [
+    { label: "Company", fields: ["companyName", "website", "country", "cityState", "sector", "yearEstablished", "employees", "revenue"] },
+    { label: "Contact", fields: ["contactName", "jobTitle", "email", "phone"] },
+    { label: "Details", fields: ["seeking", "description", "companyProfile"] },
   ],
 };
 
@@ -115,7 +126,7 @@ const sponsor: FormConfig = {
     { name: "email", label: "Email", type: "email", required: true },
     { name: "phone", label: "Phone", type: "tel", required: true },
     { name: "country", label: "Country", type: "country", required: true },
-    { name: "tier", label: "Preferred tier", type: "select", required: true, options: ["Silver NGN 2.5M", "Gold NGN 3.5M", "Platinum NGN 5M", "Title NGN 10M", "Undecided"] },
+    { name: "tier", label: "Preferred tier", type: "select", required: true, options: ["Silver ₦2.5M", "Gold ₦3.5M", "Platinum ₦5M", "Title ₦10M", "Undecided"] },
     { name: "website", label: "Website", type: "url" },
     { name: "message", label: "Message or sponsorship goals", type: "textarea", full: true },
   ],
