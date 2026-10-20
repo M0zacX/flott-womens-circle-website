@@ -1,0 +1,183 @@
+---
+export const prerender = false;
+
+import Layout from "../../../../layouts/Layout.astro";
+import "../../../../styles/gt-admin.css";
+import type { FormConfig } from "../../../../data/grand-table-forms";
+import { forms } from "../../../../data/grand-table-forms";
+import { createCsrfToken, getAuthedSession, getSessionToken, verifyCsrfToken } from "../../../../lib/gt/auth";
+import { SUBMISSION_STATUSES, countTestSubmissions, getSubmission, updateNotes, updateStatus } from "../../../../lib/gt/db";
+import type { SubmissionStatus } from "../../../../lib/gt/db";
+import { formatDateTime } from "../../../../lib/gt/dates";
+
+const env = Astro.locals.runtime.env;
+const authed = await getAuthedSession(Astro.cookies, env.SESSION_SECRET);
+if (!authed) return Astro.redirect("/grand-table/admin/login");
+
+const sessionToken = getSessionToken(Astro.cookies) as string;
+const { form: formId, id } = Astro.params;
+const form: FormConfig | undefined = formId ? (forms as Record<string, FormConfig>)[formId] : undefined;
+
+if (!form || !id) {
+  return Astro.redirect("/grand-table/admin");
+}
+
+const TAB_LABELS: Record<string, string> = {
+  enterprise: "Enterprise",
+  delegate: "Delegate/Investor",
+  investor: "Investor/Partner",
+  sponsor: "Sponsor",
+  contact: "Contact",
+};
+
+const STATUS_LABELS: Record<SubmissionStatus, string> = {
+  new: "New",
+  reviewing: "Reviewing",
+  accepted: "Accepted",
+  declined: "Declined",
+  archived: "Archived",
+};
+
+let saved = false;
+let formError: string | null = null;
+
+if (Astro.request.method === "POST") {
+  const body = await Astro.request.formData();
+  const csrf = String(body.get("csrf") ?? "");
+  const csrfValid = await verifyCsrfToken(env.SESSION_SECRET, sessionToken, csrf);
+
+  if (csrfValid) {
+    const nextStatus = body.get("status");
+    const notes = body.get("notes");
+    const updatedAt = new Date().toISOString();
+
+    if (typeof nextStatus === "string" && SUBMISSION_STATUSES.includes(nextStatus as SubmissionStatus)) {
+      await updateStatus(env.GT_DB, id, nextStatus as SubmissionStatus, updatedAt);
+    }
+    if (typeof notes === "string") {
+      await updateNotes(env.GT_DB, id, notes, updatedAt);
+    }
+    saved = true;
+  } else {
+    formError = "Session expired, please sign in again and retry";
+  }
+}
+
+const row = await getSubmission(env.GT_DB, id);
+if (!row) {
+  return Astro.redirect("/grand-table/admin");
+}
+
+const data = JSON.parse(row.data) as Record<string, string>;
+const csrfToken = await createCsrfToken(env.SESSION_SECRET, sessionToken);
+const testCount = await countTestSubmissions(env.GT_DB);
+const redirectTo = `${Astro.url.pathname}${Astro.url.search}`;
+const clearedCount = Astro.url.searchParams.has("cleared") ? Number(Astro.url.searchParams.get("cleared")) : null;
+const clearError = Astro.url.searchParams.get("clearError") === "1";
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return "under 1 KB";
+  const kb = bytes / 1024;
+  if (kb < 1024) return `${kb.toFixed(1)} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+}
+---
+
+<Layout title={`${form.title} | Admin | The Grand Table 2026`}>
+  <meta name="robots" content="noindex" />
+  <div class="gta">
+    <header class="gta-header">
+      <div class="gta-header-left">
+        <span class="gta-brand">The Grand Table <em>2026</em></span>
+        <span class="gta-admin-label">Admin</span>
+      </div>
+      <div class="gta-header-right">
+        <span class="gta-pill">Payments: not activated</span>
+        {testCount > 0 && (
+          <form method="POST" action="/grand-table/admin/clear-test" class="gta-clear-test-form" data-confirm-count={testCount}>
+            <input type="hidden" name="csrf" value={csrfToken} />
+            <input type="hidden" name="redirectTo" value={redirectTo} />
+            <button type="submit" class="gta-clear-test">Clear test data ({testCount})</button>
+          </form>
+        )}
+        <a href="/grand-table/admin/logout" class="gta-logout">Log out</a>
+      </div>
+    </header>
+
+    <div class="gta-detail">
+      <a class="gta-back" href={`/grand-table/admin?form=${form.id}`}>Back to {TAB_LABELS[form.id] ?? form.title} list</a>
+      <h1 class="gta-detail-title">{form.title}{row.is_test === 1 && <span class="gta-test-tag">Test</span>}</h1>
+
+      <div class="gta-detail-grid">
+        {form.fields.map((field) => (
+          <div class={`gta-detail-field ${field.full ? "gta-detail-field-full" : ""}`}>
+            <span class="gta-detail-label">{field.label}</span>
+            <span class="gta-detail-value">{field.type === "file" ? (
+              row.file_key ? (
+                <span class="gta-file-row">
+                  <a class="gta-download-btn" href={`/grand-table/admin/file/${row.id}`}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" /></svg>
+                    Download PDF
+                  </a>
+                  <span class="gta-file-meta">{row.file_name} ({formatFileSize(row.file_size ?? 0)})</span>
+                </span>
+              ) : "Not provided"
+            ) : (data[field.name] || "Not provided")}</span>
+          </div>
+        ))}
+        <div class="gta-detail-field">
+          <span class="gta-detail-label">Submitted</span>
+          <span class="gta-detail-value">{formatDateTime(row.created_at)}</span>
+        </div>
+        <div class="gta-detail-field">
+          <span class="gta-detail-label">Last updated</span>
+          <span class="gta-detail-value">{formatDateTime(row.updated_at)}</span>
+        </div>
+      </div>
+
+      <form method="POST" class="gta-detail-form">
+        <input type="hidden" name="csrf" value={csrfToken} />
+
+        <label class="gta-detail-label" for="status">Status</label>
+        <select id="status" name="status">
+          {SUBMISSION_STATUSES.map((s) => <option value={s} selected={s === row.status}>{STATUS_LABELS[s]}</option>)}
+        </select>
+
+        <label class="gta-detail-label" for="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="5">{row.notes ?? ""}</textarea>
+
+        <button type="submit">Save</button>
+        {formError && <span class="gta-error-inline">{formError}</span>}
+      </form>
+    </div>
+
+    {saved && (
+      <div class="gta-toast" role="status" aria-live="polite">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+        Saved
+      </div>
+    )}
+    {clearedCount !== null && (
+      <div class="gta-toast" role="status" aria-live="polite">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+        Test data cleared ({clearedCount} rows)
+      </div>
+    )}
+    {clearError && (
+      <div class="gta-toast gta-toast-error" role="status" aria-live="polite">
+        Session expired, please retry
+      </div>
+    )}
+  </div>
+
+  <script>
+    document.querySelectorAll<HTMLFormElement>(".gta-clear-test-form").forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        const count = form.dataset.confirmCount ?? "0";
+        if (!window.confirm(`Delete ${count} test submission(s) and their uploaded files? This cannot be undone.`)) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
+</Layout>

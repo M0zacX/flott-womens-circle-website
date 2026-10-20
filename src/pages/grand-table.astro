@@ -1,0 +1,1728 @@
+---
+export const prerender = true;
+
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+import GrandTableForm from "../components/GrandTableForm.astro";
+import { forms } from "../data/grand-table-forms";
+import { event, faqs } from "../data/grand-table-event";
+
+const {
+  objectives,
+  sectors,
+  delegateReasons,
+  sponsorTiers,
+  highlights,
+  enterpriseSteps,
+  speakers,
+  organisers,
+  venue,
+  copy,
+} = event;
+
+const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
+---
+
+<Layout
+  title={`${event.name} ${event.year} | Flott Women's Circle`}
+  description={`${event.name} ${event.year}: an initiative of Flott Women's Circle connecting enterprises, investors and global opportunities. ${event.cityCountry}, ${event.date.display}.`}
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
+  <script is:inline define:vars={{ live: formsLive, countdownTarget: event.date.countdownTarget }}>
+    window.GT_FORMS_LIVE = live;
+    window.GT_COUNTDOWN_TARGET = countdownTarget;
+  </script>
+
+  <main class="overflow-x-clip">
+    <Header client:load currentPath="/grand-table" variant="gold" />
+
+    <!-- ══════════════ HERO ══════════════ -->
+    <section class="relative w-full overflow-hidden" style="background: #0B0B0C;">
+      <!-- Venue photo backdrop, toned with a dark jet overlay + gold grade so hero text stays AA-readable -->
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <img
+          src={venue.heroImage.src}
+          srcset={`${venue.heroImage.srcSmall} 960w, ${venue.heroImage.src} 1512w`}
+          sizes="100vw"
+          alt=""
+          width={venue.heroImage.width}
+          height={venue.heroImage.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="h-full w-full object-cover"
+          style="object-position: 50% 0%; transform: scale(1.32); transform-origin: 50% 0%; filter: grayscale(0.35) sepia(0.25) blur(3px);"
+        />
+        <div class="absolute inset-0" style="background: rgba(201,169,110,0.12); mix-blend-mode: color;"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(11,11,12,0.88) 0%, rgba(11,11,12,0.72) 100%);"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 55% at 50% 48%, rgba(11,11,12,0.55) 0%, rgba(11,11,12,0.25) 60%, rgba(11,11,12,0) 100%);"></div>
+      </div>
+
+      <!-- Decorative light + atmosphere layer -->
+      <div class="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
+        <!-- Soft volumetric light beam, fanning from a bright source -->
+        <div
+          class="gt-beam absolute left-1/2 top-0 h-[70vh] w-[150vw] -translate-x-1/2"
+          style="
+            background: radial-gradient(ellipse 36% 100% at 50% 0%, rgba(201,169,110,0.42) 0%, rgba(201,169,110,0.18) 40%, rgba(201,169,110,0.06) 65%, rgba(201,169,110,0) 82%);
+            filter: blur(60px);
+            opacity: 0.85;
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- Bright point source glow, tucked just below the nav, above the eyebrow line -->
+        <div
+          class="gt-source absolute left-1/2 top-[100px] h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full md:top-[100px] md:h-28 md:w-28"
+          style="
+            background: radial-gradient(circle, rgba(255,251,240,0.55) 0%, rgba(230,211,163,0.28) 45%, rgba(230,211,163,0) 75%);
+            filter: blur(20px);
+            opacity: 0.5;
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- SVG film grain -->
+        <svg class="gt-grain absolute inset-0 h-full w-full mix-blend-overlay" aria-hidden="true">
+          <filter id="gt-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+            <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"></feColorMatrix>
+          </filter>
+          <rect width="100%" height="100%" filter="url(#gt-noise)"></rect>
+        </svg>
+      </div>
+
+      <!-- Title-card corner labels (desktop) -->
+      <div class="pointer-events-none absolute inset-x-0 top-24 z-20 hidden items-start justify-between px-6 md:px-12 lg:flex lg:px-20 lg:top-28">
+        <span class="reveal text-[10px] font-light uppercase tracking-[0.22em] text-[#E6D3A3]/90" style="transition-delay: 0.1s;">{event.edition}</span>
+      </div>
+
+      <div class="relative z-10 flex min-h-screen flex-col">
+        <!-- Main content -->
+        <div class="flex flex-1 flex-col items-center justify-center px-6 pb-8 pt-28 text-center md:px-12 lg:px-20 lg:pb-6 lg:pt-24">
+          <p class="blur-words text-[10px] uppercase tracking-[0.35em] text-[#C9A96E]/80 md:text-xs" style="font-style: italic;">{copy.hero.eyebrow}</p>
+
+          <h1 class="word-blur-group mt-4 max-w-5xl leading-[1.02] tracking-[-0.02em] text-[#F5F0E6] text-[13vw] sm:mt-6 md:text-[9vw] lg:text-[clamp(5rem,7vw,8.5rem)]" style="font-family: 'Playfair Display', serif; font-weight: 400;">
+            <span class="word-blur" style="transition-delay: 0.05s;">The</span>
+            <span class="word-blur" style="transition-delay: 0.16s; font-style: italic; font-weight: 500; color: #C9A96E;">Grand</span>
+            <span class="word-blur" style="transition-delay: 0.27s;">Table</span>
+          </h1>
+
+          <p class="reveal mt-2 text-sm uppercase tracking-[0.5em] text-[#C9A96E]/85 sm:mt-3 md:text-base" style="transition-delay: 0.3s;">{event.year}</p>
+
+          <p class="reveal mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#F5F0E6]/75 sm:mt-5 md:text-lg lg:mt-4" style="transition-delay: 0.38s;">
+            {event.tagline}
+          </p>
+
+          <div class="reveal mt-3 flex flex-col items-center justify-center gap-y-1 text-[13px] uppercase tracking-[0.12em] text-[#F5F0E6]/75 sm:mt-5 md:text-[14px] lg:mt-4" style="transition-delay: 0.46s;">
+            <span class="block w-full">{event.heroLocationLine} &bull; {event.date.display}</span>
+            <span class="block w-full">{copy.hero.travelLine}</span>
+          </div>
+
+          <!-- The table: focal gold line the beam lands on, with a soft reflection pool -->
+          <div class="reveal relative mt-5 flex flex-col items-center sm:mt-8 lg:mt-6" style="transition-delay: 0.5s;">
+            <div
+              class="gt-table-ambient pointer-events-none absolute left-1/2 top-0 h-20 w-[75vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-full"
+              aria-hidden="true"
+              style="background: radial-gradient(ellipse at center, rgba(230,211,163,0.3), rgba(230,211,163,0) 72%); filter: blur(24px);"
+            ></div>
+            <div
+              class="relative h-px w-[70vw] max-w-3xl"
+              style="
+                background: linear-gradient(to right, transparent, #E6D3A3 18%, #E6D3A3 82%, transparent);
+                box-shadow: 0 0 20px 3px rgba(230,211,163,0.55), 0 0 70px 14px rgba(201,169,110,0.22);
+              "
+            ></div>
+            <div
+              class="gt-reflection-pool mt-1 h-6 w-[44vw] max-w-xl rounded-[50%] sm:h-8"
+              aria-hidden="true"
+              style="background: radial-gradient(ellipse at center, rgba(230,211,163,0.22), rgba(230,211,163,0) 78%); filter: blur(10px);"
+            ></div>
+          </div>
+
+          <!-- Countdown -->
+          <div class="reveal mt-5 flex items-center justify-center gap-5 sm:mt-7 sm:gap-8 lg:mt-5" style="transition-delay: 0.56s;" aria-label={`Countdown to ${event.name} ${event.year}`}>
+            <div class="flex flex-col items-center">
+              <span id="gt-days" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Days</span>
+            </div>
+            <span class="h-10 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
+            <div class="flex flex-col items-center">
+              <span id="gt-hours" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Hours</span>
+            </div>
+            <span class="h-10 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
+            <div class="flex flex-col items-center">
+              <span id="gt-mins" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Mins</span>
+            </div>
+            <span class="h-10 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
+            <div class="flex flex-col items-center">
+              <span id="gt-secs" class="text-[1.9rem] text-[#F5F0E6] lg:text-[2.55rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Secs</span>
+            </div>
+          </div>
+
+          <div class="reveal mt-[48px] flex flex-col items-center gap-3 sm:mt-[52px] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 lg:mt-[44px]" style="transition-delay: 0.64s;">
+            <a
+              href="#register"
+              class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
+              style="background: #C9A96E; color: #0B0B0C; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              Register to Participate
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a
+              href="#enterprise"
+              class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#F5F0E6] transition-all duration-500 hover:gap-4 hover:border-[#C9A96E] hover:bg-[#C9A96E]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
+              style="border-color: rgba(201,169,110,0.5); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              Apply as an Enterprise
+            </a>
+            <a
+              href="#sponsorship"
+              class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#F5F0E6] transition-all duration-500 hover:gap-4 hover:border-[#C9A96E] hover:bg-[#C9A96E]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
+              style="border-color: rgba(201,169,110,0.5); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              Become a Sponsor
+            </a>
+          </div>
+
+          <!-- Scroll hint -->
+          <a
+            href="#about"
+            class="group reveal mt-6 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[#F5F0E6]/50 transition-colors duration-500 hover:text-[#E6D3A3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] lg:mt-4"
+            style="transition-delay: 0.72s;"
+          >
+            <span class="gt-scrollline relative block h-12 w-px overflow-hidden bg-[#C9A96E]/25" aria-hidden="true"></span>
+            <span>Explore the Event</span>
+          </a>
+        </div>
+
+        <!-- Bottom organisers strip -->
+        <div id="gt-credit-strip" class="gt-credit-strip relative px-6 py-4 md:px-12 lg:px-20 lg:py-5" style="background: #0B0B0C;">
+          <div class="absolute inset-x-0 top-0 h-px" style="background: linear-gradient(to right, transparent, #C9A96E 20%, #C9A96E 80%, transparent);" aria-hidden="true"></div>
+          <div class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 text-center sm:flex-row sm:flex-wrap sm:gap-5">
+            <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/70">{organisers.label}</span>
+            <div class="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+              {organisers.logos.map((logo) => (
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  loading="lazy"
+                  class="h-8 w-auto max-w-[130px] object-contain opacity-80 transition-opacity duration-300 hover:opacity-100 md:h-11 md:max-w-[160px]"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fade through warm dark into ivory, carrying the table motif to the seam -->
+      <div class="relative h-40 w-full" style="background: linear-gradient(to bottom, rgba(11,11,12,0) 0%, #2a2218 52%, #F5F0E6 100%);" aria-hidden="true"></div>
+
+      <!-- Crisp gold seam line, rendered above the fade, exactly at the hero/about join -->
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 z-40 mx-auto h-px w-[70%]"
+        style="background: linear-gradient(to right, transparent, #B08D57 20%, #C9A96E 50%, #B08D57 80%, transparent); box-shadow: 0 0 4px rgba(201,169,110,0.55);"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Cinema-matte hairline frame (desktop) -->
+      <div class="pointer-events-none absolute inset-6 z-30 hidden lg:block" style="border: 1px solid rgba(201,169,110,0.08);" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════════ ABOUT THE EVENT ══════════════ -->
+    <section id="about" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 pt-12 pb-20 md:px-12 md:pt-16 md:pb-28 lg:px-20 lg:pt-20 lg:pb-32">
+        <div class="mx-auto max-w-5xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.about.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.about.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.about.headingEmphasis}</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
+            {copy.about.body}
+          </p>
+        </div>
+
+        <!-- Key facts -->
+        <div class="reveal mx-auto mt-8 max-w-6xl border-y" style="transition-delay: 0.3s; border-color: rgba(154,123,69,0.35);">
+          <div class="grid grid-cols-2 md:grid-cols-4">
+            <div class="border-r border-b px-5 py-6 text-left md:border-r-0 md:border-b-0" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Format</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Business platform</span>
+            </div>
+            <div class="border-b px-5 py-6 text-left md:border-b-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Participants</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Enterprises, investors</span>
+            </div>
+            <div class="border-r px-5 py-6 text-left md:border-r-0 md:border-l" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Sectors</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Seven</span>
+            </div>
+            <div class="px-5 py-6 text-left md:border-l" style="border-color: rgba(154,123,69,0.35);">
+              <span class="block text-[9px] uppercase tracking-[0.25em] text-[#0B0B0C]/60">Tracks</span>
+              <span class="mt-2 block text-[0.95rem] font-medium text-[#0B0B0C]" style="text-wrap: balance;">Enterprise, delegate, investor, sponsor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Objectives -->
+        <div class="mx-auto mt-10 max-w-6xl md:mt-12">
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:items-stretch lg:gap-x-8 lg:gap-y-0">
+            {objectives.map((objective, index) => (
+              <div
+                class="gt-objective reveal flex items-start gap-4 border-t pt-6 lg:h-full lg:flex-col lg:items-stretch lg:gap-0 lg:pt-8 lg:pb-2"
+                style={`transition-delay: ${Math.min(0.1 + index * 0.1, 0.24)}s;`}
+              >
+                <span class="shrink-0 text-[2rem] leading-none lg:text-[2.75rem]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45;">{objective.num}</span>
+                <div class="lg:mt-5">
+                  <h3 class="text-base font-medium text-[#0B0B0C]">{objective.title}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-[#0B0B0C]/70">{objective.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p class="reveal mt-10 text-center text-[10px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.6s;">
+            {copy.about.initiatedBy}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
+    <!-- ══════════════ PRIORITY SECTORS ══════════════ -->
+    <section id="sectors" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.sectors.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.sectors.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.sectors.headingEmphasis}</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#F5F0E6]/70 md:text-lg" style="transition-delay: 0.2s;">
+            {copy.sectors.body}
+          </p>
+        </div>
+
+        <!-- Sector index -->
+        <div class="mx-auto mt-14 max-w-6xl md:mt-16 lg:mt-20">
+          {sectors.map((sector, index) => (
+            <a
+              href="#enterprise"
+              aria-label={`Apply as an enterprise in ${sector.name}`}
+              class="gt-sector-row reveal relative grid grid-cols-[2.5rem_1fr] items-start gap-x-4 border-t py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] lg:grid-cols-[3.5rem_1fr] lg:items-center lg:gap-x-8 lg:py-[1.5rem]"
+              style={`border-color: rgba(201,169,110,0.18); transition-delay: ${index * 0.08}s;`}
+            >
+              <span class="text-base md:text-lg lg:text-xl" style="font-family: 'Playfair Display', serif; font-style: italic; color: #C9A96E;">{sector.num}</span>
+              <span class="flex flex-col items-start gap-2 pr-10 lg:pr-28">
+                <span
+                  class="gt-sector-title inline-block text-[clamp(1.5rem,4vw,2.75rem)] leading-tight text-[#F5F0E6] lg:whitespace-nowrap lg:text-[clamp(1.5rem,2.6vw,2.25rem)]"
+                  style="font-family: 'Playfair Display', serif; font-weight: 400;"
+                >{sector.name}</span>
+                <span class="text-[0.9rem] text-[#F5F0E6]/70">{sector.description}</span>
+              </span>
+
+              <!-- Desktop hover/focus: gold sweep + Apply label + sliding arrow -->
+              <span class="gt-sector-sweep pointer-events-none absolute inset-y-0 right-0 hidden w-2/5 lg:block" aria-hidden="true"></span>
+              <span class="gt-sector-apply pointer-events-none absolute inset-y-0 right-0 hidden items-center gap-2 pr-2 lg:flex" aria-hidden="true">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#C9A96E]">Apply</span>
+                <svg class="gt-sector-arrow h-4 w-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+
+              <!-- Touch/mobile: subtle, always-visible arrow -->
+              <svg class="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C9A96E]/40 lg:hidden" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          ))}
+          <div class="border-t" style="border-color: rgba(201,169,110,0.18);" aria-hidden="true"></div>
+        </div>
+
+        <div class="reveal mt-14 flex justify-center md:mt-16" style="transition-delay: 0.6s;">
+          <a
+            href="#enterprise"
+            class="inline-flex items-center justify-center rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#C9A96E] transition-all duration-500 hover:bg-[#C9A96E]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]"
+            style="border-color: rgba(201,169,110,0.5);"
+          >
+            Apply as an Enterprise
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
+
+    <!-- ══════════════ ENTERPRISE REGISTRATION ══════════════ -->
+    <section id="enterprise" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.enterprise.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.enterprise.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.enterprise.headingEmphasis}</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
+            {copy.enterprise.body}
+          </p>
+        </div>
+
+        <!-- Process -->
+        <div class="relative mx-auto mt-16 max-w-5xl md:mt-20">
+          <!-- Connecting line: vertical on mobile, horizontal on desktop, running only from node 01 to node 04 -->
+          <div class="gt-process-line pointer-events-none absolute" aria-hidden="true"></div>
+
+          <div class="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
+            {enterpriseSteps.map((step, index) => (
+              <div class="gt-step reveal relative flex items-start gap-5 md:flex-col md:items-start md:gap-0" style={`transition-delay: ${index * 0.08}s;`}>
+                <span class="relative z-10 flex h-4 w-4 shrink-0 items-center justify-center md:mb-5" aria-hidden="true">
+                  <span class="h-2.5 w-2.5 rounded-full" style="background: #9A7B45; box-shadow: 0 0 0 4px #F5F0E6;"></span>
+                </span>
+                <div>
+                  <span class="block text-[11px] uppercase tracking-[0.3em] text-[#9A7B45]">{step.num}</span>
+                  <h3 class="mt-1 text-[1.25rem] text-[#0B0B0C] md:mt-2" style="font-family: 'Playfair Display', serif; font-weight: 400;">{step.title}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-[#0B0B0C]/70">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Notice -->
+        <div
+          class="reveal mx-auto mt-14 max-w-3xl rounded-xl border px-6 py-5 text-left md:mt-16 md:px-8 md:py-6"
+          style="border-color: rgba(154,123,69,0.35); transition-delay: 0.3s;"
+        >
+          <div class="flex items-start gap-3">
+            <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#9A7B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <p class="text-sm leading-relaxed text-[#0B0B0C]/70">
+              <span class="font-medium text-[#0B0B0C]">Please note:</span> {copy.enterprise.notice}
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="reveal mt-10 flex flex-col items-center gap-3 md:mt-12" style="transition-delay: 0.4s;">
+          <a
+            href="#enterprise-form"
+            class="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45]"
+            style="background: #0B0B0C; color: #F5F0E6; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Start your application
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <span class="text-[11px] uppercase tracking-[0.25em] text-[#0B0B0C]/45">{copy.enterprise.formOpens}</span>
+        </div>
+
+        <div id="enterprise-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.enterprise} theme="light" />
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
+    <!-- ══════════════ INTERNATIONAL DELEGATES & INVESTORS ══════════════ -->
+    <section id="delegates" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.delegates.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.08s;"
+          >
+            {copy.delegates.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.delegates.headingEmphasis}</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#F5F0E6]/70 md:text-lg" style="transition-delay: 0.16s;">
+            {copy.delegates.body}
+          </p>
+        </div>
+
+        <!-- Five reasons to participate -->
+        <div class="mx-auto mt-16 max-w-5xl md:mt-20">
+          <p class="reveal text-center text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/80" style="transition-delay: 0.24s;">{copy.delegates.reasonsLabel}</p>
+
+          <!-- DRAFT COPY: replace with the 5 reasons from client brief when received -->
+          <div class="mt-10 grid grid-cols-1 gap-8 md:mt-12 lg:grid-cols-6 lg:gap-x-8 lg:gap-y-10">
+            {delegateReasons.map((reason, index) => (
+              <div
+                class={`gt-reason-card reveal border-t pt-6 lg:col-span-2 ${index === 3 ? "lg:col-start-2" : index === 4 ? "lg:col-start-4" : ""}`}
+                style={`border-color: rgba(201,169,110,0.2); transition-delay: ${0.32 + index * 0.08}s;`}
+              >
+                <span class="block text-[2rem] leading-none" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{reason.num}</span>
+                <h3 class="mt-3 text-base font-medium text-[#F5F0E6]">{reason.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{reason.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Participation fee -->
+        <div
+          class="reveal mx-auto mt-16 max-w-xl rounded-xl border px-6 py-8 text-center md:mt-20 md:px-10 md:py-10"
+          style="border-color: rgba(201,169,110,0.35); transition-delay: 0.3s;"
+        >
+          <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">{copy.delegates.feeLabel}</p>
+          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{event.fees.delegate}</p>
+          <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">{copy.delegates.feeNote}</p>
+        </div>
+
+        <!-- CTA -->
+        <div id="gt-delegate-cta" class="reveal mt-10 flex flex-col items-center gap-3 md:mt-12" style="transition-delay: 0.38s;">
+          <p class="text-sm leading-relaxed text-[#F5F0E6]/70">Delegates, investors and partners register here</p>
+          <a
+            href="#delegate-form"
+            class="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]"
+            style="background: #C9A96E; color: #0B0B0C; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Register as a Delegate
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div class="mt-16 md:mt-20">
+          <div class="flex justify-center">
+            <div
+              role="tablist"
+              aria-label={copy.delegates.formTabsLabel}
+              class="gt-form-tabs inline-flex rounded-full border p-1"
+              style="border-color: rgba(201,169,110,0.35);"
+            >
+              <button
+                type="button"
+                role="tab"
+                id="gt-form-tab-delegate"
+                aria-selected="true"
+                aria-controls="delegate-panel"
+                tabindex="0"
+                data-gt-form-tab="delegate"
+                class="gt-form-tab"
+              >
+                {copy.delegates.tabs.delegate}
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="gt-form-tab-investor"
+                aria-selected="false"
+                aria-controls="investor-panel"
+                tabindex="-1"
+                data-gt-form-tab="investor"
+                class="gt-form-tab"
+              >
+                {copy.delegates.tabs.investor}
+              </button>
+            </div>
+          </div>
+
+          <div id="delegate-panel" role="tabpanel" aria-labelledby="gt-form-tab-delegate" data-gt-form-panel="delegate" class="mt-10">
+            <GrandTableForm form={forms.delegate} theme="dark" />
+          </div>
+          <div id="investor-panel" role="tabpanel" aria-labelledby="gt-form-tab-investor" data-gt-form-panel="investor" class="mt-10" hidden>
+            <GrandTableForm form={forms.investor} theme="dark" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
+
+    <!-- ══════════════ SPONSORSHIP ══════════════ -->
+    <section id="sponsorship" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.sponsorship.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.08s;"
+          >
+            {copy.sponsorship.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.sponsorship.headingEmphasis}</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.16s;">
+            {copy.sponsorship.body}
+          </p>
+        </div>
+
+        <!-- Tiers -->
+        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
+          {sponsorTiers.map((tier, index) => (
+            <div
+              class={`gt-tier-card reveal relative flex flex-col rounded-xl border px-6 py-8 text-center ${tier.featured ? "gt-tier-featured" : ""}`}
+              style={`border-color: ${tier.featured ? "#9A7B45" : "rgba(154,123,69,0.35)"}; background: ${tier.featured ? "#0B0B0C" : "transparent"}; transition-delay: ${0.24 + index * 0.08}s;`}
+            >
+              {tier.featured && (
+                <span
+                  class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border px-3 py-1 text-[9px] uppercase tracking-[0.25em]"
+                  style="background: #0B0B0C; border-color: #9A7B45; color: #C9A96E;"
+                >
+                  Headline partner
+                </span>
+              )}
+              <h3
+                class="text-[11px] uppercase tracking-[0.3em]"
+                style={`color: ${tier.featured ? "#C9A96E" : "#9A7B45"};`}
+              >
+                {tier.name}
+              </h3>
+              <p
+                class={`mt-4 whitespace-nowrap text-[clamp(1.6rem,3vw,2.1rem)] leading-tight ${tier.featured ? "text-[#F5F0E6]" : "text-[#0B0B0C]"}`}
+                style="font-family: 'Playfair Display', serif; font-weight: 400;"
+              >
+                {tier.amount}
+              </p>
+              <a
+                href="#sponsor-form"
+                class={`gt-brochure-link mt-4 inline-flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-[0.2em] transition-all duration-300 hover:gap-2.5 ${tier.featured ? "text-[#C9A96E]/70 hover:text-[#C9A96E]" : "text-[#0B0B0C]/50 hover:text-[#9A7B45]"}`}
+              >
+                See brochure
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+          ))}
+        </div>
+
+        <!-- CTA -->
+        <div class="reveal mt-14 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-16" style="transition-delay: 0.56s;">
+          <a
+            href="#sponsor-form"
+            class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45] sm:w-auto sm:max-w-none"
+            style="background: #0B0B0C; color: #F5F0E6; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Request Brochure
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a
+            href="#sponsor-form"
+            class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#0B0B0C] transition-all duration-500 hover:gap-4 hover:border-[#9A7B45] hover:bg-[#9A7B45]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45] sm:w-auto sm:max-w-none"
+            style="border-color: rgba(154,123,69,0.5); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+          >
+            Become a Sponsor
+          </a>
+        </div>
+
+        <div id="sponsor-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.sponsor} theme="light" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ SPEAKERS ══════════════ -->
+    <section id="speakers" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.speakers.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em]"
+            style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45; transition-delay: 0.1s;"
+          >
+            {copy.speakers.heading}
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 grid max-w-xl grid-cols-2 gap-6 sm:gap-10 md:mt-16">
+          {speakers.map((speaker, index) => (
+            <div class="gt-speaker-card reveal flex flex-col items-center" style={`transition-delay: ${index * 0.1}s;`}>
+              <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
+                <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
+                  <img
+                    src={speaker.image.src}
+                    alt={speaker.image.alt}
+                    width={speaker.image.width}
+                    height={speaker.image.height}
+                    loading="lazy"
+                    class="gt-speaker-img h-full w-full object-cover"
+                  />
+                  <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-[0.95rem] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{speaker.name}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="reveal mt-10 text-center text-[11px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.3s;">
+          {copy.speakers.moreToCome}
+        </p>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
+    <!-- ══════════════ EVENT EXPERIENCE ══════════════ -->
+    <section id="experience" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.experience.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.experience.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.experience.headingEmphasis}</span>
+          </h2>
+        </div>
+
+        <!-- DRAFT COPY: brief lists 6 highlights without detail; replace with client wording -->
+        <div class="relative mx-auto mt-14 max-w-6xl md:mt-16">
+          <div
+            id="gt-highlight-strip"
+            class="gt-highlight-strip flex gap-5 overflow-x-auto pb-3"
+            tabindex="0"
+            role="region"
+            aria-label="Event highlights"
+          >
+            {highlights.map((highlight, index) => (
+              <div
+                class="gt-highlight-frame reveal group relative aspect-[3/4] w-[76vw] shrink-0 overflow-hidden rounded-2xl border md:w-[300px]"
+                style={`border-color: rgba(230,211,163,0.2); transition-delay: ${index * 0.08}s;`}
+              >
+                <div class={`gt-frame-bg gt-frame-bg-${index + 1} absolute inset-0`} aria-hidden="true"></div>
+                <svg class="absolute inset-0 h-full w-full opacity-40 mix-blend-overlay" aria-hidden="true">
+                  <rect width="100%" height="100%" filter="url(#gt-noise)"></rect>
+                </svg>
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, transparent 36%, #0B0B0C 92%);" aria-hidden="true"></div>
+
+                <div class="relative z-10 flex h-full flex-col justify-end p-5 md:p-6">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <Fragment set:html={highlight.icon} />
+                  </svg>
+                  <h3 class="gt-frame-title relative mt-4 text-[1.5rem] text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">
+                    {highlight.title}
+                  </h3>
+                  <p class="gt-frame-desc mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{highlight.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-5 flex items-center gap-5">
+            <div class="hidden items-center gap-3 lg:flex">
+              <button id="gt-strip-prev" type="button" aria-label="Previous highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+              </button>
+              <button id="gt-strip-next" type="button" aria-label="Next highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+            <div class="relative h-px flex-1" style="background: rgba(201,169,110,0.18);">
+              <div id="gt-strip-progress" class="absolute left-0 top-0 h-full" style="background: #C9A96E; width: 16.666%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
+
+    <!-- ══════════════ VENUE ══════════════ -->
+    <section id="venue" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-[4.5rem] md:px-12 lg:px-20 lg:py-[6rem]">
+        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div class="text-center lg:text-left">
+            <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.venue.eyebrow}</p>
+
+            <h2
+              class="reveal mt-4 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+              style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+            >
+              {copy.venue.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.venue.headingEmphasis}</span>
+            </h2>
+
+            <p class="reveal mt-5 text-sm leading-relaxed text-[#0B0B0C]/70" style="transition-delay: 0.18s;">{venue.name}</p>
+            <p class="reveal mt-1 text-xs uppercase tracking-[0.2em] text-[#0B0B0C]/50" style="transition-delay: 0.22s;">{venue.officialName}</p>
+            <p class="reveal mt-3 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">{venue.address}</p>
+            <p class="reveal mt-2 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.3s;">{event.date.display}</p>
+
+            <a
+              href={venue.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="reveal mt-6 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-[#9A7B45] transition-all duration-300 hover:gap-3 hover:text-[#0B0B0C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45]"
+              style="transition-delay: 0.36s;"
+            >
+              {copy.venue.directionsLabel}
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="reveal" style="transition-delay: 0.2s;">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="gt-venue-photo col-span-2 overflow-hidden rounded-2xl border" style="aspect-ratio: 3 / 2; border-color: rgba(201,169,110,0.25);">
+                <img
+                  src={venue.gallery[0].src}
+                  alt={venue.gallery[0].alt}
+                  width={venue.gallery[0].width}
+                  height={venue.gallery[0].height}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <div class="gt-venue-photo overflow-hidden rounded-xl border" style="aspect-ratio: 4 / 3; border-color: rgba(201,169,110,0.25);">
+                <img
+                  src={venue.gallery[1].src}
+                  srcset={`${venue.gallery[1].srcSmall} 800w, ${venue.gallery[1].src} 1400w`}
+                  sizes="(min-width: 1024px) 25vw, 45vw"
+                  alt={venue.gallery[1].alt}
+                  width={venue.gallery[1].width}
+                  height={venue.gallery[1].height}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <div class="gt-venue-photo overflow-hidden rounded-xl border" style="aspect-ratio: 4 / 3; border-color: rgba(201,169,110,0.25);">
+                <img
+                  src={venue.gallery[2].src}
+                  srcset={`${venue.gallery[2].srcSmall} 800w, ${venue.gallery[2].src} 1400w`}
+                  sizes="(min-width: 1024px) 25vw, 45vw"
+                  alt={venue.gallery[2].alt}
+                  width={venue.gallery[2].width}
+                  height={venue.gallery[2].height}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+
+            <p class="mt-3 text-center text-[10px] leading-relaxed text-[#0B0B0C]/40 lg:text-left">
+              Photos: <a href={venue.credits[0].url} target="_blank" rel="noopener noreferrer" class="underline decoration-[#9A7B45]/40 underline-offset-2 hover:text-[#9A7B45]">{venue.credits[0].text}</a>; {venue.credits[1].text}; {venue.credits[2].text}.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
+    <!-- ══════════════ FAQ ══════════════ -->
+    <section id="faq" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.faq.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.faq.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.faq.headingEmphasis}</span>
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 max-w-3xl md:mt-16">
+          {faqs.map((faq, index) => (
+            <details class="gt-faq-item reveal border-t" style={`border-color: rgba(201,169,110,0.18); transition-delay: ${Math.min(index * 0.08, 0.56)}s;`}>
+              <summary class="gt-faq-summary flex cursor-pointer list-none items-center justify-between gap-4 py-6 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]">
+                <span class="text-base text-[#F5F0E6] md:text-lg" style="font-family: 'Playfair Display', serif; font-weight: 400;">{faq.q}</span>
+                <span class="gt-faq-icon relative shrink-0" aria-hidden="true">
+                  <span class="gt-faq-icon-line gt-faq-icon-h"></span>
+                  <span class="gt-faq-icon-line gt-faq-icon-v"></span>
+                </span>
+              </summary>
+              <div class="gt-faq-content">
+                <p class="pb-6 text-sm leading-relaxed text-[#F5F0E6]/70">{faq.a}</p>
+              </div>
+            </details>
+          ))}
+          <div class="border-t" style="border-color: rgba(201,169,110,0.18);" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
+
+    <!-- ══════════════ CONTACT ══════════════ -->
+    <section id="contact" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.contact.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.contact.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.contact.headingEmphasis}</span>
+          </h2>
+
+          <p class="reveal mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#0B0B0C]/70 md:text-lg" style="transition-delay: 0.2s;">
+            {copy.contact.body}
+          </p>
+        </div>
+
+        <div id="contact-form" class="mt-16 md:mt-20">
+          <GrandTableForm form={forms.contact} theme="light" />
+        </div>
+      </div>
+    </section>
+
+    <FooterSection variant="gold" />
+  </main>
+</Layout>
+
+<style>
+  section[id],
+  #enterprise-form,
+  #delegate-form,
+  #investor-form,
+  #sponsor-form,
+  #contact-form,
+  .gt-form-tabs {
+    scroll-margin-top: 112px;
+  }
+
+  @media (min-width: 768px) {
+    section[id],
+    #enterprise-form,
+    #delegate-form,
+    #investor-form,
+    #sponsor-form,
+    #contact-form,
+    .gt-form-tabs {
+      scroll-margin-top: 124px;
+    }
+  }
+
+  .gt-beam {
+    animation: gtBeamBreathe 8s ease-in-out infinite;
+  }
+
+  .gt-source {
+    animation: gtSourceBreathe 8s ease-in-out infinite;
+  }
+
+  @keyframes gtBeamBreathe {
+    0%, 100% { opacity: 0.65; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes gtSourceBreathe {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.55; }
+  }
+
+  .gt-table-ambient,
+  .gt-reflection-pool {
+    animation: gtGlowPulse 10s ease-in-out infinite;
+  }
+
+  @keyframes gtGlowPulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+
+  .gt-scrollline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, #E6D3A3 50%, transparent);
+    animation: gtScrollDrip 2.4s ease-in-out infinite;
+  }
+
+  @keyframes gtScrollDrip {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-beam,
+    .gt-source,
+    .gt-table-ambient,
+    .gt-reflection-pool {
+      animation: none;
+    }
+    .gt-scrollline::after {
+      animation: none;
+      transform: translateY(0);
+      background: #C9A96E;
+      opacity: 0.6;
+    }
+  }
+
+  .gt-sector-title {
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-sector-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 0;
+    background: #C9A96E;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) {
+    .gt-sector-row:hover .gt-sector-title {
+      transform: translateX(8px);
+    }
+    .gt-sector-row:hover .gt-sector-title::after {
+      width: 100%;
+    }
+  }
+
+  .gt-sector-row:focus-visible .gt-sector-title {
+    transform: translateX(8px);
+  }
+  .gt-sector-row:focus-visible .gt-sector-title::after {
+    width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-sector-title,
+    .gt-sector-title::after {
+      transition: none;
+    }
+  }
+
+  .gt-objective {
+    border-color: rgba(154,123,69,0.35);
+    transition: border-color 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-objective:hover {
+      border-color: rgba(154,123,69,0.9);
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-objective {
+      transition: none;
+    }
+    .gt-objective:hover {
+      transform: none;
+    }
+  }
+
+  .gt-reason-card {
+    transition: border-color 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-reason-card:hover {
+      border-color: rgba(201,169,110,0.9);
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-reason-card {
+      transition: none;
+    }
+    .gt-reason-card:hover {
+      transform: none;
+    }
+  }
+
+  .gt-tier-card {
+    transition: border-color 0.6s ease, transform 0.6s ease, box-shadow 0.6s ease;
+  }
+
+  .gt-tier-card.gt-tier-featured {
+    transform: translateY(-6px);
+    box-shadow: 0 0 0 1px rgba(201,169,110,0.6), 0 12px 40px -12px rgba(201,169,110,0.35);
+  }
+
+  @media (hover: hover) {
+    .gt-tier-card:hover {
+      border-color: rgba(154,123,69,0.9);
+      transform: translateY(-4px);
+    }
+    .gt-tier-card.gt-tier-featured:hover {
+      border-color: #C9A96E;
+      transform: translateY(-10px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-tier-card {
+      transition: none;
+    }
+    .gt-tier-card:hover {
+      transform: none;
+    }
+    .gt-tier-card.gt-tier-featured {
+      transform: none;
+    }
+  }
+
+  .gt-speaker-frame {
+    transition: border-color 0.5s ease;
+  }
+
+  .gt-speaker-img {
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+  }
+
+  .gt-speaker-duotone {
+    background: linear-gradient(160deg, rgba(201,169,110,0.55), rgba(11,11,12,0.35));
+    mix-blend-mode: color;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gt-speaker-card:hover .gt-speaker-frame {
+      border-color: #C9A96E;
+    }
+    .gt-speaker-card:hover .gt-speaker-img {
+      transform: scale(1.05);
+    }
+    .gt-speaker-card:hover .gt-speaker-duotone {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-speaker-frame,
+    .gt-speaker-img,
+    .gt-speaker-duotone {
+      transition: none;
+    }
+    .gt-speaker-card:hover .gt-speaker-img {
+      transform: none;
+    }
+  }
+
+  .gt-venue-photo {
+    position: relative;
+  }
+
+  .gt-venue-photo img {
+    filter: grayscale(0.15) sepia(0.15);
+  }
+
+  .gt-venue-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(201,169,110,0.08);
+    mix-blend-mode: color;
+    pointer-events: none;
+  }
+
+  .gt-process-line {
+    left: 0.5rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: rgba(154,123,69,0.3);
+  }
+
+  @media (min-width: 768px) {
+    .gt-process-line {
+      left: 8px;
+      right: calc(25% - 32px);
+      top: 0.5rem;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+  }
+
+  .gt-credit-strip {
+    transition: opacity 0.4s ease;
+  }
+
+  .gt-credit-strip.gt-strip-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-credit-strip {
+      transition: none;
+    }
+  }
+
+  .gt-sector-sweep {
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.08));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-sector-apply {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .gt-sector-arrow {
+    transform: translateX(-10px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-sector-apply {
+      opacity: 0.35;
+    }
+    .gt-sector-arrow {
+      opacity: 1;
+    }
+    .gt-sector-row:hover .gt-sector-sweep {
+      transform: scaleX(1);
+    }
+    .gt-sector-row:hover .gt-sector-apply,
+    .gt-sector-row:hover .gt-sector-arrow {
+      opacity: 1;
+    }
+    .gt-sector-row:hover .gt-sector-arrow {
+      transform: translateX(0);
+    }
+  }
+
+  .gt-sector-row:focus-visible .gt-sector-sweep {
+    transform: scaleX(1);
+  }
+  .gt-sector-row:focus-visible .gt-sector-apply,
+  .gt-sector-row:focus-visible .gt-sector-arrow {
+    opacity: 1;
+  }
+  .gt-sector-row:focus-visible .gt-sector-arrow {
+    transform: translateX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-sector-sweep,
+    .gt-sector-apply,
+    .gt-sector-arrow {
+      transition: none;
+    }
+  }
+
+  .gt-highlight-strip {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scrollbar-width: none;
+  }
+
+  .gt-highlight-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gt-highlight-strip:focus-visible {
+    outline: 2px solid #E6D3A3;
+    outline-offset: 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gt-highlight-strip {
+      cursor: grab;
+    }
+
+    .gt-highlight-strip.gt-strip-grabbing {
+      cursor: grabbing;
+    }
+  }
+
+  .gt-highlight-frame {
+    scroll-snap-align: start;
+    transition: border-color 0.6s ease;
+  }
+
+  .gt-frame-bg {
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-frame-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 1px;
+    width: 0;
+    background: #C9A96E;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gt-frame-desc {
+    opacity: 0.6;
+    transform: translateY(6px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gt-highlight-frame:hover {
+      border-color: rgba(230,211,163,0.6);
+    }
+
+    .gt-highlight-frame:hover .gt-frame-title::after {
+      width: 48px;
+    }
+
+    .gt-highlight-frame:hover .gt-frame-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .gt-highlight-frame:hover .gt-frame-bg {
+      transform: scale(1.04);
+    }
+  }
+
+  .gt-strip-arrow {
+    transition: border-color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  }
+
+  @media (hover: hover) {
+    .gt-strip-arrow:not(:disabled):hover {
+      border-color: #C9A96E;
+      background-color: rgba(201,169,110,0.1);
+    }
+  }
+
+  .gt-strip-arrow:focus-visible {
+    outline: 2px solid #E6D3A3;
+    outline-offset: 2px;
+  }
+
+  .gt-strip-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-highlight-frame,
+    .gt-frame-bg,
+    .gt-frame-title::after,
+    .gt-frame-desc,
+    .gt-strip-arrow {
+      transition: none;
+    }
+  }
+
+  .gt-frame-bg-1 {
+    background:
+      radial-gradient(60% 50% at 50% -10%, rgba(230,211,163,0.35), transparent 70%),
+      linear-gradient(100deg, transparent 40%, rgba(230,211,163,0.16) 50%, transparent 60%),
+      linear-gradient(80deg, transparent 44%, rgba(230,211,163,0.12) 50%, transparent 56%),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-2 {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(230,211,163,0.22), transparent 30%),
+      repeating-radial-gradient(circle at 50% 42%, rgba(230,211,163,0.14) 0, rgba(230,211,163,0.14) 1px, transparent 1px, transparent 22px),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-3 {
+    background:
+      linear-gradient(to bottom, transparent 0%, rgba(230,211,163,0.18) 46%, rgba(230,211,163,0.06) 50%, transparent 54%),
+      repeating-linear-gradient(to bottom, rgba(230,211,163,0.07) 0, rgba(230,211,163,0.07) 1px, transparent 1px, transparent 16px),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-4 {
+    background:
+      radial-gradient(circle, rgba(230,211,163,0.4) 1px, transparent 1.6px) 0 0 / 24px 24px,
+      radial-gradient(60% 50% at 50% 100%, rgba(201,169,110,0.14), transparent 70%),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-5 {
+    background:
+      repeating-linear-gradient(118deg, rgba(230,211,163,0.03) 0px, rgba(230,211,163,0.14) 3px, transparent 42px, transparent 84px),
+      radial-gradient(50% 50% at 30% 20%, rgba(230,211,163,0.12), transparent 70%),
+      #0B0B0C;
+  }
+
+  .gt-frame-bg-6 {
+    background:
+      repeating-linear-gradient(45deg, rgba(230,211,163,0.12) 0, rgba(230,211,163,0.12) 1.5px, transparent 1.5px, transparent 13px),
+      repeating-linear-gradient(-45deg, rgba(230,211,163,0.1) 0, rgba(230,211,163,0.1) 1.5px, transparent 1.5px, transparent 13px),
+      #0B0B0C;
+  }
+
+  .gt-faq-item summary {
+    list-style: none;
+  }
+
+  .gt-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gt-faq-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .gt-faq-icon-line {
+    position: absolute;
+    background: #C9A96E;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  }
+
+  .gt-faq-icon-h {
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .gt-faq-icon-v {
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  .gt-faq-item[open] .gt-faq-icon-v {
+    transform: translateX(-50%) scaleY(0);
+    opacity: 0;
+  }
+
+  .gt-faq-item::details-content {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, content-visibility 0.5s allow-discrete;
+    content-visibility: hidden;
+  }
+
+  .gt-faq-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+    content-visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-faq-icon-line {
+      transition: none;
+    }
+    .gt-faq-item::details-content {
+      transition: opacity 0.3s ease;
+    }
+  }
+
+  /* Reusable seam: short gradient band + crisp champagne line at the exact join
+     between a jet section and an ivory section. */
+  .gt-seam {
+    position: relative;
+    width: 100%;
+    height: 64px;
+  }
+
+  @media (min-width: 768px) {
+    .gt-seam {
+      height: 96px;
+    }
+  }
+
+  .gt-seam-to-ivory {
+    background: linear-gradient(to bottom, #0B0B0C 0%, #2a2218 50%, #F5F0E6 100%);
+  }
+
+  .gt-seam-to-jet {
+    background: linear-gradient(to bottom, #F5F0E6 0%, #2a2218 50%, #0B0B0C 100%);
+  }
+
+  .gt-seam::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 70%;
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(to right, transparent, #B08D57 20%, #C9A96E 50%, #B08D57 80%, transparent);
+    box-shadow: 0 0 4px rgba(201,169,110,0.55);
+  }
+
+  .gt-form-tab {
+    border: none;
+    border-radius: 9999px;
+    padding: 0.65rem 1.5rem;
+    background: transparent;
+    color: rgba(245,240,230,0.6);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .gt-form-tab[aria-selected="true"] {
+    background: #C9A96E;
+    color: #0B0B0C;
+  }
+
+  .gt-form-tab:focus-visible {
+    outline: 2px solid #E6D3A3;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-form-tab {
+      transition: none;
+    }
+  }
+
+</style>
+
+<script>
+  const GT_TARGET = new Date((window as unknown as { GT_COUNTDOWN_TARGET: string }).GT_COUNTDOWN_TARGET).getTime();
+
+  function gtUpdateCountdown() {
+    const now = Date.now();
+    const diff = Math.max(0, GT_TARGET - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    const daysEl = document.getElementById("gt-days");
+    const hoursEl = document.getElementById("gt-hours");
+    const minsEl = document.getElementById("gt-mins");
+    const secsEl = document.getElementById("gt-secs");
+
+    if (daysEl) daysEl.textContent = pad(days);
+    if (hoursEl) hoursEl.textContent = pad(hours);
+    if (minsEl) minsEl.textContent = pad(mins);
+    if (secsEl) secsEl.textContent = pad(secs);
+  }
+
+  gtUpdateCountdown();
+  setInterval(gtUpdateCountdown, 1000);
+
+  // Hide the organisers strip once the page scrolls past the point where
+  // the nav becomes a sticky glass bar.
+  const gtCreditStrip = document.getElementById("gt-credit-strip");
+  if (gtCreditStrip) {
+    const gtToggleCreditStrip = () => {
+      gtCreditStrip.classList.toggle("gt-strip-hidden", window.scrollY > 80);
+    };
+    gtToggleCreditStrip();
+    window.addEventListener("scroll", gtToggleCreditStrip, { passive: true });
+  }
+
+  // FAQ accordion: keep only one entry open at a time
+  document.querySelectorAll(".gt-faq-item").forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (!(item as HTMLDetailsElement).open) return;
+      document.querySelectorAll(".gt-faq-item").forEach((other) => {
+        if (other !== item && (other as HTMLDetailsElement).open) {
+          (other as HTMLDetailsElement).open = false;
+        }
+      });
+    });
+  });
+
+  // Event Experience highlight strip: arrow nav, progress hairline, pointer drag-to-scroll
+  const gtStrip = document.getElementById("gt-highlight-strip");
+  if (gtStrip) {
+    // Frames live in a horizontally scrolling row, so the shared per-element reveal
+    // observer never sees frames parked off-screen to the right. Reveal them all together
+    // when the strip itself enters the viewport; each frame's own transition-delay staggers it.
+    const gtFrames = Array.from(gtStrip.querySelectorAll<HTMLElement>(".gt-highlight-frame"));
+    const gtStripObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          gtFrames.forEach((frame) => frame.classList.add("visible"));
+          gtStripObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
+    );
+    gtStripObserver.observe(gtStrip);
+
+    const gtPrev = document.getElementById("gt-strip-prev") as HTMLButtonElement | null;
+    const gtNext = document.getElementById("gt-strip-next") as HTMLButtonElement | null;
+    const gtProgress = document.getElementById("gt-strip-progress") as HTMLElement | null;
+
+    const gtFrameStep = () => {
+      const frame = gtStrip.querySelector(".gt-highlight-frame") as HTMLElement | null;
+      const gap = parseFloat(getComputedStyle(gtStrip).columnGap || "0") || 20;
+      return (frame ? frame.getBoundingClientRect().width : gtStrip.clientWidth) + gap;
+    };
+
+    const gtUpdateStripUI = () => {
+      const max = gtStrip.scrollWidth - gtStrip.clientWidth;
+      const ratio = max > 0 ? gtStrip.scrollLeft / max : 0;
+      if (gtProgress) gtProgress.style.width = `${Math.min(100, Math.max(6, ratio * 100))}%`;
+      if (gtPrev) gtPrev.disabled = gtStrip.scrollLeft <= 2;
+      if (gtNext) gtNext.disabled = gtStrip.scrollLeft >= max - 2;
+    };
+
+    gtPrev?.addEventListener("click", () => {
+      gtStrip.scrollBy({ left: -gtFrameStep(), behavior: "smooth" });
+    });
+    gtNext?.addEventListener("click", () => {
+      gtStrip.scrollBy({ left: gtFrameStep(), behavior: "smooth" });
+    });
+
+    gtStrip.addEventListener("scroll", gtUpdateStripUI, { passive: true });
+    window.addEventListener("resize", gtUpdateStripUI);
+    gtUpdateStripUI();
+
+    // Pointer drag-to-scroll for mouse/pen; touch keeps native swipe
+    let gtDragging = false;
+    let gtDragMoved = false;
+    let gtStartX = 0;
+    let gtStartScroll = 0;
+
+    gtStrip.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return;
+      gtDragging = true;
+      gtDragMoved = false;
+      gtStartX = e.clientX;
+      gtStartScroll = gtStrip.scrollLeft;
+      gtStrip.classList.add("gt-strip-grabbing");
+    });
+
+    gtStrip.addEventListener("pointermove", (e) => {
+      if (!gtDragging) return;
+      const dx = e.clientX - gtStartX;
+      if (Math.abs(dx) > 3) gtDragMoved = true;
+      gtStrip.scrollLeft = gtStartScroll - dx;
+    });
+
+    const gtEndDrag = () => {
+      gtDragging = false;
+      gtStrip.classList.remove("gt-strip-grabbing");
+    };
+    gtStrip.addEventListener("pointerup", gtEndDrag);
+    gtStrip.addEventListener("pointerleave", gtEndDrag);
+    gtStrip.addEventListener("pointercancel", gtEndDrag);
+
+    // Only swallow the click that follows an actual drag; normal taps pass through untouched
+    gtStrip.addEventListener(
+      "click",
+      (e) => {
+        if (gtDragMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      { capture: true }
+    );
+  }
+
+  // Safety net: if the shared IntersectionObserver ever misses an element,
+  // force it visible after 2.5s so nothing stays permanently hidden.
+  setTimeout(() => {
+    document.querySelectorAll(".reveal").forEach((el) => {
+      if (el.classList.contains("visible")) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add("visible");
+      }
+    });
+  }, 2500);
+
+  // Delegate / Investor registration tab toggle
+  const gtFormTabs = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gt-form-tab]"));
+  const gtFormPanels = Array.from(document.querySelectorAll<HTMLElement>("[data-gt-form-panel]"));
+  if (gtFormTabs.length && gtFormPanels.length) {
+    const gtActivateFormTab = (key: string, focusTab = false) => {
+      gtFormTabs.forEach((tab) => {
+        const active = tab.dataset.gtFormTab === key;
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+        tab.tabIndex = active ? 0 : -1;
+        if (active && focusTab) tab.focus();
+      });
+      gtFormPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.gtFormPanel !== key;
+      });
+    };
+
+    gtFormTabs.forEach((tab) => {
+      tab.addEventListener("click", () => gtActivateFormTab(tab.dataset.gtFormTab || "delegate"));
+      tab.addEventListener("keydown", (e) => {
+        const index = gtFormTabs.indexOf(tab);
+        let nextIndex: number | null = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") nextIndex = (index + 1) % gtFormTabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") nextIndex = (index - 1 + gtFormTabs.length) % gtFormTabs.length;
+        else if (e.key === "Home") nextIndex = 0;
+        else if (e.key === "End") nextIndex = gtFormTabs.length - 1;
+        if (nextIndex !== null) {
+          e.preventDefault();
+          gtActivateFormTab(gtFormTabs[nextIndex].dataset.gtFormTab || "delegate", true);
+        }
+      });
+    });
+
+    // Deep links to either tabbed form land on the tab pill (not the form below it),
+    // so the Delegate | Investor/Partner toggle stays visible under the fixed nav.
+    const gtScrollToFormTabs = (smooth: boolean) => {
+      const tabs = document.querySelector(".gt-form-tabs");
+      if (tabs) tabs.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+    };
+    const gtHandleFormHash = (smooth: boolean) => {
+      const hash = window.location.hash;
+      const wantsInvestor = hash === "#investor-form" || new URLSearchParams(window.location.search).get("form") === "investor";
+      if (wantsInvestor) gtActivateFormTab("investor");
+      else if (hash === "#delegate-form") gtActivateFormTab("delegate");
+      else return;
+      requestAnimationFrame(() => gtScrollToFormTabs(smooth));
+      setTimeout(() => gtScrollToFormTabs(false), 400);
+    };
+    document.querySelectorAll('a[href="#investor-form"], a[href="#delegate-form"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        history.pushState(null, "", link.getAttribute("href"));
+        gtHandleFormHash(true);
+      });
+    });
+    window.addEventListener("hashchange", () => gtHandleFormHash(true));
+    gtHandleFormHash(false);
+
+    // Fade the "Register as a Delegate" CTA out while the tabbed forms are in view,
+    // so it never sits half-hidden behind the fixed nav.
+    const gtDelegateCta = document.getElementById("gt-delegate-cta");
+    const gtFormTabsWrap = document.querySelector(".gt-form-tabs")?.parentElement?.parentElement;
+    if (gtDelegateCta && gtFormTabsWrap && "IntersectionObserver" in window) {
+      gtDelegateCta.style.transition = "opacity 0.4s ease";
+      new IntersectionObserver(
+        ([entry]) => {
+          const hide = entry.isIntersecting;
+          gtDelegateCta.style.opacity = hide ? "0" : "";
+          gtDelegateCta.style.pointerEvents = hide ? "none" : "";
+          gtDelegateCta.toggleAttribute("aria-hidden", hide);
+          gtDelegateCta.querySelector("a")?.setAttribute("tabindex", hide ? "-1" : "0");
+        },
+        { rootMargin: "-140px 0px 0px 0px" }
+      ).observe(gtFormTabsWrap);
+    }
+  }
+</script>

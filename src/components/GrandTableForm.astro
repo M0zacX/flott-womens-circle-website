@@ -1,0 +1,1063 @@
+---
+import type { Field, FormConfig } from "../data/grand-table-forms";
+import { COUNTRIES } from "../data/grand-table-forms";
+
+interface Props {
+  form: FormConfig;
+  theme: "dark" | "light";
+}
+
+const { form, theme } = Astro.props as Props;
+
+const uploadsEnabled = import.meta.env.PUBLIC_GT_UPLOADS_ENABLED === "true";
+
+const fieldId = (field: Field) => `${form.id}-${field.name}`;
+const noticeId = `${form.id}-notice`;
+
+const sections = form.steps
+  ? form.steps.map((step, index) => ({
+      index,
+      label: step.label,
+      fields: step.fields.map((name) => form.fields.find((f) => f.name === name)).filter((f): f is Field => Boolean(f)),
+    }))
+  : [{ index: 0, label: null as string | null, fields: form.fields }];
+---
+
+<div class={`gtf gtf-${theme}`}>
+  <div class="gtf-panel">
+    <h3 class="gtf-title">{form.title}</h3>
+    <p class="gtf-intro">{form.intro}</p>
+
+    <form id={`${form.id}-form`} class="gtf-form" data-multistep={form.steps ? "true" : "false"} data-form-id={form.id} novalidate>
+      <div class="gtf-honeypot" aria-hidden="true">
+        <label for={`${form.id}-company-website`}>Company Website</label>
+        <input type="text" id={`${form.id}-company-website`} name="company_website_hp" tabindex={-1} autocomplete="off" />
+      </div>
+
+      {form.steps && (
+        <div class="gtf-progress">
+          <div class="gtf-progress-track" aria-hidden="true">
+            {form.steps.map((step, i) => (
+              <span class={`gtf-progress-segment ${i === 0 ? "gtf-progress-segment-active" : ""}`} data-segment={i}></span>
+            ))}
+          </div>
+          <div class="gtf-progress-labels" aria-hidden="true">
+            {form.steps.map((step, i) => (
+              <>
+                <span class={`gtf-progress-label ${i === 0 ? "gtf-progress-label-current" : ""}`} data-progress-label={i}>{i + 1} {step.label}</span>
+                {i < form.steps!.length - 1 && <span class="gtf-progress-sep">&middot;</span>}
+              </>
+            ))}
+            <span class="gtf-progress-count" data-step-count>Step 1 of {form.steps.length}</span>
+          </div>
+          <p class="gtf-step-status gtf-sr-only" data-step-status aria-live="polite">Step 1 of {form.steps.length}</p>
+        </div>
+      )}
+
+      {sections.map((section) => (
+        <div class="gtf-step-panel" data-step-panel={section.index} hidden={form.steps ? section.index !== 0 : false}>
+          <div class="gtf-grid">
+            {section.fields.map((field) => {
+              const id = fieldId(field);
+              const errorId = `${id}-error`;
+              const helperId = field.type === "file" && field.helper ? `${id}-helper` : null;
+              const describedBy = helperId ? `${helperId} ${errorId}` : errorId;
+              return (
+                <div class={`gtf-field ${field.full ? "gtf-field-full" : ""}`}>
+                  {field.type !== "checkbox" && (
+                    <label for={id} class="gtf-label">
+                      {field.label}
+                      {field.required && <span class="gtf-required" aria-hidden="true">*</span>}
+                    </label>
+                  )}
+
+                  {field.type === "checkbox" && (
+                    <label for={id} class="gtf-consent">
+                      <input
+                        type="checkbox"
+                        id={id}
+                        name={field.name}
+                        required={field.required}
+                        aria-required={field.required ? "true" : undefined}
+                        aria-describedby={describedBy}
+                        class="gtf-checkbox"
+                      />
+                      <span>
+                        {field.label}
+                        {field.required && <span class="gtf-required" aria-hidden="true"> *</span>}
+                      </span>
+                    </label>
+                  )}
+
+                  {field.type === "select" && (
+                    <div class="gtf-select-wrap">
+                      <select
+                        id={id}
+                        name={field.name}
+                        required={field.required}
+                        aria-required={field.required ? "true" : undefined}
+                        aria-describedby={describedBy}
+                        class="gtf-select"
+                      >
+                        <option value="" selected disabled>Select an option</option>
+                        {field.options?.map((opt) => <option value={opt}>{opt}</option>)}
+                      </select>
+                      <svg class="gtf-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </div>
+                  )}
+
+                  {field.type === "country" && (
+                    <div class="gtf-select-wrap">
+                      <select
+                        id={id}
+                        name={field.name}
+                        required={field.required}
+                        aria-required={field.required ? "true" : undefined}
+                        aria-describedby={describedBy}
+                        class="gtf-select"
+                      >
+                        <option value="" selected disabled>Select a country</option>
+                        {COUNTRIES.map((country) => <option value={country}>{country}</option>)}
+                      </select>
+                      <svg class="gtf-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </div>
+                  )}
+
+                  {field.type === "textarea" && (
+                    <textarea
+                      id={id}
+                      name={field.name}
+                      required={field.required}
+                      aria-required={field.required ? "true" : undefined}
+                      aria-describedby={describedBy}
+                      placeholder={field.placeholder}
+                      rows={4}
+                      class="gtf-textarea"
+                    ></textarea>
+                  )}
+
+                  {field.type === "file" && !uploadsEnabled && (
+                    <p class="gtf-dropzone-helper" data-uploads-off>Uploads coming soon. You can send your {field.label.toLowerCase()} later.</p>
+                  )}
+
+                  {field.type === "file" && uploadsEnabled && (
+                    <div class="gtf-file-field">
+                      <label for={id} class="gtf-dropzone" data-dropzone>
+                        <svg class="gtf-dropzone-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <span class="gtf-dropzone-copy">
+                          <span class="gtf-dropzone-text">Drag your PDF here or browse</span>
+                          {field.helper && <span id={helperId} class="gtf-dropzone-helper">{field.helper}</span>}
+                        </span>
+                        <input
+                          type="file"
+                          id={id}
+                          name={field.name}
+                          accept={field.accept}
+                          required={field.required}
+                          aria-required={field.required ? "true" : undefined}
+                          aria-describedby={describedBy}
+                          class="gtf-file-input"
+                          data-file-input
+                        />
+                      </label>
+
+                      <div class="gtf-file-chip" data-file-chip hidden>
+                        <svg class="gtf-file-chip-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        <span class="gtf-file-chip-info">
+                          <span class="gtf-file-chip-name" data-file-name></span>
+                          <span class="gtf-file-chip-size" data-file-size></span>
+                        </span>
+                        <button type="button" class="gtf-file-remove" data-file-remove>Remove</button>
+                      </div>
+                    </div>
+                  )}
+
+                  {(field.type === "text" || field.type === "email" || field.type === "tel" || field.type === "url" || field.type === "number") && (
+                    <input
+                      type={field.type}
+                      id={id}
+                      name={field.name}
+                      required={field.required}
+                      aria-required={field.required ? "true" : undefined}
+                      aria-describedby={describedBy}
+                      placeholder={field.placeholder}
+                      class="gtf-input"
+                    />
+                  )}
+
+                  <p id={errorId} class="gtf-field-error" role="alert" hidden>
+                    <svg class="gtf-field-error-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span data-error-text></span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {(!form.steps || section.index === form.steps.length - 1) && !form.fields.some((f) => f.type === "checkbox") && (
+            <label class="gtf-consent">
+              <input type="checkbox" name="consent" class="gtf-checkbox" />
+              <span>I agree to be contacted about The Grand Table 2026</span>
+            </label>
+          )}
+        </div>
+      ))}
+
+      <div class="gtf-submit-row">
+        {form.steps ? (
+          <div class="gtf-step-actions">
+            <button type="button" class="gtf-back" data-action="back" hidden>Back</button>
+            <button type="button" class="gtf-next" data-action="next">Next</button>
+            <button type="submit" class="gtf-submit" data-action="submit" hidden>{form.submitLabel}</button>
+          </div>
+        ) : (
+          <button type="submit" class="gtf-submit">{form.submitLabel}</button>
+        )}
+        <p id={noticeId} class="gtf-notice" role="status" aria-live="polite" hidden></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .gtf {
+    --gtf-text: #0b0b0c;
+    --gtf-muted: rgba(11, 11, 12, 0.6);
+    --gtf-accent: #9a7b45;
+    --gtf-champagne: #c9a96e;
+    --gtf-error: #b4483c;
+    --gtf-border: rgba(154, 123, 69, 0.35);
+    --gtf-border-strong: rgba(154, 123, 69, 0.6);
+    --gtf-panel-bg: rgba(255, 255, 255, 0.45);
+    --gtf-placeholder: rgba(11, 11, 12, 0.35);
+    --gtf-submit-bg: #0b0b0c;
+    --gtf-submit-text: #f5f0e6;
+  }
+
+  .gtf-dark {
+    --gtf-text: #f5f0e6;
+    --gtf-muted: rgba(245, 240, 230, 0.6);
+    --gtf-accent: #c9a96e;
+    --gtf-error: #e07a6b;
+    --gtf-border: rgba(201, 169, 110, 0.25);
+    --gtf-border-strong: rgba(201, 169, 110, 0.55);
+    --gtf-panel-bg: rgba(255, 255, 255, 0.03);
+    --gtf-placeholder: rgba(245, 240, 230, 0.35);
+    --gtf-submit-bg: #c9a96e;
+    --gtf-submit-text: #0b0b0c;
+  }
+
+  .gtf-panel {
+    position: relative;
+    margin: 0 auto;
+    max-width: 56rem;
+    border: 1px solid var(--gtf-border);
+    border-radius: 1rem;
+    background: var(--gtf-panel-bg);
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .gtf-panel {
+      padding: 3rem 3rem;
+    }
+  }
+
+  .gtf-title {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--gtf-text);
+  }
+
+  .gtf-intro {
+    margin-top: 0.6rem;
+    max-width: 38rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-form {
+    margin-top: 2.25rem;
+  }
+
+  .gtf-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .gtf-progress {
+    margin-bottom: 2.25rem;
+  }
+
+  .gtf-progress-track {
+    display: flex;
+    gap: 4px;
+  }
+
+  .gtf-progress-segment {
+    flex: 1;
+    height: 3px;
+    border-radius: 9999px;
+    background: var(--gtf-border);
+    transition: background-color 0.4s ease;
+  }
+
+  .gtf-progress-segment-active {
+    background: var(--gtf-champagne);
+  }
+
+  .gtf-progress-labels {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-progress-label {
+    opacity: 0.55;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+
+  .gtf-progress-label-current {
+    opacity: 1;
+    color: var(--gtf-champagne);
+  }
+
+  .gtf-progress-sep {
+    opacity: 0.4;
+  }
+
+  .gtf-progress-count {
+    margin-left: auto;
+    opacity: 0.6;
+  }
+
+  .gtf-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .gtf-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .gtf-field-full {
+    grid-column: 1 / -1;
+  }
+
+  .gtf-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-required {
+    margin-left: 0.25rem;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-input,
+  .gtf-textarea,
+  .gtf-select {
+    width: 100%;
+    margin-top: 0.65rem;
+    border: none;
+    border-bottom: 1px solid var(--gtf-border-strong);
+    background: transparent;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--gtf-text);
+    transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gtf-input::placeholder,
+  .gtf-textarea::placeholder {
+    color: var(--gtf-placeholder);
+  }
+
+  .gtf-input:focus,
+  .gtf-textarea:focus,
+  .gtf-select:focus {
+    outline: none;
+    border-bottom-color: transparent;
+    box-shadow: 0 2px 0 0 var(--gtf-accent);
+  }
+
+  .gtf-field:focus-within .gtf-label {
+    color: var(--gtf-accent);
+  }
+
+  .gtf-checkbox:focus-visible,
+  .gtf-dropzone:focus-within,
+  .gtf-file-remove:focus-visible,
+  .gtf-back:focus-visible,
+  .gtf-next:focus-visible,
+  .gtf-submit:focus-visible {
+    outline: 2px solid var(--gtf-accent);
+    outline-offset: 2px;
+  }
+
+  .gtf-field-invalid .gtf-input,
+  .gtf-field-invalid .gtf-textarea,
+  .gtf-field-invalid .gtf-select {
+    border-bottom-color: var(--gtf-error);
+  }
+
+  .gtf-field-invalid .gtf-input:focus,
+  .gtf-field-invalid .gtf-textarea:focus,
+  .gtf-field-invalid .gtf-select:focus {
+    border-bottom-color: transparent;
+    box-shadow: 0 2px 0 0 var(--gtf-error);
+  }
+
+  .gtf-field-invalid .gtf-consent {
+    color: var(--gtf-error);
+  }
+
+  .gtf-field-invalid .gtf-checkbox {
+    outline: 1px solid var(--gtf-error);
+    outline-offset: 2px;
+  }
+
+  .gtf-field-error {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--gtf-error);
+  }
+
+  .gtf-field-error[hidden] {
+    display: none;
+  }
+
+  .gtf-field-error-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-top: 0.1rem;
+    flex: none;
+  }
+
+  .gtf-textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .gtf-select-wrap {
+    position: relative;
+  }
+
+  .gtf-select {
+    appearance: none;
+    padding-right: 1.5rem;
+    cursor: pointer;
+  }
+
+  .gtf-select option {
+    color: #0b0b0c;
+  }
+
+  .gtf-chevron {
+    position: absolute;
+    right: 0;
+    bottom: 0.7rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--gtf-accent);
+    pointer-events: none;
+  }
+
+  .gtf-file-field {
+    margin-top: 0.65rem;
+  }
+
+  .gtf-dropzone {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px dashed var(--gtf-border-strong);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease;
+  }
+
+  .gtf-dropzone:hover {
+    border-color: var(--gtf-accent);
+  }
+
+  .gtf-dropzone-drag {
+    border-style: solid;
+    border-color: var(--gtf-champagne);
+    background: rgba(201, 169, 110, 0.08);
+  }
+
+  .gtf-dropzone[hidden] {
+    display: none;
+  }
+
+  .gtf-dropzone-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: none;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-dropzone-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .gtf-dropzone-text {
+    font-size: 0.85rem;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-dropzone-helper {
+    font-size: 0.72rem;
+    color: var(--gtf-muted);
+    opacity: 0.75;
+  }
+
+  .gtf-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .gtf-file-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--gtf-border-strong);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1.1rem;
+  }
+
+  .gtf-file-chip[hidden] {
+    display: none;
+  }
+
+  .gtf-file-chip-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex: none;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-file-chip-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .gtf-file-chip-name {
+    font-size: 0.85rem;
+    color: var(--gtf-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gtf-file-chip-size {
+    font-size: 0.75rem;
+    color: var(--gtf-muted);
+  }
+
+  .gtf-file-remove {
+    flex: none;
+    border: none;
+    background: transparent;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gtf-accent);
+    cursor: pointer;
+    padding: 0.4rem 0.7rem;
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+  }
+
+  .gtf-file-remove:hover {
+    background: rgba(154, 123, 69, 0.12);
+  }
+
+  .gtf-consent {
+    margin-top: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--gtf-muted);
+    cursor: pointer;
+  }
+
+  .gtf-checkbox {
+    margin-top: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    accent-color: var(--gtf-accent);
+  }
+
+  .gtf-submit-row {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .gtf-step-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .gtf-submit,
+  .gtf-next {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    padding: 1rem 2.25rem;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: var(--gtf-submit-bg);
+    color: var(--gtf-submit-text);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gtf-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    padding: 1rem 1.75rem;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: transparent;
+    color: var(--gtf-text);
+    border: 1px solid var(--gtf-border-strong);
+    cursor: pointer;
+    transition: border-color 0.4s ease, opacity 0.4s ease;
+  }
+
+  .gtf-back:hover {
+    border-color: var(--gtf-accent);
+  }
+
+  .gtf-submit:hover,
+  .gtf-next:hover {
+    opacity: 0.85;
+  }
+
+  .gtf-back[hidden],
+  .gtf-next[hidden],
+  .gtf-submit[hidden] {
+    display: none;
+  }
+
+  .gtf-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .gtf-notice {
+    font-size: 0.85rem;
+    color: var(--gtf-accent);
+  }
+
+  .gtf-notice[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gtf-input,
+    .gtf-textarea,
+    .gtf-select,
+    .gtf-dropzone,
+    .gtf-dropzone-drag,
+    .gtf-progress-segment,
+    .gtf-progress-label,
+    .gtf-file-remove,
+    .gtf-back,
+    .gtf-next,
+    .gtf-submit {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const MAX_FILE_BYTES = 10 * 1024 * 1024;
+
+  function formatFileSize(bytes: number) {
+    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  }
+
+  function getLabelText(wrapper: Element) {
+    const label = wrapper.querySelector(".gtf-label");
+    if (!label) return "this field";
+    const clone = label.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll(".gtf-required").forEach((el) => el.remove());
+    return clone.textContent?.trim().toLowerCase() || "this field";
+  }
+
+  function messageForControl(control: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, wrapper: Element) {
+    if (control.validity.customError) return control.validationMessage;
+    if (control.validity.valueMissing) {
+      if (control.tagName === "SELECT") return "Please choose an option";
+      if (control instanceof HTMLInputElement && control.type === "checkbox") return "Please confirm to continue";
+      if (control instanceof HTMLInputElement && control.type === "file") return `Please upload your ${getLabelText(wrapper)}`;
+      return `Please enter your ${getLabelText(wrapper)}`;
+    }
+    if (control.validity.typeMismatch) {
+      if (control instanceof HTMLInputElement && control.type === "email") return "Please enter a valid email address";
+      if (control instanceof HTMLInputElement && control.type === "url") return "Please enter a valid website address";
+    }
+    return "Please check this field";
+  }
+
+  function showFieldError(wrapper: Element, control: HTMLElement, message: string) {
+    wrapper.classList.add("gtf-field-invalid");
+    control.setAttribute("aria-invalid", "true");
+    const errorEl = document.getElementById(`${control.id}-error`);
+    if (errorEl) {
+      const textEl = errorEl.querySelector("[data-error-text]");
+      if (textEl) textEl.textContent = message;
+      errorEl.hidden = false;
+    }
+  }
+
+  function clearFieldError(wrapper: Element, control: HTMLElement) {
+    wrapper.classList.remove("gtf-field-invalid");
+    control.removeAttribute("aria-invalid");
+    const errorEl = document.getElementById(`${control.id}-error`);
+    if (errorEl) errorEl.hidden = true;
+  }
+
+  function validateControl(wrapper: Element, control: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
+    if (control.checkValidity()) {
+      clearFieldError(wrapper, control);
+      return true;
+    }
+    showFieldError(wrapper, control, messageForControl(control, wrapper));
+    return false;
+  }
+
+  function getControl(wrapper: Element | null) {
+    if (!wrapper) return null;
+    return wrapper.querySelector("input, select, textarea") as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+  }
+
+  function setupFileField(wrapper: Element) {
+    const fileWrap = wrapper.querySelector(".gtf-file-field");
+    if (!fileWrap) return;
+    const dropzone = fileWrap.querySelector("[data-dropzone]") as HTMLElement | null;
+    const input = fileWrap.querySelector("input[type=file]") as HTMLInputElement | null;
+    const chip = fileWrap.querySelector("[data-file-chip]") as HTMLElement | null;
+    if (!dropzone || !input || !chip) return;
+    const nameEl = chip.querySelector("[data-file-name]");
+    const sizeEl = chip.querySelector("[data-file-size]");
+    const removeBtn = chip.querySelector("[data-file-remove]");
+
+    function showChip(file: File) {
+      if (nameEl) nameEl.textContent = file.name;
+      if (sizeEl) sizeEl.textContent = formatFileSize(file.size);
+      dropzone!.hidden = true;
+      chip!.hidden = false;
+    }
+
+    function showDropzone() {
+      dropzone!.hidden = false;
+      chip!.hidden = true;
+    }
+
+    function handleFiles(fileList: FileList | null) {
+      const file = fileList && fileList[0];
+      if (!file) return;
+      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+      if (!isPdf) {
+        input!.value = "";
+        input!.setCustomValidity("Please upload a PDF file.");
+        showDropzone();
+        showFieldError(wrapper, input!, "Please upload a PDF file.");
+        return;
+      }
+      if (file.size > MAX_FILE_BYTES) {
+        input!.value = "";
+        input!.setCustomValidity("File must be 10 MB or smaller.");
+        showDropzone();
+        showFieldError(wrapper, input!, "File must be 10 MB or smaller.");
+        return;
+      }
+      input!.setCustomValidity("");
+      showChip(file);
+      clearFieldError(wrapper, input!);
+    }
+
+    input.addEventListener("change", () => handleFiles(input.files));
+
+    removeBtn?.addEventListener("click", () => {
+      input.value = "";
+      input.setCustomValidity("");
+      showDropzone();
+      validateControl(wrapper, input);
+      input.focus();
+    });
+
+    ["dragenter", "dragover"].forEach((evt) => {
+      dropzone.addEventListener(evt, (event) => {
+        event.preventDefault();
+        dropzone.classList.add("gtf-dropzone-drag");
+      });
+    });
+    ["dragleave", "dragend", "drop"].forEach((evt) => {
+      dropzone.addEventListener(evt, () => {
+        dropzone.classList.remove("gtf-dropzone-drag");
+      });
+    });
+    dropzone.addEventListener("drop", (event) => {
+      event.preventDefault();
+      const files = (event as DragEvent).dataTransfer?.files;
+      if (files && files.length) {
+        input.files = files;
+        handleFiles(files);
+      }
+    });
+  }
+
+  document.querySelectorAll(".gtf-form").forEach((formEl) => {
+    const form = formEl as HTMLFormElement;
+    if (form.dataset.gtfInit === "true") return;
+    form.dataset.gtfInit = "true";
+
+    const wrappers = Array.from(form.querySelectorAll(".gtf-field"));
+
+    wrappers.forEach((wrapper) => {
+      setupFileField(wrapper);
+      const control = getControl(wrapper);
+      if (!control) return;
+      control.addEventListener("blur", () => validateControl(wrapper, control));
+      const liveEvent = control.tagName === "SELECT" || (control instanceof HTMLInputElement && (control.type === "checkbox" || control.type === "file")) ? "change" : "input";
+      control.addEventListener(liveEvent, () => {
+        if (wrapper.classList.contains("gtf-field-invalid")) validateControl(wrapper, control);
+      });
+    });
+
+    const panels = Array.from(form.querySelectorAll("[data-step-panel]"));
+    const isMultistep = form.dataset.multistep === "true" && panels.length > 1;
+    const segments = Array.from(form.querySelectorAll("[data-segment]"));
+    const labels = Array.from(form.querySelectorAll("[data-progress-label]"));
+    const statusEl = form.querySelector("[data-step-status]");
+    const stepCountEl = form.querySelector("[data-step-count]");
+    const backBtn = form.querySelector('[data-action="back"]') as HTMLButtonElement | null;
+    const nextBtn = form.querySelector('[data-action="next"]') as HTMLButtonElement | null;
+    const submitBtn = form.querySelector('[data-action="submit"]') as HTMLButtonElement | null;
+    let currentStep = 0;
+
+    function showStep(index: number) {
+      currentStep = index;
+      panels.forEach((panel, i) => {
+        (panel as HTMLElement).hidden = i !== index;
+      });
+      segments.forEach((seg, i) => seg.classList.toggle("gtf-progress-segment-active", i <= index));
+      labels.forEach((label, i) => label.classList.toggle("gtf-progress-label-current", i === index));
+      if (statusEl) statusEl.textContent = `Step ${index + 1} of ${panels.length}`;
+      if (stepCountEl) stepCountEl.textContent = `Step ${index + 1} of ${panels.length}`;
+      if (backBtn) backBtn.hidden = index === 0;
+      if (nextBtn) nextBtn.hidden = index === panels.length - 1;
+      if (submitBtn) submitBtn.hidden = index !== panels.length - 1;
+    }
+
+    function validatePanelFields(panel: Element) {
+      let firstInvalid: HTMLElement | null = null;
+      panel.querySelectorAll(".gtf-field").forEach((wrapper) => {
+        const control = getControl(wrapper);
+        if (!control) return;
+        const valid = validateControl(wrapper, control);
+        if (!valid && !firstInvalid) firstInvalid = control;
+      });
+      return firstInvalid;
+    }
+
+    if (isMultistep) {
+      showStep(0);
+
+      nextBtn?.addEventListener("click", () => {
+        const firstInvalid = validatePanelFields(panels[currentStep]);
+        if (firstInvalid) {
+          firstInvalid.focus();
+          return;
+        }
+        if (currentStep < panels.length - 1) {
+          showStep(currentStep + 1);
+          getControl(panels[currentStep].querySelector(".gtf-field"))?.focus();
+        }
+      });
+
+      backBtn?.addEventListener("click", () => {
+        if (currentStep > 0) {
+          showStep(currentStep - 1);
+          getControl(panels[currentStep].querySelector(".gtf-field"))?.focus();
+        }
+      });
+    }
+
+    function applyServerErrors(errors: Record<string, string>) {
+      let firstInvalid: HTMLElement | null = null;
+      let firstInvalidStep = -1;
+      Object.entries(errors).forEach(([name, message]) => {
+        const control = form.querySelector(`[name="${name}"]`) as HTMLElement | null;
+        const wrapper = control?.closest(".gtf-field");
+        if (!control || !wrapper) return;
+        showFieldError(wrapper, control, message);
+        if (!firstInvalid) {
+          firstInvalid = control;
+          const panel = wrapper.closest("[data-step-panel]");
+          firstInvalidStep = panel ? panels.indexOf(panel) : -1;
+        }
+      });
+      if (firstInvalid) {
+        if (isMultistep && firstInvalidStep > -1 && firstInvalidStep !== currentStep) {
+          showStep(firstInvalidStep);
+        }
+        (firstInvalid as HTMLElement).focus();
+      }
+    }
+
+    async function submitLive() {
+      const notice = form.querySelector(".gtf-notice") as HTMLElement | null;
+      const submitButtons = Array.from(form.querySelectorAll('button[type="submit"]')) as HTMLButtonElement[];
+      submitButtons.forEach((button) => (button.disabled = true));
+
+      try {
+        const response = await fetch(`/api/grand-table/submit/${form.dataset.formId}`, {
+          method: "POST",
+          body: new FormData(form),
+        });
+        const result = (await response.json().catch(() => null)) as { ok?: boolean; errors?: Record<string, string> } | null;
+
+        if (response.ok && result?.ok) {
+          form.reset();
+          const chip = form.querySelector("[data-file-chip]") as HTMLElement | null;
+          const dropzone = form.querySelector("[data-dropzone]") as HTMLElement | null;
+          if (chip) chip.hidden = true;
+          if (dropzone) dropzone.hidden = false;
+          wrappers.forEach((wrapper) => {
+            const control = getControl(wrapper);
+            if (control) clearFieldError(wrapper, control);
+          });
+          if (notice) {
+            notice.textContent = "Thank you. We have received your submission.";
+            notice.hidden = false;
+          }
+        } else if (result?.errors) {
+          applyServerErrors(result.errors);
+          if (notice) {
+            notice.textContent = "Please check the highlighted fields and try again.";
+            notice.hidden = false;
+          }
+        } else if (notice) {
+          notice.textContent = "Something went wrong. Please try again shortly.";
+          notice.hidden = false;
+        }
+      } catch {
+        if (notice) {
+          notice.textContent = "Something went wrong. Please try again shortly.";
+          notice.hidden = false;
+        }
+      } finally {
+        submitButtons.forEach((button) => (button.disabled = false));
+      }
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let firstInvalid: HTMLElement | null = null;
+      let firstInvalidStep = -1;
+      wrappers.forEach((wrapper) => {
+        const control = getControl(wrapper);
+        if (!control) return;
+        const valid = validateControl(wrapper, control);
+        if (!valid && !firstInvalid) {
+          firstInvalid = control;
+          const panel = wrapper.closest("[data-step-panel]");
+          firstInvalidStep = panel ? panels.indexOf(panel) : -1;
+        }
+      });
+
+      if (firstInvalid) {
+        if (isMultistep && firstInvalidStep > -1 && firstInvalidStep !== currentStep) {
+          showStep(firstInvalidStep);
+        }
+        firstInvalid.focus();
+        return;
+      }
+
+      const live = (window as unknown as { GT_FORMS_LIVE?: boolean }).GT_FORMS_LIVE === true;
+
+      if (live) {
+        submitLive();
+        return;
+      }
+
+      const notice = form.querySelector(".gtf-notice") as HTMLElement | null;
+      if (notice) {
+        notice.textContent = "Thank you. Online submissions open on 29 October 2026.";
+        notice.hidden = false;
+      }
+    });
+  });
+</script>
