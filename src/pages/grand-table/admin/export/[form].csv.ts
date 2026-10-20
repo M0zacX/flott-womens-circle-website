@@ -5,6 +5,7 @@ import { getAuthedSession } from "../../../../lib/gt/auth";
 import { listAllForExport } from "../../../../lib/gt/db";
 import type { SubmissionStatus } from "../../../../lib/gt/db";
 import { toCsv } from "../../../../lib/gt/csv";
+import { formatDateTime } from "../../../../lib/gt/dates";
 
 export const prerender = false;
 
@@ -18,15 +19,17 @@ export const GET: APIRoute = async ({ params, url, cookies, locals, redirect }) 
   if (!form) return new Response("Not found", { status: 404 });
 
   const statusParam = (url.searchParams.get("status") || "all") as SubmissionStatus | "all";
-  const rows = await listAllForExport(env.GT_DB, form.id, statusParam);
+  const sectorParam = url.searchParams.get("sector") || undefined;
+  const rows = await listAllForExport(env.GT_DB, { form: form.id, status: statusParam, sector: sectorParam });
 
-  const header = [...form.fields.map((f) => f.label), "Status", "Created", "Notes"];
+  const header = [...form.fields.map((f) => f.label), "Status", "Created", "Submitted (WAT)", "Notes"];
   const body = rows.map((row) => {
     const data = JSON.parse(row.data) as Record<string, string>;
     return [
       ...form.fields.map((f) => (f.type === "file" ? row.file_name ?? "" : data[f.name] ?? "")),
       row.status,
       row.created_at,
+      formatDateTime(row.created_at),
       row.notes ?? "",
     ];
   });

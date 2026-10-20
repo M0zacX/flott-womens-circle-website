@@ -15,6 +15,7 @@ export type SubmissionRow = {
   created_at: string;
   updated_at: string;
   notes: string | null;
+  is_test: number;
 };
 
 export type NewSubmission = {
@@ -50,15 +51,21 @@ export async function insertSubmission(db: D1Database, input: NewSubmission): Pr
     .run();
 }
 
+export type SortField = "created" | "sector";
+export type SortDir = "asc" | "desc";
+
 export type ListParams = {
   form: string;
   status?: SubmissionStatus | "all";
   search?: string;
+  sector?: string;
+  sort?: SortField;
+  dir?: SortDir;
   page?: number;
   pageSize?: number;
 };
 
-function buildWhere(params: Pick<ListParams, "form" | "status" | "search">) {
+function buildWhere(params: Pick<ListParams, "form" | "status" | "search" | "sector">) {
   const conditions = ["form = ?"];
   const binds: unknown[] = [params.form];
 
@@ -71,8 +78,18 @@ function buildWhere(params: Pick<ListParams, "form" | "status" | "search">) {
     const like = `%${params.search}%`;
     binds.push(like, like);
   }
+  if (params.sector) {
+    conditions.push("json_extract(data, '$.sector') = ?");
+    binds.push(params.sector);
+  }
 
   return { where: conditions.join(" AND "), binds };
+}
+
+function buildOrderBy(sort?: SortField, dir?: SortDir): string {
+  const direction = dir === "asc" ? "ASC" : "DESC";
+  if (sort === "sector") return `json_extract(data, '$.sector') ${direction}`;
+  return `created_at ${direction}`;
 }
 
 export async function listSubmissions(db: D1Database, params: ListParams): Promise<SubmissionRow[]> {
@@ -80,16 +97,17 @@ export async function listSubmissions(db: D1Database, params: ListParams): Promi
   const page = Math.max(1, params.page ?? 1);
   const offset = (page - 1) * pageSize;
   const { where, binds } = buildWhere(params);
+  const orderBy = buildOrderBy(params.sort, params.dir);
 
   const result = await db
-    .prepare(`SELECT * FROM submissions WHERE ${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`)
+    .prepare(`SELECT * FROM submissions WHERE ${where} ORDER BY ${orderBy} LIMIT ? OFFSET ?`)
     .bind(...binds, pageSize, offset)
     .all<SubmissionRow>();
 
   return result.results;
 }
 
-export async function countSubmissions(db: D1Database, params: Omit<ListParams, "page" | "pageSize">): Promise<number> {
+export async function countSubmissions(db: D1Database, params: Omit<ListParams, "page" | "pageSize" | "sort" | "dir">): Promise<number> {
   const { where, binds } = buildWhere(params);
   const row = await db
     .prepare(`SELECT COUNT(*) as count FROM submissions WHERE ${where}`)
@@ -98,10 +116,12 @@ export async function countSubmissions(db: D1Database, params: Omit<ListParams, 
   return row?.count ?? 0;
 }
 
-export async function statusCounts(db: D1Database, form: string): Promise<Record<SubmissionStatus, number> & { all: number }> {
+export async function statusCounts(db: D1Database, form: string, sector?: string): Promise<Record<SubmissionStatus, number> & { all: number }> {
+  const sectorClause = sector ? " AND json_extract(data, '$.sector') = ?" : "";
+  const binds: string[] = sector ? [form, sector] : [form];
   const result = await db
-    .prepare(`SELECT status, COUNT(*) as count FROM submissions WHERE form = ? GROUP BY status`)
-    .bind(form)
+    .prepare(`SELECT status, COUNT(*) as count FROM submissions WHERE form = ?${sectorClause} GROUP BY status`)
+    .bind(...binds)
     .all<{ status: SubmissionStatus; count: number }>();
 
   const counts = { new: 0, reviewing: 0, accepted: 0, declined: 0, archived: 0, all: 0 };
@@ -126,13 +146,25 @@ export async function updateNotes(db: D1Database, id: string, notes: string, upd
 
 export async function listAllForExport(
   db: D1Database,
-  form: string,
-  status?: SubmissionStatus | "all"
+  params: Pick<ListParams, "form" | "status" | "sector">
 ): Promise<SubmissionRow[]> {
-  const { where, binds } = buildWhere({ form, status });
+  const { where, binds } = buildWhere(params);
   const result = await db
     .prepare(`SELECT * FROM submissions WHERE ${where} ORDER BY created_at DESC`)
     .bind(...binds)
     .all<SubmissionRow>();
+  return result.results;
+}
+
+export async function countTestSubmissions(db: D1Database): Promise<number> {
+  const row = await db.prepare(`SELECT COUNT(*) as count FROM submissions WHERE is_test = 1`).first<{ count: number }>();
+  return row?.count ?? 0;
+}
+
+export async function deleteTestSubmissions(db: D1Database): Promise<{ id: string; file_key: string | null }[]> {
+  const result = await db
+    .prepare(`SELECT id, file_key FROM submissions WHERE is_test = 1`)
+    .all<{ id: string; file_key: string | null }>();
+  await db.prepare(`DELETE FROM submissions WHERE is_test = 1`).run();
   return result.results;
 }

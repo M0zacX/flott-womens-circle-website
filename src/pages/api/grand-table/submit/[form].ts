@@ -5,7 +5,8 @@ import { validateSubmission } from "../../../../lib/gt/validate";
 import { insertSubmission } from "../../../../lib/gt/db";
 import { enterpriseFileKey, putFile } from "../../../../lib/gt/storage";
 import { sendEmail } from "../../../../lib/gt/email";
-import { confirmationEmail } from "../../../../lib/gt/templates";
+import { confirmationEmail, adminNotificationEmail } from "../../../../lib/gt/templates";
+import { formatDateTime } from "../../../../lib/gt/dates";
 
 export const prerender = false;
 
@@ -76,6 +77,21 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
   if (data.email) {
     const { subject, html } = confirmationEmail(form, name ?? "");
     await sendEmail(env, { to: data.email, subject, html });
+  }
+
+  const adminRecipients = (env.ADMIN_NOTIFY_TO || "")
+    .split(",")
+    .map((address) => address.trim())
+    .filter(Boolean);
+
+  if (adminRecipients.length > 0) {
+    try {
+      const adminUrl = `${new URL(request.url).origin}/grand-table/admin/${form.id}/${id}`;
+      const { subject, html } = adminNotificationEmail(form, data, formatDateTime(createdAt), adminUrl);
+      await sendEmail(env, { to: adminRecipients, subject, html });
+    } catch (error) {
+      console.error("admin notification email failed", error);
+    }
   }
 
   return jsonResponse({ ok: true, id }, 200);

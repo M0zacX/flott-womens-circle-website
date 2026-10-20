@@ -6,8 +6,9 @@ import "../../../../styles/gt-admin.css";
 import type { FormConfig } from "../../../../data/grand-table-forms";
 import { forms } from "../../../../data/grand-table-forms";
 import { createCsrfToken, getAuthedSession, getSessionToken, verifyCsrfToken } from "../../../../lib/gt/auth";
-import { SUBMISSION_STATUSES, getSubmission, updateNotes, updateStatus } from "../../../../lib/gt/db";
+import { SUBMISSION_STATUSES, countTestSubmissions, getSubmission, updateNotes, updateStatus } from "../../../../lib/gt/db";
 import type { SubmissionStatus } from "../../../../lib/gt/db";
+import { formatDateTime } from "../../../../lib/gt/dates";
 
 const env = Astro.locals.runtime.env;
 const authed = await getAuthedSession(Astro.cookies, env.SESSION_SECRET);
@@ -68,6 +69,10 @@ if (!row) {
 
 const data = JSON.parse(row.data) as Record<string, string>;
 const csrfToken = await createCsrfToken(env.SESSION_SECRET, sessionToken);
+const testCount = await countTestSubmissions(env.GT_DB);
+const redirectTo = `${Astro.url.pathname}${Astro.url.search}`;
+const clearedCount = Astro.url.searchParams.has("cleared") ? Number(Astro.url.searchParams.get("cleared")) : null;
+const clearError = Astro.url.searchParams.get("clearError") === "1";
 
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) return "under 1 KB";
@@ -87,13 +92,20 @@ function formatFileSize(bytes: number): string {
       </div>
       <div class="gta-header-right">
         <span class="gta-pill">Payments: not activated</span>
+        {testCount > 0 && (
+          <form method="POST" action="/grand-table/admin/clear-test" class="gta-clear-test-form" data-confirm-count={testCount}>
+            <input type="hidden" name="csrf" value={csrfToken} />
+            <input type="hidden" name="redirectTo" value={redirectTo} />
+            <button type="submit" class="gta-clear-test">Clear test data ({testCount})</button>
+          </form>
+        )}
         <a href="/grand-table/admin/logout" class="gta-logout">Log out</a>
       </div>
     </header>
 
     <div class="gta-detail">
       <a class="gta-back" href={`/grand-table/admin?form=${form.id}`}>Back to {TAB_LABELS[form.id] ?? form.title} list</a>
-      <h1 class="gta-detail-title">{form.title}</h1>
+      <h1 class="gta-detail-title">{form.title}{row.is_test === 1 && <span class="gta-test-tag">Test</span>}</h1>
 
       <div class="gta-detail-grid">
         {form.fields.map((field) => (
@@ -114,11 +126,11 @@ function formatFileSize(bytes: number): string {
         ))}
         <div class="gta-detail-field">
           <span class="gta-detail-label">Submitted</span>
-          <span class="gta-detail-value">{new Date(row.created_at).toLocaleString()}</span>
+          <span class="gta-detail-value">{formatDateTime(row.created_at)}</span>
         </div>
         <div class="gta-detail-field">
           <span class="gta-detail-label">Last updated</span>
-          <span class="gta-detail-value">{new Date(row.updated_at).toLocaleString()}</span>
+          <span class="gta-detail-value">{formatDateTime(row.updated_at)}</span>
         </div>
       </div>
 
@@ -144,5 +156,27 @@ function formatFileSize(bytes: number): string {
         Saved
       </div>
     )}
+    {clearedCount !== null && (
+      <div class="gta-toast" role="status" aria-live="polite">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+        Test data cleared ({clearedCount} rows)
+      </div>
+    )}
+    {clearError && (
+      <div class="gta-toast gta-toast-error" role="status" aria-live="polite">
+        Session expired, please retry
+      </div>
+    )}
   </div>
+
+  <script>
+    document.querySelectorAll<HTMLFormElement>(".gta-clear-test-form").forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        const count = form.dataset.confirmCount ?? "0";
+        if (!window.confirm(`Delete ${count} test submission(s) and their uploaded files? This cannot be undone.`)) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
 </Layout>

@@ -88,3 +88,33 @@ export function confirmationEmail(form: FormConfig, name: string): { subject: st
   `;
   return { subject: copy.subject, html: baseTemplate(body) };
 }
+
+export function adminNotificationEmail(
+  form: FormConfig,
+  data: Record<string, string>,
+  submittedAtWat: string,
+  adminUrl: string
+): { subject: string; html: string } {
+  const subject = `New ${form.title} submission`;
+  const rows = form.fields
+    .slice(0, 6)
+    .map((field) => {
+      const value = field.type === "file" ? "" : data[field.name] || "Not provided";
+      return `
+        <tr>
+          <td style="padding:6px 12px 6px 0;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(11,11,12,0.5);vertical-align:top;white-space:nowrap;">${escapeHtml(field.label)}</td>
+          <td style="padding:6px 0;font-size:13px;color:#0B0B0C;vertical-align:top;">${escapeHtml(value)}</td>
+        </tr>`;
+    })
+    .join("");
+
+  const body = `
+    <h1 style="margin:0 0 16px;font-size:20px;font-weight:400;color:#0B0B0C;">${subject}</h1>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+      ${rows}
+    </table>
+    <p style="margin:0 0 24px;font-size:12px;color:rgba(11,11,12,0.55);">Submitted ${escapeHtml(submittedAtWat)}</p>
+    <a href="${adminUrl}" style="display:inline-block;background:#0B0B0C;color:#F5F0E6;text-decoration:none;padding:12px 24px;border-radius:9999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">Open in admin</a>
+  `;
+  return { subject, html: baseTemplate(body) };
+}

@@ -145,6 +145,26 @@
   padding: 0.4rem 0.9rem;
 }
 
+.gta-clear-test-form {
+  display: inline-flex;
+}
+
+.gta-clear-test {
+  border: 1px solid rgba(224, 122, 107, 0.5);
+  background: transparent;
+  color: #e07a6b;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.gta-clear-test:hover {
+  background: rgba(224, 122, 107, 0.12);
+}
+
 .gta-tabs {
   display: flex;
   gap: 0.25rem;
@@ -244,6 +264,15 @@
   min-width: 14rem;
 }
 
+.gta-sector-select {
+  border: 1px solid var(--gta-border);
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  background: #ffffff;
+  color: var(--gta-jet);
+}
+
 .gta-search button,
 .gta-export {
   border: 1px solid var(--gta-jet);
@@ -314,6 +343,39 @@
 
 .gta-table a:hover {
   color: var(--gta-brass);
+}
+
+.gta-th-sort {
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.gta-th-sort:hover {
+  color: var(--gta-jet);
+}
+
+.gta-sort-arrow {
+  color: var(--gta-champagne);
+}
+
+.gta-file-col {
+  width: 2rem;
+  text-align: center;
+  color: var(--gta-brass);
+}
+
+.gta-test-tag {
+  display: inline-flex;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(224, 122, 107, 0.12);
+  color: #b4483c;
+  vertical-align: middle;
 }
 
 .gta-row {
@@ -614,6 +676,10 @@
   }
 }
 
+.gta-toast-error {
+  background: #b4483c;
+}
+
 .gta-back {
   display: inline-flex;
   align-items: center;
@@ -628,3 +694,21 @@
 .gta-back::before { content: "\2190"; }
 .gta-back:hover { color: #0b0b0c; }
 .gta-back:focus-visible { outline: 2px solid #9a7b45; outline-offset: 3px; }
+
+/* v4 review fixes */
+.gta-table td:last-of-type, .gta-table th:last-of-type, .gta-col-created { white-space: nowrap; }
+.gta-table td { white-space: normal; }
+.gta-table td:nth-last-child(2) { white-space: nowrap; }
+.gta-pill, .gta-logout, .gta-clear-test-form button { white-space: nowrap; }
+.gta-card-sector { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.35rem; font-size: 12px; color: rgba(11, 11, 12, 0.65); }
+.gta-card-clip { display: inline-flex; align-items: center; gap: 0.25rem; color: #6f5730; font-size: 11px; letter-spacing: 0.05em; }
+@media (max-width: 767px) {
+  .gta-header-right { flex-wrap: wrap; gap: 0.5rem; }
+  .gta-sector-select { order: 0; flex: 0 0 100%; width: 100%; max-width: 100%; }
+  .gta-search { order: 1; }
+}
+@media (max-width: 767px) {
+  .gta-search { flex-wrap: wrap; gap: 0.5rem; }
+  .gta-search .gta-sector-select { flex: 0 0 100%; }
+  .gta-search input[type="search"] { flex: 1 1 auto; min-width: 0; }
+}

@@ -34,6 +34,7 @@ interface R2PutOptions {
 interface R2Bucket {
   put(key: string, value: ArrayBuffer | ReadableStream | string, options?: R2PutOptions): Promise<unknown>;
   get(key: string): Promise<R2Object | null>;
+  delete(key: string): Promise<void>;
 }
 
 type GTRuntimeEnv = {

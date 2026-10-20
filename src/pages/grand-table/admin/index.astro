@@ -4,14 +4,24 @@ export const prerender = false;
 import Layout from "../../../layouts/Layout.astro";
 import "../../../styles/gt-admin.css";
 import type { FormConfig } from "../../../data/grand-table-forms";
-import { forms } from "../../../data/grand-table-forms";
-import { getAuthedSession } from "../../../lib/gt/auth";
-import { SUBMISSION_STATUSES, countSubmissions, listSubmissions, statusCounts } from "../../../lib/gt/db";
-import type { SubmissionStatus } from "../../../lib/gt/db";
+import { forms, SECTORS } from "../../../data/grand-table-forms";
+import { createCsrfToken, getAuthedSession, getSessionToken } from "../../../lib/gt/auth";
+import {
+  SUBMISSION_STATUSES,
+  countSubmissions,
+  countTestSubmissions,
+  listSubmissions,
+  statusCounts,
+} from "../../../lib/gt/db";
+import type { SortDir, SortField, SubmissionStatus } from "../../../lib/gt/db";
+import { formatDate } from "../../../lib/gt/dates";
 
 const env = Astro.locals.runtime.env;
 const authed = await getAuthedSession(Astro.cookies, env.SESSION_SECRET);
 if (!authed) return Astro.redirect("/grand-table/admin/login");
+
+const sessionToken = getSessionToken(Astro.cookies) as string;
+const csrfToken = await createCsrfToken(env.SESSION_SECRET, sessionToken);
 
 const TAB_LABELS: Record<string, string> = {
   enterprise: "Enterprise",
@@ -38,11 +48,30 @@ const search = url.searchParams.get("q") || "";
 const page = Math.max(1, Number(url.searchParams.get("page") || "1"));
 const PAGE_SIZE = 25;
 
-const [rows, total, counts, tabCounts] = await Promise.all([
-  listSubmissions(env.GT_DB, { form: activeForm.id, status: statusParam, search, page, pageSize: PAGE_SIZE }),
-  countSubmissions(env.GT_DB, { form: activeForm.id, status: statusParam, search }),
-  statusCounts(env.GT_DB, activeForm.id),
+const showSectorColumn = activeForm.id === "enterprise";
+const sortParam: SortField = url.searchParams.get("sort") === "sector" && showSectorColumn ? "sector" : "created";
+const dirRaw = url.searchParams.get("dir");
+const dirParam: SortDir =
+  dirRaw === "asc" || dirRaw === "desc" ? dirRaw : sortParam === "sector" ? "asc" : "desc";
+const sectorFilter = showSectorColumn ? url.searchParams.get("sector") || "" : "";
+const clearedCount = url.searchParams.has("cleared") ? Number(url.searchParams.get("cleared")) : null;
+const clearError = url.searchParams.get("clearError") === "1";
+
+const [rows, total, counts, tabCounts, testCount] = await Promise.all([
+  listSubmissions(env.GT_DB, {
+    form: activeForm.id,
+    status: statusParam,
+    search,
+    sector: sectorFilter || undefined,
+    sort: sortParam,
+    dir: dirParam,
+    page,
+    pageSize: PAGE_SIZE,
+  }),
+  countSubmissions(env.GT_DB, { form: activeForm.id, status: statusParam, search, sector: sectorFilter || undefined }),
+  statusCounts(env.GT_DB, activeForm.id, sectorFilter || undefined),
   Promise.all(formEntries.map((f) => statusCounts(env.GT_DB, f.id))),
+  countTestSubmissions(env.GT_DB),
 ]);
 
 const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -53,6 +82,8 @@ const emailColumn = columns.find((c) => c.type === "email");
 
 function buildUrl(overrides: Record<string, string | number | undefined>) {
   const params = new URLSearchParams(url.search);
+  params.delete("cleared");
+  params.delete("clearError");
   for (const [key, value] of Object.entries(overrides)) {
     if (value === undefined || value === "") params.delete(key);
     else params.set(key, String(value));
@@ -60,7 +91,19 @@ function buildUrl(overrides: Record<string, string | number | undefined>) {
   return `${url.pathname}?${params.toString()}`;
 }
 
-const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam !== "all" ? `?status=${statusParam}` : ""}`;
+function sortLink(key: SortField) {
+  const defaultDir: SortDir = key === "sector" ? "asc" : "desc";
+  const nextDir: SortDir = sortParam === key ? (dirParam === "asc" ? "desc" : "asc") : defaultDir;
+  const isDefaultState = key === "created" && nextDir === "desc";
+  return buildUrl({ sort: isDefaultState ? undefined : key, dir: isDefaultState ? undefined : nextDir, page: undefined });
+}
+
+const exportParams = new URLSearchParams();
+if (statusParam !== "all") exportParams.set("status", statusParam);
+if (sectorFilter) exportParams.set("sector", sectorFilter);
+const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${exportParams.toString() ? `?${exportParams.toString()}` : ""}`;
+
+const redirectTo = `${url.pathname}${url.search}`;
 ---
 
 <Layout title="Admin Dashboard | The Grand Table 2026">
@@ -73,6 +116,13 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
       </div>
       <div class="gta-header-right">
         <span class="gta-pill">Payments: not activated</span>
+        {testCount > 0 && (
+          <form method="POST" action="/grand-table/admin/clear-test" class="gta-clear-test-form" data-confirm-count={testCount}>
+            <input type="hidden" name="csrf" value={csrfToken} />
+            <input type="hidden" name="redirectTo" value={redirectTo} />
+            <button type="submit" class="gta-clear-test">Clear test data ({testCount})</button>
+          </form>
+        )}
         <a href="/grand-table/admin/logout" class="gta-logout">Log out</a>
       </div>
     </header>
@@ -80,7 +130,7 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
     <nav class="gta-tabs">
       {formEntries.map((f, i) => (
         <a
-          href={buildUrl({ form: f.id, status: undefined, q: undefined, page: undefined })}
+          href={buildUrl({ form: f.id, status: undefined, q: undefined, page: undefined, sort: undefined, dir: undefined, sector: undefined })}
           class={`gta-tab ${f.id === activeForm.id ? "gta-tab-active" : ""}`}
         >
           {TAB_LABELS[f.id] ?? f.title}
@@ -104,6 +154,14 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
       <form method="GET" class="gta-search">
         <input type="hidden" name="form" value={activeForm.id} />
         {statusParam !== "all" && <input type="hidden" name="status" value={statusParam} />}
+        {sortParam !== "created" && <input type="hidden" name="sort" value={sortParam} />}
+        {dirParam !== "desc" && <input type="hidden" name="dir" value={dirParam} />}
+        {showSectorColumn && (
+          <select name="sector" class="gta-sector-select" aria-label="Filter by sector">
+            <option value="">All sectors</option>
+            {SECTORS.map((s) => <option value={s} selected={s === sectorFilter}>{s}</option>)}
+          </select>
+        )}
         <input type="search" name="q" placeholder="Search name or email" value={search} />
         <button type="submit">Search</button>
       </form>
@@ -116,15 +174,27 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
         <thead>
           <tr>
             {columns.map((c) => <th>{c.label}</th>)}
+            {showSectorColumn && (
+              <th>
+                <a class="gta-th-sort" href={sortLink("sector")}>
+                  Sector{sortParam === "sector" && <span class="gta-sort-arrow">{dirParam === "asc" ? " ▲" : " ▼"}</span>}
+                </a>
+              </th>
+            )}
+            {showSectorColumn && <th aria-label="PDF uploaded"></th>}
             <th>Status</th>
-            <th>Created</th>
+            <th>
+              <a class="gta-th-sort" href={sortLink("created")}>
+                Created{sortParam === "created" && <span class="gta-sort-arrow">{dirParam === "asc" ? " ▲" : " ▼"}</span>}
+              </a>
+            </th>
             <th aria-hidden="true"></th>
           </tr>
         </thead>
         <tbody>
           {rows.length === 0 && (
             <tr>
-              <td colspan={columns.length + 3} class="gta-empty">No submissions yet</td>
+              <td colspan={columns.length + (showSectorColumn ? 2 : 0) + 3} class="gta-empty">No submissions yet</td>
             </tr>
           )}
           {parsedRows.map(({ row, data }) => {
@@ -133,13 +203,24 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
               <tr class="gta-row" data-href={href}>
                 {columns.map((c, i) => (
                   i === 0 ? (
-                    <td><a href={href}>{data[c.name] || "Not provided"}</a></td>
+                    <td>
+                      <a href={href}>{data[c.name] || "Not provided"}</a>
+                      {row.is_test === 1 && <span class="gta-test-tag">Test</span>}
+                    </td>
                   ) : (
                     <td>{data[c.name] || ""}</td>
                   )
                 ))}
+                {showSectorColumn && <td>{data.sector || ""}</td>}
+                {showSectorColumn && (
+                  <td class="gta-file-col">
+                    {row.file_key && (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="PDF uploaded" role="img"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l8.57-8.57A4 4 0 0118 8.84l-8.59 8.57a2 2 0 01-2.83-2.83l8.49-8.48" /></svg>
+                    )}
+                  </td>
+                )}
                 <td><span class={`gta-status gta-status-${row.status}`}>{row.status}</span></td>
-                <td>{new Date(row.created_at).toLocaleDateString()}</td>
+                <td>{formatDate(row.created_at)}</td>
                 <td class="gta-row-chevron" aria-hidden="true">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                 </td>
@@ -160,13 +241,24 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
         return (
           <a class="gta-card" href={href}>
             <div class="gta-card-top">
-              <span class="gta-card-name">{primary}</span>
+              <span class="gta-card-name">{primary}{row.is_test === 1 && <span class="gta-test-tag">Test</span>}</span>
               {secondary && <span class="gta-card-company">{secondary}</span>}
             </div>
             {email && <div class="gta-card-email">{email}</div>}
+            {showSectorColumn && (data.sector || row.file_key) && (
+              <div class="gta-card-sector">
+                {data.sector && <span>{data.sector}</span>}
+                {row.file_key && (
+                  <span class="gta-card-clip" aria-label="PDF uploaded" title="PDF uploaded">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                    PDF
+                  </span>
+                )}
+              </div>
+            )}
             <div class="gta-card-meta">
-              <span class={`gta-status gta-status-${row.status}`}>{row.status}</span>
-              <span class="gta-card-date">{new Date(row.created_at).toLocaleDateString()}</span>
+              <span class={`gta-status gta-status-${row.status}`}>{row.status.charAt(0).toUpperCase() + row.status.slice(1)}</span>
+              <span class="gta-card-date">{formatDate(row.created_at)}</span>
             </div>
           </a>
         );
@@ -182,12 +274,37 @@ const exportHref = `/grand-table/admin/export/${activeForm.id}.csv${statusParam 
     </div>
   </div>
 
+  {clearedCount !== null && (
+    <div class="gta-toast" role="status" aria-live="polite">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+      Test data cleared ({clearedCount} rows)
+    </div>
+  )}
+  {clearError && (
+    <div class="gta-toast gta-toast-error" role="status" aria-live="polite">
+      Session expired, please retry
+    </div>
+  )}
+
   <script>
     document.querySelectorAll<HTMLTableRowElement>(".gta-row[data-href]").forEach((row) => {
       row.addEventListener("click", (e) => {
         if ((e.target as HTMLElement).closest("a")) return;
         const href = row.dataset.href;
         if (href) window.location.href = href;
+      });
+    });
+
+    document.querySelectorAll<HTMLSelectElement>(".gta-sector-select").forEach((select) => {
+      select.addEventListener("change", () => select.form?.submit());
+    });
+
+    document.querySelectorAll<HTMLFormElement>(".gta-clear-test-form").forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        const count = form.dataset.confirmCount ?? "0";
+        if (!window.confirm(`Delete ${count} test submission(s) and their uploaded files? This cannot be undone.`)) {
+          e.preventDefault();
+        }
       });
     });
   </script>

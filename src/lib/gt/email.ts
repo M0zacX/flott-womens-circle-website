@@ -5,14 +5,16 @@ export type EmailEnv = {
 };
 
 export type EmailMessage = {
-  to: string;
+  to: string | string[];
   subject: string;
   html: string;
 };
 
 export async function sendEmail(env: EmailEnv, message: EmailMessage): Promise<void> {
+  const to = Array.isArray(message.to) ? message.to : [message.to];
+
   if (env.EMAIL_ENABLED !== "true" || !env.RESEND_API_KEY) {
-    console.log("email stubbed", { to: message.to, subject: message.subject });
+    console.log("email stubbed", { to, subject: message.subject });
     return;
   }
 
@@ -24,7 +26,7 @@ export async function sendEmail(env: EmailEnv, message: EmailMessage): Promise<v
     },
     body: JSON.stringify({
       from: env.EMAIL_FROM,
-      to: [message.to],
+      to,
       subject: message.subject,
       html: message.html,
     }),

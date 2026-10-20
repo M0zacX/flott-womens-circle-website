@@ -28,8 +28,9 @@ function insertRow({ id, form, status, data, email, name, fileKey, fileName, fil
     sqlString(createdAt),
     sqlString(createdAt),
     sqlString(notes ?? null),
+    1,
   ];
-  return `INSERT INTO submissions (id, form, status, data, email, name, file_key, file_name, file_size, created_at, updated_at, notes) VALUES (${values.join(", ")});`;
+  return `INSERT INTO submissions (id, form, status, data, email, name, file_key, file_name, file_size, created_at, updated_at, notes, is_test) VALUES (${values.join(", ")});`;
 }
 
 const now = Date.now();

@@ -12,3 +12,7 @@ export async function putFile(bucket: R2Bucket, key: string, file: File): Promis
 export async function getFile(bucket: R2Bucket, key: string): Promise<R2Object | null> {
   return bucket.get(key);
 }
+
+export async function deleteFile(bucket: R2Bucket, key: string): Promise<void> {
+  await bucket.delete(key);
+}

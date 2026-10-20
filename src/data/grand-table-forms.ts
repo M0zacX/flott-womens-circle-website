@@ -29,7 +29,7 @@ export type FormConfig = {
   steps?: FormStep[];
 };
 
-const SECTORS = [
+export const SECTORS = [
   "Agriculture & Agribusiness",
   "Manufacturing & Industrial",
   "Energy & Natural Resources",
