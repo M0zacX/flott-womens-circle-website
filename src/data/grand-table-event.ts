@@ -72,38 +72,39 @@ export const event = {
   city: "Abuja",
   country: "Nigeria",
   cityCountry: "Abuja, Nigeria",
-  heroLocationLine: "International Conference Centre, Abuja",
+  heroLocationLine: "Abuja, Nigeria",
 
   venue: {
-    name: "International Conference Centre (ICC), Abuja",
-    officialName: "Bola Ahmed Tinubu International Conference Centre",
-    address: "Herbert Macaulay Way, Central Area, Abuja",
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=International+Conference+Centre+Abuja",
+    // Venue name is intentionally NOT published (client request, security). City only.
+    name: "Abuja, Nigeria",
+    officialName: "",
+    address: "",
+    mapsUrl: "",
     heroImage: {
-      src: "/images/grand-table/venue/icc-banquet-hall-1512.webp",
-      srcSmall: "/images/grand-table/venue/icc-banquet-hall-960.webp",
-      alt: "Banquet hall at the Bola Ahmed Tinubu International Conference Centre, Abuja",
+      src: "/images/grand-table/venue/venue-hall-1512.webp",
+      srcSmall: "/images/grand-table/venue/venue-hall-960.webp",
+      alt: "Grand event hall in Abuja",
       width: 1512,
       height: 1008,
     } satisfies EventImage,
     gallery: [
       {
-        src: "/images/grand-table/venue/icc-facade-1080.webp",
-        alt: "Bola Ahmed Tinubu International Conference Centre facade",
+        src: "/images/grand-table/venue/venue-facade-1080.webp",
+        alt: "Glass-fronted event venue entrance in Abuja",
         width: 1080,
-        height: 720,
+        height: 506,
       },
       {
-        src: "/images/grand-table/venue/icc-entrance-1400.webp",
-        srcSmall: "/images/grand-table/venue/icc-entrance-800.webp",
-        alt: "Entrance gate of the Bola Ahmed Tinubu International Conference Centre, Abuja",
+        src: "/images/grand-table/venue/venue-entrance-1400.webp",
+        srcSmall: "/images/grand-table/venue/venue-entrance-800.webp",
+        alt: "Palm-lined venue grounds in Abuja",
         width: 1400,
         height: 933,
       },
       {
-        src: "/images/grand-table/venue/icc-signage-1400.webp",
-        srcSmall: "/images/grand-table/venue/icc-signage-800.webp",
-        alt: "Signage for the Bola Ahmed Tinubu International Conference Centre, Abuja",
+        src: "/images/grand-table/venue/venue-hall-detail-1400.webp",
+        srcSmall: "/images/grand-table/venue/venue-hall-detail-800.webp",
+        alt: "Banquet tables set in the event hall",
         width: 1400,
         height: 933,
       },
@@ -111,7 +112,7 @@ export const event = {
     credits: [
       {
         text: "Jummy001 via Wikimedia Commons (CC BY-SA 4.0)",
-        url: "https://commons.wikimedia.org/wiki/File:Bola_Ahmed_Tinubu_international_conference_centre_Abuja_02.jpg",
+        url: "https://commons.wikimedia.org/wiki/User:Jummy001",
       },
       { text: "Forefront NG" },
       { text: "Hotjist" },
@@ -307,7 +308,7 @@ export const event = {
   ] satisfies Speaker[],
 
   organisers: {
-    label: "Hosted by Flott Women Circle, in partnership with",
+    label: "An initiative of Flott Women's Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions",
     logos: [
       { src: "/images/grand-table/organisers/organiser-2.webp", alt: "Partner logo 1", width: 420, height: 120 },
       { src: "/images/grand-table/organisers/organiser-3.webp", alt: "Partner logo 2", width: 420, height: 150 },
@@ -324,7 +325,7 @@ export const event = {
       headingPrefix: "Where Business Meets",
       headingEmphasis: "Opportunity",
       body: "The Grand Table 2026 is an international business platform initiated by Flott Women’s Circle that brings enterprises, investors and global partners together in Abuja to unlock investment, open international markets and build lasting partnerships across Nigeria, the UAE, India and beyond.",
-      initiatedBy: "Initiated by Flott Women’s Circle",
+      initiatedBy: "An initiative of Flott Women’s Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions",
     },
     sectors: {
       eyebrow: "Sectors",
@@ -374,7 +375,6 @@ export const event = {
       eyebrow: "Venue",
       headingPrefix: "Abuja,",
       headingEmphasis: "Nigeria",
-      directionsLabel: "Get directions",
     },
     faq: {
       eyebrow: "FAQ",
@@ -398,7 +398,7 @@ const sectorsSentence = `${event.sectors
 export const faqs: Faq[] = [
   {
     q: "When and where is The Grand Table 2026?",
-    a: `${event.date.display} at the ${event.venue.name} — the ${event.venue.officialName}, ${event.venue.address}.`,
+    a: `${event.date.display} in Abuja, Nigeria. Full venue details are shared directly with confirmed participants.`,
   },
   {
     q: "Who can take part?",
@@ -430,6 +430,6 @@ export const faqs: Faq[] = [
   },
   {
     q: "Who is organising the event?",
-    a: "The Grand Table 2026 is hosted by Flott Women's Circle, with partners shown on the page.",
+    a: "The Grand Table 2026 is an initiative of Flott Women's Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions.",
   },
 ];
