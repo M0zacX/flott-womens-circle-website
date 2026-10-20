@@ -1,0 +1,293 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Header } from "../components/Header";
+import FooterSection from "../components/FooterSection.astro";
+---
+
+<Layout
+  title="The Grand Table 2026 | Flott Women's Circle"
+  description="The Grand Table 2026 — an initiative of Flott Women's Circle connecting enterprises, investors and global opportunities. Abuja, Nigeria, 5 December 2026."
+>
+  <main class="overflow-x-clip">
+    <Header client:load currentPath="/grand-table" />
+
+    <!-- ══════════════ HERO ══════════════ -->
+    <section class="relative w-full overflow-hidden" style="background: #0B0B0C;">
+      <!-- Decorative light + atmosphere layer -->
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <!-- Soft volumetric light beam, fanning from a bright source at top-center -->
+        <div
+          class="gt-beam absolute left-1/2 top-0 h-[70vh] w-[150vw] -translate-x-1/2"
+          style="
+            background: radial-gradient(ellipse 36% 100% at 50% 0%, rgba(201,169,110,0.42) 0%, rgba(201,169,110,0.18) 40%, rgba(201,169,110,0.06) 65%, rgba(201,169,110,0) 82%);
+            filter: blur(60px);
+            opacity: 0.85;
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- Bright point source glow at the apex of the beam -->
+        <div
+          class="gt-source absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full md:h-44 md:w-44"
+          style="
+            background: radial-gradient(circle, rgba(255,251,240,0.9) 0%, rgba(230,211,163,0.45) 45%, rgba(230,211,163,0) 75%);
+            filter: blur(14px);
+            opacity: 0.85;
+          "
+          aria-hidden="true"
+        ></div>
+
+        <!-- Drifting gold dust -->
+        <div class="gt-dust absolute inset-0">
+          <span class="gt-dust-mote" style="left: 12%; top: 70%; animation-duration: 22s; animation-delay: 0s;"></span>
+          <span class="gt-dust-mote" style="left: 22%; top: 40%; animation-duration: 26s; animation-delay: 2s;"></span>
+          <span class="gt-dust-mote" style="left: 35%; top: 58%; animation-duration: 19s; animation-delay: 4s;"></span>
+          <span class="gt-dust-mote" style="left: 48%; top: 30%; animation-duration: 24s; animation-delay: 1s;"></span>
+          <span class="gt-dust-mote" style="left: 58%; top: 64%; animation-duration: 28s; animation-delay: 6s;"></span>
+          <span class="gt-dust-mote" style="left: 68%; top: 45%; animation-duration: 21s; animation-delay: 3s;"></span>
+          <span class="gt-dust-mote" style="left: 78%; top: 68%; animation-duration: 25s; animation-delay: 5s;"></span>
+          <span class="gt-dust-mote" style="left: 86%; top: 36%; animation-duration: 23s; animation-delay: 7s;"></span>
+          <span class="gt-dust-mote" style="left: 92%; top: 60%; animation-duration: 27s; animation-delay: 2.5s;"></span>
+          <span class="gt-dust-mote" style="left: 8%; top: 25%; animation-duration: 20s; animation-delay: 8s;"></span>
+        </div>
+
+        <!-- SVG film grain -->
+        <svg class="gt-grain absolute inset-0 h-full w-full mix-blend-overlay" aria-hidden="true">
+          <filter id="gt-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+            <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"></feColorMatrix>
+          </filter>
+          <rect width="100%" height="100%" filter="url(#gt-noise)"></rect>
+        </svg>
+      </div>
+
+      <!-- Title-card corner labels (desktop) -->
+      <div class="pointer-events-none absolute inset-x-0 top-24 z-20 hidden items-start justify-between px-6 md:px-12 lg:flex lg:px-20 lg:top-28">
+        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/70" style="transition-delay: 0.1s;">Edition I</span>
+        <span class="reveal text-[11px] uppercase tracking-[0.35em] text-[#C9A96E]/70" style="transition-delay: 0.1s;">05.12.26</span>
+      </div>
+
+      <div class="relative z-10 flex min-h-screen flex-col">
+        <!-- Main content -->
+        <div class="flex flex-1 flex-col items-center justify-center px-6 pb-10 pt-28 text-center md:px-12 lg:px-20 lg:pb-12 lg:pt-36">
+          <p class="blur-words text-[10px] uppercase tracking-[0.35em] text-[#C9A96E]/80 md:text-xs" style="font-style: italic;">An initiative of Flott Women&rsquo;s Circle</p>
+
+          <h1 class="word-blur-group mt-4 max-w-5xl font-medium leading-[1.02] tracking-[-0.03em] text-[#F5F0E6] text-[13vw] sm:mt-7 md:text-[9vw] lg:text-[clamp(5rem,7vw,8.5rem)]">
+            <span class="word-blur" style="transition-delay: 0.05s;">The</span>
+            <span class="word-blur" style="transition-delay: 0.16s; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">Grand</span>
+            <span class="word-blur" style="transition-delay: 0.27s;">Table</span>
+          </h1>
+
+          <p class="reveal mt-2 text-sm uppercase tracking-[0.5em] text-[#C9A96E]/85 sm:mt-4 md:text-base" style="transition-delay: 0.3s;">2026</p>
+
+          <p class="reveal mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#F5F0E6]/75 sm:mt-6 md:text-lg" style="transition-delay: 0.38s;">
+            Connecting Enterprises, Investors &amp; Global Opportunities
+          </p>
+
+          <div class="reveal mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-[#F5F0E6]/55 sm:mt-6 md:text-xs" style="transition-delay: 0.46s;">
+            <span>Abuja, Nigeria &bull; 5 December 2026</span>
+            <span class="hidden h-3 w-px bg-[#C9A96E]/30 sm:block" aria-hidden="true"></span>
+            <span>Nigeria &bull; UAE &bull; India &bull; Beyond</span>
+          </div>
+
+          <!-- The table: focal gold line the beam lands on, with a soft reflection pool -->
+          <div class="reveal relative mt-6 flex flex-col items-center sm:mt-10" style="transition-delay: 0.5s;">
+            <div
+              class="gt-table-ambient pointer-events-none absolute left-1/2 top-0 h-20 w-[75vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-full"
+              aria-hidden="true"
+              style="background: radial-gradient(ellipse at center, rgba(230,211,163,0.3), rgba(230,211,163,0) 72%); filter: blur(24px);"
+            ></div>
+            <div
+              class="relative h-px w-[70vw] max-w-3xl"
+              style="
+                background: linear-gradient(to right, transparent, #E6D3A3 18%, #E6D3A3 82%, transparent);
+                box-shadow: 0 0 20px 3px rgba(230,211,163,0.55), 0 0 70px 14px rgba(201,169,110,0.22);
+              "
+            ></div>
+            <div
+              class="gt-reflection-pool mt-1 h-6 w-[44vw] max-w-xl rounded-[50%] sm:h-8"
+              aria-hidden="true"
+              style="background: radial-gradient(ellipse at center, rgba(230,211,163,0.22), rgba(230,211,163,0) 78%); filter: blur(10px);"
+            ></div>
+          </div>
+
+          <div class="reveal mt-6 flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4" style="transition-delay: 0.58s;">
+            <a
+              href="#register"
+              class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
+              style="background: #C9A96E; color: #0B0B0C; transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              Register to Participate
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a
+              href="#enterprise"
+              class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#F5F0E6] transition-all duration-500 hover:gap-4 hover:border-[#C9A96E] hover:bg-[#C9A96E]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
+              style="border-color: rgba(201,169,110,0.5); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              Apply as an Enterprise
+            </a>
+            <a
+              href="#sponsorship"
+              class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full border px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-[#F5F0E6] transition-all duration-500 hover:gap-4 hover:border-[#C9A96E] hover:bg-[#C9A96E]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3] sm:w-auto sm:max-w-none"
+              style="border-color: rgba(201,169,110,0.5); transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);"
+            >
+              Become a Sponsor
+            </a>
+          </div>
+
+          <div class="reveal mt-3 sm:mt-6" style="transition-delay: 0.64s;">
+            <a
+              href="#about"
+              class="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] text-[#F5F0E6]/60 transition-colors duration-500 hover:text-[#E6D3A3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6D3A3]"
+            >
+              Explore the Event &rarr;
+            </a>
+          </div>
+
+          <!-- Countdown -->
+          <div class="reveal mt-6 flex items-center justify-center gap-5 sm:mt-10 sm:gap-8" style="transition-delay: 0.7s;" aria-label="Countdown to The Grand Table 2026">
+            <div class="flex flex-col items-center">
+              <span id="gt-days" class="text-2xl text-[#F5F0E6] md:text-3xl" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Days</span>
+            </div>
+            <span class="h-8 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
+            <div class="flex flex-col items-center">
+              <span id="gt-hours" class="text-2xl text-[#F5F0E6] md:text-3xl" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Hours</span>
+            </div>
+            <span class="h-8 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
+            <div class="flex flex-col items-center">
+              <span id="gt-mins" class="text-2xl text-[#F5F0E6] md:text-3xl" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Mins</span>
+            </div>
+            <span class="h-8 w-px bg-[#C9A96E]/20" aria-hidden="true"></span>
+            <div class="flex flex-col items-center">
+              <span id="gt-secs" class="text-2xl text-[#F5F0E6] md:text-3xl" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;">00</span>
+              <span class="mt-1.5 text-[9px] uppercase tracking-[0.25em] text-[#C9A96E]/70">Secs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom credit strip -->
+        <div class="relative border-t px-6 py-5 md:px-12 lg:px-20" style="border-color: rgba(201,169,110,0.15);">
+          <div class="mx-auto flex max-w-6xl flex-col items-center gap-5 text-center sm:flex-row sm:justify-between sm:gap-6 sm:text-left">
+            <div class="flex items-center gap-3" style="transition-delay: 0.1s;">
+              <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/40">Initiated by</span>
+              <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" class="h-6 w-auto brightness-0 invert opacity-90" />
+            </div>
+            <span class="hidden h-8 w-px bg-[#C9A96E]/20 sm:block" aria-hidden="true"></span>
+            <div class="flex flex-col items-center gap-3 sm:flex-row" style="transition-delay: 0.2s;">
+              <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/40">In partnership with</span>
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                <span class="rounded-full border border-dashed px-4 py-2 text-[10px] uppercase tracking-[0.15em] text-[#F5F0E6]/50" style="border-color: rgba(201,169,110,0.4);">Co-organiser &mdash; to be confirmed</span>
+                <span class="hidden h-3 w-px bg-[#C9A96E]/20 sm:block" aria-hidden="true"></span>
+                <span class="rounded-full border border-dashed px-4 py-2 text-[10px] uppercase tracking-[0.15em] text-[#F5F0E6]/50" style="border-color: rgba(201,169,110,0.4);">Co-organiser &mdash; to be confirmed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cinema-matte hairline frame (desktop) -->
+      <div class="pointer-events-none absolute inset-6 z-30 hidden lg:block" style="border: 1px solid rgba(201,169,110,0.08);" aria-hidden="true"></div>
+    </section>
+
+    <!--
+    ══════════════ ABOUT / NEXT SECTIONS (placeholder) ══════════════
+    Upcoming sections to build here, following DESIGN-GUIDE.md patterns:
+      - #about          About / Explore the Event
+      - #enterprise     Enterprise track details
+      - #sponsorship    Sponsorship tiers
+      - #register       Registration
+    -->
+
+    <FooterSection />
+  </main>
+</Layout>
+
+<style>
+  .gt-dust-mote {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 9999px;
+    background: #e6d3a3;
+    box-shadow: 0 0 6px 1px rgba(230, 211, 163, 0.7);
+    opacity: 0;
+    animation-name: gtDustDrift;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    will-change: transform, opacity;
+  }
+
+  @keyframes gtDustDrift {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 0.6; }
+    50% { transform: translate(1.5vw, -6vh); opacity: 0.9; }
+    90% { opacity: 0.3; }
+    100% { transform: translate(-1vw, -12vh); opacity: 0; }
+  }
+
+  .gt-beam,
+  .gt-source {
+    animation: gtBeamBreathe 8s ease-in-out infinite;
+  }
+
+  @keyframes gtBeamBreathe {
+    0%, 100% { opacity: 0.65; }
+    50% { opacity: 1; }
+  }
+
+  .gt-table-ambient,
+  .gt-reflection-pool {
+    animation: gtGlowPulse 10s ease-in-out infinite;
+  }
+
+  @keyframes gtGlowPulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gt-dust-mote {
+      animation: none;
+      opacity: 0;
+    }
+    .gt-beam,
+    .gt-source,
+    .gt-table-ambient,
+    .gt-reflection-pool {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const GT_TARGET = new Date("2026-12-05T09:00:00+01:00").getTime();
+
+  function gtUpdateCountdown() {
+    const now = Date.now();
+    const diff = Math.max(0, GT_TARGET - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    const daysEl = document.getElementById("gt-days");
+    const hoursEl = document.getElementById("gt-hours");
+    const minsEl = document.getElementById("gt-mins");
+    const secsEl = document.getElementById("gt-secs");
+
+    if (daysEl) daysEl.textContent = pad(days);
+    if (hoursEl) hoursEl.textContent = pad(hours);
+    if (minsEl) minsEl.textContent = pad(mins);
+    if (secsEl) secsEl.textContent = pad(secs);
+  }
+
+  gtUpdateCountdown();
+  setInterval(gtUpdateCountdown, 1000);
+</script>

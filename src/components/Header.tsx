@@ -23,6 +23,7 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
     { label: "Programs", href: "/programs" },
     { label: "Our Circles", href: "/circles" },
     { label: "Dubai", href: "/dubai" },
+    { label: "Grand Table", href: "/grand-table" },
     { label: "Circle Experts", href: "/circle-expert" },
     { label: "Gallery", href: "/gallery" },
     { label: "Press", href: "/press" },
@@ -67,11 +68,11 @@ export function Header({ innerPage = false, currentPath = "" }: { innerPage?: bo
             <img src="/images/flott-women-circle-logo.png" alt="Flott Women's Circle" className={`h-8 w-auto transition-all duration-700 ${showGlass ? "" : "brightness-0 invert"}`} />
           </a>
 
-          <nav className="hidden items-center gap-7 md:flex lg:gap-8">
+          <nav className="hidden items-center gap-5 md:flex lg:ml-8 xl:gap-7">
             {navLinks.map((link) => {
               const isActive = currentPath.replace(/\/$/, "") === link.href;
               return (
-                <a key={link.label} href={link.href} className={`text-sm transition-colors ${isActive ? (isScrolled ? "text-foreground font-medium" : "text-white font-medium") : (isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white")}`}>{link.label}</a>
+                <a key={link.label} href={link.href} className={`whitespace-nowrap text-sm transition-colors ${isActive ? (isScrolled ? "text-foreground font-medium" : "text-white font-medium") : (isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white")}`}>{link.label}</a>
               );
             })}
           </nav>
