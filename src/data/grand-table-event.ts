@@ -139,7 +139,6 @@ export const event = {
         url: "https://commons.wikimedia.org/wiki/User:Jummy001",
       },
       { text: "Forefront NG" },
-      { text: "Hotjist" },
     ] satisfies Credit[],
   },
 

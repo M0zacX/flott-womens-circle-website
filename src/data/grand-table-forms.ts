@@ -30,13 +30,13 @@ export type FormConfig = {
 };
 
 export const SECTORS = [
-  "Agriculture & Agribusiness",
-  "Manufacturing & Industrial",
-  "Energy & Natural Resources",
-  "Healthcare & Medical Tourism",
-  "Technology & Innovation",
-  "Real Estate & Infrastructure",
-  "Trade, Logistics & International Business",
+  "Agriculture, Agribusiness & Food Processing",
+  "Manufacturing & Industrial Development",
+  "Energy, Oil & Gas",
+  "Healthcare, Medical Tourism & Global Mobility",
+  "Artificial Intelligence, Technology & Digital Transformation",
+  "Infrastructure, Real Estate & Development",
+  "Investment, International Trade & Enterprise Growth",
 ];
 
 export const COUNTRIES = [
