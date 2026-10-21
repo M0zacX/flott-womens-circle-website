@@ -25,7 +25,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 
 // SEO: schema.org Event built from grand-table-event.ts
 const GT_SITE = "https://flottwomenscircle.com";
-const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions, connecting enterprises, investors and global opportunities. Abuja, Nigeria, ${event.date.display}.`;
+const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. Abuja, Nigeria, ${event.date.display}.`;
 const gtDelegatePrice = Number(String(event.fees.delegate).replace(/[^0-9.]/g, ""));
 const gtEventJsonLd = {
   "@context": "https://schema.org",
@@ -153,6 +153,16 @@ const gtEventJsonLd = {
             {event.tagline}
           </p>
 
+          <!-- Partners, directly under the tagline -->
+          <div class="reveal mt-4 flex flex-col items-center sm:mt-5" style="transition-delay: 0.42s;">
+            <p class="max-w-[22rem] text-[9px] uppercase leading-relaxed tracking-[0.22em] text-[#F5F0E6]/60 sm:max-w-2xl sm:text-[10px] sm:tracking-[0.28em]">{organisers.label}</p>
+            <div class="mt-3 flex items-center justify-center gap-5 sm:gap-8">
+              <img src={organisers.logos[0].src} alt={organisers.logos[0].alt} width={organisers.logos[0].width} height={organisers.logos[0].height} class="h-[15px] w-auto opacity-85 sm:h-5" />
+              <span class="h-8 w-px bg-[#C9A96E]/35 sm:h-10" aria-hidden="true"></span>
+              <img src={organisers.logos[1].src} alt={organisers.logos[1].alt} width={organisers.logos[1].width} height={organisers.logos[1].height} class="h-11 w-auto opacity-95 sm:h-14" />
+            </div>
+          </div>
+
           <div class="reveal mt-3 flex flex-col items-center justify-center gap-y-1 text-[13px] uppercase tracking-[0.12em] text-[#F5F0E6]/75 sm:mt-5 md:text-[14px] lg:mt-4" style="transition-delay: 0.46s;">
             <span class="block w-full">{event.heroLocationLine} &bull; {event.date.display}</span>
             <span class="block w-full">{copy.hero.travelLine}</span>
@@ -238,25 +248,6 @@ const gtEventJsonLd = {
           </a>
         </div>
 
-        <!-- Bottom organisers strip -->
-        <div id="gt-credit-strip" class="gt-credit-strip relative px-6 py-4 md:px-12 lg:px-20 lg:py-5" style="background: #0B0B0C;">
-          <div class="absolute inset-x-0 top-0 h-px" style="background: linear-gradient(to right, transparent, #C9A96E 20%, #C9A96E 80%, transparent);" aria-hidden="true"></div>
-          <div class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 text-center sm:flex-row sm:flex-wrap sm:gap-5">
-            <span class="text-[10px] font-medium uppercase tracking-[0.3em] text-[#F5F0E6]/70">{organisers.label}</span>
-            <div class="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
-              {organisers.logos.map((logo) => (
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  loading="lazy"
-                  class="h-8 w-auto max-w-[130px] object-contain opacity-80 transition-opacity duration-300 hover:opacity-100 md:h-11 md:max-w-[160px]"
-                />
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Fade through warm dark into ivory, carrying the table motif to the seam -->
