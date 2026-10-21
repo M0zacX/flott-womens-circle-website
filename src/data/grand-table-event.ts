@@ -43,11 +43,35 @@ export type Speaker = {
   image: EventImage;
 };
 
+export type Price = { usd: number; ngn: number; aed: number; inr: number };
+
 export type SponsorTier = {
   name: string;
-  amount: string;
+  price: Price;
+  passes: number;
   featured?: boolean;
 };
+
+/** Indicative mid-market rates, 1 USD = … (open.er-api.com, updated 21 Oct 2026 04:02 Dubai). */
+export const fxRates = { ngn: 1332.68, aed: 3.6725, inr: 95.0, asOf: "21 October 2026" };
+
+const roundTo = (v: number, step: number) => Math.round(v / step) * step;
+/** Tier rounding: NGN ₦50,000, AED 50, INR ₹1,000. */
+const tierPrice = (usd: number): Price => ({
+  usd,
+  ngn: roundTo(usd * fxRates.ngn, 50_000),
+  aed: roundTo(usd * fxRates.aed, 50),
+  inr: roundTo(usd * fxRates.inr, 1_000),
+});
+
+export const fmt = {
+  usd: (n: number) => `US$${n.toLocaleString("en-US")}`,
+  ngn: (n: number) => `₦${n.toLocaleString("en-US")}`,
+  aed: (n: number) => `AED ${n.toLocaleString("en-US")}`,
+  inr: (n: number) => `₹${n.toLocaleString("en-IN")}`,
+};
+export const secondaryLine = (p: Price) => `${fmt.ngn(p.ngn)} · ${fmt.aed(p.aed)} · ${fmt.inr(p.inr)}`;
+export const conversionNote = "Indicative conversions; final invoice currency confirmed on registration.";
 
 export type OrganiserLogo = {
   src: string;
@@ -63,10 +87,10 @@ export const event = {
   tagline: "Connecting Enterprises, Investors & Global Opportunities",
 
   date: {
-    iso: "2026-12-06",
-    display: "6 December 2026",
-    short: "06.12.26",
-    countdownTarget: "2026-12-06T09:00:00+01:00",
+    iso: "2026-12-05",
+    display: "Saturday 5 December 2026",
+    short: "05.12.26",
+    countdownTarget: "2026-12-05T09:00:00+01:00",
   },
 
   city: "Abuja",
@@ -120,14 +144,18 @@ export const event = {
   },
 
   fees: {
-    delegate: "₦500,000",
+    // Individual event entry. Early bird NGN is the deck's own figure.
+    regular: { usd: 114, ngn: 150_000, aed: 420, inr: 11_000 } satisfies Price,
+    earlyBird: { usd: 56, ngn: 75_000, aed: 205, inr: 5_300 } satisfies Price,
   },
 
   sponsorTiers: [
-    { name: "Silver", amount: "₦2,500,000" },
-    { name: "Gold", amount: "₦3,500,000" },
-    { name: "Platinum", amount: "₦5,000,000" },
-    { name: "Title Sponsor", amount: "₦10,000,000", featured: true },
+    { name: "Delegate Package", price: tierPrice(3_500), passes: 2 },
+    { name: "Corporate Partner", price: tierPrice(5_500), passes: 3 },
+    { name: "Silver Sponsor", price: tierPrice(7_500), passes: 4 },
+    { name: "Gold Sponsor", price: tierPrice(9_500), passes: 5 },
+    { name: "Platinum Sponsor", price: tierPrice(11_500), passes: 6 },
+    { name: "Title Sponsor", price: tierPrice(17_000), passes: 8, featured: true },
   ] satisfies SponsorTier[],
 
   sectors: [
@@ -347,7 +375,7 @@ export const event = {
       headingEmphasis: "deals begin",
       body: "International delegates and investors join The Grand Table 2026 in Abuja to meet vetted enterprises, explore new markets and build partnerships across Nigeria, the UAE, India and beyond.",
       reasonsLabel: "Five reasons to participate",
-      feeLabel: "Delegate participation fee",
+      feeLabel: "Regular event entry",
       feeNote: "Payment details are shared after your registration is reviewed.",
       formTabsLabel: "Choose how you'd like to register",
       tabs: {
@@ -418,11 +446,11 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is there a delegate participation fee?",
-    a: `Yes, ${event.fees.delegate}. Payment details are shared after your registration is reviewed.`,
+    a: `Yes. Regular event entry is US$114 (₦150,000 · AED 420 · ₹11,000) and early bird entry is ₦75,000 / US$56, food and drinks included. Delegate packages start at US$3,500 for two passes. Indicative conversions; final invoice currency confirmed on registration. Payment details are shared after your registration is reviewed.`,
   },
   {
     q: "What sponsorship packages are available?",
-    a: "Silver ₦2.5M, Gold ₦3.5M, Platinum ₦5M and Title ₦10M. Request the brochure for benefits.",
+    a: "Delegate Package US$3,500 (2 passes), Corporate Partner US$5,500 (3), Silver US$7,500 (4), Gold US$9,500 (5), Platinum US$11,500 (6) and Title US$17,000 (8). Prices are also shown in NGN, AED and INR as indicative conversions; final invoice currency confirmed on registration. Request the brochure for full benefits.",
   },
   {
     q: "When do registrations open?",

@@ -6,7 +6,7 @@ import { Header } from "../components/Header";
 import FooterSection from "../components/FooterSection.astro";
 import GrandTableForm from "../components/GrandTableForm.astro";
 import { forms } from "../data/grand-table-forms";
-import { event, faqs } from "../data/grand-table-event";
+import { event, faqs, fmt, secondaryLine, conversionNote } from "../data/grand-table-event";
 
 const {
   objectives,
@@ -26,7 +26,23 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 // SEO: schema.org Event built from grand-table-event.ts
 const GT_SITE = "https://flottwomenscircle.com";
 const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. Abuja, Nigeria, ${event.date.display}.`;
-const gtDelegatePrice = Number(String(event.fees.delegate).replace(/[^0-9.]/g, ""));
+const gtCurrencies = [["USD", "usd"], ["NGN", "ngn"], ["AED", "aed"], ["INR", "inr"]] as const;
+const gtOfferItems = [
+  { name: "Regular event entry", price: event.fees.regular, anchor: "delegate-form" },
+  { name: "Early bird entry", price: event.fees.earlyBird, anchor: "delegate-form" },
+  ...sponsorTiers.map((t) => ({ name: t.name, price: t.price, anchor: "sponsor-form" })),
+];
+const gtOffers = gtOfferItems.flatMap((item) =>
+  gtCurrencies.map(([code, key]) => ({
+    "@type": "Offer",
+    name: `${item.name} (${code})`,
+    url: `${GT_SITE}/grand-table/#${item.anchor}`,
+    price: String(item.price[key]),
+    priceCurrency: code,
+    availability: "https://schema.org/InStock",
+    validFrom: "2026-10-29",
+  })),
+);
 const gtEventJsonLd = {
   "@context": "https://schema.org",
   "@type": "Event",
@@ -47,13 +63,7 @@ const gtEventJsonLd = {
   },
   image: [new URL(venue.heroImage.src, GT_SITE).href],
   organizer: { "@type": "Organization", name: "Flott Women's Circle", url: GT_SITE },
-  offers: {
-    "@type": "Offer",
-    name: "Delegate registration",
-    url: `${GT_SITE}/grand-table/#delegate-form`,
-    ...(Number.isFinite(gtDelegatePrice) && gtDelegatePrice > 0 ? { price: String(gtDelegatePrice), priceCurrency: "NGN" } : {}),
-    availability: "https://schema.org/InStock",
-  },
+  offers: gtOffers,
 };
 ---
 
@@ -514,7 +524,11 @@ const gtEventJsonLd = {
           style="border-color: rgba(201,169,110,0.35); transition-delay: 0.3s;"
         >
           <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">{copy.delegates.feeLabel}</p>
-          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{event.fees.delegate}</p>
+          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{fmt.usd(event.fees.regular.usd)}</p>
+          <p class="mt-2 text-xs tracking-[0.04em] text-[#F5F0E6]/55">{secondaryLine(event.fees.regular)}</p>
+          <p class="mt-5 inline-block rounded-full border px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-[#E6D3A3]" style="border-color: rgba(201,169,110,0.4);">Early bird {fmt.ngn(event.fees.earlyBird.ngn)} / {fmt.usd(event.fees.earlyBird.usd)}</p>
+          <p class="mt-2 text-[11px] text-[#F5F0E6]/45">{fmt.aed(event.fees.earlyBird.aed)} · {fmt.inr(event.fees.earlyBird.inr)} · Food &amp; drinks included</p>
+          <p class="mt-4 text-[11px] italic text-[#F5F0E6]/45">{conversionNote}</p>
           <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">{copy.delegates.feeNote}</p>
         </div>
 
@@ -597,7 +611,7 @@ const gtEventJsonLd = {
         </div>
 
         <!-- Tiers -->
-        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
+        <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
           {sponsorTiers.map((tier, index) => (
             <div
               class={`gt-tier-card reveal relative flex flex-col rounded-xl border px-6 py-8 text-center ${tier.featured ? "gt-tier-featured" : ""}`}
@@ -618,11 +632,13 @@ const gtEventJsonLd = {
                 {tier.name}
               </h3>
               <p
-                class={`mt-4 whitespace-nowrap text-[clamp(1.6rem,3vw,2.1rem)] leading-tight ${tier.featured ? "text-[#F5F0E6]" : "text-[#0B0B0C]"}`}
+                class={`mt-4 whitespace-nowrap text-[clamp(1.9rem,3vw,2.4rem)] leading-tight ${tier.featured ? "text-[#F5F0E6]" : "text-[#0B0B0C]"}`}
                 style="font-family: 'Playfair Display', serif; font-weight: 400;"
               >
-                {tier.amount}
+                {fmt.usd(tier.price.usd)}
               </p>
+              <p class={`mt-2 text-[11.5px] tracking-[0.02em] ${tier.featured ? "text-[#F5F0E6]/60" : "text-[#0B0B0C]/55"}`}>{secondaryLine(tier.price)}</p>
+              <p class={`mt-4 text-[11px] uppercase tracking-[0.2em] ${tier.featured ? "text-[#E6D3A3]" : "text-[#9A7B45]"}`}>{tier.passes} delegate passes</p>
               <a
                 href="#sponsor-form"
                 class={`gt-brochure-link mt-4 inline-flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-[0.2em] transition-all duration-300 hover:gap-2.5 ${tier.featured ? "text-[#C9A96E]/70 hover:text-[#C9A96E]" : "text-[#0B0B0C]/50 hover:text-[#9A7B45]"}`}
@@ -634,8 +650,10 @@ const gtEventJsonLd = {
           ))}
         </div>
 
+        <p class="reveal mx-auto mt-8 max-w-2xl text-center text-[11px] italic leading-relaxed text-[#0B0B0C]/50">{conversionNote} Showcases, stands and introductions subject to availability.</p>
+
         <!-- CTA -->
-        <div class="reveal mt-14 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-16" style="transition-delay: 0.56s;">
+        <div class="reveal mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-12" style="transition-delay: 0.56s;">
           <a
             href="#sponsor-form"
             class="inline-flex w-full max-w-[340px] items-center justify-center gap-2 rounded-full px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-500 hover:gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9A7B45] sm:w-auto sm:max-w-none"

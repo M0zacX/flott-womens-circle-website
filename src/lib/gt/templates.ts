@@ -90,7 +90,7 @@ export function confirmationEmail(form: FormConfig, name: string): { subject: st
     <h1 style="margin:0 0 16px;font-size:20px;font-weight:400;color:#0B0B0C;">${copy.heading}</h1>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Dear ${greeting},</p>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">${copy.message}</p>
-    <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Abuja, Nigeria &middot; 6 December 2026</p>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Abuja, Nigeria &middot; Saturday 5 December 2026</p>
   `;
   return { subject: copy.subject, html: baseTemplate(body) };
 }

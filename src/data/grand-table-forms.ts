@@ -97,7 +97,7 @@ const enterprise: FormConfig = {
 const delegate: FormConfig = {
   id: "delegate",
   title: "Delegate, Investor and Partner Registration",
-  intro: "International delegates, investors and partners register here for The Grand Table 2026.",
+  intro: "International delegates, investors and partners register here for The Grand Table 2026. Regular entry is US$114 (₦150,000 · AED 420 · ₹11,000); early bird ₦75,000 / US$56. Delegate packages from US$3,500. Indicative conversions; final invoice currency confirmed on registration. No payment is taken on this form.",
   submitLabel: "Submit registration",
   fields: [
     { name: "participantType", label: "Participant type", type: "select", required: true, options: ["International delegate", "Investor", "Partner or institution"] },
@@ -165,7 +165,7 @@ const sponsor: FormConfig = {
     { name: "email", label: "Email", type: "email", required: true },
     { name: "phone", label: "Phone", type: "tel", required: true },
     { name: "country", label: "Country", type: "country", required: true },
-    { name: "tier", label: "Preferred tier", type: "select", required: true, options: ["Silver ₦2.5M", "Gold ₦3.5M", "Platinum ₦5M", "Title ₦10M", "Undecided"] },
+    { name: "tier", label: "Preferred tier", type: "select", required: true, options: ["Delegate Package US$3,500", "Corporate Partner US$5,500", "Silver US$7,500", "Gold US$9,500", "Platinum US$11,500", "Title US$17,000", "Undecided"] },
     { name: "website", label: "Website", type: "url" },
     { name: "message", label: "Message or sponsorship goals", type: "textarea", full: true },
   ],
