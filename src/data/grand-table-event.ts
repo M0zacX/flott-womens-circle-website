@@ -308,10 +308,10 @@ export const event = {
   ] satisfies Speaker[],
 
   organisers: {
-    label: "An initiative of Flott Women's Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions",
+    label: "An initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE",
     logos: [
-      { src: "/images/grand-table/organisers/organiser-2.webp", alt: "Partner logo 1", width: 420, height: 120 },
-      { src: "/images/grand-table/organisers/organiser-3.webp", alt: "Partner logo 2", width: 420, height: 150 },
+      { src: "/images/grand-table/organisers/organiser-2.webp", alt: "Smart Solutions UAE", width: 420, height: 120 },
+      { src: "/images/grand-table/organisers/organiser-3.webp", alt: "Indo-African Chamber of Commerce & Industry", width: 420, height: 150 },
     ] satisfies OrganiserLogo[],
   },
 
@@ -325,7 +325,7 @@ export const event = {
       headingPrefix: "Where Business Meets",
       headingEmphasis: "Opportunity",
       body: "The Grand Table 2026 is an international business platform initiated by Flott Women’s Circle that brings enterprises, investors and global partners together in Abuja to unlock investment, open international markets and build lasting partnerships across Nigeria, the UAE, India and beyond.",
-      initiatedBy: "An initiative of Flott Women’s Circle, in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions",
+      initiatedBy: "An initiative of Flott Women’s Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE",
     },
     sectors: {
       eyebrow: "Sectors",
