@@ -133,38 +133,38 @@ export const event = {
   sectors: [
     {
       num: "01",
-      name: "Agriculture & Agribusiness",
+      name: "Agriculture, Agribusiness & Food Processing",
       description: "Farming, processing and agribusiness ventures across the value chain.",
     },
     {
       num: "02",
-      name: "Manufacturing & Industrial",
+      name: "Manufacturing & Industrial Development",
       description: "Production, industrial capacity and manufacturing partnerships.",
     },
     {
       num: "03",
-      name: "Energy & Natural Resources",
-      description: "Power generation, extractives and natural resource development.",
+      name: "Energy, Oil & Gas",
+      description: "Power generation, oil and gas, and energy infrastructure.",
     },
     {
       num: "04",
-      name: "Healthcare & Medical Tourism",
+      name: "Healthcare, Medical Tourism & Global Mobility",
       description: "Healthcare delivery, medical infrastructure and wellness travel.",
     },
     {
       num: "05",
-      name: "Technology & Innovation",
-      description: "Digital platforms, innovation and emerging technology ventures.",
+      name: "Artificial Intelligence, Technology & Digital Transformation",
+      description: "AI, digital platforms and emerging technology ventures.",
     },
     {
       num: "06",
-      name: "Real Estate & Infrastructure",
+      name: "Infrastructure, Real Estate & Development",
       description: "Property development, construction and infrastructure projects.",
     },
     {
       num: "07",
-      name: "Trade, Logistics & International Business",
-      description: "Cross-border trade, logistics networks and international business services.",
+      name: "Investment, International Trade & Enterprise Growth",
+      description: "Investment, cross-border trade and enterprise growth across markets.",
     },
   ] satisfies Sector[],
 
