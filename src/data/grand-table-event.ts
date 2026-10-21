@@ -68,7 +68,7 @@ export const fmt = {
   usd: (n: number) => `US$${n.toLocaleString("en-US")}`,
   ngn: (n: number) => `₦${n.toLocaleString("en-US")}`,
   aed: (n: number) => `AED ${n.toLocaleString("en-US")}`,
-  inr: (n: number) => `₹${n.toLocaleString("en-IN")}`,
+  inr: (n: number) => `₹${n.toLocaleString("en-US")}`,
 };
 export const secondaryLine = (p: Price) => `${fmt.ngn(p.ngn)} · ${fmt.aed(p.aed)} · ${fmt.inr(p.inr)}`;
 export const conversionNote = "Indicative conversions; final invoice currency confirmed on registration.";
