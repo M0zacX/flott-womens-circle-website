@@ -100,18 +100,18 @@ export const event = {
     display: "Saturday 5 December 2026",
     short: "05.12.26",
     countdownTarget: "2026-12-05T09:00:00+01:00",
+    timeDisplay: "Time to be announced",
   },
 
   city: "Abuja",
   country: "Nigeria",
   cityCountry: "Abuja, Nigeria",
-  heroLocationLine: "Abuja, Nigeria",
+  heroLocationLine: "Tropic Galleria, Central Business District, Abuja, Nigeria",
 
   venue: {
-    // Venue name is intentionally NOT published (client request, security). City only.
-    name: "Abuja, Nigeria",
-    officialName: "",
-    address: "",
+    name: "Tropic Galleria",
+    officialName: "Tropic Galleria",
+    address: "Central Business District, Abuja, Nigeria",
     mapsUrl: "",
     heroImage: {
       src: "/images/grand-table/venue/venue-hall-1512.webp",
@@ -457,8 +457,8 @@ export const event = {
     },
     venue: {
       eyebrow: "Venue",
-      headingPrefix: "Abuja,",
-      headingEmphasis: "Nigeria",
+      headingPrefix: "Tropic Galleria,",
+      headingEmphasis: "Abuja",
     },
     faq: {
       eyebrow: "FAQ",
@@ -484,7 +484,7 @@ const sectorsSentence = `${event.sectors
 export const faqs: Faq[] = [
   {
     q: "When and where is The Grand Table 2026?",
-    a: `${event.date.display} in Abuja, Nigeria. Full venue details are shared directly with confirmed participants.`,
+    a: `${event.date.display} (${event.date.timeDisplay}) at ${event.venue.officialName}, ${event.venue.address}.`,
   },
   {
     q: "Who can take part?",

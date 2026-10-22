@@ -29,7 +29,7 @@ const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 
 // SEO: schema.org Event built from grand-table-event.ts
 const GT_SITE = "https://flottwomenscircle.com";
-const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. Abuja, Nigeria, ${event.date.display}.`;
+const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. ${venue.officialName}, ${venue.address}, ${event.date.display} (${event.date.timeDisplay}).`;
 const gtCurrencies = [["USD", "usd"], ["NGN", "ngn"], ["AED", "aed"], ["INR", "inr"]] as const;
 const gtOfferItems = [
   { name: "Regular event entry", price: event.fees.regular, anchor: "delegate-form" },
@@ -52,15 +52,16 @@ const gtEventJsonLd = {
   "@type": "Event",
   name: `${event.name} ${event.year}`,
   description: gtDescription,
-  startDate: event.date.countdownTarget,
+  startDate: event.date.iso,
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   location: {
     "@type": "Place",
-    name: "Abuja",
+    name: venue.officialName,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Abuja",
+      streetAddress: "Muhammadu Buhari Way",
+      addressLocality: "Central Business District, Abuja",
       addressRegion: "FCT",
       addressCountry: "NG",
     },
@@ -92,20 +93,29 @@ const gtEventJsonLd = {
 
     <!-- ══════════════ HERO ══════════════ -->
     <section class="relative w-full overflow-hidden" style="background: #0B0B0C;">
-      <!-- Venue photo backdrop, toned with a dark jet overlay + gold grade so hero text stays AA-readable -->
+      <!-- Hero backdrop: looping video (vertical footage, cover-cropped), toned with a dark jet overlay + gold grade so hero text stays AA-readable -->
       <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <video
+          class="gt-hero-video h-full w-full object-cover"
+          style="object-position: 50% 30%; filter: grayscale(0.35) sepia(0.25);"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/images/gt-hero-poster.webp"
+        >
+          <source src="/videos/gt-hero.webm" type="video/webm" />
+          <source src="/videos/gt-hero.mp4" type="video/mp4" />
+        </video>
         <img
-          src={venue.heroImage.src}
-          srcset={`${venue.heroImage.srcSmall} 960w, ${venue.heroImage.src} 1512w`}
-          sizes="100vw"
+          src="/images/gt-hero-poster.webp"
           alt=""
-          width={venue.heroImage.width}
-          height={venue.heroImage.height}
+          class="gt-hero-poster-fallback h-full w-full object-cover"
+          style="object-position: 50% 30%; filter: grayscale(0.35) sepia(0.25);"
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          class="h-full w-full object-cover"
-          style="object-position: 50% 0%; transform: scale(1.32); transform-origin: 50% 0%; filter: grayscale(0.35) sepia(0.25) blur(3px);"
         />
         <div class="absolute inset-0" style="background: rgba(201,169,110,0.12); mix-blend-mode: color;"></div>
         <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(11,11,12,0.88) 0%, rgba(11,11,12,0.72) 100%);"></div>
@@ -1050,6 +1060,10 @@ const gtEventJsonLd = {
     100% { transform: translateY(100%); }
   }
 
+  .gt-hero-poster-fallback {
+    display: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .gt-beam,
     .gt-source,
@@ -1062,6 +1076,12 @@ const gtEventJsonLd = {
       transform: translateY(0);
       background: #C9A96E;
       opacity: 0.6;
+    }
+    .gt-hero-video {
+      display: none;
+    }
+    .gt-hero-poster-fallback {
+      display: block;
     }
   }
 
