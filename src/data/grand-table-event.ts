@@ -367,6 +367,7 @@ export const event = {
     { name: "TourMate", src: "/images/grand-table/companies/tourmate.webp", width: 342, height: 115, displayHeight: 46 },
     { name: "doTERRA", src: "/images/grand-table/companies/doterra.webp", width: 252, height: 158, displayHeight: 63 },
     { name: "Knightsbridge Group", src: "/images/grand-table/companies/knightsbridge-group.webp", width: 280, height: 142, displayHeight: 57 },
+    { name: "Sidra Healthcare", src: "/images/grand-table/companies/sidra-healthcare.webp", width: 284, height: 140, displayHeight: 56 },
   ] satisfies CompanyLogo[],
 
   mediaPartner: { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 64 } satisfies CompanyLogo,
