@@ -1,7 +1,7 @@
 # Preview-only config: separate worker so production (flott-womens-circle-website) is never touched.
 # No R2 binding yet (R2 not enabled on the account); uploads are disabled via PUBLIC_GT_UPLOADS_ENABLED=false.
 name = "fwc-grand-table-preview"
-main = "dist/_worker.js/index.js"
+main = "preview-entry.mjs"
 compatibility_date = "2025-09-27"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = true
@@ -9,6 +9,7 @@ workers_dev = true
 [assets]
 binding = "ASSETS"
 directory = "./dist"
+run_worker_first = true
 
 [[d1_databases]]
 binding = "GT_DB"
