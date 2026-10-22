@@ -40,8 +40,17 @@ export type Faq = {
 
 export type Speaker = {
   name: string;
+  title?: string;
   image: EventImage;
 };
+
+export type CompanyLogo = { name: string; src: string; width: number; height: number; displayHeight: number };
+
+const person = (dir: string, slug: string, name: string, title: string): Speaker => ({
+  name,
+  title,
+  image: { src: `/images/grand-table/${dir}/${slug}.webp`, alt: `${name}, ${title}`, width: 600, height: 800 },
+});
 
 export type Price = { usd: number; ngn: number; aed: number; inr: number };
 
@@ -332,7 +341,41 @@ export const event = {
         height: 800,
       },
     },
+    person("speakers", "jem-felicilda", "Jem Felicilda", "MD, Knightsbridge Group UAE"),
+    person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
+    person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
+    person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
+    person("speakers", "elena-krystal", "Elena Krystal", "Co-Founder, Global Academy of Happiness"),
+    person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
+    person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
   ] satisfies Speaker[],
+
+  dignitaries: [
+    person("dignitaries", "salem-al-shamsi", "H.E. Salem Saeed Al Shamsi", "Ambassador of the UAE to the Federal Republic of Nigeria"),
+    person("dignitaries", "sunanda-rajendran", "Dr. Mrs. Sunanda Rajendran", "Secretary-General, IACCI"),
+    person("dignitaries", "zayyan-ibrahim", "H.E. Ambassador Zayyan Ibrahim", "Consul General of Nigeria in Dubai & the Northern Emirates"),
+    person("dignitaries", "mohammed-al-neyadi", "H.E. Mohammed Saeed Bakhit Al Neyadi", "Former Director-General, UAE General Authority of Islamic Affairs & Endowments"),
+    person("dignitaries", "adeshola-onadipe", "Amb. Adeshola Helen Onadipe", "President, African-Arab Women Chamber of Commerce; Founder, Ladies in Business Magazine Global"),
+  ] satisfies Speaker[],
+
+  companies: [
+    { name: "Horrie Autos Limited", src: "/images/grand-table/companies/horrie-autos.webp", width: 282, height: 141, displayHeight: 57 },
+    { name: "Structured Spaces", src: "/images/grand-table/companies/structured-spaces.webp", width: 275, height: 145, displayHeight: 58 },
+    { name: "FertiClinic Ras Al Khaimah", src: "/images/grand-table/companies/ferticlinic-rak.webp", width: 403, height: 98, displayHeight: 39 },
+    { name: "DTOPAZ Jewellery", src: "/images/grand-table/companies/dtopaz-jewellery.webp", width: 106, height: 199, displayHeight: 80 },
+    { name: "Meenasu Foodstuff Trading LLC", src: "/images/grand-table/companies/meenasu-foodstuff.webp", width: 214, height: 186, displayHeight: 75 },
+  ] satisfies CompanyLogo[],
+
+  mediaPartner: { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 64 } satisfies CompanyLogo,
+
+  contactDetails: {
+    email: "info@flottwomenscircle.com",
+    phones: [
+      { display: "+234 703 488 9488", tel: "+2347034889488", whatsapp: "2347034889488" },
+      { display: "+234 907 737 2995", tel: "+2349077372995", whatsapp: "2349077372995" },
+      { display: "+971 55 644 1087", tel: "+971556441087" },
+    ],
+  },
 
   organisers: {
     label: "An initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE",
@@ -388,6 +431,16 @@ export const event = {
       headingEmphasis: "Sponsor",
       body: "Align your brand with an international business platform connecting enterprises, investors and global partners in Abuja.",
     },
+    dignitaries: {
+      eyebrow: "Distinguished guests",
+      headingPrefix: "Honoured",
+      headingEmphasis: "Dignitaries",
+    },
+    companies: {
+      eyebrow: "At the Table",
+      heading: "Participating companies",
+      mediaLabel: "Media partner",
+    },
     speakers: {
       eyebrow: "Voices at the Table",
       heading: "Speakers",
@@ -412,7 +465,9 @@ export const event = {
       eyebrow: "Contact",
       headingPrefix: "Get in",
       headingEmphasis: "touch",
-      body: "Email and phone details will be announced soon.",
+      body: "For sponsorships, delegate participation and strategic partnership discussions, reach our event coordination team.",
+      emailLabel: "Event coordination",
+      phoneLabel: "Call & WhatsApp",
     },
   },
 };
