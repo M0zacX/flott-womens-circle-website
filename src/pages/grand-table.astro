@@ -6,13 +6,23 @@ import { Header } from "../components/Header";
 import FooterSection from "../components/FooterSection.astro";
 import GrandTableForm from "../components/GrandTableForm.astro";
 import { forms } from "../data/grand-table-forms";
-import { event, faqs, fmt, secondaryLine, conversionNote, SPEAKER_FALLBACK_TITLE } from "../data/grand-table-event";
+import {
+  event,
+  faqs,
+  fmt,
+  secondaryLine,
+  currencyDisclaimer,
+  exchangeRatesLine,
+  importantInformation,
+  entryPackages,
+  sponsorPackages,
+  SPEAKER_FALLBACK_TITLE,
+} from "../data/grand-table-event";
 
 const {
   objectives,
   sectors,
   delegateReasons,
-  sponsorTiers,
   highlights,
   enterpriseSteps,
   speakers,
@@ -33,9 +43,8 @@ const GT_SITE = "https://flottwomenscircle.com";
 const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. ${venue.officialName}, ${venue.address}, ${event.date.display} (${event.date.timeDisplay}).`;
 const gtCurrencies = [["USD", "usd"], ["NGN", "ngn"], ["AED", "aed"], ["INR", "inr"]] as const;
 const gtOfferItems = [
-  { name: "Regular event entry", price: event.fees.regular, anchor: "delegate-form" },
-  { name: "Early bird entry", price: event.fees.earlyBird, anchor: "delegate-form" },
-  ...sponsorTiers.map((t) => ({ name: t.name, price: t.price, anchor: "sponsor-form" })),
+  ...entryPackages.map((p) => ({ name: p.name, price: p.price, anchor: "delegate-form" })),
+  ...sponsorPackages.map((p) => ({ name: p.name, price: p.price, anchor: "sponsor-form" })),
 ];
 const gtOffers = gtOfferItems.flatMap((item) =>
   gtCurrencies.map(([code, key]) => ({
@@ -549,17 +558,30 @@ const gtEventJsonLd = {
         </div>
 
         <!-- Participation fee -->
-        <div
-          class="reveal mx-auto mt-16 max-w-xl rounded-xl border px-6 py-8 text-center md:mt-20 md:px-10 md:py-10"
-          style="border-color: rgba(201,169,110,0.35); transition-delay: 0.3s;"
-        >
-          <p class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80">{copy.delegates.feeLabel}</p>
-          <p class="mt-3 text-[clamp(2rem,4vw,3rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{fmt.usd(event.fees.regular.usd)}</p>
-          <p class="mt-2 text-xs tracking-[0.04em] text-[#F5F0E6]/55">{secondaryLine(event.fees.regular)}</p>
-          <p class="mt-5 inline-block rounded-full border px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-[#E6D3A3]" style="border-color: rgba(201,169,110,0.4);">Early bird {fmt.ngn(event.fees.earlyBird.ngn)} / {fmt.usd(event.fees.earlyBird.usd)}</p>
-          <p class="mt-2 text-[11px] text-[#F5F0E6]/45">{fmt.aed(event.fees.earlyBird.aed)} · {fmt.inr(event.fees.earlyBird.inr)} · Food &amp; drinks included</p>
-          <p class="mt-4 text-[11px] italic text-[#F5F0E6]/45">{conversionNote}</p>
-          <p class="mt-4 text-xs leading-relaxed text-[#F5F0E6]/50">{copy.delegates.feeNote}</p>
+        <div class="mx-auto mt-16 max-w-3xl md:mt-20">
+          <p class="reveal text-center text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/80" style="transition-delay: 0.3s;">{copy.delegates.feeLabel}</p>
+          <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {entryPackages.map((pkg, index) => (
+              <div
+                class="gt-tier-card reveal flex flex-col rounded-xl border px-6 py-8 text-center md:px-8"
+                style={`border-color: rgba(201,169,110,0.35); transition-delay: ${0.34 + index * 0.08}s;`}
+              >
+                <h3 class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]">{pkg.name}</h3>
+                <p class="mt-3 text-[clamp(1.8rem,3.4vw,2.6rem)] leading-none text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{fmt.usd(pkg.price.usd)}</p>
+                <p class="mt-2 text-xs tracking-[0.04em] text-[#F5F0E6]/55">{secondaryLine(pkg.price)}</p>
+                <p class="mt-3 inline-block self-center rounded-full border px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-[#E6D3A3]" style="border-color: rgba(201,169,110,0.4);">{pkg.passLabel}</p>
+                <ul class="mt-5 space-y-2 text-left text-[0.85rem] leading-relaxed text-[#F5F0E6]/70" role="list">
+                  {pkg.bullets.map((bullet) => (
+                    <li class="flex gap-2">
+                      <span aria-hidden="true" class="text-[#C9A96E]">&bull;</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <p class="reveal mt-6 text-center text-xs leading-relaxed text-[#F5F0E6]/50" style="transition-delay: 0.5s;">{copy.delegates.feeNote}</p>
         </div>
 
         <!-- CTA -->
@@ -642,7 +664,7 @@ const gtEventJsonLd = {
 
         <!-- Tiers -->
         <div class="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
-          {sponsorTiers.map((tier, index) => (
+          {sponsorPackages.map((tier, index) => (
             <div
               class={`gt-tier-card reveal relative flex flex-col rounded-xl border px-6 py-8 text-center ${tier.featured ? "gt-tier-featured" : ""}`}
               style={`border-color: ${tier.featured ? "#9A7B45" : "rgba(154,123,69,0.35)"}; background: ${tier.featured ? "#0B0B0C" : "transparent"}; transition-delay: ${0.24 + index * 0.08}s;`}
@@ -668,7 +690,15 @@ const gtEventJsonLd = {
                 {fmt.usd(tier.price.usd)}
               </p>
               <p class={`mt-2 text-[11.5px] tracking-[0.02em] ${tier.featured ? "text-[#F5F0E6]/60" : "text-[#0B0B0C]/55"}`}>{secondaryLine(tier.price)}</p>
-              <p class={`mt-4 text-[11px] uppercase tracking-[0.2em] ${tier.featured ? "text-[#E6D3A3]" : "text-[#9A7B45]"}`}>{tier.passes} delegate passes</p>
+              <p class={`mt-4 text-[11px] uppercase tracking-[0.2em] ${tier.featured ? "text-[#E6D3A3]" : "text-[#9A7B45]"}`}>{tier.passLabel}</p>
+              <ul class={`mt-4 space-y-1.5 text-left text-[0.8rem] leading-relaxed ${tier.featured ? "text-[#F5F0E6]/65" : "text-[#0B0B0C]/60"}`} role="list">
+                {tier.bullets.map((bullet) => (
+                  <li class="flex gap-2">
+                    <span aria-hidden="true" class={tier.featured ? "text-[#C9A96E]" : "text-[#9A7B45]"}>&bull;</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
               <a
                 href="#sponsor-form"
                 class={`gt-brochure-link mt-4 inline-flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-[0.2em] transition-all duration-300 hover:gap-2.5 ${tier.featured ? "text-[#C9A96E]/70 hover:text-[#C9A96E]" : "text-[#0B0B0C]/50 hover:text-[#9A7B45]"}`}
@@ -680,7 +710,20 @@ const gtEventJsonLd = {
           ))}
         </div>
 
-        <p class="reveal mx-auto mt-8 max-w-2xl text-center text-[11px] italic leading-relaxed text-[#0B0B0C]/50">{conversionNote} Showcases, stands and introductions subject to availability.</p>
+        <!-- Important information -->
+        <div class="reveal mx-auto mt-10 max-w-3xl rounded-xl border px-6 py-6 text-left md:px-8" style="border-color: rgba(154,123,69,0.35); transition-delay: 0.64s;">
+          <p class="text-[11px] uppercase tracking-[0.3em] text-[#9A7B45]">Important Information</p>
+          <ul class="mt-4 space-y-2 text-sm leading-relaxed text-[#0B0B0C]/70" role="list">
+            {importantInformation.map((item) => (
+              <li class="flex gap-2">
+                <span aria-hidden="true" class="text-[#9A7B45]">&bull;</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-4 text-sm leading-relaxed text-[#0B0B0C]/70"><span class="font-medium text-[#0B0B0C]">Currency Disclaimer:</span> {currencyDisclaimer}</p>
+          <p class="mt-2 text-sm leading-relaxed text-[#0B0B0C]/70"><span class="font-medium text-[#0B0B0C]">Exchange Rates Used:</span> {exchangeRatesLine}</p>
+        </div>
 
         <!-- CTA -->
         <div class="reveal mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-12" style="transition-delay: 0.56s;">

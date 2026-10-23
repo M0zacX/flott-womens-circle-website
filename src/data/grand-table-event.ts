@@ -67,24 +67,23 @@ const person = (dir: string, slug: string, name: string, title: string): Speaker
 
 export type Price = { usd: number; ngn: number; aed: number; inr: number };
 
-export type SponsorTier = {
+export type PackageTier = {
   name: string;
   price: Price;
-  passes: number;
+  passLabel: string;
+  bullets: string[];
   featured?: boolean;
   badge?: string;
 };
 
-/** Indicative mid-market rates, 1 USD = … (open.er-api.com, updated 21 Oct 2026 04:02 Dubai). */
-export const fxRates = { ngn: 1332.68, aed: 3.6725, inr: 95.0, asOf: "21 October 2026" };
+/** Exchange rates as of 23 October 2026, per the client-approved Oct 23 packages brief. */
+export const fxRates = { aed: 3.67, ngn: 1330.95, inr: 94.82, asOf: "23 October 2026" };
 
-const roundTo = (v: number, step: number) => Math.round(v / step) * step;
-/** Tier rounding: NGN ₦50,000, AED 50, INR ₹1,000. */
-const tierPrice = (usd: number): Price => ({
+const priceFor = (usd: number): Price => ({
   usd,
-  ngn: roundTo(usd * fxRates.ngn, 50_000),
-  aed: roundTo(usd * fxRates.aed, 50),
-  inr: roundTo(usd * fxRates.inr, 1_000),
+  ngn: Math.round(usd * fxRates.ngn),
+  aed: Math.round(usd * fxRates.aed),
+  inr: Math.round(usd * fxRates.inr),
 });
 
 export const fmt = {
@@ -94,8 +93,151 @@ export const fmt = {
   inr: (n: number) => `₹${n.toLocaleString("en-US")}`,
 };
 export const secondaryLine = (p: Price) => `${fmt.ngn(p.ngn)} · ${fmt.aed(p.aed)} · ${fmt.inr(p.inr)}`;
-export const conversionNote = "Indicative conversions; final invoice currency confirmed on registration.";
-export const exchangeRateNote = `Based on indicative mid-market rates as of ${fxRates.asOf}: 1 USD ≈ ₦${fxRates.ngn.toLocaleString("en-US")} · AED ${fxRates.aed} · ₹${fxRates.inr}. NGN, AED and INR figures are rounded for display; the US dollar amount is the reference price.`;
+
+export const currencyDisclaimer =
+  "All package prices are quoted in US Dollars. AED, NGN and INR amounts are indicative equivalents based on exchange rates as of 23 October 2026 and may vary at the time of payment.";
+export const exchangeRatesLine = "1 USD = AED 3.67 | 1 USD = NGN 1,330.95 | 1 USD = INR 94.82";
+
+/** The Grand Table 2026 — Participation & Sponsorship Packages (Oct 23 brief). */
+export const packages: PackageTier[] = [
+  {
+    name: "Early Bird Entry",
+    price: priceFor(56),
+    passLabel: "1 Participant",
+    bullets: [
+      "General admission to The Grand Table 2026.",
+      "Access to the main business forum.",
+      "General networking opportunities.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "General Admission",
+    price: priceFor(115),
+    passLabel: "1 Participant",
+    bullets: [
+      "Full access to the main business forum.",
+      "Access to general networking sessions.",
+      "Opportunity to connect with participating businesses and organisations.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Business Delegate",
+    price: priceFor(750),
+    passLabel: "1 Delegate Pass",
+    bullets: [
+      "Full access to the business forum.",
+      "Access to professional networking sessions.",
+      "Digital business profile in the delegate directory.",
+      "Eligibility to request business matchmaking.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Executive Delegate",
+    price: priceFor(1_500),
+    passLabel: "2 Executive Delegate Passes",
+    bullets: [
+      "Full access to the business forum.",
+      "Priority business matchmaking consideration.",
+      "Enhanced company profile in the digital delegate directory.",
+      "Reserved executive seating.",
+      "Access to a dedicated executive networking session.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Corporate Partner",
+    price: priceFor(3_500),
+    passLabel: "3 Delegate Passes",
+    bullets: [
+      "Full access to the business forum.",
+      "Company logo on selected event materials.",
+      "Corporate profile in the digital event directory.",
+      "Two-minute business presentation.",
+      "Priority matchmaking requests.",
+      "Official Corporate Partner recognition.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Silver Sponsor",
+    price: priceFor(5_000),
+    passLabel: "4 Delegate Passes",
+    bullets: [
+      "Full access to the business forum.",
+      "Logo visibility on selected event materials.",
+      "Corporate profile in the official digital publication.",
+      "Priority seating.",
+      "Two-minute business showcase.",
+      "Access to exhibition and business networking areas.",
+      "Official Silver Sponsor recognition.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Gold Sponsor",
+    price: priceFor(7_500),
+    passLabel: "5 Delegate Passes",
+    bullets: [
+      "Full access to the business forum.",
+      "Enhanced corporate branding.",
+      "Exhibition stand.",
+      "Three-minute business showcase.",
+      "Priority consideration for curated business introductions.",
+      "Featured company profile.",
+      "Recognition during the event programme.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Platinum Sponsor",
+    price: priceFor(10_000),
+    passLabel: "6 Delegate Passes",
+    bullets: [
+      "Full access to the business forum.",
+      "Premium branding across event materials.",
+      "Premium exhibition space.",
+      "Five-minute strategic business presentation.",
+      "Curated introduction opportunities.",
+      "Priority seating.",
+      "Featured corporate spotlight.",
+      "Recognition during opening and closing remarks.",
+      "Food and beverages included.",
+    ],
+  },
+  {
+    name: "Title Sponsor",
+    price: priceFor(17_000),
+    passLabel: "8 Delegate Passes",
+    featured: true,
+    badge: "Limited to one organisation",
+    bullets: [
+      "Full access to the business forum.",
+      "Lead sponsor positioning across agreed event materials.",
+      "Prominent branding throughout the venue.",
+      "Premium exhibition space.",
+      "Six-minute strategic presentation.",
+      "Dedicated corporate spotlight.",
+      "Priority consideration for institutional and commercial introductions.",
+      "Prominent recognition in event communications.",
+      "Food and beverages included.",
+    ],
+  },
+];
+
+/** Individual event entry tickets — the first two packages. */
+export const entryPackages = packages.slice(0, 2);
+/** Sponsorship tiers carrying delegate passes — the remaining seven packages. */
+export const sponsorPackages = packages.slice(2);
+
+export const importantInformation = [
+  "All packages include food and beverages.",
+  "Business matchmaking and curated introductions are subject to availability, relevance and mutual interest.",
+  "Exhibition stands and showcase opportunities are subject to space availability and event arrangements.",
+  "Title Sponsorship is limited to one organisation.",
+];
 
 export type OrganiserLogo = {
   src: string;
@@ -165,21 +307,6 @@ export const event = {
       { text: "Forefront NG" },
     ] satisfies Credit[],
   },
-
-  fees: {
-    // Individual event entry. Early bird NGN is the deck's own figure.
-    regular: { usd: 114, ngn: 150_000, aed: 420, inr: 11_000 } satisfies Price,
-    earlyBird: { usd: 56, ngn: 75_000, aed: 205, inr: 5_300 } satisfies Price,
-  },
-
-  sponsorTiers: [
-    { name: "Delegate Package", price: tierPrice(3_500), passes: 2 },
-    { name: "Corporate Partner", price: tierPrice(5_500), passes: 3 },
-    { name: "Silver Sponsor", price: tierPrice(7_500), passes: 4 },
-    { name: "Gold Sponsor", price: tierPrice(9_500), passes: 5 },
-    { name: "Platinum Sponsor", price: tierPrice(11_500), passes: 6 },
-    { name: "Title Sponsor", price: tierPrice(17_000), passes: 8, featured: true, badge: "Limited to one organisation" },
-  ] satisfies SponsorTier[],
 
   sectors: [
     {
@@ -482,7 +609,7 @@ export const event = {
       headingEmphasis: "deals begin",
       body: "International delegates and investors join The Grand Table 2026 in Abuja to meet vetted enterprises, explore new markets and build partnerships across Nigeria, the UAE, India and beyond.",
       reasonsLabel: "Five reasons to participate",
-      feeLabel: "Regular event entry",
+      feeLabel: "Event entry",
       feeNote: "Payment details are shared after your registration is reviewed.",
       formTabsLabel: "Choose how you'd like to register",
       tabs: {
@@ -497,12 +624,6 @@ export const event = {
       body: "From a single delegate seat to becoming our exclusive Title Sponsor — every tier includes delegate passes to The Grand Table 2026 in Abuja.",
       attendeeLabel: "Attendee entry",
       sponsorLabel: "Sponsorship tiers",
-      importantInfo: [
-        "Submitting a sponsorship enquiry or delegate registration does not guarantee a place; all submissions are reviewed and confirmed directly.",
-        "Payment details and an invoice are shared only after your registration or enquiry is reviewed — no payment is taken on this page.",
-        "Showcases, exhibition stands and investor introductions are subject to availability at the time of confirmation.",
-        "The Title Sponsor tier is limited to one organisation for this edition.",
-      ],
     },
     dignitaries: {
       eyebrow: "Distinguished guests",
@@ -573,11 +694,11 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is there a delegate participation fee?",
-    a: `Yes. Regular event entry is ${fmt.usd(event.fees.regular.usd)} (${fmt.ngn(event.fees.regular.ngn)} · ${fmt.aed(event.fees.regular.aed)} · ${fmt.inr(event.fees.regular.inr)}) and early bird entry is ${fmt.ngn(event.fees.earlyBird.ngn)} / ${fmt.usd(event.fees.earlyBird.usd)}, food and drinks included. Sponsorship tiers start at ${fmt.usd(event.sponsorTiers[0].price.usd)} for ${event.sponsorTiers[0].passes} passes. Indicative conversions; final invoice currency confirmed on registration. Payment details are shared after your registration is reviewed.`,
+    a: `Yes. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}) and Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)} (${fmt.ngn(entryPackages[0].price.ngn)} · ${fmt.aed(entryPackages[0].price.aed)} · ${fmt.inr(entryPackages[0].price.inr)}), food and beverages included. Sponsorship tiers start at ${fmt.usd(sponsorPackages[0].price.usd)} for ${sponsorPackages[0].passLabel.toLowerCase()}. ${currencyDisclaimer} Payment details are shared after your registration is reviewed.`,
   },
   {
     q: "What sponsorship packages are available?",
-    a: `${event.sponsorTiers.map((t) => `${t.name} ${fmt.usd(t.price.usd)} (${t.passes} passes)`).join(", ")}. Prices are also shown in NGN, AED and INR as indicative conversions; final invoice currency confirmed on registration. The Title Sponsor tier is limited to one organisation. Request the brochure for full benefits.`,
+    a: `${sponsorPackages.map((t) => `${t.name} ${fmt.usd(t.price.usd)} (${t.passLabel})`).join(", ")}. Prices are also shown in NGN, AED and INR as indicative conversions; final invoice currency confirmed on registration. The Title Sponsor tier is limited to one organisation. Request the brochure for full benefits.`,
   },
   {
     q: "When do registrations open?",

@@ -4,7 +4,7 @@
 // (see src/pages/api/grand-table/submit/[form].ts and docs/GRANDTABLE-BACKEND.md).
 // Field lists, labels and options are placeholders until the client signs off on final requirements.
 
-import { fmt, event } from "./grand-table-event";
+import { fmt, entryPackages, sponsorPackages, currencyDisclaimer } from "./grand-table-event";
 
 export type Field = {
   name: string;
@@ -100,7 +100,7 @@ const enterprise: FormConfig = {
 const delegate: FormConfig = {
   id: "delegate",
   title: "Delegate, Investor and Partner Registration",
-  intro: `International delegates, investors and partners register here for The Grand Table 2026. Regular entry is ${fmt.usd(event.fees.regular.usd)} (${fmt.ngn(event.fees.regular.ngn)} · ${fmt.aed(event.fees.regular.aed)} · ${fmt.inr(event.fees.regular.inr)}); early bird ${fmt.ngn(event.fees.earlyBird.ngn)} / ${fmt.usd(event.fees.earlyBird.usd)}. Sponsorship tiers start at ${fmt.usd(event.sponsorTiers[0].price.usd)}. Indicative conversions; final invoice currency confirmed on registration. No payment is taken on this form.`,
+  intro: `International delegates, investors and partners register here for The Grand Table 2026. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}); Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)}. Sponsorship tiers start at ${fmt.usd(sponsorPackages[0].price.usd)}. ${currencyDisclaimer} No payment is taken on this form.`,
   submitLabel: "Submit registration",
   fields: [
     { name: "participantType", label: "Participant type", type: "select", required: true, options: ["International delegate", "Investor", "Partner or institution"] },
@@ -173,7 +173,7 @@ const sponsor: FormConfig = {
       label: "Preferred tier",
       type: "select",
       required: true,
-      options: [...event.sponsorTiers.map((tier) => `${tier.name} ${fmt.usd(tier.price.usd)}`), "Undecided"],
+      options: [...sponsorPackages.map((tier) => `${tier.name} ${fmt.usd(tier.price.usd)}`), "Undecided"],
     },
     { name: "website", label: "Website", type: "url" },
     { name: "message", label: "Message or sponsorship goals", type: "textarea", full: true },
