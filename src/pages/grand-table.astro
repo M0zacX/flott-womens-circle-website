@@ -6,7 +6,7 @@ import { Header } from "../components/Header";
 import FooterSection from "../components/FooterSection.astro";
 import GrandTableForm from "../components/GrandTableForm.astro";
 import { forms } from "../data/grand-table-forms";
-import { event, faqs, fmt, secondaryLine, conversionNote } from "../data/grand-table-event";
+import { event, faqs, fmt, secondaryLine, conversionNote, SPEAKER_FALLBACK_TITLE } from "../data/grand-table-event";
 
 const {
   objectives,
@@ -22,6 +22,7 @@ const {
   contactDetails,
   organisers,
   venue,
+  convener,
   copy,
 } = event;
 
@@ -276,7 +277,11 @@ const gtEventJsonLd = {
       </div>
 
       <!-- Fade through warm dark into ivory, carrying the table motif to the seam -->
-      <div class="relative h-40 w-full" style="background: linear-gradient(to bottom, rgba(11,11,12,0) 0%, #2a2218 52%, #F5F0E6 100%);" aria-hidden="true"></div>
+      <div
+        class="relative h-40 w-full"
+        style="background: linear-gradient(to bottom, rgba(11,11,12,0) 0%, #0B0B0C 9%, #211B13 22%, #3C301F 36%, #5E4B2E 50%, #85683C 64%, #AE8A51 77%, #D4B87C 89%, #F5F0E6 100%);"
+        aria-hidden="true"
+      ></div>
 
       <!-- Crisp gold seam line, rendered above the fade, exactly at the hero/about join -->
       <div
@@ -383,11 +388,16 @@ const gtEventJsonLd = {
               style={`border-color: rgba(201,169,110,0.18); transition-delay: ${index * 0.08}s;`}
             >
               <span class="text-base md:text-lg lg:text-xl" style="font-family: 'Playfair Display', serif; font-style: italic; color: #C9A96E;">{sector.num}</span>
-              <span class="flex flex-col items-start gap-2 pr-10 lg:pr-28">
-                <span
-                  class="gt-sector-title inline-block text-[clamp(1.5rem,4vw,2.75rem)] leading-tight text-[#F5F0E6] lg:whitespace-nowrap lg:text-[clamp(1.5rem,2.6vw,2.25rem)]"
-                  style="font-family: 'Playfair Display', serif; font-weight: 400;"
-                >{sector.name}</span>
+              <span class="flex flex-col items-start gap-3 pr-10 lg:pr-20">
+                <span class="flex min-w-0 items-start gap-3 lg:gap-4">
+                  <svg class="gt-sector-icon mt-1 h-6 w-6 shrink-0 lg:h-7 lg:w-7" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <Fragment set:html={sector.icon} />
+                  </svg>
+                  <span
+                    class="gt-sector-title inline-block min-w-0 flex-1 text-[clamp(1.4rem,3.6vw,2.5rem)] leading-tight text-[#F5F0E6] lg:text-[clamp(1.3rem,2vw,1.85rem)]"
+                    style="font-family: 'Playfair Display', serif; font-weight: 400;"
+                  >{sector.name}</span>
+                </span>
                 <span class="text-[0.9rem] text-[#F5F0E6]/70">{sector.description}</span>
               </span>
 
@@ -525,8 +535,13 @@ const gtEventJsonLd = {
                 class={`gt-reason-card reveal border-t pt-6 lg:col-span-2 ${index === 3 ? "lg:col-start-2" : index === 4 ? "lg:col-start-4" : ""}`}
                 style={`border-color: rgba(201,169,110,0.2); transition-delay: ${0.32 + index * 0.08}s;`}
               >
-                <span class="block text-[2rem] leading-none" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{reason.num}</span>
-                <h3 class="mt-3 text-base font-medium text-[#F5F0E6]">{reason.title}</h3>
+                <div class="flex items-center gap-3">
+                  <span class="gt-reason-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-full border" style="border-color: rgba(201,169,110,0.4);" aria-hidden="true">
+                    <svg class="h-5 w-5" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><Fragment set:html={reason.icon} /></svg>
+                  </span>
+                  <span class="text-[11px] uppercase tracking-[0.3em] text-[#C9A96E]/70">{reason.num}</span>
+                </div>
+                <h3 class="mt-4 text-base font-medium text-[#F5F0E6]">{reason.title}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{reason.description}</p>
               </div>
             ))}
@@ -711,7 +726,7 @@ const gtEventJsonLd = {
                 </div>
               </div>
               <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
-              {p.title && <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title}</p>}
+              <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title || SPEAKER_FALLBACK_TITLE}</p>
             </div>
           ))}
         </div>
@@ -742,7 +757,7 @@ const gtEventJsonLd = {
                 </div>
               </div>
               <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
-              {p.title && <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title}</p>}
+              <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title || SPEAKER_FALLBACK_TITLE}</p>
             </div>
           ))}
         </div>
@@ -1149,10 +1164,18 @@ const gtEventJsonLd = {
     transition: border-color 0.6s ease, transform 0.6s ease;
   }
 
+  .gt-reason-icon {
+    transition: border-color 0.5s ease, background-color 0.5s ease;
+  }
+
   @media (hover: hover) {
     .gt-reason-card:hover {
       border-color: rgba(201,169,110,0.9);
       transform: translateY(-4px);
+    }
+    .gt-reason-card:hover .gt-reason-icon {
+      border-color: #C9A96E;
+      background-color: rgba(201,169,110,0.1);
     }
   }
 
@@ -1567,11 +1590,31 @@ const gtEventJsonLd = {
   }
 
   .gt-seam-to-ivory {
-    background: linear-gradient(to bottom, #0B0B0C 0%, #2a2218 50%, #F5F0E6 100%);
+    background: linear-gradient(
+      to bottom,
+      #0b0b0c 0%,
+      #211b13 14%,
+      #3c301f 28%,
+      #5e4b2e 42%,
+      #85683c 56%,
+      #ae8a51 70%,
+      #d4b87c 85%,
+      #f5f0e6 100%
+    );
   }
 
   .gt-seam-to-jet {
-    background: linear-gradient(to bottom, #F5F0E6 0%, #2a2218 50%, #0B0B0C 100%);
+    background: linear-gradient(
+      to bottom,
+      #f5f0e6 0%,
+      #d4b87c 15%,
+      #ae8a51 30%,
+      #85683c 44%,
+      #5e4b2e 58%,
+      #3c301f 72%,
+      #211b13 86%,
+      #0b0b0c 100%
+    );
   }
 
   .gt-seam::after {

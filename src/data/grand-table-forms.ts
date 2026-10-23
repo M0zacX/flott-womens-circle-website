@@ -1,7 +1,10 @@
 // FIELDS PENDING CLIENT CONFIRMATION
-// This config drives the UI-only Grand Table 2026 registration forms.
-// Field lists, labels and options are placeholders until the client signs
-// off on final requirements. No submissions are wired to a backend yet.
+// This config drives the Grand Table 2026 registration forms. Submissions post to
+// /api/grand-table/submit/[form], which validates, stores to D1 and emails notifications
+// (see src/pages/api/grand-table/submit/[form].ts and docs/GRANDTABLE-BACKEND.md).
+// Field lists, labels and options are placeholders until the client signs off on final requirements.
+
+import { fmt, event } from "./grand-table-event";
 
 export type Field = {
   name: string;
@@ -97,7 +100,7 @@ const enterprise: FormConfig = {
 const delegate: FormConfig = {
   id: "delegate",
   title: "Delegate, Investor and Partner Registration",
-  intro: "International delegates, investors and partners register here for The Grand Table 2026. Regular entry is US$114 (₦150,000 · AED 420 · ₹11,000); early bird ₦75,000 / US$56. Delegate packages from US$3,500. Indicative conversions; final invoice currency confirmed on registration. No payment is taken on this form.",
+  intro: `International delegates, investors and partners register here for The Grand Table 2026. Regular entry is ${fmt.usd(event.fees.regular.usd)} (${fmt.ngn(event.fees.regular.ngn)} · ${fmt.aed(event.fees.regular.aed)} · ${fmt.inr(event.fees.regular.inr)}); early bird ${fmt.ngn(event.fees.earlyBird.ngn)} / ${fmt.usd(event.fees.earlyBird.usd)}. Sponsorship tiers start at ${fmt.usd(event.sponsorTiers[0].price.usd)}. Indicative conversions; final invoice currency confirmed on registration. No payment is taken on this form.`,
   submitLabel: "Submit registration",
   fields: [
     { name: "participantType", label: "Participant type", type: "select", required: true, options: ["International delegate", "Investor", "Partner or institution"] },
@@ -165,7 +168,13 @@ const sponsor: FormConfig = {
     { name: "email", label: "Email", type: "email", required: true },
     { name: "phone", label: "Phone", type: "tel", required: true },
     { name: "country", label: "Country", type: "country", required: true },
-    { name: "tier", label: "Preferred tier", type: "select", required: true, options: ["Delegate Package US$3,500", "Corporate Partner US$5,500", "Silver US$7,500", "Gold US$9,500", "Platinum US$11,500", "Title US$17,000", "Undecided"] },
+    {
+      name: "tier",
+      label: "Preferred tier",
+      type: "select",
+      required: true,
+      options: [...event.sponsorTiers.map((tier) => `${tier.name} ${fmt.usd(tier.price.usd)}`), "Undecided"],
+    },
     { name: "website", label: "Website", type: "url" },
     { name: "message", label: "Message or sponsorship goals", type: "textarea", full: true },
   ],
