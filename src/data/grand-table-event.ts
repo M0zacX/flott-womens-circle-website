@@ -523,7 +523,6 @@ export const event = {
       "Entrepreneur & Cross-Border Business Strategist",
       "Honorary Regional Director, GCC",
       "Indo-African Chamber of Commerce & Industry (IACCI)",
-      "Founder, Flott Women's Circle",
       "Convener & Host, The Grand Table 2026",
     ],
     image: { src: "/images/founder-safiya.jpg", alt: "Safiya Umar, Convener & Host", width: 798, height: 1200 },
@@ -546,7 +545,6 @@ export const event = {
       headingPrefix: "A Table Set by",
       headingEmphasis: "Safiya Umar",
       body: [
-        "Safiya Umar founded Flott Women's Circle to turn community into capacity — practical skills, safe spaces and the right support systems for women to grow. The Grand Table is that mission's next chapter.",
         "As convener, she is bringing enterprises, investors and global partners to one table in Abuja — opening real pathways to capital, markets and partnership across Nigeria, the UAE, India and beyond.",
       ],
     },
