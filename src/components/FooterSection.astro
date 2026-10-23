@@ -1,12 +1,25 @@
 ---
 const {
-  address = "No. 6 Ubiaja Crescent, Garki 2, Abuja",
-  instagram = "@flott_beauty",
-  instagramUrl = "https://instagram.com/flott_beauty",
+  address,
+  addressList = address
+    ? [{ text: address }]
+    : [
+        { label: "Abuja", text: "No. 6 Ubiaja Crescent, Garki 2, Abuja" },
+        { label: "Dubai", text: "No.1 Sheikh Mohammed Bin Zayed Boulevard, Downtown Dubai" },
+      ],
+  instagram,
+  instagramUrl,
+  instagramList = instagram
+    ? [{ handle: instagram, url: instagramUrl ?? "https://instagram.com" }]
+    : [
+        { handle: "@flott_beauty", url: "https://instagram.com/flott_beauty" },
+        { handle: "@fwc_dubai", url: "https://instagram.com/fwc_dubai" },
+      ],
   variant = "default",
 } = Astro.props;
 
 const isGold = variant === "gold";
+const primaryInstagramUrl = instagramUrl ?? instagramList[0]?.url ?? "https://instagram.com";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -112,7 +125,11 @@ const navLinks = [
           </div>
           <div>
             <p class={isGold ? "text-xs font-medium text-[#F5F0E6]/60 uppercase tracking-wider" : "text-xs font-medium text-muted-foreground/60 uppercase tracking-wider"}>Address:</p>
-            <p class={isGold ? "mt-1 text-sm text-[#F5F0E6]/85" : "mt-1 text-sm text-foreground"}>{address}</p>
+            {addressList.map((loc, i) => (
+              <p class={isGold ? `${i === 0 ? "mt-1" : "mt-1.5"} text-sm text-[#F5F0E6]/85` : `${i === 0 ? "mt-1" : "mt-1.5"} text-sm text-foreground`}>
+                {loc.label && <span class="font-medium">{loc.label}: </span>}{loc.text}
+              </p>
+            ))}
           </div>
         </div>
         <!-- Instagram -->
@@ -122,7 +139,9 @@ const navLinks = [
           </div>
           <div>
             <p class={isGold ? "text-xs font-medium text-[#F5F0E6]/60 uppercase tracking-wider" : "text-xs font-medium text-muted-foreground/60 uppercase tracking-wider"}>Instagram:</p>
-            <p class={isGold ? "mt-1 text-sm text-[#F5F0E6]/85" : "mt-1 text-sm text-foreground"}>{instagram}</p>
+            {instagramList.map((ig, i) => (
+              <p class={isGold ? `${i === 0 ? "mt-1" : "mt-1.5"} text-sm text-[#F5F0E6]/85` : `${i === 0 ? "mt-1" : "mt-1.5"} text-sm text-foreground`}>{ig.handle}</p>
+            ))}
           </div>
         </div>
         <!-- Email -->
@@ -139,7 +158,7 @@ const navLinks = [
 
       <!-- Social icons -->
       <div class="flex items-center gap-3">
-        <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class={isGold ? "footer-reveal flex h-10 w-10 items-center justify-center rounded-full border text-[#C9A96E]/80 transition-colors hover:text-[#E6D3A3]" : "footer-reveal flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"} style={isGold ? "transition-delay: 0.8s; border-color: rgba(201,169,110,0.3);" : "transition-delay: 0.8s"} aria-label="Instagram">
+        <a href={primaryInstagramUrl} target="_blank" rel="noopener noreferrer" class={isGold ? "footer-reveal flex h-10 w-10 items-center justify-center rounded-full border text-[#C9A96E]/80 transition-colors hover:text-[#E6D3A3]" : "footer-reveal flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"} style={isGold ? "transition-delay: 0.8s; border-color: rgba(201,169,110,0.3);" : "transition-delay: 0.8s"} aria-label="Instagram">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
         <a href="#" class={isGold ? "footer-reveal flex h-10 w-10 items-center justify-center rounded-full border text-[#C9A96E]/80 transition-colors hover:text-[#E6D3A3]" : "footer-reveal flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"} style={isGold ? "transition-delay: 0.85s; border-color: rgba(201,169,110,0.3);" : "transition-delay: 0.85s"} aria-label="Facebook">

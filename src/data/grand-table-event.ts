@@ -51,7 +51,8 @@ export type Faq = {
 export type Speaker = {
   name: string;
   title?: string;
-  image: EventImage;
+  /** Omit to show an initials placeholder instead of a photo. */
+  image?: EventImage;
 };
 
 /** Consistent fallback so every speaker/dignitary card shows a second line, even before a formal title is confirmed. */
@@ -270,42 +271,6 @@ export const event = {
     officialName: "Tropic Galleria",
     address: "Central Business District, Abuja, Nigeria",
     mapsUrl: "",
-    heroImage: {
-      src: "/images/grand-table/venue/venue-hall-1512.webp",
-      srcSmall: "/images/grand-table/venue/venue-hall-960.webp",
-      alt: "Grand event hall in Abuja",
-      width: 1512,
-      height: 1008,
-    } satisfies EventImage,
-    gallery: [
-      {
-        src: "/images/grand-table/venue/venue-hall-detail-1400.webp",
-        alt: "Banquet tables set in the event hall",
-        width: 1400,
-        height: 933,
-      },
-      {
-        src: "/images/grand-table/venue/venue-entrance-1400.webp",
-        srcSmall: "/images/grand-table/venue/venue-entrance-800.webp",
-        alt: "Palm-lined venue grounds in Abuja",
-        width: 1400,
-        height: 933,
-      },
-      {
-        src: "/images/grand-table/venue/venue-hall-1512.webp",
-        srcSmall: "/images/grand-table/venue/venue-hall-960.webp",
-        alt: "Grand event hall in Abuja",
-        width: 1400,
-        height: 933,
-      },
-    ] satisfies EventImage[],
-    credits: [
-      {
-        text: "Jummy001 via Wikimedia Commons (CC BY-SA 4.0)",
-        url: "https://commons.wikimedia.org/wiki/User:Jummy001",
-      },
-      { text: "Forefront NG" },
-    ] satisfies Credit[],
   },
 
   sectors: [
@@ -502,10 +467,15 @@ export const event = {
     person("speakers", "elena-krystal", "Elena Krystal", "Co-Founder, Global Academy of Happiness"),
     person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
     person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
+    {
+      name: "Seila Gurdal",
+      title: "International Business Consultant Strategist",
+      image: { src: "/images/speaker-seila-gurdal.jpg", alt: "Seila Gurdal", width: 800, height: 1000 },
+    },
   ] satisfies Speaker[],
 
   dignitaries: [
-    person("dignitaries", "salem-al-shamsi", "H.E. Salem Saeed Al Shamsi", "Ambassador of the UAE to the Federal Republic of Nigeria"),
+    { name: "H.E. Salem Saeed Al Shamsi", title: "Ambassador of the UAE to the Federal Republic of Nigeria" },
     person("dignitaries", "sunanda-rajendran", "Dr. Mrs. Sunanda Rajendran", "Secretary-General, IACCI"),
     person("dignitaries", "zayyan-ibrahim", "H.E. Ambassador Zayyan Ibrahim", "Consul General of Nigeria in Dubai & the Northern Emirates"),
     person("dignitaries", "mohammed-al-neyadi", "H.E. Mohammed Saeed Bakhit Al Neyadi", "Former Director-General, UAE General Authority of Islamic Affairs & Endowments"),
@@ -517,7 +487,7 @@ export const event = {
     { name: "Structured Spaces", src: "/images/grand-table/companies/structured-spaces.webp", width: 275, height: 145, displayHeight: 58 },
     { name: "FertiClinic Ras Al Khaimah", src: "/images/grand-table/companies/ferticlinic-rak.webp", width: 403, height: 98, displayHeight: 39 },
     { name: "DTOPAZ Jewellery", src: "/images/grand-table/companies/dtopaz-jewellery.webp", width: 106, height: 199, displayHeight: 80 },
-    { name: "Meenasu Foodstuff Trading LLC", src: "/images/grand-table/companies/meenasu-foodstuff.webp", width: 214, height: 186, displayHeight: 75 },
+    { name: "Meenasu Foodstuff Trading LLC", src: "/images/logo-meenasu.png", width: 1152, height: 1144, displayHeight: 75 },
     { name: "TourMate", src: "/images/grand-table/companies/tourmate.webp", width: 342, height: 115, displayHeight: 46 },
     { name: "doTERRA", src: "/images/grand-table/companies/doterra.webp", width: 252, height: 158, displayHeight: 63 },
     { name: "Knightsbridge Group", src: "/images/grand-table/companies/knightsbridge-group.webp", width: 280, height: 142, displayHeight: 57 },
@@ -545,9 +515,9 @@ export const event = {
 
   convener: {
     name: "Safiya Umar",
-    role: "Convener, The Grand Table",
+    role: "Convener & Host, The Grand Table",
     founderRole: "Founder & Group CEO, Flott Women's Circle",
-    image: { src: "/images/founder-safiya.jpg", alt: "Safiya Umar, Convener", width: 798, height: 1200 },
+    image: { src: "/images/founder-safiya.jpg", alt: "Safiya Umar, Convener & Host", width: 798, height: 1200 },
   } satisfies Convener,
 
   copy: {

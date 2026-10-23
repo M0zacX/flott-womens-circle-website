@@ -38,6 +38,15 @@ const {
 
 const formsLive = import.meta.env.PUBLIC_GT_FORMS_LIVE === "true";
 
+const HONORIFICS = new Set(["h.e.", "dr.", "dr", "mr.", "mr", "mrs.", "mrs", "ms.", "ms", "amb.", "amb", "ambassador", "barrister", "prof.", "prof"]);
+/** Elegant two-letter monogram for dignitaries shown without a photo. */
+const initials = (name: string) => {
+  const words = name.split(/\s+/).filter((w) => !HONORIFICS.has(w.toLowerCase()));
+  const first = words[0]?.[0] ?? "";
+  const last = words[words.length - 1]?.[0] ?? "";
+  return `${first}${last}`.toUpperCase();
+};
+
 // SEO: schema.org Event built from grand-table-event.ts
 const GT_SITE = "https://flottwomenscircle.com";
 const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. ${venue.officialName}, ${venue.address}, ${event.date.display} (${event.date.timeDisplay}).`;
@@ -76,7 +85,7 @@ const gtEventJsonLd = {
       addressCountry: "NG",
     },
   },
-  image: [new URL(venue.heroImage.src, GT_SITE).href],
+  image: [new URL("/images/gt-hero-poster.webp", GT_SITE).href],
   organizer: { "@type": "Organization", name: "Flott Women's Circle", url: GT_SITE, email: contactDetails.email, telephone: contactDetails.phones.map((ph) => ph.tel) },
   performer: [...dignitaries, ...speakers].map((p) => ({ "@type": "Person", name: p.name, ...(p.title ? { jobTitle: p.title } : {}) })),
   offers: gtOffers,
@@ -87,7 +96,7 @@ const gtEventJsonLd = {
   title={`${event.name} ${event.year} | Flott Women's Circle`}
   description={gtDescription}
   canonical="/grand-table/"
-  ogImage={venue.heroImage.src}
+  ogImage="/images/gt-hero-poster.webp"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(gtEventJsonLd)} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -367,6 +376,53 @@ const gtEventJsonLd = {
       </div>
     </section>
 
+    <!-- ══════════════ CONVENER & HOST ══════════════ -->
+    <section id="convener" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto grid max-w-5xl grid-cols-1 items-center gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-16">
+          <!-- Portrait -->
+          <div class="reveal relative mx-auto w-full max-w-sm lg:max-w-none" style="transition-delay: 0.1s;">
+            <div class="overflow-hidden rounded-2xl" style="aspect-ratio: 3 / 4; border: 1px solid rgba(154,123,69,0.35);">
+              <img
+                src={convener.image.src}
+                alt={convener.image.alt}
+                width={convener.image.width}
+                height={convener.image.height}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <span
+              class="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border px-5 py-2 text-[10px] uppercase tracking-[0.25em]"
+              style="background: #0B0B0C; border-color: #9A7B45; color: #C9A96E;"
+            >
+              Convener &amp; Host
+            </span>
+          </div>
+
+          <!-- Copy -->
+          <div class="text-center lg:text-left">
+            <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic; transition-delay: 0.15s;">{copy.convener.eyebrow}</p>
+            <h2
+              class="reveal mt-4 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+              style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.2s;"
+            >
+              {copy.convener.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.convener.headingEmphasis}</span>
+            </h2>
+            <p class="reveal mt-4 text-sm font-medium uppercase tracking-[0.18em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">
+              {convener.role} &bull; {convener.founderRole}
+            </p>
+            {copy.convener.body.map((paragraph, index) => (
+              <p class="reveal mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#0B0B0C]/70 lg:mx-0 md:text-lg" style={`transition-delay: ${0.32 + index * 0.08}s;`}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
 
     <!-- ══════════════ PRIORITY SECTORS ══════════════ -->
@@ -397,14 +453,14 @@ const gtEventJsonLd = {
               style={`border-color: rgba(201,169,110,0.18); transition-delay: ${index * 0.08}s;`}
             >
               <span class="text-base md:text-lg lg:text-xl" style="font-family: 'Playfair Display', serif; font-style: italic; color: #C9A96E;">{sector.num}</span>
-              <span class="flex flex-col items-start gap-3 pr-10 lg:pr-20">
-                <span class="flex min-w-0 items-start gap-3 lg:gap-4">
+              <span class="flex min-w-0 w-full flex-col items-start gap-3 pr-10 lg:pr-20">
+                <span class="flex min-w-0 w-full items-start gap-3 lg:gap-4">
                   <svg class="gt-sector-icon mt-1 h-6 w-6 shrink-0 lg:h-7 lg:w-7" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <Fragment set:html={sector.icon} />
                   </svg>
                   <span
-                    class="gt-sector-title inline-block min-w-0 flex-1 text-[clamp(1.4rem,3.6vw,2.5rem)] leading-tight text-[#F5F0E6] lg:text-[clamp(1.3rem,2vw,1.85rem)]"
-                    style="font-family: 'Playfair Display', serif; font-weight: 400;"
+                    class="gt-sector-title block min-w-0 flex-1 text-[clamp(1.4rem,3.6vw,2.5rem)] leading-tight text-[#F5F0E6] lg:text-[clamp(1.3rem,2vw,1.85rem)]"
+                    style="font-family: 'Playfair Display', serif; font-weight: 400; overflow-wrap: break-word;"
                   >{sector.name}</span>
                 </span>
                 <span class="text-[0.9rem] text-[#F5F0E6]/70">{sector.description}</span>
@@ -764,8 +820,16 @@ const gtEventJsonLd = {
             <div class="gt-speaker-card reveal flex w-[calc(50%-0.75rem)] flex-col items-center sm:w-[200px] lg:w-[196px] xl:w-[204px]" style={`transition-delay: ${(index % 5) * 0.08}s;`}>
               <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
                 <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
-                  <img src={p.image.src} alt={p.image.alt} width={p.image.width} height={p.image.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
-                  <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                  {p.image ? (
+                    <>
+                      <img src={p.image.src} alt={p.image.alt} width={p.image.width} height={p.image.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
+                      <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                    </>
+                  ) : (
+                    <div class="flex h-full w-full items-center justify-center" style="background: linear-gradient(135deg, #0B0B0C, #3C301F);" role="img" aria-label={p.name}>
+                      <span class="text-[clamp(1.75rem,4vw,2.25rem)]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{initials(p.name)}</span>
+                    </div>
+                  )}
                 </div>
               </div>
               <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
@@ -795,7 +859,7 @@ const gtEventJsonLd = {
             <div class="gt-speaker-card reveal flex w-[calc(50%-0.75rem)] flex-col items-center sm:w-[200px] lg:w-[196px] xl:w-[204px]" style={`transition-delay: ${(index % 5) * 0.08}s;`}>
               <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
                 <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
-                  <img src={p.image.src} alt={p.image.alt} width={p.image.width} height={p.image.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
+                  <img src={p.image!.src} alt={p.image!.alt} width={p.image!.width} height={p.image!.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
                   <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
                 </div>
               </div>
@@ -905,61 +969,23 @@ const gtEventJsonLd = {
     <!-- ══════════════ VENUE ══════════════ -->
     <section id="venue" class="relative overflow-hidden" style="background: #F5F0E6;">
       <div class="px-6 py-[4.5rem] md:px-12 lg:px-20 lg:py-[6rem]">
-        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div class="text-center lg:text-left">
-            <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.venue.eyebrow}</p>
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.venue.eyebrow}</p>
 
-            <h2
-              class="reveal mt-4 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
-              style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
-            >
-              {copy.venue.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.venue.headingEmphasis}</span>
-            </h2>
+          <h2
+            class="reveal mt-4 text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.venue.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.venue.headingEmphasis}</span>
+          </h2>
 
-            <p class="reveal mt-5 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60" style="transition-delay: 0.18s;">{event.date.display}</p>
-          </div>
-
-          <div class="reveal" style="transition-delay: 0.2s;">
-            <div class="grid grid-cols-2 gap-3">
-              <div class="gt-venue-photo col-span-2 overflow-hidden rounded-2xl border" style="aspect-ratio: 3 / 2; border-color: rgba(201,169,110,0.25);">
-                <img
-                  src={venue.gallery[0].src}
-                  alt={venue.gallery[0].alt}
-                  width={venue.gallery[0].width}
-                  height={venue.gallery[0].height}
-                  loading="lazy"
-                  class="h-full w-full object-cover"
-                />
-              </div>
-              <div class="gt-venue-photo overflow-hidden rounded-xl border" style="aspect-ratio: 4 / 3; border-color: rgba(201,169,110,0.25);">
-                <img
-                  src={venue.gallery[1].src}
-                  srcset={`${venue.gallery[1].srcSmall} 800w, ${venue.gallery[1].src} 1400w`}
-                  sizes="(min-width: 1024px) 25vw, 45vw"
-                  alt={venue.gallery[1].alt}
-                  width={venue.gallery[1].width}
-                  height={venue.gallery[1].height}
-                  loading="lazy"
-                  class="h-full w-full object-cover"
-                />
-              </div>
-              <div class="gt-venue-photo overflow-hidden rounded-xl border" style="aspect-ratio: 4 / 3; border-color: rgba(201,169,110,0.25);">
-                <img
-                  src={venue.gallery[2].src}
-                  srcset={`${venue.gallery[2].srcSmall} 800w, ${venue.gallery[2].src} 1400w`}
-                  sizes="(min-width: 1024px) 25vw, 45vw"
-                  alt={venue.gallery[2].alt}
-                  width={venue.gallery[2].width}
-                  height={venue.gallery[2].height}
-                  loading="lazy"
-                  class="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-
-            <p class="mt-3 text-center text-[10px] leading-relaxed text-[#0B0B0C]/40 lg:text-left">
-              Photos: <a href={venue.credits[0].url} target="_blank" rel="noopener noreferrer" class="underline decoration-[#9A7B45]/40 underline-offset-2 hover:text-[#9A7B45]">{venue.credits[0].text}</a>; {venue.credits[1].text}.
-            </p>
+          <div class="reveal mx-auto mt-10 max-w-md rounded-2xl border px-8 py-10" style="border-color: rgba(154,123,69,0.35); transition-delay: 0.2s;">
+            <svg class="mx-auto h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="#9A7B45" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <p class="mt-5 text-[1.5rem] leading-tight" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45;">{venue.officialName}</p>
+            <p class="mt-2 text-sm leading-relaxed text-[#0B0B0C]/70">{venue.address}</p>
+            <p class="mt-5 text-xs uppercase tracking-[0.3em] text-[#0B0B0C]/60">{event.date.display}</p>
           </div>
         </div>
       </div>
@@ -1301,23 +1327,6 @@ const gtEventJsonLd = {
     }
   }
 
-  .gt-venue-photo {
-    position: relative;
-  }
-
-  .gt-venue-photo img {
-    filter: grayscale(0.15) sepia(0.15);
-  }
-
-  .gt-venue-photo::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(201,169,110,0.08);
-    mix-blend-mode: color;
-    pointer-events: none;
-  }
-
   .gt-process-line {
     left: 0.5rem;
     top: 0.5rem;
@@ -1633,17 +1642,30 @@ const gtEventJsonLd = {
   }
 
   .gt-seam-to-ivory {
+    height: 140px;
     background: linear-gradient(
       to bottom,
       #0b0b0c 0%,
-      #211b13 14%,
-      #3c301f 28%,
-      #5e4b2e 42%,
-      #85683c 56%,
-      #ae8a51 70%,
-      #d4b87c 85%,
+      #16130e 10%,
+      #211b13 20%,
+      #2e2518 30%,
+      #3c301f 40%,
+      #4c3d26 48%,
+      #5e4b2e 56%,
+      #71592f 64%,
+      #85683c 71%,
+      #9a7745 78%,
+      #ae8a51 84%,
+      #c29e63 90%,
+      #d4b87c 95%,
       #f5f0e6 100%
     );
+  }
+
+  @media (min-width: 768px) {
+    .gt-seam-to-ivory {
+      height: 220px;
+    }
   }
 
   .gt-seam-to-jet {
