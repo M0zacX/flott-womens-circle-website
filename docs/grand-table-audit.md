@@ -1,72 +1,72 @@
-# Grand Table 2026 — Page Audit (pre-redesign, 22 Oct 2026)
+# Grand Table 2026 — Page Audit (post-redesign, 23 Oct 2026)
 
-Scope: `src/pages/grand-table.astro`, `src/components/GrandTableForm.astro`, `src/data/grand-table-event.ts`, `src/data/grand-table-forms.ts`, `src/pages/api/grand-table/submit/[form].ts`.
+Scope: `src/pages/grand-table.astro`, `src/components/GrandTableForm.astro`, `src/data/grand-table-event.ts`, `src/data/grand-table-forms.ts`, `src/pages/api/grand-table/submit/[form].ts`, `src/lib/gt/email.ts`, `src/lib/gt/templates.ts`, `wrangler.toml`.
 
-## Section-by-section
+This supersedes the 22 Oct pre-redesign audit. Content (dates, venue, speakers, dignitaries, the 9 package prices, Safiya Umar as Convener, Seila Gurdal, ambassador initials placeholder, Meenasu, Dubai footer, no venue photos) is unchanged — only layout, order, visual system and polish changed.
 
-**Hero** — Strong: cinematic video/poster, countdown, gold beam, word-blur reveal. No structural issues. Minor: three CTAs of near-equal visual weight (Register / Apply as Enterprise / Become a Sponsor) dilute the primary action.
+## Section order (final)
 
-**About** — Plain centered text block + a 4-cell fact strip + 5 numbered "objective" cards in a thin top-border row. No imagery, no icons, flat on a cream field — reads like a text document, not a premium summit page. The objectives have no visual anchor beyond a serif numeral.
+Hero → About → Convener & Host → Priority Sectors → Dignitaries → Speakers → Partners (companies + media) → Event Experience → Enterprise registration → Delegates & Investors (reasons, entry packages, form) → Sponsorship (tiers, form) → Venue → FAQ → Contact.
 
-**Sectors** — A vertical list of 7 rows (number + title + one-line description), gold hover sweep. Good interaction detail, but:
-- **Bug**: `.gt-sector-title` has `lg:whitespace-nowrap` with a `clamp(1.5rem,2.6vw,2.25rem)` size. At `lg` (1024–1280px) the longest title, "Artificial Intelligence, Technology & Digital Transformation" (56 characters), does not fit the `1fr` column within the `pr-28` padding at that font size and is forced not to wrap — it overflows the container and can run under/past the arrow or off the visible column. This is the "sector titles overflowing off-screen" issue named in the brief.
-- No icon/visual distinction between the seven sectors — just a serif numeral.
+Rationale: the credibility chain (who is attending, who endorses it, what's included) now runs before any of the three conversion asks (Enterprise / Delegate-Investor / Sponsor registration), matching the brief's own ordering (hero → why attend → sectors → speakers → dignitaries → partners → tickets/registration → venue → FAQ → contact). Previously all three forms appeared before any speaker, dignitary or partner proof — moved via a pure block reorder (ids unchanged, all anchors like `#enterprise`, `#delegate-form`, `#sponsor-form` still resolve correctly since every CTA across the page links by `id`, not by document position).
 
-**Enterprise registration** — 4-step numbered process (text + thin connecting line), a notice callout, CTA, then the form inline. Functionally fine; visually it's the plainest section on the page (no cards, no icons, flat list).
+Seam transitions were re-derived for the new adjacencies: a new dark→cream seam was added between Sectors and Dignitaries; Partners→Experience, Experience→Enterprise, Enterprise→Delegates and Delegates→Sponsorship reuse the seam types that already existed for those exact colour transitions. Sponsorship→Venue is cream→cream (no seam needed); Venue picked up the same thin `border-t` hairline divider that Dignitaries/Speakers/Partners already use for cream-to-cream adjacency, and Dignitaries dropped that same hairline since it now follows a seam instead of a flat cream section.
 
-**Delegates & investors** — "Five reasons to participate" uses the same bare numeral + heading + paragraph pattern as About's objectives (visual repetition without variation). Fee block is a nice bordered card. Tabbed Delegate/Investor form switch works and is accessible (roving tabindex, `aria-selected`, keyboard arrows).
+## Section-by-section (current state)
 
-**Sponsorship** — Tier cards are the best-designed cards on the page (featured tier treatment, price, passes, hover lift). Good baseline to extend elsewhere.
+**Hero** — Cinematic video/poster, gold beam, word-blur reveal, countdown, three CTAs (Register / Apply as Enterprise / Become a Sponsor). Unchanged, no issues.
 
-**Dignitaries / Speakers** — Two near-identical sections back to back (same card markup, duplicated). Photo + name + title, portrait duotone hover. **Inconsistent**: 2 of 9 speakers (Bouchra Izaabel, Dr. Sahar Gul Bukhari) have no `title`, so their cards are shorter than the rest — ragged bottom edge across the row, and the task requires all cards show a title consistently.
+**About** — Centered intro, 4-cell fact strip, 5 objective cards with serif numerals. No icons here by design — the brief asked for icons specifically on the sectors list and the five participation reasons, not the About objectives or the enterprise process steps (those stay numeral/step-driven, which is the correct pattern for a linear process).
 
-**Partners (companies + media)** — Logo tiles in white boxes on cream — functional, a bit generic grid-of-boxes treatment; media partner gets its own dark tile for distinction, which is a nice touch.
+**Convener & Host** — Safiya Umar portrait (`founder-safiya.jpg`, alt "Safiya Umar, Convener") + bio, premium two-column layout with a "Convener & Host" pill badge over the portrait. Present and final.
 
-**Event Experience** — The highlight strip (horizontal drag/scroll cards with duotone pattern backgrounds) is the most "designed" section on the page — good motion, good texture work. Icons are hand-drawn-feeling line icons.
+**Priority Sectors** — 7 rows, each with an inline-SVG icon plus numeral, title and description. **Overflow bug from the pre-redesign audit is fixed**: `.gt-sector-title` has no `whitespace-nowrap`; it uses `text-[clamp(1.3rem,2vw,1.85rem)]` at `lg`, sits in a `min-w-0 flex-1` column with `overflow-wrap: break-word`, so the longest title ("Artificial Intelligence, Technology & Digital Transformation") wraps cleanly instead of overflowing at any width.
 
-**Venue** — Simple two-column text + photo mosaic. Fine, under-decorated relative to the hero.
+**Dignitaries** — 5 cards, photo or two-letter monogram (ambassador placeholder, kept as content), name, title; every card has a title (all 5 have explicit titles; the shared `SPEAKER_FALLBACK_TITLE` mechanism also covers this group). Richer card treatment: duotone portrait hover, consistent frame, border.
 
-**FAQ** — Native `<details>` accordion, single-open behavior via JS, decent interaction polish.
+**Speakers** — 10 cards, same card language as Dignitaries. The two speakers without an authored title (Bouchra Izaabel, Dr. Sahar Gul Bukhari) render `SPEAKER_FALLBACK_TITLE` ("Speaker, The Grand Table 2026") so every card reads consistently — no ragged/short cards.
 
-**Contact** — Two contact cards (email, phone/WhatsApp) + the general enquiry form. Fine.
+**Partners (companies + media)** — Logo tiles on cream, media partner (Meenasu included) gets its own dark tile for distinction.
 
-## Section order (current → issue)
+**Event Experience** — Horizontally scrollable highlight strip, duotone textured backgrounds, drag/arrow navigation, the most heavily "designed" motion on the page (frame-bg scale on hover, animated underline, progress bar).
 
-Hero → About → Sectors → **Enterprise form** → **Delegate/Investor form** → **Sponsor form** → Dignitaries → Speakers → Partners → Experience → Venue → FAQ → Contact(+form).
+**Enterprise registration** — 4-step process with connecting line, notice callout, inline form.
 
-Problem: the page asks for three separate registrations/commitments (Enterprise, Delegate/Investor, Sponsor) **before** showing any social proof — the speakers, dignitaries and partner logos that would justify the ask don't appear until after all three forms. For a premium investment-summit landing page the credibility chain (who's attending → what's covered → proof) should come before the conversion asks.
+**Delegates & Investors** — Five reasons to participate, each with an inline-SVG icon (not just a numeral, per the brief), bordered entry-package cards (Early Bird, General Admission — the first 2 of the 9 final prices), tabbed Delegate/Investor form.
+
+**Sponsorship** — 7 tier cards (Business Delegate through Title Sponsor — the remaining 7 of the 9 final prices), featured-tier elevation/shadow/badge treatment on Title Sponsor, hover lift on all tiers, inline sponsor form.
+
+**Venue** — Text-only card (no photo, per final content decision), address, map text. No change to content.
+
+**FAQ** — Native `<details>` accordion, single-open behavior, animated open/close via `::details-content`.
+
+**Contact** — Email + phone/WhatsApp cards, general enquiry form, footer.
 
 ## Visual system
 
-- **Seam gradient** (`.gt-seam-to-ivory` / `.gt-seam-to-jet`): `linear-gradient(to bottom, #0B0B0C 0%, #2a2218 50%, #F5F0E6 100%)` over a fixed 64–96px band. The single midpoint stop (`#2a2218`, a muddy olive-brown) creates a visible banding/muddy seam exactly where the brief flagged it — a true multi-stop blend needs more intermediate stops with eased spacing, not one flat 50% stop.
-- No icons anywhere except the Experience strip and a few inline chevrons/arrows — sectors list and "five reasons" are bare numerals, which reads as a wireframe rather than a finished design.
-- Card elevation/hover states exist only on Sponsorship tiers and About objectives; most sections are flat bordered rows.
-- Color system (jet `#0B0B0C`, champagne `#C9A96E`/`#E6D3A3`, ivory `#F5F0E6`, bronze `#9A7B45`) is consistent and premium — kept as-is.
+- **Seams** (`.gt-seam-to-ivory` / `.gt-seam-to-jet`) are long multi-stop gradients (14 stops dark→cream, 8 stops cream→dark) with a crisp 1px champagne hairline (`.gt-seam::after`) at the exact section join — no visible banding. This was the muddy single-midpoint-stop seam flagged pre-redesign; it is now a true eased blend.
+- Icons: inline SVG on every sector row and every "five reasons" card (brief's two named lists). Card elevation/hover now extends beyond Sponsorship tiers to speaker/dignitary portraits (duotone + scale), entry-package and tier cards (translateY lift), and the Experience strip (background scale + animated underline).
+- Motion: shared IntersectionObserver drives staggered `.reveal` entrances across every section; hero has three independent slow breathing/pulse keyframes (beam, source glow, table-ambient); all keyframe and hover motion is disabled under `prefers-reduced-motion: reduce`.
+- Colour system (jet `#0B0B0C`, champagne `#C9A96E`/`#E6D3A3`, ivory `#F5F0E6`, bronze `#9A7B45`) unchanged.
 
-## Mobile
+## Forms UX
 
-- Sector rows, reasons grid, and objective cards all stack cleanly — no overflow issues on mobile widths themselves (the nowrap bug is `lg:`-only, i.e. narrow/medium desktop, not phone).
-- Three-button hero CTA stack is tall on small screens (3 full-width pills + scroll hint) — acceptable but adds scroll distance before first content.
-- Highlight strip and speaker grids both scroll/wrap correctly on mobile already.
+Five form configs (enterprise, delegate, investor, sponsor, contact): multi-step (3 named steps, per-step validation, progress bar) only for the 16-field Enterprise form; single-step for the rest — correct chunking for form length per Baymard/NN-g/GOV.UK practice. Honeypot field, client validation on blur/submit (never while first typing), server-side validation mirrored in `src/lib/gt/validate.ts`, `aria-required`/`aria-invalid`/`aria-describedby` wired on every field, drag-and-drop file upload with idle/drag/selected/error states and an up-front size/type constraint. Success state hides the form and focuses an accessible confirmation panel.
 
-## Accessibility
+Change made in this pass: optional fields (e.g. Website, Additional notes, optional Phone on the contact form) now show a quiet "(optional)" hint next to the label, matching the existing required-field `*` convention, so users don't have to guess which fields they can skip. No structural change was needed — the form architecture was already sound.
 
-- Good baseline: skip targets via `scroll-margin-top`, `focus-visible` rings on every interactive element, `aria-live` on countdown-adjacent regions is not used (countdown isn't announced — acceptable, it's decorative/non-critical), FAQ accordion and form-tab roving tabindex both follow WAI-ARIA patterns correctly, forms have proper `aria-required`/`aria-describedby`/inline error association.
-- Gaps: speaker/dignitary cards with missing titles create an inconsistent reading order for screen readers (name-only vs name+role). Sector row `aria-label` ("Apply as an enterprise in …") is good. No `alt` issues found — every `<img>` has a real name-based alt.
+## Backend / email verification — honest status
 
-## Performance
+Code-level findings as of this commit:
 
-- Hero video (webm+mp4, `preload="metadata"`, poster fallback, reduced-motion swaps to poster) is already well optimized.
-- Images use `loading="lazy"` consistently below the fold; hero poster uses `fetchpriority="high"`. Good.
-- Google Fonts loaded via `@import`-style `<link>` with `preconnect` — fine, single family/weight set.
-- No major perf red flags; biggest win available is reducing the number of distinct `.reveal` elements with individual transition-delay math (micro-optimization, not urgent).
+- `EMAIL_ENABLED = "true"` in `wrangler.toml` — emails are switched on.
+- `ADMIN_NOTIFY_TO = "info@flottwomenscircle.com"` in `wrangler.toml` — every successful submission (any of the 5 forms) sends an admin notification to **info@flottwomenscircle.com**, with Reply-To set to the submitter and all fields in a label/value table.
+- Admin notification send path: Cloudflare `send_email` binding (`SEND_EMAIL`, sender `notify@notify.flottwomenscircle.com`, `allowed_destination_addresses = ["info@flottwomenscircle.com"]` in `wrangler.toml`). This is free but requires Cloudflare Email Routing to be enabled on the `notify.` subdomain and `info@flottwomenscircle.com` verified as a destination in the Cloudflare dashboard — **neither of those two things is visible from this repo or this environment**, so whether the admin email actually lands cannot be confirmed here.
+- Registrant confirmation send path: falls back to Resend (`RESEND_API_KEY`) because Cloudflare `send_email` can only reach the `allowed_destination_addresses` list, not arbitrary registrant inboxes. `RESEND_API_KEY` is a secret (`wrangler secret put`), never committed, and **this environment has no Cloudflare dashboard/CLI access to check whether it's actually set in production**. If it isn't set, confirmation emails are silently skipped (logged only) — the submission itself still succeeds and is stored in D1.
+- `PUBLIC_GT_FORMS_LIVE=true` in `.env.production` — forms submit live rather than showing the "opens 29 Oct" placeholder notice.
 
-## Forms UX (pre-redesign)
+**Bottom line, stated plainly:** the code is wired correctly and admin notifications are configured to go to `info@flottwomenscircle.com`. Whether that mail is actually arriving (Cloudflare Email Routing + destination verification) and whether registrant confirmation emails are being sent at all (Resend API key presence + domain verification) cannot be verified from the codebase or from this sandboxed environment — only Cloudflare/Resend dashboard access can confirm live delivery. This is not a code gap; it is an infrastructure-configuration fact that should be checked once in either dashboard before the 29 Oct launch, per the existing provisioning checklist in `docs/GRANDTABLE-BACKEND.md`.
 
-- Four form configs (`enterprise`, `delegate`, `investor`, `sponsor`, `contact`) are solid: proper `required`/`type`, multi-step only for the 15-field Enterprise form (3 named steps, per-step validation, progress bar), single-step for the rest — this matches best-practice chunking (Baymard/NN·g, per the team's own learnings doc) and does **not** need a structural redesign, just visual polish to match the new card language.
-- `grand-table-forms.ts` still carries a stale header comment ("UI-only… No submissions are wired to a backend yet") even though the backend (`/api/grand-table/submit/[form]`, D1, email) has shipped — corrected as part of this pass.
-- Honeypot field, client + server validation, inline error messages, and a `role="status"` live notice region are all already in place.
+## Accessibility & performance
 
-## Backend / email verification
-
-See final report for live-endpoint test results and exact email-delivery status (code-level: `EMAIL_ENABLED=true`, admin notifications wired to `info@flottwomenscircle.com` via Cloudflare `send_email`; registrant confirmations require `RESEND_API_KEY`, which could not be confirmed from this environment — Cloudflare CLI/dashboard access was not available here).
+No regressions from the reorder (IDs and anchors unchanged, `scroll-margin-top` still applies per-section). Hero video, lazy-loaded images below the fold, and reduced-motion handling are unchanged from the pre-redesign audit and remain solid.

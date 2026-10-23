@@ -494,6 +494,166 @@ const gtEventJsonLd = {
 
     <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
 
+    <!-- ══════════════ DIGNITARIES ══════════════ -->
+    <section id="dignitaries" class="relative overflow-hidden" style="background: #F5F0E6;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.dignitaries.eyebrow}</p>
+          <h2 class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;">
+            {copy.dignitaries.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.dignitaries.headingEmphasis}</span>
+          </h2>
+        </div>
+        <div class="mx-auto mt-14 flex max-w-[1180px] flex-wrap justify-center gap-x-6 gap-y-10 md:mt-16 lg:gap-x-7">
+          {dignitaries.map((p, index) => (
+            <div class="gt-speaker-card reveal flex w-[calc(50%-0.75rem)] flex-col items-center sm:w-[200px] lg:w-[196px] xl:w-[204px]" style={`transition-delay: ${(index % 5) * 0.08}s;`}>
+              <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
+                <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
+                  {p.image ? (
+                    <>
+                      <img src={p.image.src} alt={p.image.alt} width={p.image.width} height={p.image.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
+                      <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                    </>
+                  ) : (
+                    <div class="flex h-full w-full items-center justify-center" style="background: linear-gradient(135deg, #0B0B0C, #3C301F);" role="img" aria-label={p.name}>
+                      <span class="text-[clamp(1.75rem,4vw,2.25rem)]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{initials(p.name)}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
+              <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title || SPEAKER_FALLBACK_TITLE}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ SPEAKERS ══════════════ -->
+    <section id="speakers" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.speakers.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em]"
+            style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45; transition-delay: 0.1s;"
+          >
+            {copy.speakers.heading}
+          </h2>
+        </div>
+
+        <div class="mx-auto mt-14 flex max-w-[1180px] flex-wrap justify-center gap-x-6 gap-y-10 md:mt-16 lg:gap-x-7">
+          {speakers.map((p, index) => (
+            <div class="gt-speaker-card reveal flex w-[calc(50%-0.75rem)] flex-col items-center sm:w-[200px] lg:w-[196px] xl:w-[204px]" style={`transition-delay: ${(index % 5) * 0.08}s;`}>
+              <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
+                <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
+                  <img src={p.image!.src} alt={p.image!.alt} width={p.image!.width} height={p.image!.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
+                  <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
+              <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title || SPEAKER_FALLBACK_TITLE}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="reveal mt-10 text-center text-[11px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.3s;">
+          {copy.speakers.moreToCome}
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════ PARTICIPATING COMPANIES + MEDIA PARTNER ══════════════ -->
+    <section id="partners" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
+      <div class="px-6 py-20 md:px-12 md:py-24 lg:px-20">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.companies.eyebrow}</p>
+          <h2 class="reveal mt-4 text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;">{copy.companies.heading}</h2>
+        </div>
+        <ul class="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3" role="list">
+          {companies.map((logo, index) => (
+            <li class="gt-logo-tile reveal flex h-[120px] items-center justify-center rounded-xl border bg-white px-5 sm:h-[136px]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.06}s;`}>
+              <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
+            </li>
+          ))}
+        </ul>
+        <div class="reveal mt-14 flex flex-col items-center">
+          <p class="text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.mediaLabel}</p>
+          <div class="mt-4 flex h-[120px] w-full max-w-[300px] items-center justify-center rounded-xl px-6" style="background: #0B0B0C; border: 1px solid rgba(201,169,110,0.35);">
+            <img src={mediaPartner.src} alt={mediaPartner.name} width={mediaPartner.width} height={mediaPartner.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${mediaPartner.displayHeight}px;`} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
+
+    <!-- ══════════════ EVENT EXPERIENCE ══════════════ -->
+    <section id="experience" class="relative overflow-hidden" style="background: #0B0B0C;">
+      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.experience.eyebrow}</p>
+
+          <h2
+            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
+            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
+          >
+            {copy.experience.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.experience.headingEmphasis}</span>
+          </h2>
+        </div>
+
+        <!-- DRAFT COPY: brief lists 6 highlights without detail; replace with client wording -->
+        <div class="relative mx-auto mt-14 max-w-6xl md:mt-16">
+          <div
+            id="gt-highlight-strip"
+            class="gt-highlight-strip flex gap-5 overflow-x-auto pb-3"
+            tabindex="0"
+            role="region"
+            aria-label="Event highlights"
+          >
+            {highlights.map((highlight, index) => (
+              <div
+                class="gt-highlight-frame reveal group relative aspect-[3/4] w-[76vw] shrink-0 overflow-hidden rounded-2xl border md:w-[300px]"
+                style={`border-color: rgba(230,211,163,0.2); transition-delay: ${index * 0.08}s;`}
+              >
+                <div class={`gt-frame-bg gt-frame-bg-${index + 1} absolute inset-0`} aria-hidden="true"></div>
+                <svg class="absolute inset-0 h-full w-full opacity-40 mix-blend-overlay" aria-hidden="true">
+                  <rect width="100%" height="100%" filter="url(#gt-noise)"></rect>
+                </svg>
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, transparent 36%, #0B0B0C 92%);" aria-hidden="true"></div>
+
+                <div class="relative z-10 flex h-full flex-col justify-end p-5 md:p-6">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <Fragment set:html={highlight.icon} />
+                  </svg>
+                  <h3 class="gt-frame-title relative mt-4 text-[1.5rem] text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">
+                    {highlight.title}
+                  </h3>
+                  <p class="gt-frame-desc mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{highlight.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-5 flex items-center gap-5">
+            <div class="hidden items-center gap-3 lg:flex">
+              <button id="gt-strip-prev" type="button" aria-label="Previous highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+              </button>
+              <button id="gt-strip-next" type="button" aria-label="Next highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+            <div class="relative h-px flex-1" style="background: rgba(201,169,110,0.18);">
+              <div id="gt-strip-progress" class="absolute left-0 top-0 h-full" style="background: #C9A96E; width: 16.666%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
+
     <!-- ══════════════ ENTERPRISE REGISTRATION ══════════════ -->
     <section id="enterprise" class="relative overflow-hidden" style="background: #F5F0E6;">
       <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
@@ -806,168 +966,8 @@ const gtEventJsonLd = {
       </div>
     </section>
 
-    <!-- ══════════════ DIGNITARIES ══════════════ -->
-    <section id="dignitaries" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
-      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.dignitaries.eyebrow}</p>
-          <h2 class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;">
-            {copy.dignitaries.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.dignitaries.headingEmphasis}</span>
-          </h2>
-        </div>
-        <div class="mx-auto mt-14 flex max-w-[1180px] flex-wrap justify-center gap-x-6 gap-y-10 md:mt-16 lg:gap-x-7">
-          {dignitaries.map((p, index) => (
-            <div class="gt-speaker-card reveal flex w-[calc(50%-0.75rem)] flex-col items-center sm:w-[200px] lg:w-[196px] xl:w-[204px]" style={`transition-delay: ${(index % 5) * 0.08}s;`}>
-              <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
-                <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
-                  {p.image ? (
-                    <>
-                      <img src={p.image.src} alt={p.image.alt} width={p.image.width} height={p.image.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
-                      <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
-                    </>
-                  ) : (
-                    <div class="flex h-full w-full items-center justify-center" style="background: linear-gradient(135deg, #0B0B0C, #3C301F);" role="img" aria-label={p.name}>
-                      <span class="text-[clamp(1.75rem,4vw,2.25rem)]" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #C9A96E;">{initials(p.name)}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
-              <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title || SPEAKER_FALLBACK_TITLE}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════ SPEAKERS ══════════════ -->
-    <section id="speakers" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
-      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.speakers.eyebrow}</p>
-
-          <h2
-            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em]"
-            style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45; transition-delay: 0.1s;"
-          >
-            {copy.speakers.heading}
-          </h2>
-        </div>
-
-        <div class="mx-auto mt-14 flex max-w-[1180px] flex-wrap justify-center gap-x-6 gap-y-10 md:mt-16 lg:gap-x-7">
-          {speakers.map((p, index) => (
-            <div class="gt-speaker-card reveal flex w-[calc(50%-0.75rem)] flex-col items-center sm:w-[200px] lg:w-[196px] xl:w-[204px]" style={`transition-delay: ${(index % 5) * 0.08}s;`}>
-              <div class="gt-speaker-frame relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 3 / 4; border: 1px solid #9A7B45; padding: 5px;">
-                <div class="relative h-full w-full overflow-hidden rounded-[0.5rem]">
-                  <img src={p.image!.src} alt={p.image!.alt} width={p.image!.width} height={p.image!.height} loading="lazy" class="gt-speaker-img h-full w-full object-cover" />
-                  <div class="gt-speaker-duotone pointer-events-none absolute inset-0" aria-hidden="true"></div>
-                </div>
-              </div>
-              <p class="mt-4 text-center text-[0.95rem] leading-snug text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400;">{p.name}</p>
-              <p class="mt-1.5 text-center text-[11px] leading-relaxed text-[#0B0B0C]/55">{p.title || SPEAKER_FALLBACK_TITLE}</p>
-            </div>
-          ))}
-        </div>
-
-        <p class="reveal mt-10 text-center text-[11px] uppercase tracking-[0.3em] text-[#0B0B0C]/40 md:mt-12" style="transition-delay: 0.3s;">
-          {copy.speakers.moreToCome}
-        </p>
-      </div>
-    </section>
-
-    <!-- ══════════════ PARTICIPATING COMPANIES + MEDIA PARTNER ══════════════ -->
-    <section id="partners" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
-      <div class="px-6 py-20 md:px-12 md:py-24 lg:px-20">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.companies.eyebrow}</p>
-          <h2 class="reveal mt-4 text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;">{copy.companies.heading}</h2>
-        </div>
-        <ul class="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3" role="list">
-          {companies.map((logo, index) => (
-            <li class="gt-logo-tile reveal flex h-[120px] items-center justify-center rounded-xl border bg-white px-5 sm:h-[136px]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.06}s;`}>
-              <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
-            </li>
-          ))}
-        </ul>
-        <div class="reveal mt-14 flex flex-col items-center">
-          <p class="text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.mediaLabel}</p>
-          <div class="mt-4 flex h-[120px] w-full max-w-[300px] items-center justify-center rounded-xl px-6" style="background: #0B0B0C; border: 1px solid rgba(201,169,110,0.35);">
-            <img src={mediaPartner.src} alt={mediaPartner.name} width={mediaPartner.width} height={mediaPartner.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${mediaPartner.displayHeight}px;`} />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="gt-seam gt-seam-to-jet" aria-hidden="true"></div>
-
-    <!-- ══════════════ EVENT EXPERIENCE ══════════════ -->
-    <section id="experience" class="relative overflow-hidden" style="background: #0B0B0C;">
-      <div class="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#C9A96E] md:text-xs" style="font-style: italic;">{copy.experience.eyebrow}</p>
-
-          <h2
-            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-[#F5F0E6]"
-            style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;"
-          >
-            {copy.experience.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #C9A96E;">{copy.experience.headingEmphasis}</span>
-          </h2>
-        </div>
-
-        <!-- DRAFT COPY: brief lists 6 highlights without detail; replace with client wording -->
-        <div class="relative mx-auto mt-14 max-w-6xl md:mt-16">
-          <div
-            id="gt-highlight-strip"
-            class="gt-highlight-strip flex gap-5 overflow-x-auto pb-3"
-            tabindex="0"
-            role="region"
-            aria-label="Event highlights"
-          >
-            {highlights.map((highlight, index) => (
-              <div
-                class="gt-highlight-frame reveal group relative aspect-[3/4] w-[76vw] shrink-0 overflow-hidden rounded-2xl border md:w-[300px]"
-                style={`border-color: rgba(230,211,163,0.2); transition-delay: ${index * 0.08}s;`}
-              >
-                <div class={`gt-frame-bg gt-frame-bg-${index + 1} absolute inset-0`} aria-hidden="true"></div>
-                <svg class="absolute inset-0 h-full w-full opacity-40 mix-blend-overlay" aria-hidden="true">
-                  <rect width="100%" height="100%" filter="url(#gt-noise)"></rect>
-                </svg>
-                <div class="absolute inset-0" style="background: linear-gradient(to bottom, transparent 36%, #0B0B0C 92%);" aria-hidden="true"></div>
-
-                <div class="relative z-10 flex h-full flex-col justify-end p-5 md:p-6">
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#C9A96E" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <Fragment set:html={highlight.icon} />
-                  </svg>
-                  <h3 class="gt-frame-title relative mt-4 text-[1.5rem] text-[#F5F0E6]" style="font-family: 'Playfair Display', serif; font-weight: 400;">
-                    {highlight.title}
-                  </h3>
-                  <p class="gt-frame-desc mt-2 text-sm leading-relaxed text-[#F5F0E6]/70">{highlight.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div class="mt-5 flex items-center gap-5">
-            <div class="hidden items-center gap-3 lg:flex">
-              <button id="gt-strip-prev" type="button" aria-label="Previous highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
-              </button>
-              <button id="gt-strip-next" type="button" aria-label="Next highlight" class="gt-strip-arrow flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-[#C9A96E]" style="border-color: rgba(201,169,110,0.4);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
-              </button>
-            </div>
-            <div class="relative h-px flex-1" style="background: rgba(201,169,110,0.18);">
-              <div id="gt-strip-progress" class="absolute left-0 top-0 h-full" style="background: #C9A96E; width: 16.666%;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="gt-seam gt-seam-to-ivory" aria-hidden="true"></div>
-
     <!-- ══════════════ VENUE ══════════════ -->
-    <section id="venue" class="relative overflow-hidden" style="background: #F5F0E6;">
+    <section id="venue" class="relative overflow-hidden border-t" style="background: #F5F0E6; border-color: rgba(154,123,69,0.25);">
       <div class="px-6 py-[4.5rem] md:px-12 lg:px-20 lg:py-[6rem]">
         <div class="mx-auto max-w-3xl text-center">
           <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.venue.eyebrow}</p>

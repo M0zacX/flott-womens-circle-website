@@ -70,6 +70,7 @@ const sections = form.steps
                     <label for={id} class="gtf-label">
                       {field.label}
                       {field.required && <span class="gtf-required" aria-hidden="true">*</span>}
+                      {!field.required && <span class="gtf-optional">(optional)</span>}
                     </label>
                   )}
 
@@ -395,6 +396,15 @@ const sections = form.steps
   .gtf-required {
     margin-left: 0.25rem;
     color: var(--gtf-accent);
+  }
+
+  .gtf-optional {
+    margin-left: 0.4rem;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--gtf-muted);
+    opacity: 0.65;
+    font-size: 10px;
   }
 
   .gtf-input,
