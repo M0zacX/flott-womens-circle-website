@@ -38,8 +38,7 @@ export type Highlight = {
 
 export type Convener = {
   name: string;
-  role: string;
-  founderRole: string;
+  titles: string[];
   image: EventImage;
 };
 
@@ -472,6 +471,11 @@ export const event = {
       title: "International Business Consultant Strategist",
       image: { src: "/images/speaker-seila-gurdal.jpg", alt: "Seila Gurdal", width: 800, height: 1000 },
     },
+    {
+      name: "Ekaterina Zeynalova",
+      title: "Founder, Berkeley Middle East; Relationship Director, Voice of Global Women",
+      image: { src: "/images/speaker-ekaterina-zeynalova.jpg", alt: "Ekaterina Zeynalova", width: 800, height: 1000 },
+    },
   ] satisfies Speaker[],
 
   dignitaries: [
@@ -515,8 +519,13 @@ export const event = {
 
   convener: {
     name: "Safiya Umar",
-    role: "Convener & Host, The Grand Table",
-    founderRole: "Founder & Group CEO, Flott Women's Circle",
+    titles: [
+      "Entrepreneur & Cross-Border Business Strategist",
+      "Honorary Regional Director, GCC",
+      "Indo-African Chamber of Commerce & Industry (IACCI)",
+      "Founder, Flott Women's Circle",
+      "Convener & Host, The Grand Table 2026",
+    ],
     image: { src: "/images/founder-safiya.jpg", alt: "Safiya Umar, Convener & Host", width: 798, height: 1200 },
   } satisfies Convener,
 
@@ -533,8 +542,8 @@ export const event = {
       initiatedBy: "An initiative of Flott Women’s Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE",
     },
     convener: {
-      eyebrow: "From the convener",
-      headingPrefix: "A table set by",
+      eyebrow: "From the Convener",
+      headingPrefix: "A Table Set by",
       headingEmphasis: "Safiya Umar",
       body: [
         "Safiya Umar founded Flott Women's Circle to turn community into capacity — practical skills, safe spaces and the right support systems for women to grow. The Grand Table is that mission's next chapter.",

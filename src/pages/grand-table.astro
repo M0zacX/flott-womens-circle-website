@@ -411,7 +411,12 @@ const gtEventJsonLd = {
               {copy.convener.headingPrefix} <span style="font-style: italic; font-weight: 500; color: #9A7B45;">{copy.convener.headingEmphasis}</span>
             </h2>
             <p class="reveal mt-4 text-sm font-medium uppercase tracking-[0.18em] text-[#0B0B0C]/60" style="transition-delay: 0.26s;">
-              {convener.role} &bull; {convener.founderRole}
+              {convener.titles.map((title, index) => (
+                <>
+                  {title}
+                  {index < convener.titles.length - 1 && <br />}
+                </>
+              ))}
             </p>
             {copy.convener.body.map((paragraph, index) => (
               <p class="reveal mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#0B0B0C]/70 lg:mx-0 md:text-lg" style={`transition-delay: ${0.32 + index * 0.08}s;`}>
