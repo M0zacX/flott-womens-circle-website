@@ -29,6 +29,7 @@ const {
   dignitaries,
   companies,
   mediaPartner,
+  institutionalPartners,
   contactDetails,
   organisers,
   venue,
@@ -79,7 +80,7 @@ const gtEventJsonLd = {
     name: venue.officialName,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Muhammadu Buhari Way",
+      streetAddress: "Opposite Frazer Suites, Tropic Galleria",
       addressLocality: "Central Business District, Abuja",
       addressRegion: "FCT",
       addressCountry: "NG",
@@ -575,7 +576,17 @@ const gtEventJsonLd = {
           <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.companies.eyebrow}</p>
           <h2 class="reveal mt-4 text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;">{copy.companies.heading}</h2>
         </div>
-        <ul class="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3" role="list">
+        <div class="reveal mx-auto mt-12 flex flex-col items-center">
+          <p class="text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.institutionalLabel}</p>
+          <ul class="mx-auto mt-5 flex max-w-4xl flex-wrap items-center justify-center gap-4" role="list">
+            {institutionalPartners.map((logo) => (
+              <li class="gt-logo-tile flex h-[110px] w-[150px] items-center justify-center rounded-xl border bg-white px-5" style="border-color: rgba(154,123,69,0.22);">
+                <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ul class="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3" role="list">
           {companies.map((logo, index) => (
             <li class="gt-logo-tile reveal flex h-[120px] items-center justify-center rounded-xl border bg-white px-5 sm:h-[136px]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.06}s;`}>
               <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />

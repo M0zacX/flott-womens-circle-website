@@ -263,12 +263,12 @@ export const event = {
   city: "Abuja",
   country: "Nigeria",
   cityCountry: "Abuja, Nigeria",
-  heroLocationLine: "Tropic Galleria, Central Business District, Abuja, Nigeria",
+  heroLocationLine: "The Grande Blanc, Tropic Galleria, Central Business District, Abuja, Nigeria",
 
   venue: {
-    name: "Tropic Galleria",
-    officialName: "Tropic Galleria",
-    address: "Central Business District, Abuja, Nigeria",
+    name: "The Grande Blanc",
+    officialName: "The Grande Blanc",
+    address: "Opposite Frazer Suites, Tropic Galleria, Central Business District, Abuja, Nigeria",
     mapsUrl: "",
   },
 
@@ -500,6 +500,13 @@ export const event = {
 
   mediaPartner: { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 64 } satisfies CompanyLogo,
 
+  institutionalPartners: [
+    { name: "Consulate General of Nigeria, Dubai", src: "/images/grand-table/partners/nigeria-consulate-dubai.webp", width: 1355, height: 1367, displayHeight: 76 },
+    { name: "Federal Ministry of Women Affairs", src: "/images/grand-table/partners/ministry-women-affairs.webp", width: 400, height: 400, displayHeight: 76 },
+    { name: "Federal Ministry of Industry, Trade & Investment", src: "/images/grand-table/partners/ministry-industry-trade-investment.webp", width: 1046, height: 293, displayHeight: 52 },
+    { name: "Ministry of Foreign Affairs", src: "/images/grand-table/partners/ministry-foreign-affairs.webp", width: 512, height: 512, displayHeight: 76 },
+  ] satisfies CompanyLogo[],
+
   contactDetails: {
     email: "info@flottwomenscircle.com",
     phones: [
@@ -611,6 +618,7 @@ export const event = {
       eyebrow: "At the Table",
       heading: "Participating companies",
       mediaLabel: "Media partner",
+      institutionalLabel: "In Partnership with",
     },
     speakers: {
       eyebrow: "Voices at the Table",
@@ -624,7 +632,7 @@ export const event = {
     },
     venue: {
       eyebrow: "Venue",
-      headingPrefix: "Tropic Galleria,",
+      headingPrefix: "The Grande Blanc,",
       headingEmphasis: "Abuja",
     },
     faq: {
