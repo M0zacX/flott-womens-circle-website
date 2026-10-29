@@ -540,12 +540,14 @@ const gtEventJsonLd = {
         <div class="mx-auto max-w-3xl text-center">
           <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.speakers.eyebrow}</p>
 
-          <h2
-            class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em]"
-            style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45; transition-delay: 0.1s;"
-          >
-            {copy.speakers.heading}
-          </h2>
+          {copy.speakers.heading && (
+            <h2
+              class="reveal mt-4 text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em]"
+              style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #9A7B45; transition-delay: 0.1s;"
+            >
+              {copy.speakers.heading}
+            </h2>
+          )}
         </div>
 
         <div class="mx-auto mt-14 flex max-w-[1180px] flex-wrap justify-center gap-x-6 gap-y-10 md:mt-16 lg:gap-x-7">
