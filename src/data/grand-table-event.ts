@@ -461,6 +461,7 @@ export const event = {
     },
     person("speakers", "lubna-naeem", "Lubna Naeem", "Founder & CEO, Hxperts"),
     person("speakers", "rashi-rashi", "Rashi Rashi", "Co-Founder & CEO, Sky Global Pathways"),
+    person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder & CEO, Minasu International"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
     person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
