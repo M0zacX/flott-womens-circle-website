@@ -55,7 +55,7 @@ export type Speaker = {
 };
 
 /** Consistent fallback so every speaker/dignitary card shows a second line, even before a formal title is confirmed. */
-export const SPEAKER_FALLBACK_TITLE = "Speaker, The Grand Table 2026";
+export const SPEAKER_FALLBACK_TITLE = "Voices at the Table";
 
 export type CompanyLogo = { name: string; src: string; width: number; height: number; displayHeight: number };
 
@@ -459,7 +459,7 @@ export const event = {
         height: 800,
       },
     },
-    person("speakers", "jem-felicilda", "Jem Felicilda", "MD, Knightsbridge Group UAE"),
+    person("speakers", "lubna-naeem", "Lubna Naeem", "Founder & CEO, Hxperts"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
     person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
@@ -482,7 +482,7 @@ export const event = {
     { name: "H.E. Salem Saeed Al Shamsi", title: "Ambassador of the UAE to the Federal Republic of Nigeria" },
     person("dignitaries", "sunanda-rajendran", "Dr. Mrs. Sunanda Rajendran", "Secretary-General, IACCI"),
     person("dignitaries", "zayyan-ibrahim", "H.E. Ambassador Zayyan Ibrahim", "Consul General of Nigeria in Dubai & the Northern Emirates"),
-    person("dignitaries", "mohammed-al-neyadi", "H.E. Mohammed Saeed Bakhit Al Neyadi", "Former Director-General, UAE General Authority of Islamic Affairs & Endowments"),
+    person("dignitaries", "mohammed-al-neyadi", "H.E. Mohammed Saeed Bakhit Al Neyadi", "Chairman, Smart Solutions Abu Dhabi UAE"),
     person("dignitaries", "adeshola-onadipe", "Amb. Adeshola Helen Onadipe", "President, African-Arab Women Chamber of Commerce; Founder, Ladies in Business Magazine Global"),
   ] satisfies Speaker[],
 
@@ -623,7 +623,7 @@ export const event = {
     },
     speakers: {
       eyebrow: "Voices at the Table",
-      heading: "Speakers",
+      heading: "",
       moreToCome: "More speakers to be announced.",
     },
     experience: {
