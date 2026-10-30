@@ -462,6 +462,7 @@ export const event = {
     person("speakers", "lubna-naeem", "Lubna Naeem", "Founder & CEO, Hxperts"),
     person("speakers", "rashi-rashi", "Rashi Rashi", "Co-Founder & CEO, Sky Global Pathways"),
     person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder & CEO, Minasu International"),
+    person("speakers", "hansatu-zannah", "H.E. Hajiya Hansatu Zannah", "Entrepreneur | Philanthropist"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
     person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
@@ -502,7 +503,10 @@ export const event = {
     { name: "Carlos Odili Oil and Gas Ltd.", src: "/images/grand-table/companies/carlos-odili-oil-gas.webp", width: 800, height: 146, displayHeight: 48 },
   ] satisfies CompanyLogo[],
 
-  mediaPartner: { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 64 } satisfies CompanyLogo,
+  mediaPartners: [
+    { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 64 },
+    { name: "BAAM Network Limited", src: "/images/grand-table/companies/baam-network.webp", width: 800, height: 800, displayHeight: 72 },
+  ] satisfies CompanyLogo[],
 
   institutionalPartners: [
     { name: "Consulate General of Nigeria, Dubai", src: "/images/grand-table/partners/nigeria-consulate-dubai.webp", width: 1355, height: 1367, displayHeight: 76 },
