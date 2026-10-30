@@ -28,7 +28,7 @@ const {
   speakers,
   dignitaries,
   companies,
-  mediaPartner,
+  mediaPartners,
   institutionalPartners,
   contactDetails,
   organisers,
@@ -597,8 +597,12 @@ const gtEventJsonLd = {
         </ul>
         <div class="reveal mt-14 flex flex-col items-center">
           <p class="text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.mediaLabel}</p>
-          <div class="mt-4 flex h-[120px] w-full max-w-[300px] items-center justify-center rounded-xl px-6" style="background: #0B0B0C; border: 1px solid rgba(201,169,110,0.35);">
-            <img src={mediaPartner.src} alt={mediaPartner.name} width={mediaPartner.width} height={mediaPartner.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${mediaPartner.displayHeight}px;`} />
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-4">
+            {mediaPartners.map((logo) => (
+              <div class="flex h-[120px] w-full max-w-[300px] items-center justify-center rounded-xl px-6" style="background: #0B0B0C; border: 1px solid rgba(201,169,110,0.35);">
+                <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
