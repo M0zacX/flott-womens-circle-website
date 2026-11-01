@@ -2,7 +2,7 @@
 
 Scope: `src/pages/grand-table.astro`, `src/components/GrandTableForm.astro`, `src/data/grand-table-event.ts`, `src/data/grand-table-forms.ts`, `src/pages/api/grand-table/submit/[form].ts`, `src/lib/gt/email.ts`, `src/lib/gt/templates.ts`, `wrangler.toml`.
 
-This supersedes the 22 Oct pre-redesign audit. Content (dates, venue, speakers, dignitaries, the 9 package prices, Safiya Umar as Convener, Seila Gurdal, ambassador initials placeholder, Meenasu, Dubai footer, no venue photos) is unchanged — only layout, order, visual system and polish changed.
+This supersedes the 22 Oct pre-redesign audit. Content (dates, venue, speakers, dignitaries, the 9 package prices, Safiya Umar as Convener, ambassador initials placeholder, Meenasu, Dubai footer, no venue photos) is unchanged — only layout, order, visual system and polish changed. Seila Gurdal was on that 23 Oct roster; she and Dr. Sahar Gul Bukhari were removed on 1 Nov 2026 and are not on the page.
 
 ## Section order (final)
 
@@ -24,7 +24,7 @@ Seam transitions were re-derived for the new adjacencies: a new dark→cream sea
 
 **Dignitaries** — 5 cards, photo or two-letter monogram (ambassador placeholder, kept as content), name, title; every card has a title (all 5 have explicit titles; the shared `SPEAKER_FALLBACK_TITLE` mechanism also covers this group). Richer card treatment: duotone portrait hover, consistent frame, border.
 
-**Speakers** — 10 cards, same card language as Dignitaries. The two speakers without an authored title (Bouchra Izaabel, Dr. Sahar Gul Bukhari) render `SPEAKER_FALLBACK_TITLE` ("Speaker, The Grand Table 2026") so every card reads consistently — no ragged/short cards.
+**Speakers** — same card language as Dignitaries. A speaker without an authored title renders `SPEAKER_FALLBACK_TITLE` so every card reads consistently — no ragged/short cards. As of this 23 Oct audit that was Bouchra Izaabel and Dr. Sahar Gul Bukhari. On 1 Nov 2026 the client removed Dr. Sahar Gul Bukhari and Seila Gurdal from `event.speakers`; Bouchra Izaabel is the remaining speaker without an authored title. The fallback string is now "Voices at the Table".
 
 **Partners (companies + media)** — Logo tiles on cream, media partner (Meenasu included) gets its own dark tile for distinction.
 

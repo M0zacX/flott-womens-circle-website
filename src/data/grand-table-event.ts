@@ -450,15 +450,6 @@ export const event = {
         height: 800,
       },
     },
-    {
-      name: "Dr. Sahar Gul Bukhari",
-      image: {
-        src: "/images/grand-table/speakers/sahar-gul-bukhari.webp",
-        alt: "Dr. Sahar Gul Bukhari",
-        width: 600,
-        height: 800,
-      },
-    },
     person("speakers", "lubna-naeem", "Lubna Naeem", "Founder & CEO, Hxperts"),
     person("speakers", "rashi-rashi", "Rashi Rashi", "Co-Founder & CEO, Sky Global Pathways"),
     person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder & CEO, Minasu International"),
@@ -469,11 +460,6 @@ export const event = {
     person("speakers", "elena-krystal", "Elena Krystal", "Co-Founder, Global Academy of Happiness"),
     person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
     person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
-    {
-      name: "Seila Gurdal",
-      title: "International Business Consultant Strategist",
-      image: { src: "/images/speaker-seila-gurdal.jpg", alt: "Seila Gurdal", width: 800, height: 1000 },
-    },
     {
       name: "Ekaterina Zeynalova",
       title: "Founder, Berkeley Middle East; Relationship Director, Voice of Global Women",
