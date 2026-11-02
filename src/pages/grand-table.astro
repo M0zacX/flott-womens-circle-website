@@ -18,6 +18,7 @@ import {
   sponsorPackages,
   SPEAKER_FALLBACK_TITLE,
 } from "../data/grand-table-event";
+import { GT_CANONICAL_PATH, grandTableDescription, grandTableJsonLdHtml } from "../data/grand-table-schema";
 
 const {
   objectives,
@@ -48,58 +49,15 @@ const initials = (name: string) => {
   return `${first}${last}`.toUpperCase();
 };
 
-// SEO: schema.org Event built from grand-table-event.ts
-const GT_SITE = "https://flottwomenscircle.com";
-const gtDescription = `${event.name} ${event.year}: an initiative of Flott Women's Circle in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. ${venue.officialName}, ${venue.address}, ${event.date.display} (${event.date.timeDisplay}).`;
-const gtCurrencies = [["USD", "usd"], ["NGN", "ngn"], ["AED", "aed"], ["INR", "inr"]] as const;
-const gtOfferItems = [
-  ...entryPackages.map((p) => ({ name: p.name, price: p.price, anchor: "delegate-form" })),
-  ...sponsorPackages.map((p) => ({ name: p.name, price: p.price, anchor: "sponsor-form" })),
-];
-const gtOffers = gtOfferItems.flatMap((item) =>
-  gtCurrencies.map(([code, key]) => ({
-    "@type": "Offer",
-    name: `${item.name} (${code})`,
-    url: `${GT_SITE}/grand-table/#${item.anchor}`,
-    price: String(item.price[key]),
-    priceCurrency: code,
-    availability: "https://schema.org/InStock",
-    validFrom: "2026-10-29",
-  })),
-);
-const gtEventJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Event",
-  name: `${event.name} ${event.year}`,
-  description: gtDescription,
-  startDate: event.date.iso,
-  eventStatus: "https://schema.org/EventScheduled",
-  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-  location: {
-    "@type": "Place",
-    name: venue.officialName,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Opposite Frazer Suites, Tropic Galleria",
-      addressLocality: "Central Business District, Abuja",
-      addressRegion: "FCT",
-      addressCountry: "NG",
-    },
-  },
-  image: [new URL("/images/gt-hero-poster.webp", GT_SITE).href],
-  organizer: { "@type": "Organization", name: "Flott Women's Circle", url: GT_SITE, email: contactDetails.email, telephone: contactDetails.phones.map((ph) => ph.tel) },
-  performer: [...dignitaries, ...speakers].map((p) => ({ "@type": "Person", name: p.name, ...(p.title ? { jobTitle: p.title } : {}) })),
-  offers: gtOffers,
-};
 ---
 
 <Layout
   title={`${event.name} ${event.year} | Flott Women's Circle`}
-  description={gtDescription}
-  canonical="/grand-table/"
+  description={grandTableDescription}
+  canonical={GT_CANONICAL_PATH}
   ogImage="/images/gt-hero-poster.webp"
 >
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify(gtEventJsonLd)} />
+  <script type="application/ld+json" slot="head" set:html={grandTableJsonLdHtml()} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
