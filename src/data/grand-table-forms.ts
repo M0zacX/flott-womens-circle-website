@@ -100,7 +100,7 @@ const enterprise: FormConfig = {
 const delegate: FormConfig = {
   id: "delegate",
   title: "Delegate, Investor and Partner Registration",
-  intro: `International delegates, investors and partners register here for The Grand Table 2026. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}); Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)}. Sponsorship tiers start at ${fmt.usd(sponsorPackages[0].price.usd)}. ${currencyDisclaimer} No payment is taken on this form.`,
+  intro: `International delegates, investors and partners register here for The Grand Table 2026. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}); Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)}. ${currencyDisclaimer} No payment is taken on this form.`,
   submitLabel: "Submit registration",
   fields: [
     { name: "participantType", label: "Participant type", type: "select", required: true, options: ["International delegate", "Investor", "Partner or institution"] },
@@ -173,7 +173,7 @@ const sponsor: FormConfig = {
       label: "Preferred tier",
       type: "select",
       required: true,
-      options: [...sponsorPackages.map((tier) => `${tier.name} ${fmt.usd(tier.price.usd)}`), "Undecided"],
+      options: [...sponsorPackages.map((tier) => tier.name), "Undecided"],
     },
     { name: "website", label: "Website", type: "url" },
     { name: "message", label: "Message or sponsorship goals", type: "textarea", full: true },
