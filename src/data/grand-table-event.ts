@@ -451,19 +451,23 @@ export const event = {
       },
     },
     person("speakers", "lubna-naeem", "Lubna Naeem", "Founder & CEO, Hxperts"),
-    {
-      name: "Taqwa Abdul Monem el Tahir",
-      title: "Director of Corporate Relations & Strategic Partnerships, Flott Middle East",
-    },
+    person(
+      "speakers",
+      "taqwa-abdul-monem-el-tahir",
+      "Taqwa Abdul Monem el Tahir",
+      "Director of Corporate Relations & Strategic Partnerships, Flott Middle East",
+    ),
     person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder & CEO, Minasu International"),
     person("speakers", "hansatu-zannah", "H.E. Hajiya Hansatu Zannah", "Entrepreneur | Philanthropist"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
     person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
-    {
-      name: "MS. HALICONIC AL JARRAH",
-      title: "Emirati MC & International Event Host, Founder of Haliconic Media",
-    },
+    person(
+      "speakers",
+      "haliconic-al-jarrah",
+      "MS. HALICONIC AL JARRAH",
+      "Emirati MC & International Event Host, Founder of Haliconic Media",
+    ),
     person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
     person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
     {
