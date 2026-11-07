@@ -451,13 +451,23 @@ export const event = {
       },
     },
     person("speakers", "lubna-naeem", "Lubna Naeem", "Founder & CEO, Hxperts"),
-    person("speakers", "rashi-rashi", "Rashi Rashi", "Co-Founder & CEO, Sky Global Pathways"),
+    person(
+      "speakers",
+      "taqwa-abdul-monem-el-tahir",
+      "Taqwa Abdul Monem el Tahir",
+      "Director of Corporate Relations & Strategic Partnerships, Flott Middle East",
+    ),
     person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder & CEO, Minasu International"),
     person("speakers", "hansatu-zannah", "H.E. Hajiya Hansatu Zannah", "Entrepreneur | Philanthropist"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
     person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
-    person("speakers", "elena-krystal", "Elena Krystal", "Co-Founder, Global Academy of Happiness"),
+    person(
+      "speakers",
+      "haliconic-al-jarrah",
+      "MS. HALICONIC AL JARRAH",
+      "Emirati MC & International Event Host, Founder of Haliconic Media",
+    ),
     person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
     person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
     {
@@ -673,11 +683,11 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is there a delegate participation fee?",
-    a: `Yes. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}) and Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)} (${fmt.ngn(entryPackages[0].price.ngn)} · ${fmt.aed(entryPackages[0].price.aed)} · ${fmt.inr(entryPackages[0].price.inr)}), food and beverages included. Sponsorship tiers start at ${fmt.usd(sponsorPackages[0].price.usd)} for ${sponsorPackages[0].passLabel.toLowerCase()}. ${currencyDisclaimer} Payment details are shared after your registration is reviewed.`,
+    a: `Yes. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}) and Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)} (${fmt.ngn(entryPackages[0].price.ngn)} · ${fmt.aed(entryPackages[0].price.aed)} · ${fmt.inr(entryPackages[0].price.inr)}), food and beverages included. ${currencyDisclaimer} Payment details are shared after your registration is reviewed.`,
   },
   {
     q: "What sponsorship packages are available?",
-    a: `${sponsorPackages.map((t) => `${t.name} ${fmt.usd(t.price.usd)} (${t.passLabel})`).join(", ")}. Prices are also shown in NGN, AED and INR as indicative conversions; final invoice currency confirmed on registration. The Title Sponsor tier is limited to one organisation. Request the brochure for full benefits.`,
+    a: `${sponsorPackages.map((t) => `${t.name} (${t.passLabel})`).join(", ")}. The Title Sponsor tier is limited to one organisation. Request the brochure for full benefits.`,
   },
   {
     q: "When do registrations open?",
