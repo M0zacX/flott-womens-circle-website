@@ -5,7 +5,7 @@
 // Do not point this page at thegrandtable.com. The canonical URL is https://flottwomenscircle.com/grand-table/.
 // Do not copy event.date.countdownTarget into startDate. That value is only a countdown anchor; the page says the time is to be announced.
 
-import { entryPackages, event, sponsorPackages, type Speaker } from "./grand-table-event";
+import { event, type Speaker } from "./grand-table-event";
 
 export const GT_SITE = "https://flottwomenscircle.com";
 /** Path passed to Layout, which resolves it against GT_SITE. */
@@ -38,16 +38,6 @@ const ORG_DESCRIPTION =
 const FOUNDER_ROLE = "Founder & Group CEO";
 /** Convener card line that names an affiliation rather than a job title. */
 const IACCI_LINE = "Indo-African Chamber of Commerce & Industry (IACCI)";
-
-const CURRENCIES = [
-  ["USD", "usd"],
-  ["NGN", "ngn"],
-  ["AED", "aed"],
-  ["INR", "inr"],
-] as const;
-
-/** Registrations open on this date, matching the page copy. */
-const OFFER_VALID_FROM = "2026-10-29";
 
 type JsonLd = Record<string, unknown>;
 
@@ -106,37 +96,25 @@ function featuredPerson(person: Speaker): JsonLd {
   };
 }
 
-function offers(): JsonLd[] {
-  const items = [
-    ...entryPackages.map((pkg) => ({ name: pkg.name, price: pkg.price, anchor: "delegate-form" })),
-    ...sponsorPackages.map((pkg) => ({ name: pkg.name, price: pkg.price, anchor: "sponsor-form" })),
-  ];
-  return items.flatMap((item) =>
-    CURRENCIES.map(([code, key]) => ({
-      "@type": "Offer",
-      name: `${item.name} (${code})`,
-      url: `${GT_PAGE_URL}#${item.anchor}`,
-      price: String(item.price[key]),
-      priceCurrency: code,
-      availability: "https://schema.org/InStock",
-      validFrom: OFFER_VALID_FROM,
-      seller: { "@id": ORGANIZATION_ID },
-    })),
-  );
+/** No public prices (Safiya, 2026-11-09): a single priceless Offer, not one per package/currency. */
+function offer(): JsonLd {
+  return {
+    "@type": "Offer",
+    url: GT_PAGE_URL,
+    availability: "https://schema.org/InStock",
+    seller: { "@id": ORGANIZATION_ID },
+  };
 }
 
+/** Matches the live vendor Event markup; event.venue.address does not decompose cleanly into these parts. */
 function eventLocation(): JsonLd {
-  const suffix = `, ${event.city}, ${event.country}`;
-  const streetAddress = event.venue.address.endsWith(suffix)
-    ? event.venue.address.slice(0, -suffix.length)
-    : event.venue.address;
   return {
     "@type": "Place",
     name: event.venue.officialName,
     address: {
       "@type": "PostalAddress",
-      streetAddress,
-      addressLocality: event.city,
+      streetAddress: "Opposite Frazer Suites, Tropic Galleria",
+      addressLocality: "Central Business District, Abuja",
       addressRegion: "FCT",
       addressCountry: "NG",
     },
@@ -237,7 +215,9 @@ function eventNode(): JsonLd {
       "@id": ORGANIZATION_ID,
       "@type": "Organization",
       name: ORG_NAME,
-      url: `${GT_SITE}/`,
+      url: GT_SITE,
+      email: event.contactDetails.email,
+      telephone: event.contactDetails.phones.map((phone) => phone.tel),
     },
     contributor: event.organisers.logos.map((logo) => ({
       "@type": "Organization",
@@ -248,8 +228,7 @@ function eventNode(): JsonLd {
       ...event.dignitaries.map(featuredPerson),
       ...event.speakers.map(featuredPerson),
     ],
-    offers: offers(),
-    isAccessibleForFree: false,
+    offers: offer(),
   };
 }
 
@@ -290,6 +269,10 @@ function assertGraph(graph: JsonLd[]) {
   }
   if (JSON.stringify(graph).toLowerCase().includes("thegrandtable.com")) {
     throw new Error("Grand Table JSON-LD must not reference thegrandtable.com.");
+  }
+  const serialized = JSON.stringify(graph).toLowerCase();
+  if (serialized.includes("price") || /\b\d{3,}(\.\d+)?\s*(usd|ngn|aed|inr)\b/.test(serialized)) {
+    throw new Error("Grand Table JSON-LD must not publish any price, priceCurrency, or ticket amount (Safiya, 2026-11-09).");
   }
 }
 
