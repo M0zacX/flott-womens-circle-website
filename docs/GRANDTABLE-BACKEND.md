@@ -84,6 +84,10 @@ Seeded rows are flagged so they can be told apart from real submissions and clea
 
 On every successful submission, the API also sends the admin notification to every address in `ADMIN_NOTIFY_TO` (comma separated, trimmed, empty entries skipped). If `ADMIN_NOTIFY_TO` is empty, no admin email is sent. Errors sending the admin notification are caught and logged; they never fail the submission request.
 
+## FlottHive forwarding
+
+Right after the D1 insert, the submit API fire-and-forgets a copy of the submission to FlottHive ingest (`src/lib/gt/flotthive.ts`), signed per site key `fwc`. Forwarding is fail-safe: it is skipped (with a `console.warn`) if `FLOTTHIVE_INGEST_URL` or `FLOTTHIVE_INGEST_SECRET` is unset, and any request failure is caught and logged — the submitter's `{ok:true,id}` response is never delayed or affected. On Cloudflare, the request runs via `locals.runtime.ctx.waitUntil` so it completes after the response is sent.
+
 ## Payments
 
 `src/lib/gt/payments.ts` is a disabled placeholder: `createPaymentIntent`, `verifyPayment`, and `getPaymentStatus` all throw "Payments not activated". `isPaymentsEnabled(env)` reads `PAYMENTS_ENABLED`, which is `"false"` in `wrangler.toml` `[vars]`. The admin header shows a permanent "Payments: not activated" pill while this is off. No payment provider is integrated; this stays disabled until the client approves a provider and flow.

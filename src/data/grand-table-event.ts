@@ -683,7 +683,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is there a delegate participation fee?",
-    a: `Yes. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}) and Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)} (${fmt.ngn(entryPackages[0].price.ngn)} · ${fmt.aed(entryPackages[0].price.aed)} · ${fmt.inr(entryPackages[0].price.inr)}), food and beverages included. ${currencyDisclaimer} Payment details are shared after your registration is reviewed.`,
+    a: "Registration is a free expression of interest, and applications are reviewed manually. Invited guests receive a private payment link, with food and beverages included.",
   },
   {
     q: "What sponsorship packages are available?",

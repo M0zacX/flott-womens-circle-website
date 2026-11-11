@@ -62,7 +62,7 @@ const CONFIRMATIONS: Record<string, { subject: string; heading: string; message:
     subject: "We received your registration",
     heading: "Registration received",
     message:
-      "Thank you for registering for The Grand Table 2026. Our team will review your registration and follow up with details, including the delegate participation fee where applicable.",
+      "Thank you for registering for The Grand Table 2026. Our team will review your registration and, if invited, send you a private payment link with next steps.",
   },
   investor: {
     subject: "We received your enquiry",
