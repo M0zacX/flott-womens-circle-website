@@ -109,6 +109,12 @@ function formatFileSize(bytes: number): string {
       <h1 class="gta-detail-title">{form.title}{row.is_test === 1 && <span class="gta-test-tag">Test</span>}</h1>
 
       <div class="gta-detail-grid">
+        {data.reference && (
+          <div class="gta-detail-field">
+            <span class="gta-detail-label">Reference</span>
+            <span class="gta-detail-value">{data.reference}</span>
+          </div>
+        )}
         {form.fields.map((field) => (
           <div class={`gta-detail-field ${field.full ? "gta-detail-field-full" : ""}`}>
             <span class="gta-detail-label">{field.label}</span>

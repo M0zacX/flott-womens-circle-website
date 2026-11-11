@@ -55,26 +55,22 @@ const CONFIRMATIONS: Record<string, { subject: string; heading: string; message:
   enterprise: {
     subject: "We received your Expression of Interest",
     heading: "Expression of Interest received",
-    message:
-      "Thank you for applying as an enterprise for The Grand Table 2026. Our team will review your submission and shortlisted enterprises will be contacted with next steps.",
+    message: "Thank you for applying as an enterprise for The Grand Table 2026.",
   },
   delegate: {
     subject: "We received your registration",
     heading: "Registration received",
-    message:
-      "Thank you for registering for The Grand Table 2026. Our team will review your registration and, if invited, send you a private payment link with next steps.",
+    message: "Thank you for registering for The Grand Table 2026.",
   },
   investor: {
     subject: "We received your enquiry",
     heading: "Enquiry received",
-    message:
-      "Thank you for your interest in investing or partnering with The Grand Table 2026. Our partnerships team will review your enquiry and follow up with tailored opportunities.",
+    message: "Thank you for your interest in investing or partnering with The Grand Table 2026.",
   },
   sponsor: {
     subject: "We received your sponsorship enquiry",
     heading: "Sponsorship enquiry received",
-    message:
-      "Thank you for your interest in sponsoring The Grand Table 2026. Our partnerships team will follow up with the sponsorship brochure and next steps.",
+    message: "Thank you for your interest in sponsoring The Grand Table 2026.",
   },
   contact: {
     subject: "We received your message",
@@ -83,13 +79,28 @@ const CONFIRMATIONS: Record<string, { subject: string; heading: string; message:
   },
 };
 
-export function confirmationEmail(form: FormConfig, name: string): { subject: string; html: string } {
+export function confirmationEmail(form: FormConfig, name: string, reference?: string): { subject: string; html: string } {
   const copy = CONFIRMATIONS[form.id] ?? CONFIRMATIONS.contact;
   const greeting = escapeHtml(name || "there");
+
+  if (!reference) {
+    const body = `
+      <h1 style="margin:0 0 16px;font-size:20px;font-weight:400;color:#0B0B0C;">${copy.heading}</h1>
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Dear ${greeting},</p>
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">${copy.message}</p>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Abuja, Nigeria &middot; Saturday 5 December 2026</p>
+    `;
+    return { subject: copy.subject, html: baseTemplate(body) };
+  }
+
   const body = `
     <h1 style="margin:0 0 16px;font-size:20px;font-weight:400;color:#0B0B0C;">${copy.heading}</h1>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Dear ${greeting},</p>
     <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">${copy.message}</p>
+    <p style="margin:0 0 20px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9A7B45;">Your reference</p>
+    <p style="margin:-16px 0 20px;font-size:22px;font-family:Georgia,'Times New Roman',serif;letter-spacing:0.04em;color:#0B0B0C;">${escapeHtml(reference)}</p>
+    <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Your registration request is under review.</p>
+    <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Our team reviews every application. If approved, you will receive an email with confirmation and event access details, or details about your participation category. You can reply to this email quoting your reference with any questions.</p>
     <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(11,11,12,0.75);">Abuja, Nigeria &middot; Saturday 5 December 2026</p>
   `;
   return { subject: copy.subject, html: baseTemplate(body) };
@@ -127,12 +138,15 @@ export function adminNotificationEmail(
   data: Record<string, string>,
   submittedAtWat: string,
   adminUrl: string,
-  opts: { file?: AdminFileInfo; isTest?: boolean } = {}
+  opts: { file?: AdminFileInfo; isTest?: boolean; reference?: string } = {}
 ): { subject: string; html: string; text: string } {
   const short = FORM_SHORT[form.id] ?? { name: form.title, kind: "submission" };
   const who = data.companyName || data.organisation || data.organization || data.fullName || data.contactName || data.email || "New applicant";
   const subject = `${opts.isTest ? "[TEST] " : ""}New ${short.name} ${short.kind} – ${who}`;
   const file = opts.file ?? { state: "none" };
+  const referenceLine = opts.reference
+    ? `<p style="margin:0 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:rgba(11,11,12,0.65);">Reference: <strong>${escapeHtml(opts.reference)}</strong></p>`
+    : "";
 
   const rowsData = form.fields.map((field) => {
     if (field.type === "file") {
@@ -181,6 +195,7 @@ export function adminNotificationEmail(
     <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9A7B45;margin:0 0 8px;">${escapeHtml(form.title)}</div>
     <h1 style="margin:0 0 6px;font-size:24px;font-weight:400;line-height:1.3;color:#0B0B0C;">${escapeHtml(who)}</h1>
     <p style="margin:0 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:rgba(11,11,12,0.55);">Submitted ${escapeHtml(submittedAtWat)}</p>
+    ${referenceLine}
     ${replyHint}
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid rgba(154,123,69,0.2);border-radius:8px;overflow:hidden;margin:0 0 24px;">
       ${rows}
@@ -192,6 +207,7 @@ export function adminNotificationEmail(
     opts.isTest ? "[TEST SUBMISSION]" : "",
     `${form.title}: ${who}`,
     `Submitted ${submittedAtWat}`,
+    ...(opts.reference ? [`Reference: ${opts.reference}`] : []),
     "",
     ...rowsData.map((r) => `${r.label}: ${r.text}`),
     "",

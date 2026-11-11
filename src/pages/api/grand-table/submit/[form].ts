@@ -8,6 +8,7 @@ import { sendEmail } from "../../../../lib/gt/email";
 import { confirmationEmail, adminNotificationEmail, type AdminFileInfo } from "../../../../lib/gt/templates";
 import { formatDateTime } from "../../../../lib/gt/dates";
 import { forwardGrandTableSubmission } from "../../../../lib/gt/flotthive";
+import { ensureUniqueReference, generateReference } from "../../../../lib/gt/reference";
 
 export const prerender = false;
 
@@ -41,7 +42,8 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
   const formData = await request.formData();
 
   if (formData.get(HONEYPOT_FIELD)) {
-    return jsonResponse({ ok: true, id: crypto.randomUUID() }, 200);
+    const fakeReference = form.id === "contact" ? undefined : generateReference();
+    return jsonResponse({ ok: true, id: crypto.randomUUID(), ...(fakeReference ? { reference: fakeReference } : {}) }, 200);
   }
 
   const uploadsEnabled = Boolean(locals.runtime.env.GT_UPLOADS);
@@ -55,6 +57,13 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
   const id = crypto.randomUUID();
   const createdAt = new Date().toISOString();
   const name = pickName(data);
+
+  delete data.reference; // never trust a client-posted reference
+  let reference: string | undefined;
+  if (form.id !== "contact") {
+    reference = await ensureUniqueReference(env.GT_DB);
+    data.reference = reference;
+  }
 
   let fileKey: string | undefined;
   let fileName: string | undefined;
@@ -90,7 +99,7 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
   });
 
   if (data.email) {
-    const { subject, html } = confirmationEmail(form, name ?? "");
+    const { subject, html } = confirmationEmail(form, name ?? "", reference);
     await sendEmail(env, { to: data.email, subject, html });
   }
 
@@ -119,6 +128,7 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       const { subject, html, text } = adminNotificationEmail(form, data, formatDateTime(createdAt), adminUrl, {
         file: fileInfo,
         isTest: env.GT_TEST_SUBJECTS === "true",
+        reference,
       });
       await sendEmail(env, { to: adminRecipients, subject, html, text, replyTo: data.email, attachments });
     } catch (error) {
@@ -126,5 +136,5 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
     }
   }
 
-  return jsonResponse({ ok: true, id }, 200);
+  return jsonResponse({ ok: true, id, ...(reference ? { reference } : {}) }, 200);
 };

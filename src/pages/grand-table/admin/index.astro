@@ -183,6 +183,7 @@ const redirectTo = `${url.pathname}${url.search}`;
               </th>
             )}
             {showSectorColumn && <th aria-label="PDF uploaded"></th>}
+            <th>Reference</th>
             <th>Status</th>
             <th>
               <a class="gta-th-sort" href={sortLink("created")}>
@@ -195,7 +196,7 @@ const redirectTo = `${url.pathname}${url.search}`;
         <tbody>
           {rows.length === 0 && (
             <tr>
-              <td colspan={columns.length + (showSectorColumn ? 2 : 0) + 3} class="gta-empty">No submissions yet</td>
+              <td colspan={columns.length + (showSectorColumn ? 2 : 0) + 4} class="gta-empty">No submissions yet</td>
             </tr>
           )}
           {parsedRows.map(({ row, data }) => {
@@ -220,6 +221,7 @@ const redirectTo = `${url.pathname}${url.search}`;
                     )}
                   </td>
                 )}
+                <td>{data.reference || ""}</td>
                 <td><span class={`gta-status gta-status-${row.status}`}>{row.status}</span></td>
                 <td>{formatDate(row.created_at)}</td>
                 <td class="gta-row-chevron" aria-hidden="true">
@@ -246,6 +248,7 @@ const redirectTo = `${url.pathname}${url.search}`;
               {secondary && <span class="gta-card-company">{secondary}</span>}
             </div>
             {email && <div class="gta-card-email">{email}</div>}
+            {data.reference && <div class="gta-card-email">Ref: {data.reference}</div>}
             {showSectorColumn && (data.sector || row.file_key) && (
               <div class="gta-card-sector">
                 {data.sector && <span>{data.sector}</span>}
