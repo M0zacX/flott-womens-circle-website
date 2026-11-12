@@ -45,6 +45,14 @@ D1 table `submissions` (migrations `migrations/0001_init.sql` + `migrations/0002
 
 A `content` table exists (key/value) as a placeholder for future editable page content; nothing writes to it yet.
 
+## Reference numbers
+
+Every non-contact submission (enterprise, delegate, investor, sponsor) gets a human-readable reference: `GT26-` followed by 6 characters from an unambiguous uppercase alphabet (no `0`/`O`, `1`/`I`/`L`), generated with `crypto.getRandomValues` (`src/lib/gt/reference.ts`). There is no dedicated column: it is stored as `data.reference` inside the submission's `data` JSON blob, so it needs no schema change and is forwarded to FlottHive as part of `data` automatically.
+
+- `generateReference()` builds one candidate. `ensureUniqueReference(db)` generates and checks `SELECT 1 FROM submissions WHERE json_extract(data, '$.reference') = ?` up to 8 times, throwing if every attempt collides.
+- The submit API (`src/pages/api/grand-table/submit/[form].ts`) strips any client-posted `reference` before validating, then calls `ensureUniqueReference` for every form except `contact` and writes the result into `data.reference`. The honeypot early-return also returns a (unstored) fake reference for non-contact forms, matching the shape of a real response.
+- Returned to the client as `{ ok, id, reference }`, shown on the form's thank-you screen, included in both the registrant confirmation and admin notification emails, and visible in the admin list, detail view and CSV export.
+
 ## Auth
 
 Admin auth is a single shared password, not per-user accounts:
@@ -79,8 +87,8 @@ Seeded rows are flagged so they can be told apart from real submissions and clea
 
 `src/lib/gt/email.ts` wraps the Resend API. `sendEmail()` only calls Resend when `EMAIL_ENABLED === "true"` **and** `RESEND_API_KEY` is set; otherwise it logs to console and returns (the stubbed/dev default). `sendEmail()` accepts a single address or an array for `to`. Templates live in `src/lib/gt/templates.ts`:
 
-- `confirmationEmail(form, name)`: one confirmation per form, picked by `form.id` (falls back to the contact template). The submit API sends this to the submitter's email if one was provided.
-- `adminNotificationEmail(form, data, submittedAtWat, adminUrl)`: jet header, champagne rule, "New `<form title>` submission" heading, the first six configured fields for that form, the submitted time in WAT, and a jet "Open in admin" button linking to `<origin>/grand-table/admin/<form>/<id>`. It never includes the uploaded PDF.
+- `confirmationEmail(form, name, reference?)`: one confirmation per form, picked by `form.id` (falls back to the contact template). The submit API sends this to the submitter's email if one was provided. When a `reference` is passed (every form except `contact`), the email shows the reference number and says the registration request is under review instead of mentioning payment.
+- `adminNotificationEmail(form, data, submittedAtWat, adminUrl, opts)`: jet header, champagne rule, "New `<form title>` submission" heading, the reference (when `opts.reference` is set), the first six configured fields for that form, the submitted time in WAT, and a jet "Open in admin" button linking to `<origin>/grand-table/admin/<form>/<id>`. It never includes the uploaded PDF.
 
 On every successful submission, the API also sends the admin notification to every address in `ADMIN_NOTIFY_TO` (comma separated, trimmed, empty entries skipped). If `ADMIN_NOTIFY_TO` is empty, no admin email is sent. Errors sending the admin notification are caught and logged; they never fail the submission request.
 

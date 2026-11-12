@@ -22,10 +22,11 @@ export const GET: APIRoute = async ({ params, url, cookies, locals, redirect }) 
   const sectorParam = url.searchParams.get("sector") || undefined;
   const rows = await listAllForExport(env.GT_DB, { form: form.id, status: statusParam, sector: sectorParam });
 
-  const header = [...form.fields.map((f) => f.label), "Status", "Created", "Submitted (WAT)", "Notes"];
+  const header = ["Reference", ...form.fields.map((f) => f.label), "Status", "Created", "Submitted (WAT)", "Notes"];
   const body = rows.map((row) => {
     const data = JSON.parse(row.data) as Record<string, string>;
     return [
+      data.reference ?? "",
       ...form.fields.map((f) => (f.type === "file" ? row.file_name ?? "" : data[f.name] ?? "")),
       row.status,
       row.created_at,
