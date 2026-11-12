@@ -7,6 +7,7 @@ import { enterpriseFileKey, putFile } from "../../../../lib/gt/storage";
 import { sendEmail } from "../../../../lib/gt/email";
 import { confirmationEmail, adminNotificationEmail, type AdminFileInfo } from "../../../../lib/gt/templates";
 import { formatDateTime } from "../../../../lib/gt/dates";
+import { forwardGrandTableSubmission } from "../../../../lib/gt/flotthive";
 
 export const prerender = false;
 
@@ -76,6 +77,16 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
     fileName,
     fileSize,
     createdAt,
+  });
+
+  forwardGrandTableSubmission({
+    env,
+    ctx: locals.runtime.ctx,
+    formKey: form.id,
+    submissionId: id,
+    data,
+    createdAt,
+    request,
   });
 
   if (data.email) {

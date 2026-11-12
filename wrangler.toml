@@ -38,6 +38,10 @@ GT_TEST_SUBJECTS = "false"
 # RESEND_API_KEY
 # SESSION_SECRET
 
+# FlottHive forwarding (optional; submissions still save to D1 if unset):
+# FLOTTHIVE_INGEST_URL  — e.g. "https://flotthive-preview.damozacx.workers.dev" (or the production FlottHive origin, when approved). Set as a var when ready.
+# FLOTTHIVE_INGEST_SECRET — set with `npx wrangler secret put FLOTTHIVE_INGEST_SECRET` (HMAC secret for site key "fwc"; never commit it).
+
 # Cloudflare send_email binding: free admin notifications to verified destinations only.
 # Requires Email Routing enabled on the notify.flottwomenscircle.com SUBDOMAIN (root MX stays on Zoho)
 # and info@flottwomenscircle.com verified as a destination address.

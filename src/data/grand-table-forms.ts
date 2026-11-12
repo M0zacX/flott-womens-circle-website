@@ -4,7 +4,7 @@
 // (see src/pages/api/grand-table/submit/[form].ts and docs/GRANDTABLE-BACKEND.md).
 // Field lists, labels and options are placeholders until the client signs off on final requirements.
 
-import { fmt, entryPackages, sponsorPackages, currencyDisclaimer } from "./grand-table-event";
+import { sponsorPackages } from "./grand-table-event";
 
 export type Field = {
   name: string;
@@ -100,8 +100,9 @@ const enterprise: FormConfig = {
 const delegate: FormConfig = {
   id: "delegate",
   title: "Delegate, Investor and Partner Registration",
-  intro: `International delegates, investors and partners register here for The Grand Table 2026. General Admission is ${fmt.usd(entryPackages[1].price.usd)} (${fmt.ngn(entryPackages[1].price.ngn)} · ${fmt.aed(entryPackages[1].price.aed)} · ${fmt.inr(entryPackages[1].price.inr)}); Early Bird Entry is ${fmt.usd(entryPackages[0].price.usd)}. ${currencyDisclaimer} No payment is taken on this form.`,
-  submitLabel: "Submit registration",
+  intro:
+    "International delegates, investors and partners register here for The Grand Table 2026. This is a free expression of interest — no payment is taken on this form. Applications are reviewed manually, and invited guests receive a private payment link.",
+  submitLabel: "Submit your interest",
   fields: [
     { name: "participantType", label: "Participant type", type: "select", required: true, options: ["International delegate", "Investor", "Partner or institution"] },
     { name: "fullName", label: "Full name", type: "text", required: true },

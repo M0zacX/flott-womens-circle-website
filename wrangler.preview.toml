@@ -33,3 +33,7 @@ ADMIN_NOTIFY_TO = "info@flottwomenscircle.com"
 [[send_email]]
 name = "SEND_EMAIL"
 allowed_destination_addresses = ["info@flottwomenscircle.com"]
+
+# FlottHive forwarding (optional; submissions still save to D1 if unset):
+# FLOTTHIVE_INGEST_URL  — e.g. "https://flotthive-preview.damozacx.workers.dev" (or the production FlottHive origin, when approved). Set as a var when ready.
+# FLOTTHIVE_INGEST_SECRET — set with `npx wrangler secret put FLOTTHIVE_INGEST_SECRET` (HMAC secret for site key "fwc"; never commit it).

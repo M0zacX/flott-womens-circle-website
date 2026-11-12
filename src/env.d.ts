@@ -50,12 +50,15 @@ type GTRuntimeEnv = {
   GT_TEST_SUBJECTS?: string;
   SEND_EMAIL?: import("./lib/gt/email").SendEmailBinding;
   SESSION_SECRET: string;
+  FLOTTHIVE_INGEST_URL?: string;
+  FLOTTHIVE_INGEST_SECRET?: string;
 };
 
 declare namespace App {
   interface Locals {
     runtime: {
       env: GTRuntimeEnv;
+      ctx?: { waitUntil(promise: Promise<unknown>): void };
     };
   }
 }
