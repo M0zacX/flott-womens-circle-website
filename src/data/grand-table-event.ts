@@ -461,7 +461,6 @@ export const event = {
     person("speakers", "hansatu-zannah", "H.E. Hajiya Hansatu Zannah", "Entrepreneur | Philanthropist"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
-    person("speakers", "batoul-kherbiek", "Dr Batoul Salman Kherbiek", "Global Bridge Builder, Imperial UK"),
     person(
       "speakers",
       "haliconic-al-jarrah",
@@ -470,11 +469,6 @@ export const event = {
     ),
     person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
     person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
-    {
-      name: "Ekaterina Zeynalova",
-      title: "Founder, Berkeley Middle East; Relationship Director, Voice of Global Women",
-      image: { src: "/images/speaker-ekaterina-zeynalova.jpg", alt: "Ekaterina Zeynalova", width: 800, height: 1000 },
-    },
   ] satisfies Speaker[],
 
   dignitaries: [
@@ -495,7 +489,6 @@ export const event = {
     { name: "doTERRA", src: "/images/grand-table/companies/doterra.webp", width: 252, height: 158, displayHeight: 63 },
     { name: "Knightsbridge Group", src: "/images/grand-table/companies/knightsbridge-group.webp", width: 280, height: 142, displayHeight: 57 },
     { name: "Sidra Healthcare", src: "/images/grand-table/companies/sidra-healthcare.webp", width: 284, height: 140, displayHeight: 56 },
-    { name: "Skyway Global Pathways", src: "/images/grand-table/companies/skyway-global-pathways.webp", width: 1280, height: 726, displayHeight: 48 },
     { name: "Carlos Odili Oil and Gas Ltd.", src: "/images/grand-table/companies/carlos-odili-oil-gas.webp", width: 800, height: 146, displayHeight: 48 },
   ] satisfies CompanyLogo[],
 
@@ -620,9 +613,9 @@ export const event = {
     },
     companies: {
       eyebrow: "At the Table",
-      heading: "Participating companies",
+      heading: "In Partnership with",
+      companiesLabel: "Participating companies",
       mediaLabel: "Media partner",
-      institutionalLabel: "In Partnership with",
     },
     speakers: {
       eyebrow: "Voices at the Table",
