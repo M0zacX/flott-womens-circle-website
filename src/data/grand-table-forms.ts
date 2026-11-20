@@ -9,7 +9,7 @@ import { sponsorPackages } from "./grand-table-event";
 export type Field = {
   name: string;
   label: string;
-  type: "text" | "email" | "tel" | "url" | "select" | "textarea" | "file" | "country" | "number" | "checkbox";
+  type: "text" | "email" | "tel" | "url" | "select" | "textarea" | "file" | "image" | "country" | "number" | "checkbox";
   required?: boolean;
   options?: string[];
   accept?: string;
@@ -89,11 +89,12 @@ const enterprise: FormConfig = {
     { name: "seeking", label: "What you are seeking", type: "select", required: true, options: ["Investment", "Partnerships", "Market access", "Expansion support", "Other"] },
     { name: "description", label: "Brief business description", type: "textarea", required: true, full: true },
     { name: "companyProfile", label: "Company profile", type: "file", accept: "application/pdf", required: true, full: true, helper: "PDF only, max 10 MB" },
+    { name: "badgePhoto", label: "Your photo for your event badge", type: "image", full: true, helper: "Optional — a clear, front-facing headshot of the attendee. JPG, PNG, WEBP or HEIC, max 8 MB." },
   ],
   steps: [
     { label: "Company", fields: ["companyName", "website", "country", "cityState", "sector", "yearEstablished", "employees", "revenue"] },
     { label: "Contact", fields: ["contactName", "jobTitle", "email", "phone"] },
-    { label: "Details", fields: ["seeking", "description", "companyProfile"] },
+    { label: "Details", fields: ["seeking", "description", "companyProfile", "badgePhoto"] },
   ],
 };
 
@@ -115,6 +116,7 @@ const delegate: FormConfig = {
     { name: "focus", label: "Investment or partnership focus", type: "select", required: true, options: ["Investment", "Partnership", "Market entry", "Networking", "Other"] },
     { name: "visaLetter", label: "Visa invitation letter required", type: "select", required: true, options: ["Yes", "No"] },
     { name: "notes", label: "Additional notes", type: "textarea", full: true },
+    { name: "badgePhoto", label: "Your photo for your event badge", type: "image", full: true, helper: "Optional — a clear, front-facing headshot. JPG, PNG, WEBP or HEIC, max 8 MB." },
   ],
 };
 

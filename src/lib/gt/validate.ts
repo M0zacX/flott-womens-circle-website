@@ -7,6 +7,9 @@ export type ValidationResult = {
   errors: ValidationErrors;
   data: Record<string, string>;
   file: File | null;
+  /** Optional badge headshot (image field). Independent of the PDF `file` and of GT_UPLOADS — it is
+   * forwarded to FlottHive, not stored in this site's R2. */
+  photo: File | null;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,14 +17,31 @@ const TEL_RE = /^[0-9+()\-.\s]{6,20}$/;
 const URL_RE = /^https?:\/\/[^\s]+\.[^\s]+/i;
 const PDF_MAGIC = [0x25, 0x50, 0x44, 0x46];
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
 
 export async function validateSubmission(form: FormConfig, formData: FormData, opts: { uploadsEnabled?: boolean } = {}): Promise<ValidationResult> {
   const errors: ValidationErrors = {};
   const data: Record<string, string> = {};
   let file: File | null = null;
+  let photo: File | null = null;
 
   for (const field of form.fields) {
     const raw = formData.get(field.name);
+
+    if (field.type === "image") {
+      const candidate = raw instanceof File ? raw : null;
+      if (!candidate || candidate.size === 0) {
+        if (field.required) errors[field.name] = `${field.label} is required`;
+        continue;
+      }
+      const photoError = await validatePhotoFile(candidate);
+      if (photoError) {
+        errors[field.name] = photoError;
+        continue;
+      }
+      photo = candidate;
+      continue;
+    }
 
     if (field.type === "file") {
       if (opts.uploadsEnabled === false) continue;
@@ -67,7 +87,29 @@ export async function validateSubmission(form: FormConfig, formData: FormData, o
     data[field.name] = value;
   }
 
-  return { errors, data, file };
+  return { errors, data, file, photo };
+}
+
+// Supported badge-photo types, by magic bytes (content-type headers are client-controlled). Mirrors
+// FlottHive's src/lib/photo.ts so what we accept here is exactly what it will accept on ingest.
+const HEIF_BRANDS = new Set(["heic", "heix", "heim", "heis", "hevc", "hevx", "mif1", "msf1", "heif"]);
+
+function looksLikeImage(bytes: Uint8Array): boolean {
+  if (bytes.length < 12) return false;
+  if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return true; // JPEG
+  if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return true; // PNG
+  if (bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 && bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50) return true; // WEBP
+  if (bytes[4] === 0x66 && bytes[5] === 0x74 && bytes[6] === 0x79 && bytes[7] === 0x70) {
+    return HEIF_BRANDS.has(String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11])); // HEIC/HEIF
+  }
+  return false;
+}
+
+async function validatePhotoFile(file: File): Promise<string | null> {
+  if (file.size > MAX_PHOTO_BYTES) return "Photo must be 8 MB or smaller";
+  const head = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+  if (!looksLikeImage(head)) return "Use a JPG, PNG, WEBP or HEIC image";
+  return null;
 }
 
 function validateFieldValue(field: Field, value: string): string | null {

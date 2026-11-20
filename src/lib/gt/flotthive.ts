@@ -56,6 +56,46 @@ export async function postToFlottHive(
   });
 }
 
+/** base64-encode binary without blowing the call stack on multi-MB files. */
+function toBase64(bytes: Uint8Array): string {
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary);
+}
+
+/** Uploads a badge headshot to FlottHive's signed photo-ingest endpoint and returns the hosted URL,
+ * or null on any failure (a missing photo must never block the registration). Authenticated by the
+ * same per-site HMAC secret as form forwarding. */
+export async function uploadPhotoToFlottHive(ingestUrl: string, secret: string, photo: File): Promise<string | null> {
+  try {
+    const bytes = new Uint8Array(await photo.arrayBuffer());
+    const rawBody = JSON.stringify({ dataBase64: toBase64(bytes) });
+    const timestamp = Math.floor(Date.now() / 1000);
+    const signature = await signFlottHiveBody(secret, timestamp, rawBody);
+    const res = await fetch(`${ingestUrl.replace(/\/+$/, "")}/api/ingest/${SITE_KEY}/photo`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-FH-Timestamp": String(timestamp),
+        "X-FH-Signature": signature,
+      },
+      body: rawBody,
+    });
+    if (!res.ok) {
+      console.error(`FlottHive photo upload failed: ${res.status} ${res.statusText}`);
+      return null;
+    }
+    const json = (await res.json()) as { url?: unknown };
+    return typeof json.url === "string" ? json.url : null;
+  } catch (error) {
+    console.error("FlottHive photo upload failed", error);
+    return null;
+  }
+}
+
 function extractUtm(request: Request, data: Record<string, string>): Record<string, string> {
   const utm: Record<string, string> = {};
   const url = new URL(request.url);

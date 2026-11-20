@@ -7,7 +7,7 @@ import { enterpriseFileKey, putFile } from "../../../../lib/gt/storage";
 import { sendEmail } from "../../../../lib/gt/email";
 import { confirmationEmail, adminNotificationEmail, type AdminFileInfo } from "../../../../lib/gt/templates";
 import { formatDateTime } from "../../../../lib/gt/dates";
-import { forwardGrandTableSubmission } from "../../../../lib/gt/flotthive";
+import { forwardGrandTableSubmission, uploadPhotoToFlottHive } from "../../../../lib/gt/flotthive";
 import { ensureUniqueReference, generateReference } from "../../../../lib/gt/reference";
 
 export const prerender = false;
@@ -47,7 +47,7 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
   }
 
   const uploadsEnabled = Boolean(locals.runtime.env.GT_UPLOADS);
-  const { errors, data, file } = await validateSubmission(form, formData, { uploadsEnabled });
+  const { errors, data, file, photo } = await validateSubmission(form, formData, { uploadsEnabled });
 
   if (Object.keys(errors).length > 0) {
     return jsonResponse({ ok: false, errors }, 400);
@@ -87,6 +87,14 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
     fileSize,
     createdAt,
   });
+
+  // If the guest attached a badge headshot, upload it to FlottHive first and carry the hosted URL in
+  // `data.photoUrl` so it forwards with the entry and lands on the badge. Awaited (unlike the
+  // fire-and-forget forward) because the URL must be in `data` before forwarding — but never fatal.
+  if (photo && env.FLOTTHIVE_INGEST_URL && env.FLOTTHIVE_INGEST_SECRET) {
+    const photoUrl = await uploadPhotoToFlottHive(env.FLOTTHIVE_INGEST_URL, env.FLOTTHIVE_INGEST_SECRET, photo);
+    if (photoUrl) data.photoUrl = photoUrl;
+  }
 
   forwardGrandTableSubmission({
     env,
