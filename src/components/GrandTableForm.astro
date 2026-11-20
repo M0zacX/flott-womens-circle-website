@@ -186,6 +186,36 @@ const sections = form.steps
                     </div>
                   )}
 
+                  {field.type === "image" && (
+                    <div class="gtf-image-field" data-image-field>
+                      <label for={id} class="gtf-dropzone gtf-image-dropzone" data-image-dropzone>
+                        <span class="gtf-image-preview" data-image-preview hidden>
+                          <img alt="Badge photo preview" data-image-preview-img />
+                        </span>
+                        <svg class="gtf-dropzone-icon" data-image-icon aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="8" r="4" />
+                          <path d="M4 21a8 8 0 0 1 16 0" />
+                        </svg>
+                        <span class="gtf-dropzone-copy">
+                          <span class="gtf-dropzone-text" data-image-text>Add a headshot</span>
+                          {field.helper && <span class="gtf-dropzone-helper">{field.helper}</span>}
+                        </span>
+                        <input
+                          type="file"
+                          id={id}
+                          name={field.name}
+                          accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif"
+                          required={field.required}
+                          aria-required={field.required ? "true" : undefined}
+                          aria-describedby={describedBy}
+                          class="gtf-file-input"
+                          data-image-input
+                        />
+                      </label>
+                      <button type="button" class="gtf-file-remove gtf-image-remove" data-image-remove hidden>Remove photo</button>
+                    </div>
+                  )}
+
                   {(field.type === "text" || field.type === "email" || field.type === "tel" || field.type === "url" || field.type === "number") && (
                     <input
                       type={field.type}
@@ -830,6 +860,31 @@ const sections = form.steps
       transition: none;
     }
   }
+  .gtf-image-dropzone {
+    position: relative;
+    min-height: 7.5rem;
+  }
+
+  .gtf-image-preview {
+    display: block;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 2px solid var(--gtf-accent);
+    flex: none;
+  }
+
+  .gtf-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gtf-image-remove {
+    margin-top: 0.5rem;
+  }
 </style>
 
 <script>
@@ -972,6 +1027,55 @@ const sections = form.steps
     });
   }
 
+  const MAX_PHOTO_BYTES = 8 * 1024 * 1024;
+
+  function setupImageField(wrapper: Element) {
+    const field = wrapper.querySelector("[data-image-field]");
+    if (!field) return;
+    const input = field.querySelector("[data-image-input]") as HTMLInputElement | null;
+    const preview = field.querySelector("[data-image-preview]") as HTMLElement | null;
+    const previewImg = field.querySelector("[data-image-preview-img]") as HTMLImageElement | null;
+    const icon = field.querySelector("[data-image-icon]") as HTMLElement | null;
+    const textEl = field.querySelector("[data-image-text]") as HTMLElement | null;
+    const removeBtn = field.querySelector("[data-image-remove]") as HTMLButtonElement | null;
+    if (!input) return;
+
+    function reset() {
+      input!.value = "";
+      input!.setCustomValidity("");
+      if (preview) preview.hidden = true;
+      if (previewImg) previewImg.removeAttribute("src");
+      if (icon) icon.hidden = false;
+      if (textEl) textEl.textContent = "Add a headshot";
+      if (removeBtn) removeBtn.hidden = true;
+    }
+
+    input.addEventListener("change", () => {
+      const file = input.files && input.files[0];
+      if (!file) { reset(); return; }
+      if (file.size > MAX_PHOTO_BYTES) {
+        reset();
+        input.setCustomValidity("Photo must be 8 MB or smaller.");
+        showFieldError(wrapper, input, "Photo must be 8 MB or smaller.");
+        return;
+      }
+      input.setCustomValidity("");
+      clearFieldError(wrapper, input);
+      if (textEl) textEl.textContent = file.name;
+      if (removeBtn) removeBtn.hidden = false;
+      if (preview && previewImg && /^image\/(jpe?g|png|webp)$/.test(file.type)) {
+        previewImg.src = URL.createObjectURL(file);
+        preview.hidden = false;
+        if (icon) icon.hidden = true;
+      } else if (preview) {
+        preview.hidden = true;
+        if (icon) icon.hidden = false;
+      }
+    });
+
+    removeBtn?.addEventListener("click", () => { reset(); input.focus(); });
+  }
+
   document.querySelectorAll(".gtf-form").forEach((formEl) => {
     const form = formEl as HTMLFormElement;
     if (form.dataset.gtfInit === "true") return;
@@ -981,6 +1085,7 @@ const sections = form.steps
 
     wrappers.forEach((wrapper) => {
       setupFileField(wrapper);
+      setupImageField(wrapper);
       const control = getControl(wrapper);
       if (!control) return;
       control.addEventListener("blur", () => validateControl(wrapper, control));
