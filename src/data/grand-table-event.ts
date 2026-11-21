@@ -57,7 +57,10 @@ export type Speaker = {
 /** Consistent fallback so every speaker/dignitary card shows a second line, even before a formal title is confirmed. */
 export const SPEAKER_FALLBACK_TITLE = "Voices at the Table";
 
-export type CompanyLogo = { name: string; src: string; width: number; height: number; displayHeight: number };
+/** `wordmark` renders a text tile (two lines) when a brand has no logo file. */
+export type CompanyLogo = { name: string; src: string; width: number; height: number; displayHeight: number; wordmark?: string[] };
+
+export type Country = { name: string; /** ISO 3166-1 alpha-2, lowercase: matches /images/grand-table/flags/<code>.svg */ code: string };
 
 const person = (dir: string, slug: string, name: string, title: string): Speaker => ({
   name,
@@ -518,10 +521,10 @@ export const event = {
     person(
       "speakers",
       "taqwa-abdul-monem-el-tahir",
-      "Taqwa Abdul Monem el Tahir",
+      "Taqwa Abdul Monem El Tahir",
       "Director of Corporate Relations & Strategic Partnerships, Flott Middle East",
     ),
-    person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder & CEO, Minasu International"),
+    person("speakers", "namrata-lodhiya", "Namrata Lodhiya", "Founder, Meenasu Foodstuff International"),
     person("speakers", "hansatu-zannah", "H.E. Hajiya Hansatu Zannah", "Entrepreneur | Philanthropist"),
     person("speakers", "magdy-al-sheikh", "Magdy Al Sheikh", "CEO/Founder, Armada Internationals Dubai"),
     person("speakers", "maroua-kotti", "Maroua Kotti", "CEO, Harmonie Medicale Tunisia"),
@@ -533,6 +536,29 @@ export const event = {
     ),
     person("speakers", "daibah-garba", "Barrister Mrs Daibah Garba", "Legal Consultant, Federal Ministry of Justice"),
     person("speakers", "aisha-bilal", "Aisha Bilal", "Founder/CEO, Structured Spaces"),
+    person("speakers", "mohammad-hassan-mahmoud", "Mohammad Hassan Mahmoud", "Head of Sales, Deniz Properties UAE"),
+    person("speakers", "osama-slimi", "Osama Slimi", "Sales Manager, Deniz Properties UAE"),
+    person("speakers", "giovanni-umberto-calabrese", "Giovanni Umberto Calabrese", "President, Board of Directors, Coopselios Group"),
+    person("speakers", "danilo-iervolino", "Danilo Iervolino", "Founder, Università Telematica Pegaso"),
+    person(
+      "speakers",
+      "gimba-kakanda",
+      "Gimba Kakanda",
+      "Senior Special Assistant to the President on Research and Analytics, Office of the Vice President",
+    ),
+    person("speakers", "ini-abimbola", "Dr. Mrs. Ini Abimbola", SPEAKER_FALLBACK_TITLE),
+    person("speakers", "idris-olohunmibe", "Idris Olohunmibe", "Chairman, Nigerian Communications Commission (NCC)"),
+    person("speakers", "aisha-babangida", "Hajiya Aisha Babangida", "Chairperson, Better Life Programme for the African Rural Woman"),
+    person("speakers", "agbaoye-kola-kareem", "Agbaoye Kola Kareem", "Chairman, Shoreline Group"),
+    person("speakers", "mashood-kayode-akiolu", "Prince Mashood Kayode Akiolu", "Member, House of Representatives, Lagos"),
+    person("speakers", "aisha-salisu", "Aisha Salisu", "Founder, March Energy and Oil"),
+    person("speakers", "abike-dabiri-erewa", "Hon. Dr. Abike Dabiri-Erewa, OON", "Chairman/CEO, Nigerians in Diaspora Commission (NIDCOM)"),
+    person("speakers", "debela-sisay-nigusie", "Debela Sisay Nigusie", "Founder, Dairy Sheep & Goats Farm, Ethiopia"),
+    person("speakers", "tigist-mamuye-kebede", "Tigist Mamuye Kebede", "Founder, Ilu General Trading; GM, Meseret Amanuel & Friends"),
+    person("speakers", "carlos-odili", "Dr. Hon. Engr. Chief Carlos Odili", "Chairman, Odili Oil & Gas"),
+    person("speakers", "nadia-afzal", "Nadia Afzal", "Elite Real Estate Advisor"),
+    person("speakers", "anita-mawussime-djissenou", "Anita Mawussime Djissenou", "Founder, Maison Anita"),
+    person("speakers", "rita-chioma-ogbuagu", "Rita Chioma Ogbuagu", "Co-Founder & CEO, Flott Beauty PH"),
   ] satisfies Speaker[],
 
   dignitaries: [
@@ -544,29 +570,72 @@ export const event = {
   ] satisfies Speaker[],
 
   companies: [
-    { name: "Horrie Autos Limited", src: "/images/grand-table/companies/horrie-autos.webp", width: 282, height: 141, displayHeight: 57 },
-    { name: "Structured Spaces", src: "/images/grand-table/companies/structured-spaces.webp", width: 275, height: 145, displayHeight: 58 },
-    { name: "FertiClinic Ras Al Khaimah", src: "/images/grand-table/companies/ferticlinic-rak.webp", width: 403, height: 98, displayHeight: 39 },
-    { name: "DTOPAZ Jewellery", src: "/images/grand-table/companies/dtopaz-jewellery.webp", width: 106, height: 199, displayHeight: 80 },
-    { name: "Meenasu Foodstuff Trading LLC", src: "/images/logo-meenasu.png", width: 1152, height: 1144, displayHeight: 75 },
-    { name: "TourMate", src: "/images/grand-table/companies/tourmate.webp", width: 342, height: 115, displayHeight: 46 },
-    { name: "doTERRA", src: "/images/grand-table/companies/doterra.webp", width: 252, height: 158, displayHeight: 63 },
-    { name: "Knightsbridge Group", src: "/images/grand-table/companies/knightsbridge-group.webp", width: 280, height: 142, displayHeight: 57 },
-    { name: "Sidra Healthcare", src: "/images/grand-table/companies/sidra-healthcare.webp", width: 284, height: 140, displayHeight: 56 },
+    { name: "Futuristic Homes", src: "/images/grand-table/companies/futuristic-homes.webp", width: 600, height: 249, displayHeight: 52 },
+    { name: "Horrie Autos Limited", src: "/images/grand-table/companies/horrie-autos.webp", width: 600, height: 302, displayHeight: 57 },
+    { name: "Structured Spaces", src: "/images/grand-table/companies/structured-spaces.webp", width: 312, height: 165, displayHeight: 59 },
+    { name: "Università Telematica Pegaso", src: "/images/grand-table/companies/pegaso.webp", width: 600, height: 170, displayHeight: 42 },
+    { name: "March Energy Nigeria Limited", src: "/images/grand-table/companies/march-energy.webp", width: 600, height: 237, displayHeight: 51 },
+    { name: "Coopselios", src: "/images/grand-table/companies/coopselios.webp", width: 600, height: 158, displayHeight: 40 },
+    { name: "Meenasu Foodstuff Trading LLC", src: "/images/grand-table/companies/meenasu-foodstuff.webp", width: 600, height: 555, displayHeight: 76 },
     { name: "Carlos Odili Oil and Gas Ltd.", src: "/images/grand-table/companies/carlos-odili-oil-gas.webp", width: 800, height: 146, displayHeight: 48 },
+    { name: "FiatMatch", src: "/images/grand-table/companies/fiatmatch.webp", width: 370, height: 111, displayHeight: 44 },
+    { name: "Alcee & Alcina General Services", src: "/images/grand-table/companies/alcee-alcina.webp", width: 600, height: 237, displayHeight: 45 },
+    { name: "TourMate", src: "/images/grand-table/companies/tourmate.webp", width: 600, height: 181, displayHeight: 44 },
+    { name: "Deniz Properties", src: "/images/grand-table/companies/deniz-properties.webp", width: 600, height: 181, displayHeight: 44 },
+    { name: "Jet Black Holdings", src: "", width: 0, height: 0, displayHeight: 0, wordmark: ["JET BLACK", "HOLDINGS"] },
+    { name: "Moniepoint", src: "/images/grand-table/companies/moniepoint.webp", width: 600, height: 149, displayHeight: 37 },
+    { name: "SurgeSquare", src: "/images/grand-table/companies/surgesquare.webp", width: 600, height: 285, displayHeight: 56 },
+    { name: "Glotrade Platform Limited", src: "/images/grand-table/companies/glotrade.webp", width: 600, height: 450, displayHeight: 62 },
+    { name: "African Mineral Rating & Exchange Ltd (AME)", src: "/images/grand-table/companies/ame.webp", width: 600, height: 275, displayHeight: 49 },
+    { name: "Flott Beauty", src: "/images/grand-table/companies/flott-beauty.webp", width: 600, height: 599, displayHeight: 76 },
   ] satisfies CompanyLogo[],
 
   mediaPartners: [
-    { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 64 },
-    { name: "BAAM Network Limited", src: "/images/grand-table/companies/baam-network.webp", width: 800, height: 800, displayHeight: 72 },
+    { name: "TVC News", src: "/images/grand-table/media/tvc-news.webp", width: 462, height: 94, displayHeight: 24 },
+    { name: "Channels Television", src: "/images/grand-table/media/channels-television.webp", width: 600, height: 591, displayHeight: 62 },
+    { name: "Arise News", src: "/images/grand-table/media/arise-news.webp", width: 600, height: 427, displayHeight: 57 },
+    { name: "AIT (Africa Independent Television)", src: "/images/grand-table/media/ait.webp", width: 600, height: 545, displayHeight: 62 },
+    { name: "Trust TV", src: "/images/grand-table/media/trust-tv.webp", width: 417, height: 280, displayHeight: 56 },
+    { name: "NTA (Nigerian Television Authority)", src: "/images/grand-table/media/nta.webp", width: 600, height: 229, displayHeight: 42 },
+    { name: "BBC Hausa", src: "/images/grand-table/media/bbc-hausa.webp", width: 600, height: 338, displayHeight: 51 },
+    { name: "Trust Radio", src: "/images/grand-table/media/trust-radio.webp", width: 600, height: 162, displayHeight: 32 },
+    { name: "Radio Nigeria (FRCN)", src: "/images/grand-table/media/radio-nigeria.webp", width: 129, height: 129, displayHeight: 56 },
+    { name: "RFI", src: "/images/grand-table/media/rfi.webp", width: 600, height: 600, displayHeight: 62 },
+    { name: "NAN (News Agency of Nigeria)", src: "/images/grand-table/media/nan.webp", width: 600, height: 369, displayHeight: 53 },
+    { name: "Daily Trust", src: "/images/grand-table/media/daily-trust.webp", width: 600, height: 95, displayHeight: 19 },
+    { name: "Punch", src: "/images/grand-table/media/punch.webp", width: 500, height: 179, displayHeight: 41 },
+    { name: "The Whistler", src: "/images/grand-table/media/the-whistler.webp", width: 600, height: 142, displayHeight: 28 },
+    { name: "Daily Times", src: "/images/grand-table/media/daily-times.webp", width: 492, height: 78, displayHeight: 19 },
+    { name: "Ladies in Business Magazine Global (LBMG)", src: "/images/grand-table/companies/lbmg.webp", width: 370, height: 127, displayHeight: 40 },
+    { name: "BAAM Network Limited", src: "/images/grand-table/companies/baam-network.webp", width: 800, height: 800, displayHeight: 62 },
   ] satisfies CompanyLogo[],
 
   institutionalPartners: [
-    { name: "Consulate General of Nigeria, Dubai", src: "/images/grand-table/partners/nigeria-consulate-dubai.webp", width: 1355, height: 1367, displayHeight: 76 },
-    { name: "Federal Ministry of Women Affairs", src: "/images/grand-table/partners/ministry-women-affairs.webp", width: 400, height: 400, displayHeight: 76 },
-    { name: "Federal Ministry of Industry, Trade & Investment", src: "/images/grand-table/partners/ministry-industry-trade-investment.webp", width: 1046, height: 293, displayHeight: 52 },
-    { name: "Ministry of Foreign Affairs", src: "/images/grand-table/partners/ministry-foreign-affairs.webp", width: 512, height: 512, displayHeight: 76 },
+    { name: "Consulate General of Nigeria, Dubai", src: "/images/grand-table/partners/nigeria-consulate-dubai.webp", width: 600, height: 557, displayHeight: 78 },
+    { name: "Federal Ministry of Industry, Trade & Investment", src: "/images/grand-table/partners/ministry-industry-trade-investment.webp", width: 600, height: 168, displayHeight: 36 },
+    { name: "Federal Ministry of Foreign Affairs", src: "/images/grand-table/partners/ministry-foreign-affairs.webp", width: 512, height: 512, displayHeight: 78 },
+    { name: "Federal Ministry of Women Affairs", src: "/images/grand-table/partners/ministry-women-affairs.webp", width: 400, height: 400, displayHeight: 78 },
+    { name: "Nigeria Police Force", src: "/images/grand-table/partners/nigeria-police-force.webp", width: 600, height: 668, displayHeight: 78 },
+    { name: "Police Officers' Wives Association (POWA)", src: "/images/grand-table/partners/powa.webp", width: 541, height: 499, displayHeight: 78 },
+    { name: "Rural Electrification Agency (REA)", src: "/images/grand-table/partners/rural-electrification-agency.webp", width: 600, height: 314, displayHeight: 61 },
   ] satisfies CompanyLogo[],
+
+  countries: [
+    { name: "Nigeria", code: "ng" },
+    { name: "UAE", code: "ae" },
+    { name: "India", code: "in" },
+    { name: "Tunisia", code: "tn" },
+    { name: "Ethiopia", code: "et" },
+    { name: "Colombia", code: "co" },
+    { name: "Pakistan", code: "pk" },
+    { name: "Niger", code: "ne" },
+    { name: "Cameroon", code: "cm" },
+    { name: "Canada", code: "ca" },
+    { name: "USA", code: "us" },
+    { name: "Sudan", code: "sd" },
+    { name: "United Kingdom", code: "gb" },
+    { name: "Egypt", code: "eg" },
+  ] satisfies Country[],
 
   contactDetails: {
     email: "info@flottwomenscircle.com",
@@ -678,8 +747,10 @@ export const event = {
     companies: {
       eyebrow: "At the Table",
       heading: "In Partnership with",
-      companiesLabel: "Participating companies",
-      mediaLabel: "Media partner",
+      institutionsLabel: "Participating Institutions",
+      countriesLabel: "Participating Countries",
+      companiesLabel: "Participating Companies",
+      mediaLabel: "Media Partners",
     },
     speakers: {
       eyebrow: "Voices at the Table",
