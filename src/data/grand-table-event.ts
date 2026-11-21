@@ -232,6 +232,66 @@ export const entryPackages = packages.slice(0, 2);
 /** Sponsorship tiers carrying delegate passes — the remaining seven packages. */
 export const sponsorPackages = packages.slice(2);
 
+/**
+ * Business Participation & Brand Visibility: client-approved copy (verbatim), with naira prices
+ * shown publicly for these three categories only. Each card links to the matching registration form,
+ * which forwards to FlottHive under `formKey` (see src/lib/gt/flotthive.ts and the ingest contract).
+ */
+export type ParticipationCategory = {
+  name: string;
+  price: string;
+  description: string;
+  /** Extra sentence shown under the description, where the client copy has one. */
+  note?: string;
+  /** Public participation category label, also used as the form's preselected category value. */
+  category: string;
+  /** Button label on the card. */
+  registerLabel: string;
+  /** In-page anchor of the registration form this category routes to. */
+  formHash: string;
+};
+
+export const participation = {
+  heading: "Business Participation & Brand Visibility",
+  intro: "Explore opportunities to connect, participate and showcase your business at The Grand Table 2026.",
+  categories: [
+    {
+      name: "Sponsorship & Partnership",
+      price: "₦149,000 to ₦100,000,000",
+      description:
+        "Gain stage exposure, present your business to a distinguished audience of investors, industry leaders and decision-makers, and enjoy additional branding and promotional benefits based on your selected package.",
+      category: "Sponsorship/Partnership",
+      registerLabel: "Register as Sponsorship/Partnership",
+      formHash: "#sponsor-form",
+    },
+    {
+      name: "Enterprise Participation",
+      price: "₦79,000",
+      description: "Includes general admission and company logo placement for brand visibility throughout the event.",
+      category: "Enterprise",
+      registerLabel: "Register as Enterprise",
+      formHash: "#enterprise-form",
+    },
+    {
+      name: "Complimentary Participation",
+      price: "Free (Subject to Approval)",
+      description:
+        "Complimentary access is available to selected participants interested in attending The Grand Table 2026 for networking, industry engagement and exploring business opportunities.",
+      note: "Participation is subject to review and approval by the organising committee.",
+      category: "Complimentary",
+      registerLabel: "Register as Complimentary",
+      formHash: "#delegate-form",
+    },
+  ] satisfies ParticipationCategory[],
+  infoHeading: "Registration Information",
+  selectLine: "Select your preferred participation category during registration.",
+  notes: [
+    "Sponsorship and partnership benefits vary according to the selected package.",
+    "Enterprise participation includes general admission and logo placement but does not include stage presentation.",
+    "Complimentary participation is strictly subject to approval and does not include stage exposure or company logo placement.",
+  ],
+};
+
 export const importantInformation = [
   "All packages include food and beverages.",
   "Business matchmaking and curated introductions are subject to availability, relevance and mutual interest.",
@@ -256,8 +316,12 @@ export const event = {
     iso: "2026-12-05",
     display: "Saturday 5 December 2026",
     short: "05.12.26",
-    countdownTarget: "2026-12-05T09:00:00+01:00",
-    timeDisplay: "Time to be announced",
+    countdownTarget: "2026-12-05T10:00:00+01:00",
+    /** Confirmed start time: 10am West Africa Time (Abuja). */
+    startDateTime: "2026-12-05T10:00:00+01:00",
+    timeDisplay: "10am",
+    /** Date and confirmed start time, as shown anywhere the event date appears. */
+    displayWithTime: "Saturday 5 December 2026, 10am",
   },
 
   city: "Abuja",
@@ -656,7 +720,7 @@ const sectorsSentence = `${event.sectors
 export const faqs: Faq[] = [
   {
     q: "When and where is The Grand Table 2026?",
-    a: `${event.date.display} (${event.date.timeDisplay}) at ${event.venue.officialName}, ${event.venue.address}.`,
+    a: `${event.date.displayWithTime} at ${event.venue.officialName}, ${event.venue.address}.`,
   },
   {
     q: "Who can take part?",

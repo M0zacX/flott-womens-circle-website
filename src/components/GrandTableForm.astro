@@ -101,9 +101,11 @@ const sections = form.steps
                         aria-required={field.required ? "true" : undefined}
                         aria-describedby={describedBy}
                         class="gtf-select"
+                        data-gtf-category={field.name === "category" ? "true" : undefined}
+                        data-default={field.defaultValue}
                       >
-                        <option value="" selected disabled>Select an option</option>
-                        {field.options?.map((opt) => <option value={opt}>{opt}</option>)}
+                        <option value="" selected={!field.defaultValue} disabled>Select an option</option>
+                        {field.options?.map((opt) => <option value={opt} selected={field.defaultValue === opt}>{opt}</option>)}
                       </select>
                       <svg class="gtf-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m6 9 6 6 6-6" />
