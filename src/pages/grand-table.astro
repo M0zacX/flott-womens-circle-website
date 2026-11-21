@@ -28,6 +28,7 @@ const {
   companies,
   mediaPartners,
   institutionalPartners,
+  countries,
   contactDetails,
   organisers,
   venue,
@@ -548,33 +549,66 @@ const initials = (name: string) => {
           <p class="reveal text-[10px] uppercase tracking-[0.35em] text-[#9A7B45] md:text-xs" style="font-style: italic;">{copy.companies.eyebrow}</p>
           <h2 class="reveal mt-4 text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-[#0B0B0C]" style="font-family: 'Playfair Display', serif; font-weight: 400; transition-delay: 0.1s;">{copy.companies.heading}</h2>
         </div>
-        <div class="reveal mx-auto mt-12 flex flex-col items-center">
-          <ul class="mx-auto mt-5 flex max-w-4xl flex-wrap items-center justify-center gap-4" role="list">
-            {institutionalPartners.map((logo) => (
-              <li class="gt-logo-tile flex h-[110px] w-[150px] items-center justify-center rounded-xl border bg-white px-5" style="border-color: rgba(154,123,69,0.22);">
-                <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p class="reveal mt-14 text-center text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.companiesLabel}</p>
-        <ul class="mx-auto mt-5 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3" role="list">
-          {companies.map((logo, index) => (
-            <li class="gt-logo-tile reveal flex h-[120px] items-center justify-center rounded-xl border bg-white px-5 sm:h-[136px]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.06}s;`}>
+        <!-- Participating Institutions: larger tiles so 7 logos read as a balanced row -->
+        <p class="reveal mt-12 text-center text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.institutionsLabel}</p>
+        <ul class="mx-auto mt-5 flex max-w-[700px] flex-wrap items-center justify-center gap-4" role="list">
+          {institutionalPartners.map((logo, index) => (
+            <li class="gt-logo-tile reveal flex h-[120px] w-[160px] items-center justify-center rounded-xl border bg-white px-5" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.06}s;`}>
               <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
             </li>
           ))}
         </ul>
-        <div class="reveal mt-14 flex flex-col items-center">
-          <p class="text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.mediaLabel}</p>
-          <div class="mt-4 flex flex-wrap items-center justify-center gap-4">
-            {mediaPartners.map((logo) => (
-              <div class="flex h-[120px] w-full max-w-[300px] items-center justify-center rounded-xl px-6" style="background: #0B0B0C; border: 1px solid rgba(201,169,110,0.35);">
+
+        <!-- Participating Countries: flag tiles, two per row on mobile, centred last row -->
+        <p class="reveal mt-14 text-center text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.countriesLabel}</p>
+        <ul class="mx-auto mt-5 flex max-w-4xl flex-wrap items-stretch justify-center gap-4 lg:max-w-[1160px]" role="list">
+          {countries.map((country, index) => (
+            <li class="reveal flex w-[calc(50%-0.5rem)] flex-col items-center justify-center gap-2.5 rounded-xl border bg-white px-3 py-4 sm:h-[104px] sm:w-[140px]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.05}s;`}>
+              <img
+                src={`/images/grand-table/flags/${country.code}.svg`}
+                alt={`${country.name} flag`}
+                width="56"
+                height="42"
+                loading="lazy"
+                class="w-[56px] rounded-[3px] shadow-sm ring-1 ring-black/10"
+                style="aspect-ratio: 4 / 3;"
+              />
+              <span class="text-center text-[10px] uppercase tracking-[0.22em] text-[#0B0B0C]/70">{country.name}</span>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Participating Companies: the one brand without a logo renders as a text wordmark -->
+        <p class="reveal mt-14 text-center text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.companiesLabel}</p>
+        <ul class="mx-auto mt-5 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3" role="list">
+          {companies.map((logo, index) => (
+            <li class="gt-logo-tile reveal flex h-[120px] items-center justify-center rounded-xl border bg-white px-5 sm:h-[136px]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${index * 0.06}s;`}>
+              {logo.wordmark ? (
+                <span
+                  class="flex flex-col items-center justify-center text-center font-extrabold uppercase leading-[1.05] tracking-[0.04em] text-[#0B0B0C]"
+                  style="font-size: clamp(1rem, 2.4vw, 1.35rem);"
+                  aria-label={logo.name}
+                >
+                  {logo.wordmark.map((line) => (
+                    <span class="block">{line}</span>
+                  ))}
+                </span>
+              ) : (
                 <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
-              </div>
-            ))}
-          </div>
-        </div>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Media Partners: all colour-on-white logos, same white tile treatment as companies -->
+        <p class="reveal mt-14 text-center text-[10px] uppercase tracking-[0.35em] text-[#9A7B45]">{copy.companies.mediaLabel}</p>
+        <ul class="mx-auto mt-5 flex max-w-5xl flex-wrap justify-center gap-4" role="list">
+          {mediaPartners.map((logo, index) => (
+            <li class="gt-logo-tile reveal flex h-[96px] w-[calc(50%-0.5rem)] items-center justify-center rounded-xl border bg-white px-4 sm:h-[104px] sm:w-[calc(33.333%-0.7rem)] lg:w-[calc(16.666%-0.84rem)]" style={`border-color: rgba(154,123,69,0.22); transition-delay: ${(index % 6) * 0.05}s;`}>
+              <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" class="gt-logo w-auto max-w-full object-contain" style={`--h: ${logo.displayHeight}px;`} />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
