@@ -3,7 +3,7 @@
 // Add those URLs to organizationSameAs or personSameAs below — they are omitted from the page until then.
 // Do not guess LinkedIn, Instagram, Google Business Profile, or any other profile.
 // Do not point this page at thegrandtable.com. The canonical URL is https://flottwomenscircle.com/grand-table/.
-// Do not copy event.date.countdownTarget into startDate. That value is only a countdown anchor; the page says the time is to be announced.
+// The event start time is confirmed as 10am (West Africa Time, Abuja); startDate carries that time via event.date.startDateTime.
 
 import { event, type Speaker } from "./grand-table-event";
 
@@ -73,7 +73,7 @@ function withSameAs(node: JsonLd, urls: readonly string[]): JsonLd {
   return sameAs ? { ...node, sameAs } : node;
 }
 
-export const grandTableDescription = `${event.name} ${event.year}: an initiative of ${ORG_NAME} in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. ${event.venue.officialName}, ${event.venue.address}, ${event.date.display} (${event.date.timeDisplay}).`;
+export const grandTableDescription = `${event.name} ${event.year}: an initiative of ${ORG_NAME} in collaboration with the Indo-African Chamber of Commerce & Industry and Smart Solutions UAE, connecting enterprises, investors and global opportunities. ${event.venue.officialName}, ${event.venue.address}, ${event.date.displayWithTime}.`;
 
 function safiyaJobTitles(): string[] {
   const roles = event.convener.titles.filter((title) => title !== IACCI_LINE);
@@ -196,7 +196,7 @@ function personNode(): JsonLd {
 function eventNode(): JsonLd {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(event.date.iso)) {
     throw new Error(
-      "Grand Table startDate must be a calendar date (YYYY-MM-DD). The page says the time is to be announced, so do not invent one.",
+      "Grand Table event.date.iso must be a calendar date (YYYY-MM-DD).",
     );
   }
   return {
@@ -205,7 +205,7 @@ function eventNode(): JsonLd {
     name: `${event.name} ${event.year}`,
     description: grandTableDescription,
     url: GT_PAGE_URL,
-    startDate: event.date.iso,
+    startDate: event.date.startDateTime,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     inLanguage: "en",
@@ -250,8 +250,8 @@ function assertGraph(graph: JsonLd[]) {
   if (organizer?.["@id"] !== ORGANIZATION_ID) {
     throw new Error("Event organizer must reference the Flott Women's Circle organization.");
   }
-  if (hosted.startDate !== event.date.iso || String(hosted.startDate).includes("T")) {
-    throw new Error("Event startDate must stay the published calendar date, with no invented time.");
+  if (hosted.startDate !== event.date.startDateTime || !String(hosted.startDate).startsWith(event.date.iso)) {
+    throw new Error("Event startDate must be the published date with the confirmed start time (event.date.startDateTime).");
   }
   if (hosted.url !== GT_PAGE_URL || person.url !== GT_PAGE_URL) {
     throw new Error("Person and Event URLs must be the /grand-table/ canonical.");

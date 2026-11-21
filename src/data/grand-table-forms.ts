@@ -16,7 +16,17 @@ export type Field = {
   placeholder?: string;
   full?: boolean;
   helper?: string;
+  /** Preselected value for a select, so a category can arrive already chosen. */
+  defaultValue?: string;
 };
+
+/**
+ * The three public participation categories (Business Participation & Brand Visibility section).
+ * Each registration form carries this as a preselected `category` field so the chosen category is
+ * recorded with the submission and forwarded to FlottHive. Mapping to FlottHive form keys:
+ *   Sponsorship/Partnership -> sponsor, Enterprise -> enterprise, Complimentary -> delegate.
+ */
+export const PARTICIPATION_CATEGORIES = ["Sponsorship/Partnership", "Enterprise", "Complimentary"];
 
 export type FormStep = {
   label: string;
@@ -74,6 +84,7 @@ const enterprise: FormConfig = {
   intro: "Tell us about your business so our team can review your application for The Grand Table 2026.",
   submitLabel: "Submit expression of interest",
   fields: [
+    { name: "category", label: "Registration category", type: "select", required: true, options: PARTICIPATION_CATEGORIES, defaultValue: "Enterprise", full: true },
     { name: "companyName", label: "Company name", type: "text", required: true },
     { name: "contactName", label: "Contact person full name", type: "text", required: true },
     { name: "jobTitle", label: "Job title", type: "text", required: true },
@@ -92,7 +103,7 @@ const enterprise: FormConfig = {
     { name: "badgePhoto", label: "Your photo for your event badge", type: "image", full: true, helper: "Optional — a clear, front-facing headshot of the attendee. JPG, PNG, WEBP or HEIC, max 8 MB." },
   ],
   steps: [
-    { label: "Company", fields: ["companyName", "website", "country", "cityState", "sector", "yearEstablished", "employees", "revenue"] },
+    { label: "Company", fields: ["category", "companyName", "website", "country", "cityState", "sector", "yearEstablished", "employees", "revenue"] },
     { label: "Contact", fields: ["contactName", "jobTitle", "email", "phone"] },
     { label: "Details", fields: ["seeking", "description", "companyProfile", "badgePhoto"] },
   ],
@@ -105,6 +116,7 @@ const delegate: FormConfig = {
     "International delegates, investors and partners register here for The Grand Table 2026. This is a free expression of interest — no payment is taken on this form. Applications are reviewed manually, and invited guests receive a private payment link.",
   submitLabel: "Submit your interest",
   fields: [
+    { name: "category", label: "Registration category", type: "select", required: true, options: PARTICIPATION_CATEGORIES, defaultValue: "Complimentary", full: true },
     { name: "participantType", label: "Participant type", type: "select", required: true, options: ["International delegate", "Investor", "Partner or institution"] },
     { name: "fullName", label: "Full name", type: "text", required: true },
     { name: "organisation", label: "Organisation", type: "text", required: true },
@@ -165,6 +177,7 @@ const sponsor: FormConfig = {
   intro: "Share a few details and our partnerships team will follow up with the sponsorship brochure.",
   submitLabel: "Submit sponsorship enquiry",
   fields: [
+    { name: "category", label: "Registration category", type: "select", required: true, options: PARTICIPATION_CATEGORIES, defaultValue: "Sponsorship/Partnership", full: true },
     { name: "companyName", label: "Company name", type: "text", required: true },
     { name: "contactName", label: "Contact person", type: "text", required: true },
     { name: "jobTitle", label: "Job title", type: "text", required: true },
